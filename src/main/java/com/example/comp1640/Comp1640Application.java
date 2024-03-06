@@ -20,6 +20,7 @@ public class Comp1640Application implements CommandLineRunner{
 	
 	@Autowired
 	ItemRepository AcademicYear;
+	ItemRepository Account;
 	
 	@Autowired
 	AcademicYearRepository AcademicYearRepo;
@@ -35,11 +36,11 @@ public class Comp1640Application implements CommandLineRunner{
 		// Clean up any previous data
 		AcademicYear.deleteAll(); // Doesn't delete the collection
 		
-		System.out.println("-------------CREATE GROCERY ITEMS-------------------------------\n");
+		System.out.println("-------------CREATE ACADEMIC YEAR ITEMS-------------------------------\n");
 		
 		createGroceryItems();
 		
-		System.out.println("\n----------------SHOW ALL GROCERY ITEMS---------------------------\n");
+		// System.out.println("\n----------------SHOW ALL GROCERY ITEMS---------------------------\n");
 		
 		// showAllGroceryItems();
 		
