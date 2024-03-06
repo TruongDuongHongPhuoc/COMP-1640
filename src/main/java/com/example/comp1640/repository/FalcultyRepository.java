@@ -8,13 +8,17 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 @Component
+@Service
 public class FalcultyRepository {
 
     @Autowired
     MongoTemplate mongoTemplate;
-
+    public void Create(){
+        mongoTemplate.save(new Faculty("a","aa",2,"2022-2-2"));
+    }
     public void updateItemQuantity(String id, String name, int group, String academicYear) {
         Query query = new Query(Criteria.where("id").is(id));
         Update update = new Update();
