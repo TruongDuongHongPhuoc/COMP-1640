@@ -6,7 +6,10 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+<<<<<<< HEAD
 @Component
+=======
+>>>>>>> origin/master
 @Document("AccountItem")
 public class Account
 {
