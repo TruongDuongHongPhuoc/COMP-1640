@@ -1,5 +1,6 @@
 package com.example.comp1640.repository;
 
+import com.example.comp1640.model.Contribution;
 import com.example.comp1640.model.Faculty;
 import com.mongodb.client.result.UpdateResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,11 @@ public class ContributionRepository {
 
     @Autowired
     MongoTemplate mongoTemplate;
+
+    public void CreateContribution(String id, String name, String typeOfFile, Date submitDate, Boolean isPublic, int accountId,int academicYearId)
+    {
+        mongoTemplate.save(new Contribution(id, name, typeOfFile, submitDate, isPublic, accountId, academicYearId));
+    }
 
     public void updateItemQuantity(String id, String name, String typeOfFile, Date submitDate, Boolean isPublic, int accountId, int academicYearId) {
         Query query = new Query(Criteria.where("id").is(id));

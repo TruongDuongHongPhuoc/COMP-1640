@@ -27,11 +27,10 @@ public class FacultyController {
         re.CreateFalcuty(id,name,group,year);
         return "Admin";
     }
-    @GetMapping("/CreateFalcuty")
+    @GetMapping("/CreateFalcuty") 
     public String CreatFul(){
         return "CreateFalculty";
     }
-
 
     @GetMapping("/Update")
     public String Update(){

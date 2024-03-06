@@ -1,11 +1,8 @@
 package com.example.comp1640.model;
-import lombok.Getter;
-import lombok.Setter;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.stereotype.Component;
 import java.util.Date;
-
 
 @Document("ContributionItem")
 public class Contribution {
