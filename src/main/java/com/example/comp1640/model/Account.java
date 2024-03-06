@@ -17,8 +17,9 @@ public class Account
     private String address;
     private Byte phoneNumber;
     private String password;
+    private String roleId;
 
-    public Account(String id, String name, int mail, Date dateOfBirth, String address, Byte phoneNumber, String password) {
+    public Account(String id, String name, int mail, Date dateOfBirth, String address, Byte phoneNumber, String password,String roleId) {
         this.id = id;
         this.name = name;
         this.mail = mail;
@@ -26,6 +27,7 @@ public class Account
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.password = password;
+        this.roleId = roleId;
     }
 
     public String getId() {
@@ -82,5 +84,13 @@ public class Account
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
     }
 }

@@ -1,4 +1,6 @@
 package com.example.comp1640.model;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.stereotype.Component;
@@ -12,13 +14,17 @@ public class Contribution {
     private String typeOfFile;
     private Date submitDate;
     private Boolean isPublic;
+    private int accountId;
+    private int academicYearId;
 
-    public Contribution(String id, String name, String typeOfFile, Date submitDate, Boolean isPublic) {
+    public Contribution(String id, String name, String typeOfFile, Date submitDate, Boolean isPublic, int accountId,int academicYearId) {
         this.id = id;
         this.name = name;
         this.typeOfFile = typeOfFile;
         this.submitDate = submitDate;
         this.isPublic = isPublic;
+        this.accountId = accountId;
+        this.academicYearId = academicYearId;
     }
 
     public String getId() {
@@ -59,5 +65,21 @@ public class Contribution {
 
     public void setPublic(Boolean aPublic) {
         isPublic = aPublic;
+    }
+
+    public int getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
+    }
+
+    public int getAcademicYearId() {
+        return academicYearId;
+    }
+
+    public void setAcademicYearId(int academicYearId) {
+        this.academicYearId = academicYearId;
     }
 }
