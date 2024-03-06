@@ -44,4 +44,5 @@ public class FacultyController {
         model.addAttribute("Fals",Fals);
         return "ViewFalcutlty";
     }
+
 }

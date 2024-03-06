@@ -39,4 +39,8 @@ public class FalcultyRepository {
         List<Faculty> lists= mongoTemplate.findAll(Faculty.class,"FacultyItem");
         return lists;
     }
+    public void DeleteFal(String id){
+        Query query = new Query(Criteria.where("id").is(id));
+        mongoTemplate.remove(query);
+    }
 }
