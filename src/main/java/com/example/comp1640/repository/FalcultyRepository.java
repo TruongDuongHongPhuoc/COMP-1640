@@ -34,10 +34,9 @@ public class FalcultyRepository {
             System.out.println("No documents updated");
         else
             System.out.println(result.getModifiedCount() + " document(s) updated..");
-
     }
     public List<Faculty> ReturnFalcuty(){
-        List<Faculty> Listar= mongoTemplate.findAll(Faculty.class,"FalcutyItem");
-        return  Listar;
+        List<Faculty> lists= mongoTemplate.findAll(Faculty.class,"FacultyItem");
+        return lists;
     }
 }
