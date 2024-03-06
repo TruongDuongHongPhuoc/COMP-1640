@@ -28,7 +28,7 @@ public class FacultyController {
         re.CreateFalcuty(id,name,group,year);
         return "Admin";
     }
-    @GetMapping("/CreateFalcuty")
+    @GetMapping("/CreateFalcuty") 
     public String CreatFul(){
         return "CreateFalculty";
     }

@@ -18,7 +18,7 @@ public class FalcultyRepository {
 
     @Autowired
     MongoTemplate mongoTemplate;
-    public void CreateFalcuty(String id, String name,int group,String Year){
+    public void CreateFalcuty(String id, String name, int group, String Year){
         mongoTemplate.save(new Faculty( id,name,group,Year));
     }
     public void UpdateFalcuty(String id, String name, int group, String academicYear) {
