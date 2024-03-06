@@ -4,6 +4,7 @@ package com.example.comp1640;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.comp1640.repository.FalcultyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,7 +18,8 @@ import com.example.comp1640.repository.ItemRepository;
 @SpringBootApplication
 @EnableMongoRepositories
 public class Comp1640Application implements CommandLineRunner{
-	
+	@Autowired
+	FalcultyRepository re;
 	@Autowired
 	ItemRepository AcademicYear;
 	ItemRepository Account;
@@ -38,7 +40,7 @@ public class Comp1640Application implements CommandLineRunner{
 		
 		System.out.println("-------------CREATE ACADEMIC YEAR ITEMS-------------------------------\n");
 		
-//		createGroceryItems();
+		createGroceryItems();
 		
 		// System.out.println("\n----------------SHOW ALL GROCERY ITEMS---------------------------\n");
 		
@@ -82,6 +84,10 @@ public class Comp1640Application implements CommandLineRunner{
 //
 //		System.out.println("Data creation complete...");
 //	}
+	void createGroceryItems() {
+
+		re.ReturnFalcuty();
+	}
 	
 	// // READ
 	// // 1. Show all the data

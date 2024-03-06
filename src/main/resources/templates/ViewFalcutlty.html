@@ -1,0 +1,30 @@
+<!-- ViewFalcutlty.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Faculties</title>
+</head>
+<body>
+<h1>List of Faculties</h1>
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Group</th>
+    <th>Year</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="faculty : ${Fals}">
+    <td th:text="${faculty.name}"></td>
+    <td th:text="${faculty.id}"></td>
+    <td th:text="${faculty.group}"></td>
+    <td th:text="${faculty.academicYear}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

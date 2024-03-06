@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -39,8 +40,8 @@ public class FacultyController {
     }
     @GetMapping("/View")
     public String View(Model model){
-        List<Faculty> views = re.ReturnFalcuty();
-        model.addAttribute("views",views);
-        return "Admin";
+        List<Faculty> Fals = re.ReturnFalcuty();
+        model.addAttribute("Fals",Fals);
+        return "ViewFalcutlty";
     }
 }
