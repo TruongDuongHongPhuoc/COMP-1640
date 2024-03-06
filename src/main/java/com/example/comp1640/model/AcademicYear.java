@@ -1,10 +1,7 @@
 package com.example.comp1640.model;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.aggregation.DateOperators.DateAdd;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.stereotype.Component;
-import java.util.Date;
 
 
 @Document("AcademicYear")
@@ -14,15 +11,15 @@ public class AcademicYear {
     private String id;
     private String name;
     private String courseNum;
-    private Date startDate;
-    private Date endDate;
+    private String startString;
+    private String endString;
 
-    public AcademicYear(String id, String name, String courseNum, Date startDate, Date endDate) {
+    public AcademicYear(String id, String name, String courseNum, String startString, String endString) {
         this.id = id;
         this.name = name;
         this.courseNum = courseNum;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.startString = startString;
+        this.endString = endString;
     }
 
     public String getId() {
@@ -49,19 +46,19 @@ public class AcademicYear {
         this.courseNum = courseNum;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public String getStartString() {
+        return startString;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setStartString(String startString) {
+        this.startString = startString;
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public String getEndString() {
+        return endString;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setEndString(String endString) {
+        this.endString = endString;
     }
 }
