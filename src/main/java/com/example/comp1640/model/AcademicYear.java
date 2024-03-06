@@ -6,6 +6,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.stereotype.Component;
 import java.util.Date;
 
+<<<<<<< HEAD
+@Component
+=======
+>>>>>>> origin/master
 @Document("AcademicYear")
 public class AcademicYear {
 
