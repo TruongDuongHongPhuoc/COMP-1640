@@ -1,24 +1,25 @@
 package com.example.comp1640.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.stereotype.Component;
 
 @Component
 @Document("FacultyItem")
 public class Faculty {
+
     @Id
     private String id;
-
     private String name;
-    private int quantity;
-    private String category;
-    
-    // public (String id, String name, int quantity, String category) {
-    //     super();
-    //     this.id = id;
-    //     this.name = name;
-    //     this.quantity = quantity;
-    //     this.category = category;
-    // }
+    private int group;
+    private String academicYear;
+
+    public Faculty(String id, String name, int group, String academicYear) {
+        this.id = id;
+        this.name = name;
+        this.group = group;
+        this.academicYear = academicYear;
+    }
 
     public String getId() {
         return id;
@@ -36,19 +37,19 @@ public class Faculty {
         this.name = name;
     }
 
-    public int getItemQuantity() {
-        return quantity;
+    public int getGroup() {
+        return group;
     }
 
-    public void setItemQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setGroup(int group) {
+        this.group = group;
     }
 
-            public String getCategory() {
-        return category;
+    public String getAcademicYear() {
+        return academicYear;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setAcademicYear(String academicYear) {
+        this.academicYear = academicYear;
     }
 }
