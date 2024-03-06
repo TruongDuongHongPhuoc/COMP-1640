@@ -15,4 +15,9 @@ public class FacultyController {
         re.Create();
         return "Admin";
     }
+    @GetMapping("/Update")
+    public String Update(){
+//        re.UpdateFalcuty();
+        return "Admin";
+    }
 }

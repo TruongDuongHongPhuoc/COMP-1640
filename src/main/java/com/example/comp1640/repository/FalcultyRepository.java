@@ -19,7 +19,7 @@ public class FalcultyRepository {
     public void Create(){
         mongoTemplate.save(new Faculty("a","aa",2,"2022-2-2"));
     }
-    public void updateItemQuantity(String id, String name, int group, String academicYear) {
+    public void UpdateFalcuty(String id, String name, int group, String academicYear) {
         Query query = new Query(Criteria.where("id").is(id));
         Update update = new Update();
         update.set("name",name);
