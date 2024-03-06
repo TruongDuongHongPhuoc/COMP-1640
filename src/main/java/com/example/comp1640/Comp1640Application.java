@@ -38,7 +38,7 @@ public class Comp1640Application implements CommandLineRunner{
 		
 		System.out.println("-------------CREATE ACADEMIC YEAR ITEMS-------------------------------\n");
 		
-		createGroceryItems();
+//		createGroceryItems();
 		
 		// System.out.println("\n----------------SHOW ALL GROCERY ITEMS---------------------------\n");
 		
@@ -75,13 +75,13 @@ public class Comp1640Application implements CommandLineRunner{
 	// CRUD operations
 
 	//CREATE
-	void createGroceryItems() {
-		System.out.println("Data creation started...");
-
-		AcademicYear.save(new AcademicYear("001", "Year1", "01", "2024-03-01", "2024-03-02"));
-
-		System.out.println("Data creation complete...");
-	}
+//	void createGroceryItems() {
+//		System.out.println("Data creation started...");
+//
+//		AcademicYear.save(new AcademicYear("001", "Year1", "01", "2024-03-01", "2024-03-02"));
+//
+//		System.out.println("Data creation complete...");
+//	}
 	
 	// // READ
 	// // 1. Show all the data

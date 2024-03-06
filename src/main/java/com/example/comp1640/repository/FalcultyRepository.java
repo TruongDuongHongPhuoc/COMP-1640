@@ -10,14 +10,16 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Component
 @Service
 public class FalcultyRepository {
 
     @Autowired
     MongoTemplate mongoTemplate;
-    public void Create(){
-        mongoTemplate.save(new Faculty("a","aa",2,"2022-2-2"));
+    public void CreateFalcuty(String id, String name,int group,String Year){
+        mongoTemplate.save(new Faculty( id,name,group,Year));
     }
     public void UpdateFalcuty(String id, String name, int group, String academicYear) {
         Query query = new Query(Criteria.where("id").is(id));
@@ -33,5 +35,9 @@ public class FalcultyRepository {
         else
             System.out.println(result.getModifiedCount() + " document(s) updated..");
 
+    }
+    public List<Faculty> ReturnFalcuty(){
+        List<Faculty> Listar= mongoTemplate.findAll(Faculty.class,"FalcutyItem");
+        return  Listar;
     }
 }
