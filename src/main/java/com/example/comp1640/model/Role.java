@@ -4,10 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.stereotype.Component;
 
-<<<<<<< HEAD
-@Component
-=======
->>>>>>> origin/master
+
 @Document("RoleItem")
 public class Role {
     @Id
