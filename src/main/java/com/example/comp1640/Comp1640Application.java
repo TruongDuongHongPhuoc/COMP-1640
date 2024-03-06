@@ -86,7 +86,7 @@ public class Comp1640Application implements CommandLineRunner{
 //	}
 	void createGroceryItems() {
 
-		re.ReturnFalcuty();
+		re.DeleteFal("a");
 	}
 	
 	// // READ

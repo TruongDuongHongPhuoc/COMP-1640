@@ -41,6 +41,6 @@ public class FalcultyRepository {
     }
     public void DeleteFal(String id){
         Query query = new Query(Criteria.where("id").is(id));
-        mongoTemplate.remove(query);
+        mongoTemplate.remove(query, "FacultyItem");
     }
 }

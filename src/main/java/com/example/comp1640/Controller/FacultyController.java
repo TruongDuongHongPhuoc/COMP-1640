@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 public class FacultyController {
@@ -38,11 +40,22 @@ public class FacultyController {
         re.UpdateFalcuty("a","bb",3,"2024-2-4");
         return "Admin";
     }
+
     @GetMapping("/View")
     public String View(Model model){
         List<Faculty> Fals = re.ReturnFalcuty();
         model.addAttribute("Fals",Fals);
         return "ViewFalcutlty";
     }
+
+    @GetMapping("/Delete")
+    public String Delete(@RequestParam("id") String id) {
+        re.DeleteFal("a");
+        
+        return "ViewFalcutlty";
+    }
+
+    
+    
 
 }
