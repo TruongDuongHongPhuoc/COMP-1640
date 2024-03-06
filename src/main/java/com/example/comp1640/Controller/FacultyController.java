@@ -48,11 +48,10 @@ public class FacultyController {
         return "ViewFalcutlty";
     }
 
-    @GetMapping("/Delete")
+    @PostMapping("/Delete")
     public String Delete(@RequestParam("id") String id) {
-        re.DeleteFal("a");
-        
-        return "ViewFalcutlty";
+        re.DeleteFal(id);
+        return "redirect:/View";
     }
 
     

@@ -24,7 +24,7 @@
     <td th:text="${faculty.group}"></td>
     <td th:text="${faculty.academicYear}"></td>
     <td>
-      <form action="/Delete" method="get">
+      <form action="/Delete" method="post">
         <input type="hidden" name="id" th:value="${faculty.id}">
         <button type="submit">Delete</button>
       </form>

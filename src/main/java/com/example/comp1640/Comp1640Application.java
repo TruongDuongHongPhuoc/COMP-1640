@@ -40,40 +40,14 @@ public class Comp1640Application implements CommandLineRunner{
 		
 		System.out.println("-------------CREATE ACADEMIC YEAR ITEMS-------------------------------\n");
 		
-		createGroceryItems();
-		
-		// System.out.println("\n----------------SHOW ALL GROCERY ITEMS---------------------------\n");
-		
-		// showAllGroceryItems();
-		
-		// System.out.println("\n--------------GET ITEM BY NAME-----------------------------------\n");
-		
-		// getGroceryItemByName("Whole Wheat Biscuit");
-		
-		// System.out.println("\n-----------GET ITEMS BY CATEGORY---------------------------------\n");
-		
-		// getItemsByCategory("millets");
-		
-		// System.out.println("\n-----------UPDATE CATEGORY NAME OF ALL GROCERY ITEMS----------------\n");
-		
-		// updateCategoryName("snacks");
-		
-		// System.out.println("\n-----------UPDATE QUANTITY OF A GROCERY ITEM------------------------\n");
-		
-		// updateItemQuantity("Bonny Cheese Crackers Plain", 10);
-		
-		// System.out.println("\n----------DELETE A GROCERY ITEM----------------------------------\n");
-		
-		// deleteGroceryItem("Kodo Millet");
-		
-		// System.out.println("\n------------FINAL COUNT OF GROCERY ITEMS-------------------------\n");
-		
-		// findCountOfGroceryItems();
-		
-		// System.out.println("\n-------------------THANK YOU---------------------------");
-						
+//		createGroceryItems();
+
 	}
-	
+//	void createGroceryItems() {
+//		System.out.println("Run Delete");
+//		re.DeleteFal("a");
+//	}
+
 	// CRUD operations
 
 	//CREATE
@@ -84,11 +58,7 @@ public class Comp1640Application implements CommandLineRunner{
 //
 //		System.out.println("Data creation complete...");
 //	}
-	void createGroceryItems() {
 
-		re.DeleteFal("a");
-	}
-	
 	// // READ
 	// // 1. Show all the data
 	//  public void showAllGroceryItems() {
