@@ -16,13 +16,8 @@ public class FacultyController {
     @Autowired
     FalcultyRepository re;
 
-    @GetMapping("/add")
-    public String addFalcuty(){
-//        re.CreateFalcuty();
-        return "Admin";
-    }
     @PostMapping("/Hello")
-    public String Concaheo(@RequestParam("name") String name,@RequestParam("id") String id
+    public String CreateFaculty(@RequestParam("name") String name,@RequestParam("id") String id
             ,@RequestParam("group") int group,@RequestParam("Year") String year, Model model){
         re.CreateFalcuty(id,name,group,year);
         return "Admin";
