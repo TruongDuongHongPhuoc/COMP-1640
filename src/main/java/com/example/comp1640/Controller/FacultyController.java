@@ -16,7 +16,7 @@ public class FacultyController
     FalcultyRepository re;
 
     @PostMapping("/Hello")
-    public String Concaheo(@RequestParam("name") String name,@RequestParam("id") String id
+    public String CreateFaculty(@RequestParam("name") String name,@RequestParam("id") String id
             ,@RequestParam("group") int group,@RequestParam("Year") String year, Model model){
         re.CreateFalcuty(id,name,group,year);
         return "ViewFacutlty";

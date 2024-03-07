@@ -1,0 +1,41 @@
+<!-- ViewFalcutlty.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Faculties</title>
+</head>
+<body>
+<h1>List of Faculties</h1>
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>UserID</th>
+    <th>Content</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="feedback: ${Fals}">
+    <td th:text="${feedback.id}"></td>
+    <td th:text="${feedback.content}"></td>
+    <td th:text="${feedback.userId}"></td>
+    
+    <td>
+      <form action="/FeedBack/Delete" method="post">
+        <input type="hidden" name="id" th:value="${feedback.id}">
+        <button type="submit">Delete</button>
+      </form>
+    </td>
+    <td>
+      <form action="/FeedBack/Update" method="GET"> <!-- Corrected form action without the trailing slash -->
+        <input type="hidden" name="id" th:value="${feedback.id}">
+        <button type="submit">Update</button>
+      </form>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
