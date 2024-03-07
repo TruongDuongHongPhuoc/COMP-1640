@@ -7,12 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
-
 @Controller
-public class FacultyController {
+public class FacultyController 
+{
     @Autowired
     FalcultyRepository re;
 
@@ -20,7 +19,7 @@ public class FacultyController {
     public String CreateFaculty(@RequestParam("name") String name,@RequestParam("id") String id
             ,@RequestParam("group") int group,@RequestParam("Year") String year, Model model){
         re.CreateFalcuty(id,name,group,year);
-        return "Admin";
+        return "ViewFacutlty";
     }
     @GetMapping("/CreateFalcuty") 
     public String CreatFul(){
@@ -57,4 +56,4 @@ public class FacultyController {
         re.DeleteFal(id);
         return "redirect:/View";
     }
-    }
+}
