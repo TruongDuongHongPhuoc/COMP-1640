@@ -20,7 +20,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr th:each="faculty : ${Fals}">
+  <tr th:each="faculty: ${Fals}">
     <td th:text="${faculty.name}"></td>
     <td th:text="${faculty.id}"></td>
     <td th:text="${faculty.group}"></td>
@@ -33,12 +33,11 @@
       </form>
     </td>
     <td>
-    <form action="/Update" method="Get">
-      <input type="hidden" name="id" th:value="${faculty.id}">
-      <button type="submit">Update</button>
-    </form>
-    
-  </td>
+      <form action="/Update" method="GET"> <!-- Corrected form action without the trailing slash -->
+        <input type="hidden" name="id" th:value="${faculty.id}">
+        <button type="submit">Update</button>
+      </form>
+    </td>
   </tr>
   </tbody>
 </table>

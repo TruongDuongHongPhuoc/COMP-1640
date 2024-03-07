@@ -19,26 +19,20 @@
       </tr>
     </thead>
     <tbody>
-      <tr th:each="faculty : ${faculties}">
-        <td th:text="${faculty.name}">Faculty Name</td>
-        <td th:text="${faculty.id}">Faculty ID</td>
-        <td th:text="${faculty.group}">Faculty Group</td>
-        <td th:text="${faculty.academicYear}">Faculty Year</td>
-        <td>
-          <form action="/Update" method="get">
-            <input type="hidden" name="id" th:value="${faculty.id}">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name">
-            <label for="id">ID:</label>
-            <input type="text" id="id" name="id">
-            <label for="group">Group:</label>
-            <input type="number" id="group" name="group">
-            <label for="Year">Year:</label>
-            <input type="text" id="Year" name="Year">
-            <button type="submit">Update</button>
-          </form>
-        </td>
-      </tr>
+        <form action="/Updating" method="POST">
+          <input type="hidden" name="id" th:value="${faculty.id}">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" th:value="${faculty.name}">
+          <br>
+          <label for="group">Group:</label>
+          <input type="number" id="group" name="group" th:value="${faculty.group}">
+          <br>
+          <label for="Year">Year:</label>
+          <input type="text" id="Year" name="Year" th:value="${faculty.academicYear}">
+          <br>
+          <button type="submit">Update Faculty</button>
+        </form>
+
     </tbody>
   </table>
 </body>

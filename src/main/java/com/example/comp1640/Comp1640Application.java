@@ -42,13 +42,13 @@ public class Comp1640Application implements CommandLineRunner{
 
 		// System.out.println("-------------CREATE ACADEMIC YEAR ITEMS-------------------------------\n");
 		
-//		createGroceryItems();
+		createGroceryItems();
 
 	}
-//	void createGroceryItems() {
-//		System.out.println("Run Delete");
-//		re.DeleteFal("a");
-//	}
+	void createGroceryItems() {
+		System.out.println("Run Delete");
+		re.DeleteFal("a");
+	}
 
 	// CRUD operations
 
