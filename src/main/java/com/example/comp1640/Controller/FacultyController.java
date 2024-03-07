@@ -29,7 +29,7 @@ public class FacultyController {
     }
     @GetMapping("/CreateFalcuty") 
     public String CreatFul(){
-        return "CreateFalculty";
+        return "Faculty/CreateFaculty";
     }
 
     @GetMapping("/Update") // Corrected mapping without the trailing slash
