@@ -27,7 +27,7 @@ public class FalcultyRepository {
         update.set("name",name);
         update.set("group", group);
         update.set("academicYear",academicYear);
-
+        
         UpdateResult result = mongoTemplate.updateFirst(query, update, Faculty.class);
 
         if(result == null)
