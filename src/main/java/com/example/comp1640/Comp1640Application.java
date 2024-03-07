@@ -59,8 +59,8 @@ public class Comp1640Application implements CommandLineRunner{
 //		System.out.println("Data creation complete...");
 //	}
 
-	// // READ
-	// // 1. Show all the data
+	// READ
+	// 1. Show all the data
 	//  public void showAllGroceryItems() {
 		 
 	// 	 itemList = AcademicYear.findAll();
