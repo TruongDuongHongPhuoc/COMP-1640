@@ -19,8 +19,8 @@ public class ContributionController
 
     @PostMapping("/Hello")
     public String Create(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("typeOfFile") String typeOfFile, 
-    @RequestParam("submitDate") Date submitDate, @RequestParam("isPublic") Boolean isPublic, @RequestParam("accountId") int accountId, 
-    @RequestParam("academicYearId") int academicYearId, Model model){
+    @RequestParam("submitDate") Date submitDate, @RequestParam("isPublic") Boolean isPublic, @RequestParam("accountId") String accountId,
+    @RequestParam("academicYearId") String academicYearId, Model model){
         re.CreateContribution(id, name, typeOfFile, submitDate, isPublic, accountId, academicYearId);
         return "ViewContribution";
     }
@@ -37,8 +37,8 @@ public class ContributionController
     }
     @PostMapping("/Updating")
     public String UpdatePostContribution(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("typeOfFile") String typeOfFile, 
-    @RequestParam("submitDate") Date submitDate, @RequestParam("isPublic") Boolean isPublic, @RequestParam("accountId") int accountId, 
-    @RequestParam("academicYearId") int academicYearId, Model model){
+    @RequestParam("submitDate") Date submitDate, @RequestParam("isPublic") Boolean isPublic, @RequestParam("accountId") String accountId,
+    @RequestParam("academicYearId") String academicYearId, Model model){
         re.UpdateContribution(id, name, typeOfFile, submitDate, isPublic, accountId, academicYearId);;
         return "redirect:/View";
     }
