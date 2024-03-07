@@ -39,7 +39,7 @@ public class ContributionRepository {
             System.out.println(result.getModifiedCount() + " document(s) updated..");
     }
 
-    public List<Contribution> ReturnFaculties(){
+    public List<Contribution> ReturnContributions(){
         return mongoTemplate.findAll(Contribution.class,"ContributionItem");
     }
     public Contribution ReturnContribution(String id)

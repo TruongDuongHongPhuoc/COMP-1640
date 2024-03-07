@@ -7,19 +7,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
+@RequestMapping("/Contribution")
 public class ContributionController 
 {
     @Autowired
     ContributionRepository re;
 
     @PostMapping("/Hello")
-    public String Create(@RequestParam("name") String name,@RequestParam("id") String id
-            ,@RequestParam("group") int group,@RequestParam("Year") String year, Model model){
-        re.CreateContribution(id, name, year, null, null, group, group);
-        return "ViewFacutlty";
+    public String Create(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("typeOfFile") String typeOfFile, 
+    @RequestParam("submitDate") Date submitDate, @RequestParam("isPublic") Boolean isPublic, @RequestParam("accountId") int accountId, 
+    @RequestParam("academicYearId") int academicYearId, Model model){
+        re.CreateContribution(id, name, typeOfFile, submitDate, isPublic, accountId, academicYearId);
+        return "ViewContribution";
     }
     @GetMapping("/CreateContribution") 
     public String CreatFul(){
@@ -28,27 +31,23 @@ public class ContributionController
 
     @GetMapping("/Update") // Corrected mapping without the trailing slash
     public String update(@RequestParam("id") String id, Model model) {
-//        System.out.println(id);
         Contribution fe = re.ReturnContribution(id);
         model.addAttribute("Contribution", fe);
         return "Contribution/UpdateContribution";
     }
     @PostMapping("/Updating")
-    public String UpdatePostContribution(@RequestParam("name") String name,@RequestParam("id") String id
-            ,@RequestParam("group") int group,@RequestParam("Year") String year, Model model){
-        System.out.println(name);
-        System.out.println(id);
-        System.out.println(group);
-        System.out.println(year);
-        re.UpdateContribution(id, name, year, null, null, group, group);;
+    public String UpdatePostContribution(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("typeOfFile") String typeOfFile, 
+    @RequestParam("submitDate") Date submitDate, @RequestParam("isPublic") Boolean isPublic, @RequestParam("accountId") int accountId, 
+    @RequestParam("academicYearId") int academicYearId, Model model){
+        re.UpdateContribution(id, name, typeOfFile, submitDate, isPublic, accountId, academicYearId);;
         return "redirect:/View";
     }
 
     @GetMapping("/View")
     public String View(Model model){
-        List<Contribution> Faculties = re.ReturnFaculties();
+        List<Contribution> Faculties = re.ReturnContributions();
         model.addAttribute("Fals",Faculties);
-        return "Contribution/ViewFacutlty";
+        return "Contribution/ViewContribution";
     }
 
     @PostMapping("/Delete")
