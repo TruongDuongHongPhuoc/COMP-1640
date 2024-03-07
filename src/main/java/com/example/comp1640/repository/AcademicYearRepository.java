@@ -10,7 +10,6 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 @Component
@@ -19,18 +18,16 @@ public class AcademicYearRepository {
 
     @Autowired
     MongoTemplate mongoTemplate;
-    public void CreateAcademicYear(String id, String name, String typeOfFile, Date submitDate, Boolean isPublic, int accountId,int academicYearId){
-        mongoTemplate.save(new AcademicYear(id, name, id, name, typeOfFile));
+    public void CreateAcademicYear(String id, String name, String courseNum, String startString, String endString){
+        mongoTemplate.save(new AcademicYear(id, name, courseNum, startString, endString));
     }
-    public void UpdateAcademicYear(String id, String name, String typeOfFile, Date submitDate, Boolean isPublic, int accountId,int academicYearId) {
+    public void UpdateAcademicYear(String id, String name, String courseNum, String startString, String endString) {
         Query query = new Query(Criteria.where("id").is(id));
         Update update = new Update();
         update.set("name",name);
-        update.set("typeOfFile",typeOfFile);
-        update.set("submitDate",submitDate);
-        update.set("isPublic",isPublic);
-        update.set("accountId",accountId);
-        update.set("academicYearId",academicYearId);
+        update.set("courseNum",courseNum);
+        update.set("startString",startString);
+        update.set("endString",endString);
         UpdateResult result = mongoTemplate.updateFirst(query, update, AcademicYear.class);
 
         if(result == null)
@@ -39,7 +36,7 @@ public class AcademicYearRepository {
             System.out.println(result.getModifiedCount() + " document(s) updated..");
     }
 
-    public List<AcademicYear> ReturnFaculties(){
+    public List<AcademicYear> ReturnAcademicYears(){
         return mongoTemplate.findAll(AcademicYear.class,"AcademicYearItem");
     }
     public AcademicYear ReturnAcademicYear(String id)

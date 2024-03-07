@@ -15,7 +15,7 @@ public class Contribution {
     private int accountId;
     private int academicYearId;
 
-    public Contribution(String id, String name, String typeOfFile, Date submitDate, Boolean isPublic, int accountId,int academicYearId) {
+    public Contribution(String id, String name, String typeOfFile, Date submitDate, Boolean isPublic, int accountId, int academicYearId) {
         this.id = id;
         this.name = name;
         this.typeOfFile = typeOfFile;

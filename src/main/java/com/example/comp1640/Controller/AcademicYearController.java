@@ -16,10 +16,10 @@ public class AcademicYearController
     AcademicYearRepository re;
 
     @PostMapping("/Hello")
-    public String Create(@RequestParam("name") String name,@RequestParam("id") String id
-            ,@RequestParam("group") int group,@RequestParam("Year") String year, Model model){
-        re.CreateAcademicYear(id, name, year, null, null, group, group);;
-        return "ViewFacutlty";
+    public String CreateAcademicYear(@RequestParam("id") String id, @RequestParam("name") String name, 
+    @RequestParam("courseNum") String courseNum, @RequestParam("startString") String startString, @RequestParam("endString") String endString, Model model){
+        re.CreateAcademicYear(id, name, courseNum, startString, endString);;
+        return "ViewAcademicYear";
     }
     @GetMapping("/CreateAcademicYear") 
     public String CreatFul(){
@@ -33,21 +33,17 @@ public class AcademicYearController
         return "AcademicYear/UpdateAcademicYear";
     }
     @PostMapping("/Updating")
-    public String UpdatePostAcademicYear(@RequestParam("name") String name,@RequestParam("id") String id
-            ,@RequestParam("group") int group,@RequestParam("Year") String year, Model model){
-        System.out.println(name);
-        System.out.println(id);
-        System.out.println(group);
-        System.out.println(year);
-        re.UpdateAcademicYear(id, name, year, null, null, group, group);;
+    public String UpdatePostAcademicYear(@RequestParam("id") String id, @RequestParam("name") String name, 
+    @RequestParam("courseNum") String courseNum, @RequestParam("startString") String startString, @RequestParam("endString") String endString, Model model){
+        re.UpdateAcademicYear(id, name, courseNum, startString, endString);;
         return "redirect:/View";
     }
 
     @GetMapping("/View")
     public String View(Model model){
-        List<AcademicYear> Faculties = re.ReturnFaculties();
-        model.addAttribute("Fals",Faculties);
-        return "AcademicYear/ViewFacutlty";
+        List<AcademicYear> AcademicYears = re.ReturnAcademicYears();
+        model.addAttribute("Fals",AcademicYears);
+        return "AcademicYear/ViewAcademicYear";
     }
 
     @PostMapping("/Delete")

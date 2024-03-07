@@ -45,8 +45,8 @@ public class ContributionController
 
     @GetMapping("/View")
     public String View(Model model){
-        List<Contribution> Faculties = re.ReturnContributions();
-        model.addAttribute("Fals",Faculties);
+        List<Contribution> Contributions = re.ReturnContributions();
+        model.addAttribute("Fals",Contributions);
         return "Contribution/ViewContribution";
     }
 
