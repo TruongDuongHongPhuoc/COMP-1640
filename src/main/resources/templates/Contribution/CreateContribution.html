@@ -6,16 +6,30 @@
 </head>
 <body>
 <h1>Welcome to Admin Page</h1>
-<form action="/Hello" method="post">
-    <label for="name">Name:</label><br>
-    <input type="text" id="name" name="name"><br>
+<form action="/Contribution/Hello" method="POST">
     <label for="id">ID:</label><br>
     <input type="text" id="id" name="id"><br>
-    <label for="group">Group:</label><br>
-    <input type="number" id="group" name="group"><br>
-    <label for="Year">Year:</label><br>
-    <input type="text" id="Year" name="Year"><br><br>
+
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name"><br>
+
+    <label for="typeOfFile">Type of File:</label><br>
+    <input type="text" id="typeOfFile" name="typeOfFile"><br>
+
+    <label for="submitDate">Submit Date:</label><br>
+    <input type="date" id="submitDate" name="submitDate"><br>
+
+    <label for="isPublic">Is Public:</label><br>
+    <input type="checkbox" id="isPublic" name="isPublic" value="true"><br>
+
+    <label for="accountId">Account ID:</label><br>
+    <input type="text" id="accountId" name="accountId"><br>
+
+    <label for="academicYearId">Academic Year ID:</label><br>
+    <input type="text" id="academicYearId" name="academicYearId"><br>
+
     <input type="submit" value="Submit">
 </form>
+
 </body>
 </html>

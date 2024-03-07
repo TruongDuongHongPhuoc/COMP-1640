@@ -12,10 +12,14 @@ public class Contribution {
     private String typeOfFile;
     private Date submitDate;
     private Boolean isPublic;
-    private int accountId;
-    private int academicYearId;
+    private String accountId;
+    private String academicYearId;
 
+<<<<<<< HEAD
     public Contribution(String id, String name, String typeOfFile, Date submitDate, Boolean isPublic, int accountId, int academicYearId) {
+=======
+    public Contribution(String id, String name, String typeOfFile, Date submitDate, Boolean isPublic, String accountId, String academicYearId) {
+>>>>>>> refs/remotes/origin/master
         this.id = id;
         this.name = name;
         this.typeOfFile = typeOfFile;
@@ -65,19 +69,19 @@ public class Contribution {
         isPublic = aPublic;
     }
 
-    public int getAccountId() {
+    public String getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(int accountId) {
+    public void setAccountId(String accountId) {
         this.accountId = accountId;
     }
 
-    public int getAcademicYearId() {
+    public String getAcademicYearId() {
         return academicYearId;
     }
 
-    public void setAcademicYearId(int academicYearId) {
+    public void setAcademicYearId(String academicYearId) {
         this.academicYearId = academicYearId;
     }
 }
