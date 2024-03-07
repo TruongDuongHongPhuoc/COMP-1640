@@ -4,6 +4,8 @@ package com.example.comp1640;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.comp1640.model.Contribution;
+import com.example.comp1640.repository.ContributionRepository;
 import com.example.comp1640.repository.FalcultyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -23,7 +25,8 @@ public class Comp1640Application implements CommandLineRunner{
 	@Autowired
 	ItemRepository AcademicYear;
 	ItemRepository Account;
-	
+	@Autowired
+	ContributionRepository con;
 	@Autowired
 	AcademicYearRepository AcademicYearRepo;
 	
@@ -46,8 +49,18 @@ public class Comp1640Application implements CommandLineRunner{
 
 	}
 	void createGroceryItems() {
-		System.out.println("Run Delete");
-		re.DeleteFal("a");
+		List<Contribution> List = con.ReturnContributions();
+		for(int i=0;i<List.size();i++){
+			System.out.println("//////////////Loop//////////////");
+			System.out.println(List.get(i).getId());
+			System.out.println(List.get(i).getName());//name
+			System.out.println(List.get(i).getTypeOfFile());//typeofFile
+			System.out.println(List.get(i).getSubmitDate());//submiteDate
+			System.out.println(List.get(i).getPublic());//ispublic
+			System.out.println(List.get(i).getAccountId());//accountId
+			System.out.println(List.get(i).getAcademicYearId());//academicyearId
+			System.out.println("//////////////Loop//////////////");
+		}
 	}
 
 	// CRUD operations

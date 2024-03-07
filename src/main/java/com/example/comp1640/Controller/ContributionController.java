@@ -5,7 +5,10 @@ import com.example.comp1640.repository.ContributionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -17,38 +20,43 @@ public class ContributionController
     ContributionRepository re;
 
     @PostMapping("/Hello")
-    public String Create(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("typeOfFile") String typeOfFile, 
-    @RequestParam("submitDate") String submitDate, @RequestParam("isPublic") Boolean isPublic, @RequestParam("accountId") String accountId,
-    @RequestParam("academicYearId") String academicYearId, Model model){
-        re.CreateContribution(id, name, typeOfFile, submitDate, isPublic, accountId, academicYearId);
-        return "ViewContribution";
+    public String Create(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("typeOfFile") String typeOfFile,
+                         @RequestParam("submitDate") String submitDate, @RequestParam(value = "isPublic", defaultValue = "false") Boolean isPublic, @RequestParam("accountId") String accountId,
+                         @RequestParam("academicYearId") String academicYearId, Model model){
+        Contribution contri = new Contribution(id, name, typeOfFile, submitDate, isPublic, accountId, academicYearId);
+        if(contri == null || contri.equals(null)){
+            System.out.println("CONTRI IS NULL");
+        }
+                re.CreateContribution(id, name, typeOfFile, submitDate, isPublic, accountId, academicYearId);
+        return "redirect:/Contribution/View";
     }
-    @GetMapping("/CreateContribution") 
-    public String CreatFul(){
+    @GetMapping("/CreateContribution")
+    public String CreatContribution(){
         return "Contribution/CreateContribution";
     }
 
     @GetMapping("/Update") // Corrected mapping without the trailing slash
-    public String update(@RequestParam("id") String id, Model model) {
+    public String updateContribution(@RequestParam("id") String id, Model model) {
         Contribution fe = re.ReturnContribution(id);
-        model.addAttribute("Contribution", fe);
+        model.addAttribute("con", fe);
         return "Contribution/UpdateContribution";
     }
     @PostMapping("/Updating")
-    public String UpdatePostContribution(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("typeOfFile") String typeOfFile, 
+    public String UpdatePostContribution(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("typeOfFile") String typeOfFile,
     @RequestParam("submitDate") String submitDate, @RequestParam("isPublic") Boolean isPublic, @RequestParam("accountId") String accountId,
     @RequestParam("academicYearId") String academicYearId, Model model){
         re.UpdateContribution(id, name, typeOfFile, submitDate, isPublic, accountId, academicYearId);;
-        return "redirect:/View";
+        return "redirect:/Contribution/View";
     }
 
     @GetMapping("/View")
     public String View(Model model){
-        List<Contribution> Contributions = re.ReturnContributions();
-        model.addAttribute("Fals",Contributions);
-        System.out.println(Contributions.get(0).getId());
+//        List<Contribution> Contributions = re.ReturnContributions();
+        Contribution Contry = re.ReturnContribution("01");
+        List<Contribution> contris = re.ReturnContributions();
+        model.addAttribute("con",Contry);
+        model.addAttribute("cons",contris);
         return "Contribution/ViewContribution";
-    
     }
 
     @PostMapping("/Delete")

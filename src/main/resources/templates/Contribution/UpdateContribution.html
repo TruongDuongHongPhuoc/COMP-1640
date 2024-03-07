@@ -11,27 +11,39 @@
   <table>
     <thead>
       <tr>
-        <th>Name</th>
-        <th>ID</th>
-        <th>Group</th>
-        <th>Year</th>
-        <th>Action</th>
+        <th>id</th>
+        <th>name</th>
+        <th>typeofFile</th>
+        <th>submitedate</th>
+        <th>ispublic</th>
+        <th>academicyear</th>
+        <th>accountid</th>
       </tr>
     </thead>
     <tbody>
-        <form action="/Updating" method="POST">
-          <input type="hidden" name="id" th:value="${faculty.id}">
-          <label for="name">Name:</label>
-          <input type="text" id="name" name="name" th:value="${faculty.name}">
-          <br>
-          <label for="group">Group:</label>
-          <input type="number" id="group" name="group" th:value="${faculty.group}">
-          <br>
-          <label for="Year">Year:</label>
-          <input type="text" id="Year" name="Year" th:value="${faculty.academicYear}">
-          <br>
-          <button type="submit">Update Faculty</button>
-        </form>
+    <form action="/Contribution/Updating" method="POST">
+      <input type="hidden" name="id" th:value="${con.id}">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" th:value="${con.name}">
+
+      <label for="submitDate">Submit Date:</label>
+      <input type="text" id="submitDate" name="submitDate" th:value="${con.submitDate}">
+
+      <label for="typeOfFile">Type of File:</label>
+      <input type="text" id="typeOfFile" name="typeOfFile" th:value="${con.typeOfFile}">
+
+      <label for="isPublic">Public:</label>
+      <input type="checkbox" id="isPublic" name="isPublic" th:checked="${con.public}">
+
+      <label for="academicYearId">Academic Year ID:</label>
+      <input type="text" id="academicYearId" name="academicYearId" th:value="${con.academicYearId}">
+
+      <label for="accountId">Account ID:</label>
+      <input type="text" id="accountId" name="accountId" th:value="${con.accountId}">
+
+      <input type="submit" value="Submit">
+    </form>
+
 
     </tbody>
   </table>
