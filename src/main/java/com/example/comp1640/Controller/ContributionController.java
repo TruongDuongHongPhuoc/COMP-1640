@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -19,7 +18,7 @@ public class ContributionController
 
     @PostMapping("/Hello")
     public String Create(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("typeOfFile") String typeOfFile, 
-    @RequestParam("submitDate") Date submitDate, @RequestParam("isPublic") Boolean isPublic, @RequestParam("accountId") String accountId,
+    @RequestParam("submitDate") String submitDate, @RequestParam("isPublic") Boolean isPublic, @RequestParam("accountId") String accountId,
     @RequestParam("academicYearId") String academicYearId, Model model){
         re.CreateContribution(id, name, typeOfFile, submitDate, isPublic, accountId, academicYearId);
         return "ViewContribution";
@@ -37,7 +36,7 @@ public class ContributionController
     }
     @PostMapping("/Updating")
     public String UpdatePostContribution(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("typeOfFile") String typeOfFile, 
-    @RequestParam("submitDate") Date submitDate, @RequestParam("isPublic") Boolean isPublic, @RequestParam("accountId") String accountId,
+    @RequestParam("submitDate") String submitDate, @RequestParam("isPublic") Boolean isPublic, @RequestParam("accountId") String accountId,
     @RequestParam("academicYearId") String academicYearId, Model model){
         re.UpdateContribution(id, name, typeOfFile, submitDate, isPublic, accountId, academicYearId);;
         return "redirect:/View";
@@ -47,7 +46,9 @@ public class ContributionController
     public String View(Model model){
         List<Contribution> Contributions = re.ReturnContributions();
         model.addAttribute("Fals",Contributions);
+        System.out.println(Contributions.get(0).getId());
         return "Contribution/ViewContribution";
+    
     }
 
     @PostMapping("/Delete")

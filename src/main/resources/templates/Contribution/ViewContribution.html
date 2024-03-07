@@ -11,30 +11,43 @@
 <table>
   <thead>
   <tr>
-    <th>Name</th>
     <th>ID</th>
-    <th>Group</th>
-    <th>Year</th>
-    <th>delete</th>
-    <th>update</th>
+    <th>Name</th>
+    <th>typeOfFile</th>
+    <th>submitDate</th>
+    <th>isPublic</th>
+    <th>accountId</th>
+    <th>academicYearId</th>
+    <th>Delete</th>
+    <th>Update</th>
   </tr>
   </thead>
   <tbody>
-  <tr th:each="faculty: ${Fals}">
-    <td th:text="${faculty.name}"></td>
-    <td th:text="${faculty.id}"></td>
-    <td th:text="${faculty.group}"></td>
-    <td th:text="${faculty.academicYear}"></td>
-    
+  
+    <!-- private String typeOfFile;
+    private String submitDate;
+    private Boolean isPublic;
+    private String accountId;
+    private String academicYearId; -->
+
+  <tr th:each="Contribution: ${Fals}">
+    <td th:text="${Contribution.id}"></td>
+    <td th:text="${Contribution.name}"></td>
+    <td th:text="${Contribution.typeOfFile}"></td>
+    <td th:text="${Contribution.submitDate}"></td>
+    <td th:text="${Contribution.isPublic}"></td>
+    <td th:text="${Contribution.accountId}"></td>
+    <td th:text="${Contribution.academicYearId}"></td>
+
     <td>
       <form action="/Delete" method="post">
-        <input type="hidden" name="id" th:value="${faculty.id}">
+        <input type="hidden" name="id" th:value="${Contribution.id}">
         <button type="submit">Delete</button>
       </form>
     </td>
     <td>
       <form action="/Update" method="GET"> <!-- Corrected form action without the trailing slash -->
-        <input type="hidden" name="id" th:value="${faculty.id}">
+        <input type="hidden" name="id" th:value="${Contribution.id}">
         <button type="submit">Update</button>
       </form>
     </td>

@@ -10,16 +10,12 @@ public class Contribution {
     private String id;
     private String name;
     private String typeOfFile;
-    private Date submitDate;
+    private String submitDate;
     private Boolean isPublic;
     private String accountId;
     private String academicYearId;
 
-<<<<<<< HEAD
-    public Contribution(String id, String name, String typeOfFile, Date submitDate, Boolean isPublic, int accountId, int academicYearId) {
-=======
-    public Contribution(String id, String name, String typeOfFile, Date submitDate, Boolean isPublic, String accountId, String academicYearId) {
->>>>>>> refs/remotes/origin/master
+    public Contribution(String id, String name, String typeOfFile, String submitDate, Boolean isPublic, String accountId, String academicYearId) {
         this.id = id;
         this.name = name;
         this.typeOfFile = typeOfFile;
@@ -53,11 +49,11 @@ public class Contribution {
         this.typeOfFile = typeOfFile;
     }
 
-    public Date getSubmitDate() {
+    public String getSubmitDate() {
         return submitDate;
     }
 
-    public void setSubmitDate(Date submitDate) {
+    public void setSubmitDate(String submitDate) {
         this.submitDate = submitDate;
     }
 
