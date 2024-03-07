@@ -39,6 +39,14 @@ public class FalcultyRepository {
         List<Faculty> lists= mongoTemplate.findAll(Faculty.class,"FacultyItem");
         return lists;
     }
+
+    public Faculty ReturnFalcuty2(String id)
+    {
+
+        Faculty fa = mongoTemplate.findById(id, Faculty.class);
+        return fa;
+    }
+
     public void DeleteFal(String id){
         Query query = new Query(Criteria.where("id").is(id));
         mongoTemplate.remove(query, Faculty.class);

@@ -38,7 +38,9 @@ public class Comp1640Application implements CommandLineRunner{
 		// Clean up any previous data
 		AcademicYear.deleteAll(); // Doesn't delete the collection
 		
-		System.out.println("-------------CREATE ACADEMIC YEAR ITEMS-------------------------------\n");
+		System.out.println("Comp1640 Application Executed");
+
+		// System.out.println("-------------CREATE ACADEMIC YEAR ITEMS-------------------------------\n");
 		
 //		createGroceryItems();
 

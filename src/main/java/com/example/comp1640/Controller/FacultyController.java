@@ -5,13 +5,10 @@ import com.example.comp1640.repository.FalcultyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Controller
@@ -35,10 +32,11 @@ public class FacultyController {
         return "CreateFalculty";
     }
 
-    @GetMapping("/Update")
-    public String Update(){
-        re.UpdateFalcuty("a","bb",3,"2024-2-4");
-        return "Admin";
+    @GetMapping("/Update") // Remove the trailing slash
+    public String update(@RequestParam("id") String id, Model model) {
+        model.addAttribute("id", id);
+        System.out.println(id);
+        return "UpdateFal";
     }
 
     @GetMapping("/View")
@@ -53,8 +51,4 @@ public class FacultyController {
         re.DeleteFal(id);
         return "redirect:/View";
     }
-
-    
-    
-
-}
+    }

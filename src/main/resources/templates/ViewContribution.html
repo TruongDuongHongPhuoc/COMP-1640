@@ -29,6 +29,12 @@
         <button type="submit">Delete</button>
       </form>
     </td>
+    <td>
+      <form action="/Update" method="get">
+        <input type="hidden" name="id" th:value="${faculty.id}">
+        <button type="submit">Update</button>
+      </form>
+    </td>
   </tr>
   </tbody>
 </table>

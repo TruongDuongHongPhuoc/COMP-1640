@@ -1,0 +1,46 @@
+<!-- ViewFalcutlty.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Faculties</title>
+</head>
+<body>
+<h1>List of Faculties</h1>
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Group</th>
+    <th>Year</th>
+    <th>delete</th>
+    <th>update</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="faculty : ${Fals}">
+    <td th:text="${faculty.name}"></td>
+    <td th:text="${faculty.id}"></td>
+    <td th:text="${faculty.group}"></td>
+    <td th:text="${faculty.academicYear}"></td>
+    
+    <td>
+      <form action="/Delete" method="post">
+        <input type="hidden" name="id" th:value="${faculty.id}">
+        <button type="submit">Delete</button>
+      </form>
+    </td>
+    <td>
+    <form action="/Update" method="Get">
+      <input type="hidden" name="id" th:value="${faculty.id}">
+      <button type="submit">Update</button>
+    </form>
+    
+  </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
