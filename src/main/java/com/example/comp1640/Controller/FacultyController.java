@@ -32,18 +32,29 @@ public class FacultyController {
         return "CreateFalculty";
     }
 
-    @GetMapping("/Update") // Remove the trailing slash
+    @GetMapping("/Update") // Corrected mapping without the trailing slash
     public String update(@RequestParam("id") String id, Model model) {
-        model.addAttribute("id", id);
+//        System.out.println(id);
+        Faculty fe = re.ReturnFaculty(id);
+        model.addAttribute("faculty", fe);
+        return "Faculty/UpdateFaculty";
+    }
+    @PostMapping("/Updating")
+    public String UpdatePostFaculty(@RequestParam("name") String name,@RequestParam("id") String id
+            ,@RequestParam("group") int group,@RequestParam("Year") String year, Model model){
+        System.out.println(name);
         System.out.println(id);
-        return "UpdateFal";
+        System.out.println(group);
+        System.out.println(year);
+        re.UpdateFalcuty(id,name,group,year);
+        return "redirect:/View";
     }
 
     @GetMapping("/View")
     public String View(Model model){
-        List<Faculty> Fals = re.ReturnFalcuty();
-        model.addAttribute("Fals",Fals);
-        return "ViewFalcutlty";
+        List<Faculty> Faculties = re.ReturnFaculties();
+        model.addAttribute("Fals",Faculties);
+        return "Faculty/ViewFacutlty";
     }
 
     @PostMapping("/Delete")

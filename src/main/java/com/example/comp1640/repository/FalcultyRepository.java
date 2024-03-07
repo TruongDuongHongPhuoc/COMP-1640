@@ -27,7 +27,6 @@ public class FalcultyRepository {
         update.set("name",name);
         update.set("group", group);
         update.set("academicYear",academicYear);
-        
         UpdateResult result = mongoTemplate.updateFirst(query, update, Faculty.class);
 
         if(result == null)
@@ -35,14 +34,15 @@ public class FalcultyRepository {
         else
             System.out.println(result.getModifiedCount() + " document(s) updated..");
     }
-    public List<Faculty> ReturnFalcuty(){
-        List<Faculty> lists= mongoTemplate.findAll(Faculty.class,"FacultyItem");
-        return lists;
+//    public List<Faculty> ReturnFalcuty(){
+//        List<Faculty> aa= mongoTemplate.findAll(Faculty.class);
+//        return aa;
+//    }
+    public List<Faculty> ReturnFaculties(){
+        return mongoTemplate.findAll(Faculty.class,"FacultyItem");
     }
-
-    public Faculty ReturnFalcuty2(String id)
+    public Faculty ReturnFaculty(String id)
     {
-
         Faculty fa = mongoTemplate.findById(id, Faculty.class);
         return fa;
     }
