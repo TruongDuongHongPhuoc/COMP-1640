@@ -1,33 +1,67 @@
 package com.example.comp1640.Controller;
 
-import java.sql.Date;
-
+import com.example.comp1640.model.Contribution;
+import com.example.comp1640.repository.ContributionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
-import com.example.comp1640.repository.ContributionRepository;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-
+import java.util.List;
 
 @Controller
-public class ContributionController {
+@RequestMapping("/Contribution")
+public class ContributionController 
+{
     @Autowired
-    ContributionRepository ContributeRepo;
+    ContributionRepository re;
 
-    @PostMapping("/Create")
-    public String postMethodName(@RequestParam ("id") String id, @RequestParam ("name") String name, @RequestParam ("TypeOfFile") String typeOfFile, 
-    @RequestParam ("SubmitDate") Date submitDate, @RequestParam("IsPublic") Boolean isPublic, @RequestParam ("accountID") int accountID, @RequestParam ("academicYearID") int academicYearID) {
-        
-        ContributeRepo.CreateContribution(id, name, typeOfFile, null, isPublic, accountID, academicYearID);
-        return "Admin";
+    @PostMapping("/Hello")
+    public String Create(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("typeOfFile") String typeOfFile,
+                         @RequestParam("submitDate") String submitDate, @RequestParam(value = "isPublic", defaultValue = "false") Boolean isPublic, @RequestParam("accountId") String accountId,
+                         @RequestParam("academicYearId") String academicYearId, Model model){
+        Contribution contri = new Contribution(id, name, typeOfFile, submitDate, isPublic, accountId, academicYearId);
+        if(contri == null || contri.equals(null)){
+            System.out.println("CONTRI IS NULL");
+        }
+                re.CreateContribution(id, name, typeOfFile, submitDate, isPublic, accountId, academicYearId);
+        return "redirect:/Contribution/View";
     }
-    
     @GetMapping("/CreateContribution")
-    public String getMethodName(@RequestParam String param) {
-        return "CreateContribution";
+    public String CreatContribution(){
+        return "Contribution/CreateContribution";
     }
-    
+
+    @GetMapping("/Update") // Corrected mapping without the trailing slash
+    public String updateContribution(@RequestParam("id") String id, Model model) {
+        Contribution fe = re.ReturnContribution(id);
+        model.addAttribute("con", fe);
+        return "Contribution/UpdateContribution";
+    }
+    @PostMapping("/Updating")
+    public String UpdatePostContribution(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("typeOfFile") String typeOfFile,
+    @RequestParam("submitDate") String submitDate, @RequestParam("isPublic") Boolean isPublic, @RequestParam("accountId") String accountId,
+    @RequestParam("academicYearId") String academicYearId, Model model){
+        re.UpdateContribution(id, name, typeOfFile, submitDate, isPublic, accountId, academicYearId);;
+        return "redirect:/Contribution/View";
+    }
+
+    @GetMapping("/View")
+    public String View(Model model){
+//        List<Contribution> Contributions = re.ReturnContributions();
+        Contribution Contry = re.ReturnContribution("01");
+        List<Contribution> contris = re.ReturnContributions();
+        model.addAttribute("con",Contry);
+        model.addAttribute("cons",contris);
+        return "Contribution/ViewContribution";
+    }
+
+    @PostMapping("/Delete")
+    public String Delete(@RequestParam("id") String id) {
+        re.DeleteContribution(id);
+        return "redirect:/View";
+    }
 }

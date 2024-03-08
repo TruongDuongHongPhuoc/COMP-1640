@@ -5,47 +5,50 @@ import com.example.comp1640.repository.FalcultyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import org.springframework.web.bind.annotation.RequestBody;
-
 
 @Controller
-public class FacultyController {
+public class FacultyController 
+{
     @Autowired
     FalcultyRepository re;
 
-    @GetMapping("/add")
-    public String addFalcuty(){
-//        re.CreateFalcuty();
-        return "Admin";
-    }
     @PostMapping("/Hello")
-    public String Concaheo(@RequestParam("name") String name,@RequestParam("id") String id
+    public String CreateFaculty(@RequestParam("name") String name,@RequestParam("id") String id
             ,@RequestParam("group") int group,@RequestParam("Year") String year, Model model){
         re.CreateFalcuty(id,name,group,year);
-        return "Admin";
+        return "ViewFacutlty";
     }
     @GetMapping("/CreateFalcuty") 
     public String CreatFul(){
-        return "CreateFalculty";
+        return "Faculty/CreateFaculty";
     }
 
-    @GetMapping("/Update")
-    public String Update(){
-        re.UpdateFalcuty("a","bb",3,"2024-2-4");
-        return "Admin";
+    @GetMapping("/Update") // Corrected mapping without the trailing slash
+    public String update(@RequestParam("id") String id, Model model) {
+//        System.out.println(id);
+        Faculty fe = re.ReturnFaculty(id);
+        model.addAttribute("faculty", fe);
+        return "Faculty/UpdateFaculty";
+    }
+    @PostMapping("/Updating")
+    public String UpdatePostFaculty(@RequestParam("name") String name,@RequestParam("id") String id
+            ,@RequestParam("group") int group,@RequestParam("Year") String year, Model model){
+        System.out.println(name);
+        System.out.println(id);
+        System.out.println(group);
+        System.out.println(year);
+        re.UpdateFalcuty(id,name,group,year);
+        return "redirect:/View";
     }
 
     @GetMapping("/View")
     public String View(Model model){
-        List<Faculty> Fals = re.ReturnFalcuty();
-        model.addAttribute("Fals",Fals);
-        return "ViewFalcutlty";
+        List<Faculty> Faculties = re.ReturnFaculties();
+        model.addAttribute("Fals",Faculties);
+        return "Faculty/ViewFacutlty";
     }
 
     @PostMapping("/Delete")
@@ -53,8 +56,4 @@ public class FacultyController {
         re.DeleteFal(id);
         return "redirect:/View";
     }
-
-    
-    
-
 }
