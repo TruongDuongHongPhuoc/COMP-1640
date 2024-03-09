@@ -19,10 +19,18 @@ public class ContributionRepository {
 
     @Autowired
     MongoTemplate mongoTemplate;
-    public void CreateContribution(String id, String name, String description, String submitDate, Boolean approve, Boolean isPublic, String accountId, String academicYearId){
-        mongoTemplate.save(new Contribution(id, name, description, submitDate, approve, isPublic, accountId, academicYearId));
+    public void CreateContribution(String id,
+                                   String name,
+                                   String description,
+                                   String submitDate,
+                                   Boolean approve,
+                                   Boolean isPublic,
+                                   String accountId,
+                                   String academicYearId,
+                                   String path){
+        mongoTemplate.save(new Contribution(id, name, description, submitDate, approve, isPublic, accountId, academicYearId, path));
     }
-    public void UpdateContribution(String id, String name, String description, String submitDate, Boolean approve, Boolean isPublic, String accountId, String academicYearId){
+    public void UpdateContribution(String id, String name, String description, String submitDate, Boolean approve, Boolean isPublic, String accountId, String academicYearId, String path){
         Query query = new Query(Criteria.where("id").is(id));
         Update update = new Update();
         update.set("name",name);
@@ -31,6 +39,7 @@ public class ContributionRepository {
         update.set("isPublic",isPublic);
         update.set("accountId",accountId);
         update.set("academicYearId",academicYearId);
+        update.set("path",path);
         UpdateResult result = mongoTemplate.updateFirst(query, update, Contribution.class);
 
         if(result == null)

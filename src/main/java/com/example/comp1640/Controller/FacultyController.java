@@ -19,7 +19,7 @@ public class FacultyController
     public String CreateFaculty(@RequestParam("name") String name,@RequestParam("id") String id
             ,@RequestParam("description") String description,@RequestParam("Year") String year, Model model){
         re.CreateFalcuty(id,name,description,year);
-        return "Faculty/ViewFacutlty";
+        return "redirect:/View";
     }
     @GetMapping("/CreateFalcuty") 
     public String CreatFul(){

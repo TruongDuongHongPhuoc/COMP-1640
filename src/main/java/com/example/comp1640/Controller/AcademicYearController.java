@@ -19,39 +19,40 @@ public class AcademicYearController
     @PostMapping("/Hello")
     public String Create(@RequestParam("id") String id, @RequestParam("name") String name, 
     @RequestParam("yearOfAcademic") String yearOfAcademic, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate, Model model){
-        re.CreateAcademicYear(id, name, yearOfAcademic, startDate, endDate);;
-        return "AcademicYear/ViewAcademicYear";
+        re.CreateAcademicYear(id, name, yearOfAcademic, startDate, endDate);
+        System.out.println("AcademicYear Controller Runed");
+        return "redirect:/Academic/View";
     }
     
     @GetMapping("/CreateAcademicYear") 
     public String CreateAcademicYear(){
-        return "AcademicYear/CreateAcademicYear";
+        return "AcademicYear/CreateAcademic";
     }
 
     @GetMapping("/Update") // Corrected mapping without the trailing slash
     public String update(@RequestParam("id") String id, Model model) {
         AcademicYear fe = re.ReturnAcademicYear(id);
         model.addAttribute("AcademicYear", fe);
-        return "AcademicYear/UpdateAcademicYear";
+        return "AcademicYear/UpdateAcademic";
     }
 
     @PostMapping("/Updating")
     public String UpdatePostAcademicYear(@RequestParam("id") String id, @RequestParam("name") String name, 
     @RequestParam("yearOfAcademic") String yearOfAcademic, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate, Model model){
         re.UpdateAcademicYear(id, name, yearOfAcademic, startDate, endDate);;
-        return "redirect:/View";
+        return "redirect:/Academic/View";
     }
 
     @GetMapping("/View")
     public String View(Model model){
         List<AcademicYear> AcademicYears = re.ReturnAcademicYears();
         model.addAttribute("Fals",AcademicYears);
-        return "AcademicYear/ViewAcademicYear";
+        return "AcademicYear/ViewAcademic";
     }
 
     @PostMapping("/Delete")
     public String Delete(@RequestParam("id") String id) {
         re.DeleteAcademicYear(id);
-        return "redirect:/View";
+        return "redirect:/Academic/View";
     }
 }

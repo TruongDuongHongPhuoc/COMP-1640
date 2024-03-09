@@ -29,8 +29,8 @@
       <label for="submitDate">Submit Date:</label>
       <input type="text" id="submitDate" name="submitDate" th:value="${con.submitDate}">
 
-      <label for="typeOfFile">Type of File:</label>
-      <input type="text" id="typeOfFile" name="typeOfFile" th:value="${con.typeOfFile}">
+      <label for="description">Type of File:</label>
+      <input type="text" id="description" name="description" th:value="${con.description}">
 
       <label for="isPublic">Public:</label>
       <input type="checkbox" id="isPublic" name="isPublic" th:checked="${con.public}">
@@ -40,6 +40,9 @@
 
       <label for="accountId">Account ID:</label>
       <input type="text" id="accountId" name="accountId" th:value="${con.accountId}">
+
+      <label for="path">Academic Year ID:</label><br>
+      <input type="text" id="path" name="path"><br>
 
       <input type="submit" value="Submit">
     </form>

@@ -20,6 +20,7 @@ public class AcademicYear {
         this.yearOfAcademic = yearOfAcademic;
         this.startDate = startDate;
         this.endDate = endDate;
+        System.out.println("AcademicYear Created");
     }
 
     public String getId() {

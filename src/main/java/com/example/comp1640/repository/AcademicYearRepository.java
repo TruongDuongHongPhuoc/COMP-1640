@@ -20,6 +20,7 @@ public class AcademicYearRepository {
     MongoTemplate mongoTemplate;
     public void CreateAcademicYear(String id, String name, String yearOfAcademic, String startDate, String endDate){
         mongoTemplate.save(new AcademicYear(id, name, yearOfAcademic, startDate, endDate));
+        System.out.println("Academic Year Repo Run");
     }
     public void UpdateAcademicYear(String id, String name, String yearOfAcademic, String startDate, String endDate) {
         Query query = new Query(Criteria.where("id").is(id));
@@ -37,7 +38,7 @@ public class AcademicYearRepository {
     }
 
     public List<AcademicYear> ReturnAcademicYears(){
-        return mongoTemplate.findAll(AcademicYear.class,"AcademicYearItem");
+        return mongoTemplate.findAll(AcademicYear.class,"AcademicYear");
     }
     public AcademicYear ReturnAcademicYear(String id)
     {
