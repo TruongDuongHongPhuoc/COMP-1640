@@ -1,0 +1,41 @@
+<!-- ViewFalcutlty.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Role</title>
+</head>
+<body>
+<h1>List of Role</h1>
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>delete</th>
+    <th>update</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="role: ${Fals}">
+    <td th:text="${role.name}"></td>
+    <td th:text="${role.id}"></td>
+    
+    <td>
+      <form action="/Delete" method="post">
+        <input type="hidden" name="id" th:value="${role.id}">
+        <button type="submit">Delete</button>
+      </form>
+    </td>
+    <td>
+      <form action="/Update" method="GET"> <!-- Corrected form action without the trailing slash -->
+        <input type="hidden" name="id" th:value="${role.id}">
+        <button type="submit">Update</button>
+      </form>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
