@@ -18,14 +18,14 @@ public class FalcultyRepository {
 
     @Autowired
     MongoTemplate mongoTemplate;
-    public void CreateFalcuty(String id, String name, int group, String Year){
-        mongoTemplate.save(new Faculty( id,name,group,Year));
+    public void CreateFalcuty(String id, String name, String description, String Year){
+        mongoTemplate.save(new Faculty( id,name,description,Year));
     }
-    public void UpdateFalcuty(String id, String name, int group, String academicYear) {
+    public void UpdateFalcuty(String id, String name, String description, String academicYear) {
         Query query = new Query(Criteria.where("id").is(id));
         Update update = new Update();
         update.set("name",name);
-        update.set("group", group);
+        update.set("description", description);
         update.set("academicYear",academicYear);
         UpdateResult result = mongoTemplate.updateFirst(query, update, Faculty.class);
 
