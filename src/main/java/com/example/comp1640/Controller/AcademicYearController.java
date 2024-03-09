@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @RequestMapping("/Academic")
 @Controller
 public class AcademicYearController 
@@ -16,13 +17,14 @@ public class AcademicYearController
     AcademicYearRepository re;
 
     @PostMapping("/Hello")
-    public String CreateAcademicYear(@RequestParam("id") String id, @RequestParam("name") String name, 
-    @RequestParam("courseNum") String courseNum, @RequestParam("startString") String startString, @RequestParam("endString") String endString, Model model){
-        re.CreateAcademicYear(id, name, courseNum, startString, endString);;
-        return "ViewAcademicYear";
+    public String Create(@RequestParam("id") String id, @RequestParam("name") String name, 
+    @RequestParam("yearOfAcademic") String yearOfAcademic, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate, Model model){
+        re.CreateAcademicYear(id, name, yearOfAcademic, startDate, endDate);;
+        return "AcademicYear/ViewAcademicYear";
     }
+    
     @GetMapping("/CreateAcademicYear") 
-    public String CreatFul(){
+    public String CreateAcademicYear(){
         return "AcademicYear/CreateAcademicYear";
     }
 
@@ -32,10 +34,11 @@ public class AcademicYearController
         model.addAttribute("AcademicYear", fe);
         return "AcademicYear/UpdateAcademicYear";
     }
+
     @PostMapping("/Updating")
     public String UpdatePostAcademicYear(@RequestParam("id") String id, @RequestParam("name") String name, 
-    @RequestParam("courseNum") String courseNum, @RequestParam("startString") String startString, @RequestParam("endString") String endString, Model model){
-        re.UpdateAcademicYear(id, name, courseNum, startString, endString);;
+    @RequestParam("yearOfAcademic") String yearOfAcademic, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate, Model model){
+        re.UpdateAcademicYear(id, name, yearOfAcademic, startDate, endDate);;
         return "redirect:/View";
     }
 

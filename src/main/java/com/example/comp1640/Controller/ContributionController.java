@@ -20,14 +20,16 @@ public class ContributionController
     ContributionRepository re;
 
     @PostMapping("/Hello")
-    public String Create(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("typeOfFile") String typeOfFile,
-                         @RequestParam("submitDate") String submitDate, @RequestParam(value = "isPublic", defaultValue = "false") Boolean isPublic, @RequestParam("accountId") String accountId,
+    public String Create(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("description") String description,
+                         @RequestParam("submitDate") String submitDate, 
+                         @RequestParam(value = "approve", defaultValue = "false") Boolean approve, 
+                         @RequestParam(value = "isPublic", defaultValue = "false") Boolean isPublic, @RequestParam("accountId") String accountId,
                          @RequestParam("academicYearId") String academicYearId, Model model){
-        Contribution contri = new Contribution(id, name, typeOfFile, submitDate, isPublic, accountId, academicYearId);
+        Contribution contri = new Contribution(id, name, description, submitDate, approve, isPublic, accountId, academicYearId);
         if(contri == null || contri.equals(null)){
             System.out.println("CONTRI IS NULL");
         }
-                re.CreateContribution(id, name, typeOfFile, submitDate, isPublic, accountId, academicYearId);
+                re.CreateContribution(id, name, description, submitDate, approve, isPublic, accountId, academicYearId);
         return "redirect:/Contribution/View";
     }
     @GetMapping("/CreateContribution")
@@ -42,10 +44,12 @@ public class ContributionController
         return "Contribution/UpdateContribution";
     }
     @PostMapping("/Updating")
-    public String UpdatePostContribution(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("typeOfFile") String typeOfFile,
-    @RequestParam("submitDate") String submitDate, @RequestParam("isPublic") Boolean isPublic, @RequestParam("accountId") String accountId,
+    public String UpdatePostContribution(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("description") String description,
+    @RequestParam("submitDate") String submitDate, 
+    @RequestParam(value = "approve", defaultValue = "false") Boolean approve, 
+    @RequestParam(value = "isPublic", defaultValue = "false") Boolean isPublic, @RequestParam("accountId") String accountId,
     @RequestParam("academicYearId") String academicYearId, Model model){
-        re.UpdateContribution(id, name, typeOfFile, submitDate, isPublic, accountId, academicYearId);;
+        re.UpdateContribution(id, name, description, submitDate, approve, isPublic, accountId, academicYearId);
         return "redirect:/Contribution/View";
     }
 

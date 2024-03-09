@@ -9,17 +9,19 @@ public class Contribution {
     @Id
     private String id;
     private String name;
-    private String typeOfFile;
+    private String description; // typeOfFile -> description
     private String submitDate;
+    private Boolean approve; // Bổ sung
     private Boolean isPublic;
     private String accountId;
     private String academicYearId;
 
-    public Contribution(String id, String name, String typeOfFile, String submitDate, Boolean isPublic, String accountId, String academicYearId) {
+    public Contribution(String id, String name, String description, String submitDate, Boolean approve, Boolean isPublic, String accountId, String academicYearId) {
         this.id = id;
         this.name = name;
-        this.typeOfFile = typeOfFile;
+        this.description = description;
         this.submitDate = submitDate;
+        this.approve = approve;
         this.isPublic = isPublic;
         this.accountId = accountId;
         this.academicYearId = academicYearId;
@@ -41,12 +43,12 @@ public class Contribution {
         this.name = name;
     }
 
-    public String getTypeOfFile() {
-        return typeOfFile;
+    public String getDescription() {
+        return description;
     }
 
-    public void setTypeOfFile(String typeOfFile) {
-        this.typeOfFile = typeOfFile;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getSubmitDate() {
@@ -55,6 +57,14 @@ public class Contribution {
 
     public void setSubmitDate(String submitDate) {
         this.submitDate = submitDate;
+    }
+
+    public Boolean getApprove() {
+        return approve;
+    }
+
+    public void setApprove(Boolean approve) {
+        this.approve = approve;
     }
 
     public Boolean getPublic() {

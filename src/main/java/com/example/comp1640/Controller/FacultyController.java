@@ -17,9 +17,9 @@ public class FacultyController
 
     @PostMapping("/Hello")
     public String CreateFaculty(@RequestParam("name") String name,@RequestParam("id") String id
-            ,@RequestParam("group") int group,@RequestParam("Year") String year, Model model){
-        re.CreateFalcuty(id,name,group,year);
-        return "ViewFacutlty";
+            ,@RequestParam("description") String description,@RequestParam("Year") String year, Model model){
+        re.CreateFalcuty(id,name,description,year);
+        return "Faculty/ViewFacutlty";
     }
     @GetMapping("/CreateFalcuty") 
     public String CreatFul(){
@@ -35,12 +35,12 @@ public class FacultyController
     }
     @PostMapping("/Updating")
     public String UpdatePostFaculty(@RequestParam("name") String name,@RequestParam("id") String id
-            ,@RequestParam("group") int group,@RequestParam("Year") String year, Model model){
+            ,@RequestParam("description") String description,@RequestParam("Year") String year, Model model){
         System.out.println(name);
         System.out.println(id);
-        System.out.println(group);
+        System.out.println(description);
         System.out.println(year);
-        re.UpdateFalcuty(id,name,group,year);
+        re.UpdateFalcuty(id,name,description,year);
         return "redirect:/View";
     }
 
