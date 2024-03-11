@@ -7,48 +7,85 @@
   <title>View Faculties</title>
 </head>
 <body>
-  <h1>List of Faculties</h1>
-  <table>
-    <thead>
+  <h1>List of Contribution</h1>
+<!--  <table>-->
+<!--    <thead>-->
+<!--      <tr>-->
+<!--        <th>id</th>-->
+<!--        <th>name</th>-->
+<!--        <th>type of File</th>-->
+<!--        <th>submite date</th>-->
+<!--        <th>is public</th>-->
+<!--        <th>academic year id</th>-->
+<!--        <th>account id</th>-->
+<!--      </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <form action="/Contribution/Updating" method="POST">-->
+<!--      <input type="hidden" name="id" th:value="${con.id}">-->
+<!--      <label for="name">Name:</label>-->
+<!--      <input type="text" id="name" name="name" th:value="${con.name}">-->
+
+<!--      <label for="submitDate">Submit Date:</label>-->
+<!--      <input type="text" id="submitDate" name="submitDate" th:value="${con.submitDate}">-->
+
+<!--      <label for="description">Type of File:</label>-->
+<!--      <input type="text" id="description" name="description" th:value="${con.description}">-->
+
+<!--      <label for="isPublic">Public:</label>-->
+<!--      <input type="checkbox" id="isPublic" name="isPublic" th:checked="${con.public}">-->
+
+<!--      <label for="academicYearId">Academic Year ID:</label>-->
+<!--      <input type="text" id="academicYearId" name="academicYearId" th:value="${con.academicYearId}">-->
+
+<!--      <label for="accountId">Account ID:</label>-->
+<!--      <input type="text" id="accountId" name="accountId" th:value="${con.accountId}">-->
+
+<!--      <label for="path">Academic Year ID:</label><br>-->
+<!--      <input type="text" id="path" name="path"><br>-->
+
+<!--      <input type="submit" value="Submit">-->
+<!--    </form>-->
+
+
+<!--    </tbody>-->
+<!--  </table>-->
+  <form action="/Contribution/Updating" method="POST" enctype="multipart/form-data">
+    <table>
+      <thead>
       <tr>
         <th>id</th>
         <th>name</th>
         <th>type of File</th>
-        <th>submite date</th>
+        <th>submit date</th>
         <th>is public</th>
         <th>academic year id</th>
         <th>account id</th>
+        <th>File</th>
       </tr>
-    </thead>
-    <tbody>
-    <form action="/Contribution/Updating" method="POST">
-      <input type="hidden" name="id" th:value="${con.id}">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" th:value="${con.name}">
+      </thead>
+      <tbody>
+      <tr>
+        <td><input type="hidden" name="id" th:value="${con.id}"></td>
+        <td><input type="hidden" name="oldfile" th:value="${con.path_to_file}"></td>
+        <td><input type="text" id="name" name="name" th:value="${con.name}"></td>
+        <td><input type="text" id="description" name="description" th:value="${con.description}"></td>
+        <td><input type="text" id="submitDate" name="submitDate" th:value="${con.submitDate}"></td>
+        <td><input type="checkbox" id="isPublic" name="isPublic" th:checked="${con.public}"></td>
+        <td><input type="text" id="academicYearId" name="academicYearId" th:value="${con.academicYearId}"></td>
+        <td><input type="text" id="accountId" name="accountId" th:value="${con.accountId}"></td>
+        <td><table>
+          <tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td colspan="7">
+          <input type="submit" value="Submit">
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </form>
 
-      <label for="submitDate">Submit Date:</label>
-      <input type="text" id="submitDate" name="submitDate" th:value="${con.submitDate}">
-
-      <label for="description">Type of File:</label>
-      <input type="text" id="description" name="description" th:value="${con.description}">
-
-      <label for="isPublic">Public:</label>
-      <input type="checkbox" id="isPublic" name="isPublic" th:checked="${con.public}">
-
-      <label for="academicYearId">Academic Year ID:</label>
-      <input type="text" id="academicYearId" name="academicYearId" th:value="${con.academicYearId}">
-
-      <label for="accountId">Account ID:</label>
-      <input type="text" id="accountId" name="accountId" th:value="${con.accountId}">
-
-      <label for="path">Academic Year ID:</label><br>
-      <input type="text" id="path" name="path"><br>
-
-      <input type="submit" value="Submit">
-    </form>
-
-
-    </tbody>
-  </table>
 </body>
 </html>

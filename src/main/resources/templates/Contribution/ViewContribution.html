@@ -19,6 +19,7 @@
         <th>delte</th>
         <th>update</th>
         <th>path</th>
+        <th>Downlaod</th>
     </tr>
     </thead>
     <tbody>
@@ -31,9 +32,12 @@
     <td th:text="${fal.academicYearId}"></td>
     <td th:text="${fal.accountId}"></td>
     <td th:text="${fal.path_to_file}"/></td>
+    <td><a th:href="@{http://localhost:8090/Fi/files/__${fal.path_to_file}__}">Download</a></td>
+
     <td>
         <form action="/Contribution/Delete" method="post">
             <input type="hidden" name="id" th:value="${fal.id}">
+            <input type="hidden" name="file" th:value="${fal.path_to_file}">
             <button type="submit">Delete</button>
         </form>
     </td>

@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 public interface StorageService {
 
 	void init();
-
+	public void deleteFile(String filename);
 	void store(MultipartFile file);
 
 	Stream<Path> loadAll();
