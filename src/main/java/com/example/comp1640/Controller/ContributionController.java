@@ -57,8 +57,9 @@ public class ContributionController
     @RequestParam(value = "approve", defaultValue = "false") Boolean approve, 
     @RequestParam(value = "isPublic", defaultValue = "false") Boolean isPublic, @RequestParam("accountId") String accountId,
     @RequestParam("academicYearId") String academicYearId,
-    @RequestParam("path") String path,Model model){
-        re.UpdateContribution(id, name, description, submitDate, approve, isPublic, accountId, academicYearId,path);
+    @RequestParam("file") MultipartFile path,
+    @RequestParam("oldfile")String oldfile,Model model){
+        service.UpdateContribution(id,name,description,submitDate,approve,isPublic,accountId,academicYearId,path,oldfile);
         return "redirect:/Contribution/View";
     }
 
@@ -70,8 +71,9 @@ public class ContributionController
     }
 
     @PostMapping("/Delete")
-    public String Delete(@RequestParam("id") String id) {
+    public String Delete(@RequestParam("id") String id, @RequestParam("file") String file){
         re.DeleteContribution(id);
+        service.deletefile(file);
         return "redirect:/Contribution/View";
     }
 }
