@@ -8,15 +8,15 @@
 </head>
 <body>
   <h1>List of Faculties</h1>
-  <form th:action="@{/Contribution/Updating}" method="POST" enctype="multipart/form-data">
+  <form th:action="@{/Academic/Updating}" method="POST" enctype="multipart/form-data">
   <table>
     <thead>
       <tr>
         <th>Name</th>
         <th>ID</th>
-        <th>Group</th>
-        <th>Year</th>
-        <th>Action</th>
+        <th>AcademicYear</th>
+        <th>Start Date</th>
+        <th>End Date</th>
       </tr>
     </thead>
     <tbody>
@@ -27,6 +27,8 @@
     <td><input type="text" id="enddate" name="enddate" th:value="${AcademicYear.getendDate()}"></td>
     </tbody>
   </table>
+  <br>
+    <button type="submit">Update AcademicYear</button>
   </form>
 </body>
 </html>

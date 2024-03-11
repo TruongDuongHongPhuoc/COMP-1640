@@ -18,7 +18,7 @@ public class FeedBackController {
     public String CreateFeedback(@RequestParam("id") String id, @RequestParam("content") String content
             , @RequestParam("userid") String userid, Model model){
         re.CreateFeedBack(id,content,userid);
-        return "Admin";
+        return "redirect:/FeedBack/View";
     }
     @GetMapping("/CreateFeedback")
     public String CreatFul(){
@@ -39,7 +39,7 @@ public class FeedBackController {
         System.out.println(content);
         System.out.println(userid);
         re.UpdateFeedBack(id,content,userid);
-        return "redirect:/View";
+        return "redirect:/FeedBack/View";
     }
 
     @GetMapping("/View")
@@ -52,6 +52,6 @@ public class FeedBackController {
     @PostMapping("/Delete")
     public String Delete(@RequestParam("id") String id) {
         re.DeleteFal(id);
-        return "redirect:/View";
+        return "redirect:/FeedBack/View";
     }
 }
