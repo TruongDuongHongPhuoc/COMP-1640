@@ -37,8 +37,9 @@ public class AcademicYearController
         return "AcademicYear/CreateAcademic";
     }
 
-    @GetMapping("/Update") // Corrected mapping without the trailing slash
-    public String update(@RequestParam("id") String id, Model model) {
+    @GetMapping("/Update/{id}") // Corrected mapping without the trailing slash
+    public String update(@PathVariable("id") String id, Model model) {
+        System.out.println(id);
         AcademicYear fe = re.ReturnAcademicYear(id);
         model.addAttribute("AcademicYear", fe);
         return "AcademicYear/UpdateAcademic";
