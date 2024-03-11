@@ -19,6 +19,7 @@ import java.util.*;
 
 @Service
 public class AccountService implements UserDetailsService {
+    @Autowired
     AccountRepositoryTest accountRepositoryTest;
 
     @Autowired
