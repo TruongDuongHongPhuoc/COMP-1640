@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Console;
 import java.util.List;
 
 @RequestMapping("/Academic")
@@ -16,14 +17,21 @@ public class AcademicYearController
     @Autowired
     AcademicYearRepository re;
 
+//    @PostMapping("/Hello")
+//    public String Create(@RequestParam("id") String id, @RequestParam("name") String name,
+//    @RequestParam("yearOfAcademic") String yearOfAcademic, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate, Model model){
+//        re.CreateAcademicYear(id, name, yearOfAcademic, startDate, endDate);
+//        System.out.println("AcademicYear Controller Runed");
+//        return "redirect:/Academic/View";
+//    }
+
     @PostMapping("/Hello")
-    public String Create(@RequestParam("id") String id, @RequestParam("name") String name, 
+    public String Create(@RequestParam("id") String id, @RequestParam("name") String name,
     @RequestParam("yearOfAcademic") String yearOfAcademic, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate, Model model){
         re.CreateAcademicYear(id, name, yearOfAcademic, startDate, endDate);
         System.out.println("AcademicYear Controller Runed");
         return "redirect:/Academic/View";
     }
-    
     @GetMapping("/CreateAcademicYear") 
     public String CreateAcademicYear(){
         return "AcademicYear/CreateAcademic";

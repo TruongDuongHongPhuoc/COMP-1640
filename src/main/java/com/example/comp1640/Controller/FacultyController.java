@@ -21,7 +21,7 @@ public class FacultyController
         re.CreateFalcuty(id,name,description,year);
         return "redirect:/View";
     }
-    @GetMapping("/CreateFalcuty") 
+    @GetMapping("/CreateFalcuty")
     public String CreatFul(){
         return "Faculty/CreateFaculty";
     }
@@ -44,7 +44,7 @@ public class FacultyController
         return "redirect:/View";
     }
 
-    @GetMapping("/View")
+    @GetMapping("/view")
     public String View(Model model){
         List<Faculty> Faculties = re.ReturnFaculties();
         model.addAttribute("Fals",Faculties);
