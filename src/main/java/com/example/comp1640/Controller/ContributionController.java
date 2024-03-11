@@ -1,6 +1,7 @@
 package com.example.comp1640.Controller;
 
 import com.example.comp1640.Service.ContributionService;
+import com.example.comp1640.model.AcademicYear;
 import com.example.comp1640.model.Contribution;
 import com.example.comp1640.repository.ContributionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,13 @@ public class ContributionController
         model.addAttribute("con", fe);
         return "Contribution/UpdateContribution";
     }
+//    @GetMapping("/Update/{id}") // Corrected mapping without the trailing slash
+//    public String update(@PathVariable("id") String id, Model model) {
+//        System.out.println(id);
+//        AcademicYear fe = re.ReturnAcademicYear(id);
+//        model.addAttribute("AcademicYear", fe);
+//        return "AcademicYear/UpdateAcademic";
+//    }
     @PostMapping("/Updating")
     public String UpdatePostContribution(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("description") String description,
     @RequestParam("submitDate") String submitDate, 

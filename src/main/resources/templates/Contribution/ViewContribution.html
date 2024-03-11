@@ -42,10 +42,7 @@
         </form>
     </td>
     <td>
-        <form th:action="@{/Contribution/Update}" method="GET"> <!-- Corrected form action without the trailing slash -->
-            <input type="hidden" name="id" th:value="${fal.id}">
-            <button type="submit">Update</button>
-        </form>
+        <a th:href="@{/Contribution/Update/{id}(id = ${fal.id})} ">update</a>
     </td>
 </tr>
     </tbody>
