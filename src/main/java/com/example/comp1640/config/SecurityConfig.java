@@ -39,7 +39,7 @@ public class SecurityConfig {
                         .requestMatchers("/home").permitAll()
                         .requestMatchers("/test").permitAll()
                         .requestMatchers("/ForAdmin/**").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 ).formLogin(Customizer.withDefaults()
 //                        (form) -> form
 //                                .loginPage("/login")
@@ -50,6 +50,5 @@ public class SecurityConfig {
                 )
                 .rememberMe(Customizer.withDefaults());
         return http.build();
-    }
 
 }

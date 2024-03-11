@@ -53,7 +53,7 @@ public class AccountService implements UserDetailsService {
         if (rolse.isPresent()){
             authorities.add(new SimpleGrantedAuthority(rolse.get().getName()));
         }else {
-            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+            authorities.add(new SimpleGrantedAuthority("ROLE_GUEST"));
         }
 
         return authorities;
