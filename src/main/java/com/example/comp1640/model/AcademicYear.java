@@ -10,16 +10,17 @@ public class AcademicYear {
     @Id
     private String id;
     private String name;
-    private String courseNum;
-    private String startString;
-    private String endString;
+    private String yearOfAcademic; // courseNum -> yearOfAcademic (ví dụ dũ liệu: 2022 - 2023) Nghĩa là năm học bắt đầu và kết thúc năm nào
+    private String startDate; // startString -> startDate
+    private String endDate; // endString -> endDate
 
-    public AcademicYear(String id, String name, String courseNum, String startString, String endString) {
+    public AcademicYear(String id, String name, String yearOfAcademic, String startDate, String endDate) {
         this.id = id;
         this.name = name;
-        this.courseNum = courseNum;
-        this.startString = startString;
-        this.endString = endString;
+        this.yearOfAcademic = yearOfAcademic;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        System.out.println("AcademicYear Created");
     }
 
     public String getId() {
@@ -38,27 +39,27 @@ public class AcademicYear {
         this.name = name;
     }
 
-    public String getCourseNum() {
-        return courseNum;
+    public String getyearOfAcademic() {
+        return yearOfAcademic;
     }
 
-    public void setCourseNum(String courseNum) {
-        this.courseNum = courseNum;
+    public void setyearOfAcademic(String yearOfAcademic) {
+        this.yearOfAcademic = yearOfAcademic;
     }
 
-    public String getStartString() {
-        return startString;
+    public String getstartDate() {
+        return startDate;
     }
 
-    public void setStartString(String startString) {
-        this.startString = startString;
+    public void setstartDate(String startDate) {
+        this.startDate = startDate;
     }
 
-    public String getEndString() {
-        return endString;
+    public String getendDate() {
+        return endDate;
     }
 
-    public void setEndString(String endString) {
-        this.endString = endString;
+    public void setendDate(String endDate) {
+        this.endDate = endDate;
     }
 }

@@ -13,8 +13,9 @@
   <tr>
     <th>Name</th>
     <th>ID</th>
-    <th>Group</th>
     <th>Year</th>
+    <th>start date</th>
+    <th>end date</th>
     <th>delete</th>
     <th>update</th>
   </tr>
@@ -23,17 +24,19 @@
   <tr th:each="faculty: ${Fals}">
     <td th:text="${faculty.name}"></td>
     <td th:text="${faculty.id}"></td>
-    <td th:text="${faculty.group}"></td>
-    <td th:text="${faculty.academicYear}"></td>
+    <td th:text="${faculty.getyearOfAcademic()}"></td>
+    <td th:text="${faculty.getstartDate()}"></td>
+    <td th:text="${faculty.getendDate()}"></td>
+
     
     <td>
-      <form action="/Delete" method="post">
+      <form action="/Academic/Delete" method="post">
         <input type="hidden" name="id" th:value="${faculty.id}">
         <button type="submit">Delete</button>
       </form>
     </td>
     <td>
-      <form action="/Update" method="GET"> <!-- Corrected form action without the trailing slash -->
+      <form action="/Academic/Update" method="GET"> <!-- Corrected form action without the trailing slash -->
         <input type="hidden" name="id" th:value="${faculty.id}">
         <button type="submit">Update</button>
       </form>

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @RequestMapping("/Academic")
 @Controller
 public class AcademicYearController 
@@ -16,39 +17,42 @@ public class AcademicYearController
     AcademicYearRepository re;
 
     @PostMapping("/Hello")
-    public String CreateAcademicYear(@RequestParam("id") String id, @RequestParam("name") String name, 
-    @RequestParam("courseNum") String courseNum, @RequestParam("startString") String startString, @RequestParam("endString") String endString, Model model){
-        re.CreateAcademicYear(id, name, courseNum, startString, endString);;
-        return "ViewAcademicYear";
+    public String Create(@RequestParam("id") String id, @RequestParam("name") String name, 
+    @RequestParam("yearOfAcademic") String yearOfAcademic, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate, Model model){
+        re.CreateAcademicYear(id, name, yearOfAcademic, startDate, endDate);
+        System.out.println("AcademicYear Controller Runed");
+        return "redirect:/Academic/View";
     }
+    
     @GetMapping("/CreateAcademicYear") 
-    public String CreatFul(){
-        return "AcademicYear/CreateAcademicYear";
+    public String CreateAcademicYear(){
+        return "AcademicYear/CreateAcademic";
     }
 
     @GetMapping("/Update") // Corrected mapping without the trailing slash
     public String update(@RequestParam("id") String id, Model model) {
         AcademicYear fe = re.ReturnAcademicYear(id);
         model.addAttribute("AcademicYear", fe);
-        return "AcademicYear/UpdateAcademicYear";
+        return "AcademicYear/UpdateAcademic";
     }
+
     @PostMapping("/Updating")
     public String UpdatePostAcademicYear(@RequestParam("id") String id, @RequestParam("name") String name, 
-    @RequestParam("courseNum") String courseNum, @RequestParam("startString") String startString, @RequestParam("endString") String endString, Model model){
-        re.UpdateAcademicYear(id, name, courseNum, startString, endString);;
-        return "redirect:/View";
+    @RequestParam("yearOfAcademic") String yearOfAcademic, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate, Model model){
+        re.UpdateAcademicYear(id, name, yearOfAcademic, startDate, endDate);;
+        return "redirect:/Academic/View";
     }
 
     @GetMapping("/View")
     public String View(Model model){
         List<AcademicYear> AcademicYears = re.ReturnAcademicYears();
         model.addAttribute("Fals",AcademicYears);
-        return "AcademicYear/ViewAcademicYear";
+        return "AcademicYear/ViewAcademic";
     }
 
     @PostMapping("/Delete")
     public String Delete(@RequestParam("id") String id) {
         re.DeleteAcademicYear(id);
-        return "redirect:/View";
+        return "redirect:/Academic/View";
     }
 }

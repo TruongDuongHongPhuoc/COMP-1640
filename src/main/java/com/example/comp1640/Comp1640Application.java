@@ -15,24 +15,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-import com.example.comp1640.model.AcademicYear;
-import com.example.comp1640.repository.AcademicYearRepository;
-import com.example.comp1640.repository.ItemRepository;
-
 @SpringBootApplication
 @EnableMongoRepositories
 public class Comp1640Application implements CommandLineRunner{
-	@Autowired
-	FalcultyRepository re;
-	@Autowired
-	ItemRepository AcademicYear;
-	ItemRepository Account;
-	@Autowired
-	ContributionRepository con;
-	@Autowired
-	AcademicYearRepository AcademicYearRepo;
-	
-	List<AcademicYear> itemList = new ArrayList<AcademicYear>();
 
 	public static void main(String[] args) {
 		SpringApplication.run(Comp1640Application.class, args);
@@ -48,29 +33,29 @@ public class Comp1640Application implements CommandLineRunner{
 	public void run(String... args) {
 		
 		// Clean up any previous data
-		AcademicYear.deleteAll(); // Doesn't delete the collection
+		// AcademicYear.deleteAll(); // Doesn't delete the collection
 		
 		System.out.println("Comp1640 Application Executed");
 
 		// System.out.println("-------------CREATE ACADEMIC YEAR ITEMS-------------------------------\n");
 		
-		createGroceryItems();
+		// createGroceryItems();
 
 	}
-	void createGroceryItems() {
-		List<Contribution> List = con.ReturnContributions();
-		for(int i=0;i<List.size();i++){
-			System.out.println("//////////////Loop//////////////");
-			System.out.println(List.get(i).getId());
-			System.out.println(List.get(i).getName());//name
-			System.out.println(List.get(i).getTypeOfFile());//typeofFile
-			System.out.println(List.get(i).getSubmitDate());//submiteDate
-			System.out.println(List.get(i).getPublic());//ispublic
-			System.out.println(List.get(i).getAccountId());//accountId
-			System.out.println(List.get(i).getAcademicYearId());//academicyearId
-			System.out.println("//////////////Loop//////////////");
-		}
-	}
+	// void createGroceryItems() {
+	// 	List<Contribution> List = con.ReturnContributions();
+	// 	for(int i=0;i<List.size();i++){
+	// 		System.out.println("//////////////Loop//////////////");
+	// 		System.out.println(List.get(i).getId());
+	// 		System.out.println(List.get(i).getName());//name
+	// 		System.out.println(List.get(i).getTypeOfFile());//typeofFile
+	// 		System.out.println(List.get(i).getSubmitDate());//submiteDate
+	// 		System.out.println(List.get(i).getPublic());//ispublic
+	// 		System.out.println(List.get(i).getAccountId());//accountId
+	// 		System.out.println(List.get(i).getAcademicYearId());//academicyearId
+	// 		System.out.println("//////////////Loop//////////////");
+	// 	}
+	
 
 	// CRUD operations
 

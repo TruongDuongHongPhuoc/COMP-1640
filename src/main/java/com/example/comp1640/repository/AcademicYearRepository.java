@@ -18,16 +18,17 @@ public class AcademicYearRepository {
 
     @Autowired
     MongoTemplate mongoTemplate;
-    public void CreateAcademicYear(String id, String name, String courseNum, String startString, String endString){
-        mongoTemplate.save(new AcademicYear(id, name, courseNum, startString, endString));
+    public void CreateAcademicYear(String id, String name, String yearOfAcademic, String startDate, String endDate){
+        mongoTemplate.save(new AcademicYear(id, name, yearOfAcademic, startDate, endDate));
+        System.out.println("Academic Year Repo Run");
     }
-    public void UpdateAcademicYear(String id, String name, String courseNum, String startString, String endString) {
+    public void UpdateAcademicYear(String id, String name, String yearOfAcademic, String startDate, String endDate) {
         Query query = new Query(Criteria.where("id").is(id));
         Update update = new Update();
         update.set("name",name);
-        update.set("courseNum",courseNum);
-        update.set("startString",startString);
-        update.set("endString",endString);
+        update.set("yearOfAcademic",yearOfAcademic);
+        update.set("startDate",startDate);
+        update.set("endDate",endDate);
         UpdateResult result = mongoTemplate.updateFirst(query, update, AcademicYear.class);
 
         if(result == null)
@@ -37,7 +38,7 @@ public class AcademicYearRepository {
     }
 
     public List<AcademicYear> ReturnAcademicYears(){
-        return mongoTemplate.findAll(AcademicYear.class,"AcademicYearItem");
+        return mongoTemplate.findAll(AcademicYear.class,"AcademicYear");
     }
     public AcademicYear ReturnAcademicYear(String id)
     {

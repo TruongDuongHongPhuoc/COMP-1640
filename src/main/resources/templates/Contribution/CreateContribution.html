@@ -6,15 +6,15 @@
 </head>
 <body>
 <h1>Welcome to Admin Page</h1>
-<form action="/Contribution/Hello" method="POST">
+<form action="/Contribution/Hello" method="POST" enctype="multipart/form-data">
     <label for="id">ID:</label><br>
     <input type="text" id="id" name="id"><br>
 
     <label for="name">Name:</label><br>
     <input type="text" id="name" name="name"><br>
 
-    <label for="typeOfFile">Type of File:</label><br>
-    <input type="text" id="typeOfFile" name="typeOfFile"><br>
+    <label for="description">Type of File:</label><br>
+    <input type="text" id="description" name="description"><br>
 
     <label for="submitDate">Submit Date:</label><br>
     <input type="text" id="submitDate" name="submitDate"><br>
@@ -28,6 +28,9 @@
     <label for="academicYearId">Academic Year ID:</label><br>
     <input type="text" id="academicYearId" name="academicYearId"><br>
 
+        <table>
+            <tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
+        </table>
     <input type="submit" value="Submit">
 </form>
 

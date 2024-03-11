@@ -24,8 +24,8 @@
           <label for="name">Name:</label>
           <input type="text" id="name" name="name" th:value="${faculty.name}">
           <br>
-          <label for="group">Group:</label>
-          <input type="number" id="group" name="group" th:value="${faculty.group}">
+          <label for="description">Group:</label>
+          <input type="text" id="description" name="description" th:value="${faculty.getdescription()}">
           <br>
           <label for="Year">Year:</label>
           <input type="text" id="Year" name="Year" th:value="${faculty.academicYear}">

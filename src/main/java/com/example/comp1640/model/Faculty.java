@@ -11,13 +11,13 @@ public class Faculty {
     @Id
     private String id;
     private String name;
-    private int group;
+    private String description; // group -> description
     private String academicYear;
 
-    public Faculty(String id, String name, int group, String academicYear) {
+    public Faculty(String id, String name, String description, String academicYear) {
         this.id = id;
         this.name = name;
-        this.group = group;
+        this.description = description;
         this.academicYear = academicYear;
     }
 
@@ -37,12 +37,12 @@ public class Faculty {
         this.name = name;
     }
 
-    public int getGroup() {
-        return group;
+    public String getdescription() {
+        return description;
     }
 
-    public void setGroup(int group) {
-        this.group = group;
+    public void setdescription(String description) {
+        this.description = description;
     }
 
     public String getAcademicYear() {
