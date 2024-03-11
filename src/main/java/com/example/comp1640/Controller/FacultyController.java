@@ -19,7 +19,7 @@ public class FacultyController
     public String CreateFaculty(@RequestParam("name") String name,@RequestParam("id") String id
             ,@RequestParam("description") String description,@RequestParam("Year") String year, Model model){
         re.CreateFalcuty(id,name,description,year);
-        return "redirect:/View";
+        return "redirect:/view";
     }
     @GetMapping("/CreateFalcuty")
     public String CreatFul(){
@@ -41,7 +41,7 @@ public class FacultyController
         System.out.println(description);
         System.out.println(year);
         re.UpdateFalcuty(id,name,description,year);
-        return "redirect:/View";
+        return "redirect:/view";
     }
 
     @GetMapping("/view")
@@ -54,6 +54,6 @@ public class FacultyController
     @PostMapping("/Delete")
     public String Delete(@RequestParam("id") String id) {
         re.DeleteFal(id);
-        return "redirect:/View";
+        return "redirect:/view";
     }
 }
