@@ -40,13 +40,13 @@ public class SecurityConfig {
                         .requestMatchers("/test").permitAll()
                         .requestMatchers("/ForAdmin/**").permitAll()
                         .anyRequest().authenticated()
-                ).formLogin(
-                        (form) -> form
-                                .loginPage("/login")
-                                .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/home")
-                                .usernameParameter("email")
-                                .permitAll()
+                ).formLogin(Customizer.withDefaults()
+//                        (form) -> form
+//                                .loginPage("/login")
+//                                .loginProcessingUrl("/login")
+//                                .defaultSuccessUrl("/home")
+//                                .usernameParameter("email")
+//                                .permitAll()
                 )
                 .rememberMe(Customizer.withDefaults());
         return http.build();
