@@ -20,15 +20,15 @@
     </thead>
     <tbody>
         <form th:action="@{/Updating}" method="POST">
-<!--          <input type="hidden" name="id" th:value="${AcademicYear.id}">-->
-<!--          <label for="name">Name:</label>-->
-<!--          <input type="text" id="name" name="name" th:value="${AcademicYear.name}">-->
-<!--          <br>-->
-<!--          <label for="group">Group:</label>-->
-<!--          <input type="number" id="group" name="group" th:value="${AcademicYear.group}">-->
-<!--          <br>-->
-<!--          <label for="Year">Year:</label>-->
-<!--          <input type="text" id="Year" name="Year" th:value="${AcademicYear.academicYear}">-->
+          <input type="hidden" name="id" th:value="${faculty.id}">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" th:value="${faculty.name}">
+          <br>
+          <label for="group">Group:</label>
+          <input type="number" id="group" name="group" th:value="${faculty.group}">
+          <br>
+          <label for="Year">Year:</label>
+          <input type="text" id="Year" name="Year" th:value="${faculty.academicYear}">
           <br>
           <button type="submit">Update Faculty</button>
         </form>

@@ -23,13 +23,13 @@
     <td th:text="${role.id}"></td>
     
     <td>
-      <form action="/Delete" method="post">
+      <form th:action="@{/Delete}" method="post">
         <input type="hidden" name="id" th:value="${role.id}">
         <button type="submit">Delete</button>
       </form>
     </td>
     <td>
-      <form action="/Update" method="GET"> <!-- Corrected form action without the trailing slash -->
+      <form th:action="@{/Update}" method="GET"> <!-- Corrected form action without the trailing slash -->
         <input type="hidden" name="id" th:value="${role.id}">
         <button type="submit">Update</button>
       </form>

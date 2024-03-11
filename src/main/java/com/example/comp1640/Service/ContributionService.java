@@ -24,8 +24,11 @@ public class ContributionService {
     }
     public void CreateContribution(String id,String name,String description,String submitDate,Boolean approve,Boolean isPublic,String accountId,String academicYearId, MultipartFile file){
         storeFile(file);
+        System.out.println("File is Stored");
         String path = file.getOriginalFilename();
+        System.out.println("Get file path");
         contributionRepository.CreateContribution(id,name,description,submitDate,approve,isPublic,accountId,academicYearId,path);
+        System.out.println("Created Contribution");
     }
 
     public List<String> ReturnALlFile(){

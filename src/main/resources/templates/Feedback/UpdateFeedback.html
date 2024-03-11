@@ -17,7 +17,7 @@
       </tr>
     </thead>
     <tbody>
-        <form action="/FeedBack/Updating" method="POST">
+        <form th:action="@{/FeedBack/Updating}" method="POST">
           <input type="hidden" name="id" th:value="${Feedback.id}">
           <label for="content">id:</label>
           <input type="text" id="content" name="content" th:value="${Feedback.content}">

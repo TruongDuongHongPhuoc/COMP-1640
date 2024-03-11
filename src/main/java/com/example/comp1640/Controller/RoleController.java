@@ -27,8 +27,8 @@ public class RoleController
         return "Role/CreateRole";
     }
 
-    @GetMapping("/Update") // Corrected mapping without the trailing slash
-    public String update(@RequestParam("id") String id, Model model) {
+    @GetMapping("/Update/{id}") // Corrected mapping without the trailing slash
+    public String update(@PathVariable String id, Model model) {
 //        System.out.println(id);
         Role fe = re.ReturnRole(id);
         model.addAttribute("Role", fe);

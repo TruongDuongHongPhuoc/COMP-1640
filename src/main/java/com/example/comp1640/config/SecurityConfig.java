@@ -50,5 +50,6 @@ public class SecurityConfig {
                 )
                 .rememberMe(Customizer.withDefaults());
         return http.build();
-    }
+
+}
 }

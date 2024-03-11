@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Welcome to Admin Page</h1>
-<form action="/FeedBack/Create" method="post">
+<form th:action="@{/FeedBack/Create}" method="post">
     <label for="id">ID:</label><br>
     <input type="text" id="id" name="id"><br>
     <label for="content">Group:</label><br>

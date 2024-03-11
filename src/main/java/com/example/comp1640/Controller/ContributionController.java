@@ -6,10 +6,7 @@ import com.example.comp1640.repository.ContributionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -33,6 +30,7 @@ public class ContributionController
                          @RequestParam(value = "isPublic", defaultValue = "false") Boolean isPublic, @RequestParam("accountId") String accountId,
                          @RequestParam("academicYearId") String academicYearId,
                          @RequestParam("file")MultipartFile file, Model model){
+        System.out.println("Post Run");
         service.CreateContribution(id,name,description,submitDate,approve,isPublic,accountId,academicYearId,file);
         System.out.println("Service Run");
 
@@ -45,8 +43,8 @@ public class ContributionController
         return "redirect:/Contribution/View";
     }
 
-    @GetMapping("/Update") // Corrected mapping without the trailing slash
-    public String updateContribution(@RequestParam("id") String id, Model model) {
+    @GetMapping("/Update/{id}") // Corrected mapping without the trailing slash
+    public String updateContribution(@PathVariable String id, Model model) {
         Contribution fe = re.ReturnContribution(id);
         model.addAttribute("con", fe);
         return "Contribution/UpdateContribution";

@@ -35,14 +35,14 @@
     <td><a th:href="@{http://localhost:8090/Fi/files/__${fal.path_to_file}__}">Download</a></td>
 
     <td>
-        <form action="/Contribution/Delete" method="post">
+        <form th:action="@{/Contribution/Delete}" method="post">
             <input type="hidden" name="id" th:value="${fal.id}">
             <input type="hidden" name="file" th:value="${fal.path_to_file}">
             <button type="submit">Delete</button>
         </form>
     </td>
     <td>
-        <form action="/Contribution/Update" method="GET"> <!-- Corrected form action without the trailing slash -->
+        <form th:action="@{/Contribution/Update}" method="GET"> <!-- Corrected form action without the trailing slash -->
             <input type="hidden" name="id" th:value="${fal.id}">
             <button type="submit">Update</button>
         </form>

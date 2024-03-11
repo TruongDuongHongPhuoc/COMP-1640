@@ -5,10 +5,7 @@ import com.example.comp1640.repository.FeedbackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @Controller
@@ -28,8 +25,8 @@ public class FeedBackController {
         return "Feedback/CreateFeedback";
     }
 
-    @GetMapping("/Update") // Corrected mapping without the trailing slash
-    public String update(@RequestParam("id") String id, Model model) {
+    @GetMapping("/Update/{id}") // Corrected mapping without the trailing slash
+    public String update(@PathVariable String id, Model model) {
 //        System.out.println(id);
         Feedback fe = re.ReturnFeedback(id);
         model.addAttribute("Feedback", fe);

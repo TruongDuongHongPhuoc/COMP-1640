@@ -23,7 +23,7 @@
     <td th:text="${feedback.userId}"></td>
     
     <td>
-      <form action="/FeedBack/Delete" method="post">
+      <form th:action="@{/FeedBack/Delete}" method="post">
         <input type="hidden" name="id" th:value="${feedback.id}">
         <button type="submit">Delete</button>
       </form>
