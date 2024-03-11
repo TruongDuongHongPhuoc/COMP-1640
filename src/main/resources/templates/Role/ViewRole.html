@@ -23,7 +23,7 @@
     <td th:text="${role.id}"></td>
     
     <td>
-      <form th:action="@{/Delete}" method="post">
+      <form th:action="@{Role/Delete}" method="post">
         <input type="hidden" name="id" th:value="${role.id}">
         <button type="submit">Delete</button>
       </form>
