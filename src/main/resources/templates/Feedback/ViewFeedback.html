@@ -1,12 +1,12 @@
 <!-- ViewFalcutlty.html -->
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>View Faculties</title>
-</head>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="Layout/_Admin">
+
 <body>
+
+<div layout:fragment="content">
 <h1>List of Faculties</h1>
 <table>
   <thead>
@@ -38,5 +38,6 @@
   </tr>
   </tbody>
 </table>
+</div>
 </body>
 </html>

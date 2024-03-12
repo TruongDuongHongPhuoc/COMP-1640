@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="Layout/_Admin">
+
 <body>
+
+<div layout:fragment="content">
 <h1>Welcome to Admin Page</h1>
 <form th:action="@{/Contribution/Hello}" method="POST" enctype="multipart/form-data">
     <label for="id">ID:</label><br>
@@ -33,6 +34,6 @@
         </table>
     <input type="submit" value="Submit">
 </form>
-
+</div>
 </body>
 </html>

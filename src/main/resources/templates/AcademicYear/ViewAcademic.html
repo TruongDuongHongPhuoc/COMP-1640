@@ -1,12 +1,10 @@
 <!-- ViewFalcutlty.html -->
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>View Faculties</title>
-</head>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="Layout/_Admin">
 <body>
+<div layout:fragment="content">
 <h1>List of Faculties</h1>
 <table>
   <thead>
@@ -21,28 +19,25 @@
   </tr>
   </thead>
   <tbody>
-  <tr th:each="faculty: ${Fals}">
-    <td th:text="${faculty.name}"></td>
-    <td th:text="${faculty.id}"></td>
-    <td th:text="${faculty.getyearOfAcademic()}"></td>
-    <td th:text="${faculty.getstartDate()}"></td>
-    <td th:text="${faculty.getendDate()}"></td>
+  <tr th:each="AcademicYear: ${Fals}">
+    <td th:text="${AcademicYear.name}"></td>
+    <td th:text="${AcademicYear.id}"></td>
+    <td th:text="${AcademicYear.getyearOfAcademicYear()}"></td>
+    <td th:text="${AcademicYear.getstartDate()}"></td>
+    <td th:text="${AcademicYear.getendDate()}"></td>
 
     <td>
-      <form th:action="@{/Academic/Delete}" method="post">
-        <input type="hidden" name="id" th:value="${faculty.id}">
+      <form th:action="@{/AcademicYear/Delete}" method="post">
+        <input type="hidden" name="id" th:value="${AcademicYear.id}">
         <button type="submit">Delete</button>
       </form>
     </td>
     <td>
-<!--      <form th:action="@{/Academic/Update}" method="GET"> &lt;!&ndash; Corrected form action without the trailing slash &ndash;&gt;-->
-<!--        <input type="hidden" name="id" th:value="${.id}">-->
-<!--        <button type="submit">Update</button>-->
-<!--      </form>-->
-      <a th:href="@{/Academic/Update/{id}(id = ${faculty.id})} ">update</a>
+      <a th:href="@{/AcademicYear/Update/{id}(id = ${AcademicYear.id})} ">update</a>
     </td>
   </tr>
   </tbody>
 </table>
+</div>
 </body>
 </html>
