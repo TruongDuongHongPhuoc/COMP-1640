@@ -7,37 +7,62 @@
 <body>
 
 <div layout:fragment="content">
-<h1>List of Faculties</h1>
-<table>
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>UserID</th>
-    <th>Content</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="feedback: ${Fals}">
-    <td th:text="${feedback.id}"></td>
-    <td th:text="${feedback.content}"></td>
-    <td th:text="${feedback.userId}"></td>
-    
-    <td>
-      <form th:action="@{/FeedBack/Delete}" method="post">
-        <input type="hidden" name="id" th:value="${feedback.id}">
-        <button type="submit">Delete</button>
-      </form>
-    </td>
-    <td>
-<!--      <form action="/FeedBack/Update" method="GET"> &lt;!&ndash; Corrected form action without the trailing slash &ndash;&gt;-->
-<!--        <input type="hidden" name="id" th:value="${feedback.id}">-->
-<!--        <button type="submit">Update</button>-->
-<!--      </form>-->
-      <a th:href="@{/FeedBack/Update/{id}(id = ${feedback.id})} ">update</a>
-    </td>
-  </tr>
-  </tbody>
-</table>
+  <h1>Table</h1>
+  <div id="layoutSidenav_content">
+    <main>
+      <div class="container-fluid px-4">
+        <div class="card mb-4">
+          <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            DataTable Example
+          </div>
+          <div class="card-body">
+            <table id="datatablesSimple">
+              <thead>
+              <tr>
+                <th>ID</th>
+                <th>UserID</th>
+                <th>Content</th>
+                <th>Delete</th>
+                <th>Update</th>
+              </tr>
+              </thead>
+              <tfoot>
+              <tr>
+                <th>ID</th>
+                <th>UserID</th>
+                <th>Content</th>
+                <th>Delete</th>
+                <th>Update</th>
+              </tr>
+              </tfoot>
+              <tbody>
+              <tr th:each="feedback: ${Fals}">
+                <td th:text="${feedback.id}"></td>
+                <td th:text="${feedback.content}"></td>
+                <td th:text="${feedback.userId}"></td>
+
+                <td>
+                  <form th:action="@{/FeedBack/Delete}" method="post">
+                    <input type="hidden" name="id" th:value="${feedback.id}">
+                    <button type="submit">Delete</button>
+                  </form>
+                </td>
+                <td>
+                  <!--      <form action="/FeedBack/Update" method="GET"> &lt;!&ndash; Corrected form action without the trailing slash &ndash;&gt;-->
+                  <!--        <input type="hidden" name="id" th:value="${feedback.id}">-->
+                  <!--        <button type="submit">Update</button>-->
+                  <!--      </form>-->
+                  <a th:href="@{/FeedBack/Update/{id}(id = ${feedback.id})} ">update</a>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
 </div>
 </body>
 </html>

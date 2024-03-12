@@ -7,37 +7,61 @@
 <body>
 
 <div layout:fragment="content">
-<h1>List of Faculties</h1>
-<table>
-  <thead>
-  <tr>
-    <th>Name</th>
-    <th>ID</th>
-    <th>Year</th>
-    <th>description</th>
-    <th>delete</th>
-    <th>update</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="faculty: ${Fals}">
-    <td th:text="${faculty.name}"></td>
-    <td th:text="${faculty.id}"></td>
-    <td th:text="${faculty.getdescription()}"></td>
-    <td th:text="${faculty.academicYear}"></td>
-    
-    <td>
-      <form th:action="@{/Delete}" method="post">
-        <input type="hidden" name="id" th:value="${faculty.id}">
-        <button type="submit">Delete</button>
-      </form>
-    </td>
-    <td>
-      <a th:href="@{/Update/{id}(id = ${faculty.id})} ">update</a>
-    </td>
-  </tr>
-  </tbody>
-</table>
+  <h1>Table</h1>
+  <div id="layoutSidenav_content">
+    <main>
+      <div class="container-fluid px-4">
+        <div class="card mb-4">
+          <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            DataTable Example
+          </div>
+          <div class="card-body">
+            <table id="datatablesSimple">
+              <thead>
+              <tr>
+                <th>Name</th>
+                <th>ID</th>
+                <th>Year</th>
+                <th>description</th>
+                <th>delete</th>
+                <th>update</th>
+              </tr>
+              </thead>
+              <tfoot>
+              <tr>
+                <th>Name</th>
+                <th>ID</th>
+                <th>Year</th>
+                <th>description</th>
+                <th>delete</th>
+                <th>update</th>
+              </tr>
+              </tfoot>
+              <tbody>
+              <tr th:each="faculty: ${Fals}">
+                <td th:text="${faculty.name}"></td>
+                <td th:text="${faculty.id}"></td>
+                <td th:text="${faculty.getdescription()}"></td>
+                <td th:text="${faculty.academicYear}"></td>
+
+                <td>
+                  <form th:action="@{/Delete}" method="post">
+                    <input type="hidden" name="id" th:value="${faculty.id}">
+                    <button type="submit">Delete</button>
+                  </form>
+                </td>
+                <td>
+                  <a th:href="@{/Update/{id}(id = ${faculty.id})} ">update</a>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
 </div>
 </body>
 </html>

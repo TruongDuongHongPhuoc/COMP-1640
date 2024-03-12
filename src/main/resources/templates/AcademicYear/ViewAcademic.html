@@ -6,38 +6,78 @@
 <body>
 <div layout:fragment="content">
 <h1>List of Faculties</h1>
-<table>
-  <thead>
-  <tr>
-    <th>Name</th>
-    <th>ID</th>
-    <th>Year</th>
-    <th>start date</th>
-    <th>end date</th>
-    <th>delete</th>
-    <th>update</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="AcademicYear: ${Fals}">
-    <td th:text="${AcademicYear.name}"></td>
-    <td th:text="${AcademicYear.id}"></td>
-    <td th:text="${AcademicYear.getyearOfAcademicYear()}"></td>
-    <td th:text="${AcademicYear.getstartDate()}"></td>
-    <td th:text="${AcademicYear.getendDate()}"></td>
+<!--  <h1>Table </h1>-->
+  <div id="layoutSidenav_content">
+    <main>
+      <div class="container-fluid px-4">
+        <div class="card mb-4">
+          <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            DataTable Example
+          </div>
+          <div class="card-body">
+            <table id="datatablesSimple">
+              <thead>
+              <tr>
+                <th>id</th>
+                <th>Name</th>
+                <th>Year </th>
+                <th>start Date</th>
+                <th>End date</th>
+                <th>Delete</th>
+                <th>Update</th>
+              </tr>
+              </thead>
+              <tfoot>
+              <tr>
+                <th>id</th>
+                <th>Name</th>
+                <th>Year </th>
+                <th>start Date</th>
+                <th>End date</th>
+                <th>Delete</th>
+                <th>Update</th>
+              </tr>
+              </tfoot>
+              <tbody>
+              <tr th:each="AcademicYear: ${Fals}">
+                <td th:text="${AcademicYear.name}"></td>
+                <td th:text="${AcademicYear.id}"></td>
+                <td th:text="${AcademicYear.getyearOfAcademic()}"></td>
+                <td th:text="${AcademicYear.getstartDate()}"></td>
+                <td th:text="${AcademicYear.getendDate()}"></td>
 
-    <td>
-      <form th:action="@{/AcademicYear/Delete}" method="post">
-        <input type="hidden" name="id" th:value="${AcademicYear.id}">
-        <button type="submit">Delete</button>
-      </form>
-    </td>
-    <td>
-      <a th:href="@{/AcademicYear/Update/{id}(id = ${AcademicYear.id})} ">update</a>
-    </td>
-  </tr>
-  </tbody>
-</table>
+                <td>
+                  <form th:action="@{/AcademicYear/Delete}" method="post">
+                    <input type="hidden" name="id" th:value="${AcademicYear.id}">
+                    <button type="submit">Delete</button>
+                  </form>
+                </td>
+                <td>
+                  <a th:href="@{/AcademicYear/Update/{id}(id = ${AcademicYear.id})} ">update</a>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
 </div>
 </body>
+<style>
+  container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Adjust this value to center vertically on the page */
+  }
+
+  table {
+    width: 100%;
+    /* Add other styling properties for your table here */
+  }
+</style>
 </html>
