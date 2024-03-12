@@ -18,6 +18,7 @@
     min-height: 100vh;
     position: relative;
   }
+
   footer {
     background-color: #333;
     color: white;
@@ -27,9 +28,16 @@
     bottom: 0;
     width: 100%;
   }
-  content {
-    /* Add margin to push content above the footer */
-    margin-bottom: 60px; /* Height of the footer */
+
+  #content-wrapper {
+    flex: 1; /* Use flex to allow content to push footer down */
+    padding-left: 250px; /* Width of the sidebar */
+    transition: all 0.3s; /* Add transition for smooth animation */
+  }
+
+  /* Adjust content padding when the sidebar is collapsed */
+  #layoutSidenav.sb-sidenav-toggled #content-wrapper {
+    padding-left: 50px; /* Adjusted width when sidebar is collapsed */
   }
 </style>
 <body class="sb-nav-fixed">
@@ -37,7 +45,7 @@
   <!-- Navbar Brand-->
   <a class="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
   <!-- Sidebar Toggle-->
-  <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+<!--  <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>-->
   <!-- Navbar Search-->
   <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
     <div class="input-group">
@@ -74,12 +82,12 @@
             Layouts
             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
           </a>
-          <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-            <nav class="sb-sidenav-menu-nested nav">
-              <a class="nav-link" href="layout-static.html">Static Navigation</a>
-              <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
-            </nav>
-          </div>
+<!--          <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">-->
+<!--            <nav class="sb-sidenav-menu-nested nav">-->
+<!--              <a class="nav-link" href="layout-static.html">Static Navigation</a>-->
+<!--              <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>-->
+<!--            </nav>-->
+<!--          </div>-->
           <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
             <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
             Pages
@@ -172,7 +180,7 @@
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
+          <span aria-hidden="False">×</span>
         </button>
       </div>
       <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>

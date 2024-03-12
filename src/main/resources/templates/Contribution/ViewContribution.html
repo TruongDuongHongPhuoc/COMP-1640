@@ -2,53 +2,83 @@
 <html lang="en"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="Layout/_Admin">
-
 <body>
-
 <div layout:fragment="content">
-<h1>List of Contribution</h1>
-<table>
-    <thead>
-    <tr>
-        <th>id</th>
-        <th>name</th>
-        <th>Description</th>
-        <th>submitedate</th>
-        <th>ispublic</th>
-        <th>academicyear</th>
-        <th>accountid</th>
-        <th>delte</th>
-        <th>update</th>
-        <th>path</th>
-        <th>Downlaod</th>
-    </tr>
-    </thead>
-    <tbody>
-<tr th:each="fal:${cons}">
-    <td th:text="${fal.id}"></td>
-    <td th:text="${fal.name}"></td>
-    <td th:text="${fal.description}"></td>
-    <td th:text="${fal.submitDate}"></td>
-    <td th:text="${fal.public}"></td>
-    <td th:text="${fal.academicYearId}"></td>
-    <td th:text="${fal.accountId}"></td>
-    <td th:text="${fal.path_to_file}"/></td>
-    <td><a th:href="@{http://localhost:8090/Fi/files/__${fal.path_to_file}__}">Download</a></td>
+    <h1>Table</h1>
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        DataTable Example
+                    </div>
+                    <div class="card-body">
+                        <table id="datatablesSimple">
+                            <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>name</th>
+                                <th>Description</th>
+                                <th>submitedate</th>
+                                <th>ispublic</th>
+                                <th>academicyear</th>
+                                <th>accountid</th>
+                                <th>facultyid</th>
+                                <th>delte</th>
+                                <th>update</th>
+                                <th>path</th>
+                                <th>Downlaod</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>id</th>
+                                <th>name</th>
+                                <th>Description</th>
+                                <th>submitedate</th>
+                                <th>ispublic</th>
+                                <th>academicyear</th>
+                                <th>accountid</th>
+                                <th>facultyid</th>
+                                <th>delte</th>
+                                <th>Download</th>
+                                <th>Delete</th>
+                                <th>Update</th>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            <tr th:each="fal:${cons}">
+                                <td th:text="${fal.id}"></td>
+                                <td th:text="${fal.name}"></td>
+                                <td th:text="${fal.description}"></td>
+                                <td th:text="${fal.submitDate}"></td>
+                                <td th:text="${fal.isPublic}"></td>
+                                <td th:text="${fal.academicYearId}"></td>
+                                <td th:text="${fal.accountId}"></td>
+                                <td th:text="${fal.facultyId}"></td>
+                                <td th:text="${fal.path}"/></td>
+                                <td><a th:href="@{http://localhost:8090/Fi/files/__${fal.path}__}">Download</a></td>
 
-    <td>
-        <form th:action="@{/Contribution/Delete}" method="post">
-            <input type="hidden" name="id" th:value="${fal.id}">
-            <input type="hidden" name="file" th:value="${fal.path_to_file}">
-            <button type="submit">Delete</button>
-        </form>
-    </td>
-    <td>
-        <a th:href="@{/Contribution/Update/{id}(id = ${fal.id})} ">update</a>
-    </td>
-</tr>
-    </tbody>
+                                <td>
+                                    <form th:action="@{/Contribution/Delete}" method="post">
+                                        <input type="hidden" name="id" th:value="${fal.id}">
+                                        <input type="hidden" name="file" th:value="${fal.path}">
+                                        <button type="submit">Delete</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <a th:href="@{/Contribution/Update/{id}(id = ${fal.id})} ">update</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
 
-</table>
 </div>
 </body>
 </html>
