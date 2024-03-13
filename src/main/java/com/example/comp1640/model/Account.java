@@ -1,14 +1,21 @@
 package com.example.comp1640.model;
 
+import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.Date;
 
 @Getter
 @Setter
+@Data
+@Builder
 @Document("AccountItem")
 public class Account {
     @Id
@@ -35,5 +42,6 @@ public class Account {
         this.roleId = roleId;
         this.facultyId = facultyId;
     }
+
 }
 

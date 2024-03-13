@@ -16,7 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+    public static BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -37,16 +37,17 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/home").permitAll()
-                        .requestMatchers("/test").permitAll()
-                        .requestMatchers("/ForAdmin/**").permitAll()
-                        .anyRequest().permitAll()
-                ).formLogin(Customizer.withDefaults()
-//                        (form) -> form
-//                                .loginPage("/login")
-//                                .loginProcessingUrl("/login")
-//                                .defaultSuccessUrl("/home")
-//                                .usernameParameter("email")
-//                                .permitAll()
+                        .requestMatchers("/res").permitAll()
+                        .requestMatchers("/forHomepage/**").permitAll()
+                        .requestMatchers("/adminTemplate/**").permitAll()
+                        .anyRequest().authenticated()
+                ).formLogin(
+                        (form) -> form
+                                .loginPage("/login")
+                                .loginProcessingUrl("/login")
+                                .defaultSuccessUrl("/home")
+                                .usernameParameter("email")
+                                .permitAll()
                 )
                 .rememberMe(Customizer.withDefaults());
         return http.build();
