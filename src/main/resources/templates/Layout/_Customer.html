@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
+    <title th:fragment="title">Title</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -50,11 +51,13 @@
         </div>
     </div>
 </nav>
-
-
+<h1 style="color: white; background-color: white">xxxx</h1>
+<div layout:fragment="content">
+<h1>Content</h1>
+</div>
 
 <!-- Contact -->
-<section id="contact" class="tm-section-pad-top tm-parallax-2" style="position: fixed; bottom: 0; width: 100%;">
+<section id="contact" class="tm-section-pad-top tm-parallax-2" style="position: -ms-device-fixed; bottom: 0; width: 100%;">
 
 
     <div class="container tm-container-contact">
