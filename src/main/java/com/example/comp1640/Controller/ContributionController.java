@@ -1,8 +1,15 @@
 package com.example.comp1640.Controller;
 
 import com.example.comp1640.Service.ContributionService;
+import com.example.comp1640.model.AcademicYear;
+import com.example.comp1640.model.Account;
 import com.example.comp1640.model.Contribution;
+import com.example.comp1640.model.Faculty;
+import com.example.comp1640.repository.AcademicYearRepository;
+import com.example.comp1640.repository.AccountRepository;
 import com.example.comp1640.repository.ContributionRepository;
+import com.example.comp1640.repository.FalcultyRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,10 +24,25 @@ public class ContributionController
 {
     @Autowired
     ContributionRepository re;
+
+    @Autowired
+    AccountRepository accountRepo;
+
+    @Autowired
+    FalcultyRepository facultyRepo;
+
+    @Autowired
+    AcademicYearRepository acaRepo;
+
     @Autowired
     ContributionService service;
+
     @GetMapping("/CreateContribution") // Corrected mapping without the trailing slash
-    public String create() {
+    public String create(Model model) {
+        List<AcademicYear> academicYears = acaRepo.ReturnAcademicYears();
+        List<Faculty> faculties = facultyRepo.ReturnFaculties();
+        model.addAttribute("acaYear", academicYears);
+        model.addAttribute("fal", faculties);
         return "Contribution/CreateContribution";
     }
     @PostMapping("/Hello")

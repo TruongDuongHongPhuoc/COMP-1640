@@ -18,8 +18,8 @@ public class FalcultyRepository {
 
     @Autowired
     MongoTemplate mongoTemplate;
-    public void CreateFalcuty(String id, String name, String description, String academicYear){
-        mongoTemplate.save(new Faculty( id,name,description,academicYear));
+    public void CreateFalcuty(String id, String name, String description, String Year){
+        mongoTemplate.save(new Faculty( id,name,description,Year));
     }
     public void UpdateFalcuty(String id, String name, String description, String academicYear) {
         Query query = new Query(Criteria.where("id").is(id));

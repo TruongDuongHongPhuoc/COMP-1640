@@ -22,7 +22,7 @@ public class FacultyController
 
     @PostMapping("/Hello")
     public String CreateFaculty(@RequestParam("name") String name,@RequestParam("id") String id
-            ,@RequestParam("description") String description,@RequestParam("academicYearID") String academicYear, Model model){
+            ,@RequestParam("description") String description,@RequestParam("academicYear") String academicYear, Model model){
         re.CreateFalcuty(id, name, description, academicYear);
         return "redirect:/view";
     }
@@ -42,14 +42,11 @@ public class FacultyController
         model.addAttribute("faculty", fe);
         return "Faculty/UpdateFaculty";
     }
+
     @PostMapping("/Updating")
     public String UpdatePostFaculty(@RequestParam("name") String name,@RequestParam("id") String id
-            ,@RequestParam("description") String description,@RequestParam("Year") String year, Model model){
-        System.out.println(name);
-        System.out.println(id);
-        System.out.println(description);
-        System.out.println(year);
-        re.UpdateFalcuty(id,name,description,year);
+    ,@RequestParam("description") String description,@RequestParam("academicYear") String academicYear, Model model){
+        re.UpdateFalcuty(id,name,description,academicYear);
         return "redirect:/view";
     }
 

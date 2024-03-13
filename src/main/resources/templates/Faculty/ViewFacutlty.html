@@ -22,8 +22,8 @@
               <tr>
                 <th>Name</th>
                 <th>ID</th>
-                <th>Year</th>
-                <th>description</th>
+                <th>Academic Year ID</th>
+                <th>Description</th>
                 <th>delete</th>
                 <th>update</th>
               </tr>
@@ -32,8 +32,8 @@
               <tr>
                 <th>Name</th>
                 <th>ID</th>
-                <th>Year</th>
-                <th>description</th>
+                <th>Academic Year ID</th>
+                <th>Description</th>
                 <th>delete</th>
                 <th>update</th>
               </tr>
@@ -42,8 +42,8 @@
               <tr th:each="faculty: ${Fals}">
                 <td th:text="${faculty.name}"></td>
                 <td th:text="${faculty.id}"></td>
-                <td th:text="${faculty.getdescription()}"></td>
                 <td th:text="${faculty.academicYear}"></td>
+                <td th:text="${faculty.getdescription()}"></td>
 
                 <td>
                   <form th:action="@{/Delete}" method="post">

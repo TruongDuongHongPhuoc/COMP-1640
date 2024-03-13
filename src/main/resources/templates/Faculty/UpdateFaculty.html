@@ -27,8 +27,8 @@
           <label for="description">Group:</label>
           <input type="text" id="description" name="description" th:value="${faculty.getdescription()}">
           <br>
-          <label for="Year">Year:</label>
-          <input type="text" id="Year" name="Year" th:value="${faculty.academicYear}">
+          <label for="academicYear">Academic Year ID: </label>
+          <input type="text" id="academicYear" name="academicYear" th:value="${faculty.academicYear}" readonly>
           <br>
           <button type="submit">Update Faculty</button>
         </form>

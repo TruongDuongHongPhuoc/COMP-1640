@@ -6,7 +6,7 @@
 <body>
 
 <div layout:fragment="content">
-<h1>Welcome to Admin Page</h1>
+<h1>Welcome to Create Faculty Page</h1>
 <form th:action="@{/Hello}" method="post">
     <label for="name">Name:</label><br>
     <input type="text" id="name" name="name"><br>
@@ -23,7 +23,7 @@
     <label for="academicYear">Academic Year ID:</label><br>
     <tr th:each="aca: ${aca1}">
         <select id="academicYear" name="academicYear" >
-            <option> <a th:text="${aca.name}"></a> </option>
+            <option> <a th:text="${aca.id}"></a> </option>
         </select><br><br>
     </tr>
     
