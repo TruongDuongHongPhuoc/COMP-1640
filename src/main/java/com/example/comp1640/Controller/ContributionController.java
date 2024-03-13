@@ -42,7 +42,7 @@ public class ContributionController
         List<AcademicYear> academicYears = acaRepo.ReturnAcademicYears();
         List<Faculty> faculties = facultyRepo.ReturnFaculties();
         model.addAttribute("acaYear", academicYears);
-        model.addAttribute("fal", faculties);
+        model.addAttribute("fals", faculties);
         return "Contribution/CreateContribution";
     }
     @PostMapping("/Hello")
