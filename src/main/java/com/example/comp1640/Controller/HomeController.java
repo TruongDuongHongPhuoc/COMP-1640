@@ -22,6 +22,10 @@ public class HomeController {
     public String home(){
         return "HomePage";
     }
+        @GetMapping("/layout")
+    public String layout(){
+        return "/Layout/_Customer";
+    }
 
     @GetMapping("/test")
     @ResponseBody
