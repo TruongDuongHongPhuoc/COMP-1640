@@ -20,7 +20,11 @@ public class HomeController {
 
     @GetMapping("/home")
     public String home(){
-        return "Admin";
+        return "HomePage";
+    }
+        @GetMapping("/layout")
+    public String layout(){
+        return "/Layout/_Customer";
     }
 
     @GetMapping("/test")

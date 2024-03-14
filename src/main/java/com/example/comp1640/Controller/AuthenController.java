@@ -1,15 +1,16 @@
 package com.example.comp1640.Controller;
 
-import com.example.comp1640.Service.AccountService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class AuthenController {
-//    @GetMapping("/login")
-//    public String login(){
-//        return "Login";
-//    }
+    @GetMapping("/login")
+    public String Login(){
+        return "Login";
+    }
 }
