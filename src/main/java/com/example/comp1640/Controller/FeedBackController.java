@@ -16,10 +16,11 @@ public class FeedBackController {
 
     @PostMapping("/Create")
     public String CreateFeedback(@RequestParam("id") String id, @RequestParam("content") String content
-            , @RequestParam("userid") String userid, Model model){
-        re.CreateFeedBack(id,content,userid);
+            , @RequestParam("userid") String userid, @RequestParam("contributionId") String contributionId, Model model){
+        re.CreateFeedBack(id, content, userid, contributionId);;
         return "redirect:/FeedBack/View";
     }
+    
     @GetMapping("/CreateFeedback")
     public String CreatFul(){
         return "Feedback/CreateFeedback";
@@ -33,19 +34,16 @@ public class FeedBackController {
         return "Feedback/UpdateFeedback";
     }
     @PostMapping("/Updating")
-    public String UpdatePostFeedback(@RequestParam("id") String id,@RequestParam("content") String content
-            ,@RequestParam("userid") String  userid, Model model){
-        System.out.println(id);
-        System.out.println(content);
-        System.out.println(userid);
-        re.UpdateFeedBack(id,content,userid);
+    public String UpdatePostFeedback(@RequestParam("id") String id, @RequestParam("content") String content
+    , @RequestParam("userid") String userid, @RequestParam("contributionId") String contributionId, Model model){
+        re.UpdateFeedBack(id, content, userid, contributionId);;
         return "redirect:/FeedBack/View";
     }
 
     @GetMapping("/View")
     public String View(Model model){
-        List<Feedback> Faculties = re.ReturnFeedBacks();
-        model.addAttribute("Fals",Faculties);
+        List<Feedback> feedbacks = re.ReturnFeedBacks();
+        model.addAttribute("Fals",feedbacks);
         return "Feedback/ViewFeedback";
     }
 

@@ -7,6 +7,7 @@ import com.example.comp1640.model.Contribution;
 import com.example.comp1640.model.Faculty;
 import com.example.comp1640.repository.AcademicYearRepository;
 import com.example.comp1640.repository.AccountRepository;
+import com.example.comp1640.repository.AccountRepositoryTest;
 import com.example.comp1640.repository.ContributionRepository;
 import com.example.comp1640.repository.FalcultyRepository;
 
@@ -26,7 +27,7 @@ public class ContributionController
     ContributionRepository re;
 
     @Autowired
-    AccountRepository accountRepo;
+    AccountRepositoryTest accountRepo;
 
     @Autowired
     FalcultyRepository facultyRepo;
@@ -41,8 +42,10 @@ public class ContributionController
     public String create(Model model) {
         List<AcademicYear> academicYears = acaRepo.ReturnAcademicYears();
         List<Faculty> faculties = facultyRepo.ReturnFaculties();
+        List<Account> accounts = accountRepo.findAll();
         model.addAttribute("acaYear", academicYears);
         model.addAttribute("fals", faculties);
+        model.addAttribute("accounts", accounts);
         return "Contribution/CreateContribution";
     }
     @PostMapping("/Hello")

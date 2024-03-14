@@ -17,14 +17,13 @@ public class FeedbackRepository {
 
     @Autowired
     MongoTemplate mongoTemplate;
-    public void CreateFeedBack(String id, String content, String userId){
-        mongoTemplate.save(new Feedback( id,content,userId));
+    public void CreateFeedBack(String id, String content, String userId, String contributionId){
+        mongoTemplate.save(new Feedback(id, content, userId, contributionId));
     }
-    public void UpdateFeedBack(String id, String content, String userId) {
+    public void UpdateFeedBack(String id, String content, String userId, String contributionId) {
         Query query = new Query(Criteria.where("id").is(id));
         Update update = new Update();
         update.set("content",content);
-        update.set("userId", userId);
         UpdateResult result = mongoTemplate.updateFirst(query, update, Feedback.class);
 
         if(result == null)
