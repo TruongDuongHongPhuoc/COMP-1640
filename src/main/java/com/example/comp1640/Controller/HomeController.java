@@ -1,9 +1,15 @@
 package com.example.comp1640.Controller;
 
+
+import com.example.comp1640.model.Contribution;
 import com.example.comp1640.model.Customer;
+import com.example.comp1640.repository.ContributionRepository;
 import com.example.comp1640.repository.FalcultyRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +23,8 @@ public class HomeController {
     );
     FalcultyRepository falcultyRepository;
 
-
+    @Autowired
+    ContributionRepository re;
     @GetMapping("/home")
     public String home(){
         return "HomePage";
@@ -26,6 +33,7 @@ public class HomeController {
     public String layout(){
         return "/Layout/_Customer";
     }
+
 
     @GetMapping("/test")
     @ResponseBody
