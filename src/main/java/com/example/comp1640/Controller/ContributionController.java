@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 @RequestMapping("/Contribution")
@@ -88,12 +91,13 @@ public class ContributionController
     public String UpdatePostContribution(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("description") String description,
     @RequestParam("submitDate") String submitDate, 
     @RequestParam(value = "approve", defaultValue = "false") Boolean approve, 
-    @RequestParam(value = "isPublic", defaultValue = "false") Boolean isPublic, @RequestParam("accountId") String accountId,
+    @RequestParam(value = "isPublic", defaultValue = "false") Boolean isPublic, 
+    @RequestParam("accountId") String accountId,
     @RequestParam("academicYearId") String academicYearId,
     @RequestParam("facultyId") String facultyId,
     @RequestParam("file") MultipartFile path,
     @RequestParam("oldfile")String oldfile,Model model){
-        service.UpdateContribution(id, name, description, submitDate, approve, isPublic, accountId, academicYearId, facultyId, path, oldfile);;
+        service.UpdateContribution(id, name, description, submitDate, approve, isPublic, accountId, academicYearId, facultyId, path, oldfile);
         return "redirect:/Contribution/View";
     }
 
@@ -103,6 +107,13 @@ public class ContributionController
         model.addAttribute("cons",contris);
         return "Contribution/ViewContribution";
     }
+
+    // @GetMapping("/Update/{id}") // Corrected mapping without the trailing slash
+    // public String CreateFeedBack(@PathVariable String id, Model model) {
+    //     Contribution fe = re.ReturnContribution(id);
+    //     model.addAttribute("con", fe);
+    //     return "Contribution/UpdateContribution";
+    // }
 
     @PostMapping("/Delete")
     public String Delete(@RequestParam("id") String id, @RequestParam("file") String file){

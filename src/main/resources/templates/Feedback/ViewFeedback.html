@@ -21,7 +21,6 @@
               <thead>
               <tr>
                 <th>ID</th>
-                <th>UserID</th>
                 <th>Content</th>
                 <th>Delete</th>
                 <th>Update</th>
@@ -30,17 +29,17 @@
               <tfoot>
               <tr>
                 <th>ID</th>
-                <th>UserID</th>
                 <th>Content</th>
                 <th>Delete</th>
                 <th>Update</th>
               </tr>
               </tfoot>
               <tbody>
-              <tr th:each="feedback: ${Fals}">
+              <tr th:each="feedback: ${feeds}">
                 <td th:text="${feedback.id}"></td>
                 <td th:text="${feedback.content}"></td>
-                <td th:text="${feedback.userId}"></td>
+                <!-- <td th:text="${feedback.userId}"></td>
+                <td th:text="${feedback.contributionId}"></td> -->
 
                 <td>
                   <form th:action="@{/FeedBack/Delete}" method="post">

@@ -20,17 +20,17 @@ public class FeedbackRepository {
     public void CreateFeedBack(String id, String content, String userId, String contributionId){
         mongoTemplate.save(new Feedback(id, content, userId, contributionId));
     }
-    public void UpdateFeedBack(String id, String content, String userId, String contributionId) {
-        Query query = new Query(Criteria.where("id").is(id));
-        Update update = new Update();
-        update.set("content",content);
-        UpdateResult result = mongoTemplate.updateFirst(query, update, Feedback.class);
+    // public void UpdateFeedBack(String id, String content, String userId, String contributionId) {
+    //     Query query = new Query(Criteria.where("id").is(id));
+    //     Update update = new Update();
+    //     update.set("content",content);
+    //     UpdateResult result = mongoTemplate.updateFirst(query, update, Feedback.class);
 
-        if(result == null)
-            System.out.println("No documents updated");
-        else
-            System.out.println(result.getModifiedCount() + " document(s) updated..");
-    }
+    //     if(result == null)
+    //         System.out.println("No documents updated");
+    //     else
+    //         System.out.println(result.getModifiedCount() + " document(s) updated..");
+    // }
   
     public List<Feedback> ReturnFeedBacks(){
         return mongoTemplate.findAll(Feedback.class,"FeedbackItem");
