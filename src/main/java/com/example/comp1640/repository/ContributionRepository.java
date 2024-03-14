@@ -19,16 +19,16 @@ public class ContributionRepository {
 
     @Autowired
     MongoTemplate mongoTemplate;
-    public void CreateContribution(String id, String name, String description, String submitDate, Boolean approve, Boolean isPublic, String accountId, String academicYearId, String facultyId, String path){
-        mongoTemplate.save(new Contribution(id, name, description, submitDate, approve, isPublic, accountId, academicYearId, facultyId, path));
+    public void CreateContribution(String id, String name, String description, String submitDate, int Status, String accountId, String academicYearId, String facultyId, String path){
+        mongoTemplate.save(new Contribution(id, name, description, submitDate, Status, accountId, academicYearId, facultyId, path));
     }
-    public void UpdateContribution(String id, String name, String description, String submitDate, Boolean approve, Boolean isPublic, String accountId, String academicYearId, String facultyId, String path){
+    public void UpdateContribution(String id, String name, String description, String submitDate, int Status, String accountId, String academicYearId, String facultyId, String path){
         Query query = new Query(Criteria.where("id").is(id));
         Update update = new Update();
         update.set("name",name);
         update.set("description",description);
         update.set("submitDate",submitDate);
-        update.set("isPublic",isPublic);
+        update.set("status",Status);
         update.set("accountId",accountId);
         update.set("academicYearId",academicYearId);
         update.set("facultyId", facultyId);
@@ -40,7 +40,13 @@ public class ContributionRepository {
         else
             System.out.println(result.getModifiedCount() + " document(s) updated..");
     }
-
+    public void SetPublic(String id,int status){
+        Query query = new Query(Criteria.where("id").is(id));
+        Update update = new Update();
+        update.set("Status",status);
+        System.out.println(status + "being setted");
+        UpdateResult result = mongoTemplate.updateFirst(query,update,Contribution.class);
+    }
     public List<Contribution> ReturnContributions(){
         return mongoTemplate.findAll(Contribution.class,"ContributionItem");
     }

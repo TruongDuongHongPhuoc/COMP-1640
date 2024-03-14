@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.*;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,17 +53,17 @@ public class ContributionController
         return "Contribution/CreateContribution";
     }
     @PostMapping("/Hello")
-    public String Create(@RequestParam("id") String id, @RequestParam("name") String name, 
+    public String Create(@RequestParam("id") String id, @RequestParam("name") String name,
                          @RequestParam("description") String description,
                          @RequestParam("submitDate") String submitDate,
-                         @RequestParam(value = "approve", defaultValue = "false") Boolean approve,
-                         @RequestParam(value = "isPublic", defaultValue = "false") Boolean isPublic, 
+                         @RequestParam(value = "status") int status,
                          @RequestParam("accountId") String accountId,
                          @RequestParam("academicYearId") String academicYearId,
                          @RequestParam("facultyId") String facultyId,
                          @RequestParam("file")MultipartFile file, Model model){
         System.out.println("Post Run");
-        service.CreateContribution(id, name, description, submitDate, approve, isPublic, accountId, academicYearId, facultyId, file);;
+//        service.CreateContribution(id,name,description,submitDate,status,accountId,academicYearId,file);
+        service.CreateContribution(id, name, description, submitDate, status, accountId, academicYearId, facultyId, file);;
         System.out.println("Service Run");
 
 
@@ -89,15 +90,13 @@ public class ContributionController
 //    }
     @PostMapping("/Updating")
     public String UpdatePostContribution(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("description") String description,
-    @RequestParam("submitDate") String submitDate, 
-    @RequestParam(value = "approve", defaultValue = "false") Boolean approve, 
-    @RequestParam(value = "isPublic", defaultValue = "false") Boolean isPublic, 
-    @RequestParam("accountId") String accountId,
+    @RequestParam("submitDate") String submitDate,
+    @RequestParam(value = "status") int status, @RequestParam("accountId") String accountId,
     @RequestParam("academicYearId") String academicYearId,
     @RequestParam("facultyId") String facultyId,
     @RequestParam("file") MultipartFile path,
     @RequestParam("oldfile")String oldfile,Model model){
-        service.UpdateContribution(id, name, description, submitDate, approve, isPublic, accountId, academicYearId, facultyId, path, oldfile);
+        service.UpdateContribution(id, name, description, submitDate, status, accountId, academicYearId, facultyId, path, oldfile);
         return "redirect:/Contribution/View";
     }
 
@@ -120,5 +119,18 @@ public class ContributionController
         re.DeleteContribution(id);
         service.deletefile(file);
         return "redirect:/Contribution/View";
+    }
+
+    @PostMapping("/publicupdate")
+    public String Public(@RequestParam("id")String id,@RequestParam(value = "status") int status){
+        re.SetPublic(id,status);
+        System.out.println(status);
+        return "redirect:/Contribution/View";
+    }
+    @GetMapping("/set/{id}")
+    public String set(@PathVariable("id")String id, Model model){
+        Contribution con = re.ReturnContribution(id);
+        model.addAttribute("con",con);
+        return "Contribution/SetPublic";
     }
 }

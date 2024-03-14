@@ -40,7 +40,7 @@ public class SecurityConfig {
                         .requestMatchers("/res").permitAll()
                         .requestMatchers("/forHomepage/**").permitAll()
                         .requestMatchers("/adminTemplate/**").permitAll()
-                        .anyRequest().permitAll()
+                        .anyRequest().authenticated()
                 ).formLogin(
                         (form) -> form
                                 .loginPage("/login")

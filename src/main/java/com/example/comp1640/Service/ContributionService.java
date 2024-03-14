@@ -22,12 +22,12 @@ public class ContributionService {
     public void storeFile(MultipartFile file){
         StoreService.store(file);
     }
-    public void CreateContribution(String id,String name,String description,String submitDate,Boolean approve,Boolean isPublic,String accountId,String academicYearId, String facultyId, MultipartFile file){
+    public void CreateContribution(String id,String name,String description,String submitDate,int status,String accountId,String academicYearId, String facultyId, MultipartFile file){
         storeFile(file);
         System.out.println("File is Stored");
         String path = file.getOriginalFilename();
         System.out.println("Get file path");
-        contributionRepository.CreateContribution(id, name, description, submitDate, approve, isPublic, accountId, academicYearId, facultyId, path);
+        contributionRepository.CreateContribution(id,name,description,submitDate,status,accountId,academicYearId,facultyId,path);
         System.out.println("Created Contribution");
     }
 
@@ -41,9 +41,9 @@ public class ContributionService {
     public void deletefile(String file){
         StoreService.deleteFile(file);
     }
-    public void UpdateContribution(String id,String name,String description,String submitDate,Boolean approve,Boolean isPublic,String accountId,String academicYearId, String facultyId, MultipartFile file, String oldfile){
+    public void UpdateContribution(String id,String name,String description,String submitDate,int status,String accountId,String academicYearId, String facultyId, MultipartFile file, String oldfile){
         StoreService.deleteFile(oldfile);
-        contributionRepository.UpdateContribution(id,name,description,submitDate,approve,isPublic,accountId,academicYearId,facultyId,file.getOriginalFilename());
+        contributionRepository.UpdateContribution(id,name,description,submitDate,status,accountId,academicYearId,facultyId,file.getOriginalFilename());
         StoreService.store(file);
     }
 }

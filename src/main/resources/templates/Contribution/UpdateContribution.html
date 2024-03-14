@@ -30,9 +30,9 @@
         <td><input type="text" id="name" name="name" th:value="${con.name}"></td>
         <td><input type="text" id="description" name="description" th:value="${con.description}"></td>
         <td><input type="text" id="submitDate" name="submitDate" th:value="${con.submitDate}"></td>
-        <td><input type="checkbox" id="isPublic" name="isPublic" th:checked="${con.isPublic}"></td>
-        <td><input type="text" id="academicYearId" name="academicYearId" th:value="${con.academicYearId}" readonly></td>
-        <td><input type="text" id="accountId" name="accountId" th:value="${con.accountId}" readonly></td>
+        <td><input type="number" id="status" name="status" th:checked="${con.getStatus()}"></td>
+        <td><input type="text" id="academicYearId" name="academicYearId" th:value="${con.academicYearId}"></td>
+        <td><input type="text" id="accountId" name="accountId" th:value="${con.accountId}"></td>
         <td><input type="text" id="facultyId" name="facultyId" th:value="${con.facultyId}" readonly></td>
         <td><table>
           <tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
