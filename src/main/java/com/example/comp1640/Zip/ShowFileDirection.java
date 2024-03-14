@@ -19,7 +19,7 @@ public class ShowFileDirection {
     @GetMapping("/showfile")
     public String showFiles(Model model) {
         String path = System.getProperty("user.dir");
-        String subPath = "\\upload-dir";
+        String subPath = "/upload-dir";
         String directoryPath = path + subPath;
         List<String> files = new ArrayList<>();
 

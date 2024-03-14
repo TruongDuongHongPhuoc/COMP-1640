@@ -28,6 +28,7 @@
                                 <th>update</th>
                                 <th>path</th>
                                 <th>Downlaod</th>
+                                <th>SetPublic</th>
                             </tr>
                             </thead>
                             <tfoot>
@@ -43,6 +44,7 @@
                                 <th>Download</th>
                                 <th>Delete</th>
                                 <th>Update</th>
+                                <th>SetPublic</th>
                             </tr>
                             </tfoot>
                             <tbody>
@@ -51,7 +53,7 @@
                                 <td th:text="${fal.name}"></td>
                                 <td th:text="${fal.description}"></td>
                                 <td th:text="${fal.submitDate}"></td>
-                                <td th:text="${fal.public}"></td>
+                                <td th:text="${fal.status}"></td>
                                 <td th:text="${fal.academicYearId}"></td>
                                 <td th:text="${fal.accountId}"></td>
                                 <td th:text="${fal.path_to_file}"/></td>
@@ -66,7 +68,13 @@
                                 </td>
                                 <td>
                                     <a th:href="@{/Contribution/Update/{id}(id = ${fal.id})} ">update</a>
+<!--                                        <a th:href="@{/Contribution/set/{id}(id = ${fal.id})} ">update</a>-->
                                 </td>
+                                <td>
+<!--                                    <a th:href="@{/Contribution/Update/{id}(id = ${fal.id})} ">update</a>-->
+                                  <a th:href="@{/Contribution/set/{id}(id = ${fal.id})} ">update</a>
+                                </td>
+
                             </tr>
                             </tbody>
                         </table>

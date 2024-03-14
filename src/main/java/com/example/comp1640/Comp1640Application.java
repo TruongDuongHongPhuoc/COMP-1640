@@ -20,8 +20,15 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 public class Comp1640Application implements CommandLineRunner{
 	public static void main(String[] args) {
 		SpringApplication.run(Comp1640Application.class, args);
-	}
 
+	}
+//	@Bean
+//    CommandLineRunner init(StorageService storageService) {
+//        return (args) -> {
+//            storageService.deleteAll();
+//            storageService.init();
+//        };
+//    }
 	@Override
 	public void run(String... args) throws Exception {
 
