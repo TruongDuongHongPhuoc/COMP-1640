@@ -2,7 +2,6 @@ package com.example.comp1640.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import java.util.Date;
 
 @Document("ContributionItem")
 public class Contribution {
@@ -13,18 +12,17 @@ public class Contribution {
 
     private String submitDate;
     private Boolean approve; // Bổ sung
-    private Boolean isPublic;
+    private int Status;
     private String accountId;
     private String academicYearId;
     private String path;
 
-    public Contribution(String id, String name, String description, String submitDate, Boolean approve, Boolean isPublic, String accountId, String academicYearId, String path) {
+    public Contribution(String id, String name, String description, String submitDate, int Status, String accountId, String academicYearId, String path) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.submitDate = submitDate;
-        this.approve = approve;
-        this.isPublic = isPublic;
+        this.Status = Status;
         this.accountId = accountId;
         this.academicYearId = academicYearId;
         this.path = path;
@@ -70,12 +68,12 @@ public class Contribution {
         this.approve = approve;
     }
 
-    public Boolean getPublic() {
-        return isPublic;
+    public int getStatus() {
+        return Status;
     }
 
-    public void setPublic(Boolean aPublic) {
-        isPublic = aPublic;
+    public void setStatus(int aStatus) {
+        Status = aStatus;
     }
 
     public String getAccountId() {
