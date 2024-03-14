@@ -29,13 +29,13 @@ public class AccountService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
-        Optional<Account> user = accountRepositoryTest.findByMail(mail);
+        Optional<Account> user = accountRepositoryTest.findAccountByMail(mail);
         if (user.isEmpty()) {
             throw new UsernameNotFoundException("User with email " + mail + " not found");
         }
         Account account = user.get();
         return new User(
-                account.getMail(),
+                mail,
                 account.getPassword(),
                 Collections.singletonList(getUserAuthen(account.getRoleId()))
         );
