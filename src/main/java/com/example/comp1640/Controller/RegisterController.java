@@ -36,10 +36,11 @@ public class RegisterController {
 
     @PostMapping("/register")
     public String handleRegister(@Valid @ModelAttribute("account") Account account,
+                                 @RequestParam("image") MultipartFile file,
                                  BindingResult result) {
         System.out.println(account.getMail());
         System.out.println(account.getDateOfBirth());
-//        System.out.println(file.getOriginalFilename());
+        System.out.println(file.getOriginalFilename());
         return "/RegisterForUser";
     }
 
