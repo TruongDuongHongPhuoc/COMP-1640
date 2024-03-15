@@ -18,11 +18,11 @@
             <label for="submitDate">Submit Date:</label><br>
             <input type="text" id="submitDate" name="submitDate"><br>
 
-    <label for="status">Is status:</label><br>
-    <input type="number" id="status" name="status" value="true"><br>
+            <label for="status">Is status:</label><br>
+            <input type="number" id="status" name="status" value="true"><br>
 
             <label for="accountId">Account ID:</label><br>
-            <input type="hidden" id="submitDate" name="submitDate"><br>
+            <input type="hidden" id="accountId" name="accountId" th:value="${acc.name}"><br>
 
             <label for="academicYearId">Academic Year ID:</label><br>
             <tr th:each="aca: ${acaYear}">
@@ -32,11 +32,12 @@
             </tr>
 
             <label for="facultyId">Faculty ID:</label><br>
-            <tr th:each="Faculty: ${fals}">
+            <!-- <tr th:each="Faculty: ${fals}">
                 <select id="facultyId" name="facultyId">
                     <option> <a th:text="${Faculty.id}"></a> </option>
                 </select><br><br>
-            </tr>
+            </tr> -->
+            <input type="hidden" id="facultyId" name="facultyId" th:value="${acc.facultyId}"><br>
 
             <table>
                 <tr>

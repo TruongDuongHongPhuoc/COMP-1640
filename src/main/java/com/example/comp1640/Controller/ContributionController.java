@@ -12,6 +12,7 @@ import com.example.comp1640.repository.ContributionRepository;
 import com.example.comp1640.repository.FalcultyRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.awt.*;
 import java.util.List;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import java.util.Optional;
 
 
 @Controller
@@ -42,14 +42,20 @@ public class ContributionController
     @Autowired
     ContributionService service;
 
+    @Autowired
+    AccountRepositoryTest accountRepoTest;
+
     @GetMapping("/CreateContribution") // Corrected mapping without the trailing slash
     public String create(Model model) {
         List<AcademicYear> academicYears = acaRepo.ReturnAcademicYears();
         List<Faculty> faculties = facultyRepo.ReturnFaculties();
-        List<Account> accounts = accountRepo.findAll();
+        org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();  
+        Optional<Account> acc = accountRepoTest.findAccountByMail(authentication.getName());
+        Account accounts = acc.get();
+        System.out.println(accounts);
+        model.addAttribute("acc", accounts);
         model.addAttribute("acaYear", academicYears);
         model.addAttribute("fals", faculties);
-        model.addAttribute("accounts", accounts);
         return "Contribution/CreateContribution";
     }
     @PostMapping("/Hello")

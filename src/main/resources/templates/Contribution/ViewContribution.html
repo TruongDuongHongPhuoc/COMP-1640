@@ -53,12 +53,21 @@
                                         <td th:text="${fal.name}"></td>
                                         <td th:text="${fal.description}"></td>
                                         <td th:text="${fal.submitDate}"></td>
-                                        <td th:text="${fal.status}"></td> 
-                                            <!-- 0 - waiting, 1 - approve, 2 - reject -->
+                                        <!-- <td th:text="${fal.status}"></td>  -->
+                                        <!-- 0 - waiting, 1 - approve, 2 - reject -->
+                                        <td th:text="${fal.status}">
+                                            <span th:switch="${fal.status}">
+                                                <span th:case="0">0 - waiting</span>
+                                                <span th:case="1">1 - approve</span>
+                                                <span th:case="2">2 - reject</span>
+                                                <!-- Add more cases if needed -->
+                                                <span th:case="*" th:text="fal.status + ' - unknown'"></span>
+                                            </span>
+                                        </td>
                                         <td th:text="${fal.academicYearId}"></td>
                                         <td th:text="${fal.accountId}"></td>
                                         <td th:text="${fal.facultyId}"></td>
-                                        <td th:text="${fal.path}" >
+                                        <td th:text="${fal.path}">
                                         </td>
                                         <td><a th:href="@{http://localhost:8090/Fi/files/__${fal.path}__}">Download</a>
                                         </td>
