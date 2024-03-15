@@ -1,104 +1,112 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_Admin">
-
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="Layout/_Admin">
 <body>
-    <div layout:fragment="content">
-        <h1>Table</h1>
-        <div id="layoutSidenav_content">
-            <main>
-                <div class="container-fluid px-4">
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <i class="fas fa-table me-1"></i>
-                            DataTable Example
-                        </div>
-                        <div class="card-body">
-                            <table id="datatablesSimple">
-                                <thead>
-                                    <tr>
-                                        <th>id</th>
-                                        <th>name</th>
-                                        <th>Description</th>
-                                        <th>submitedate</th>
-                                        <th>ispublic</th>
-                                        <th>academicyear</th>
-                                        <th>accountid</th>
-                                        <th>facultyid</th>
-                                        <th>path</th>
-                                        <th>Downlaod</th>
-                                        <th>Delete</th>
-                                        <th>SetPublic</th>
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>id</th>
-                                        <th>name</th>
-                                        <th>Description</th>
-                                        <th>submitedate</th>
-                                        <th>ispublic</th>
-                                        <th>academicyear</th>
-                                        <th>accountid</th>
-                                        <th>facultyid</th>
-                                        <th>path</th>
-                                        <th>Download</th>
-                                        <th>Delete</th>
-                                        <th>Update</th>
-                                        <th>SetPublic</th>
-                                    </tr>
-                                </tfoot>
-                                <tbody>
-                                    <tr th:each="fal:${cons}">
-                                        <td th:text="${fal.id}"></td>
-                                        <td th:text="${fal.name}"></td>
-                                        <td th:text="${fal.description}"></td>
-                                        <td th:text="${fal.submitDate}"></td>
-                                        <!-- <td th:text="${fal.status}"></td>  -->
-                                        <!-- 0 - waiting, 1 - approve, 2 - reject -->
-                                        <td th:text="${fal.status}">
-                                            <span th:if="${fal.status == 0}"> waiting </span>
-                                            <span th:if="${fal.status == 1}"> approve </span>
-                                            <span th:if="${fal.status == 2}"> reject </span>
-                                                <!-- <span th:case="0">0 - waiting</span>
-                                                <span th:case="1">1 - approve</span>
-                                                <span th:case="2">2 - reject</span>
-                                                Add more cases if needed -->
-                                                <!-- <span th:case="*" th:text="fal.status + ' - unknown'"></span> --> 
-                                            </span>
-                                        </td>
-                                        <td th:text="${fal.academicYearId}"></td>
-                                        <td th:text="${fal.accountId}"></td>
-                                        <td th:text="${fal.facultyId}"></td>
-                                        <td th:text="${fal.path}">
-                                        </td>
-                                        <td><a th:href="@{http://localhost:8090/Fi/files/__${fal.path}__}">Download</a>
-                                        </td>
+<div layout:fragment="content">
+    <h1>Table</h1>
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        DataTable Example
+                    </div>
+                    <div class="card-body">
+                        <table id="datatablesSimple">
+                            <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>name</th>
+                                <th>Description</th>
+                                <th>submitedate</th>
+                                <th>ispublic</th>
+                                <th>academicyear</th>
+                                <th>accountid</th>
+                                <th>facultyid</th>
+                                <th>path</th>
+<<<<<<< HEAD
+                                <th>Download</th>
+                                <th>delete</th>
+                                <th>update</th>
+=======
+                                <th>Downlaod</th>
+                                <th>SetPublic</th>
+>>>>>>> origin/master
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>id</th>
+                                <th>name</th>
+                                <th>Description</th>
+                                <th>submitedate</th>
+                                <th>ispublic</th>
+                                <th>academicyear</th>
+                                <th>accountid</th>
+                                <th>facultyid</th>
+                                <th>path</th>
+                                <th>Download</th>
+<<<<<<< HEAD
+                                <th>delete</th>
+                                <th>update</th>
+=======
+                                <th>Delete</th>
+                                <th>Update</th>
+                                <th>SetPublic</th>
+>>>>>>> origin/master
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            <tr th:each="fal:${cons}">
+                                <td th:text="${fal.id}"></td>
+                                <td th:text="${fal.name}"></td>
+                                <td th:text="${fal.description}"></td>
+                                <td th:text="${fal.submitDate}"></td>
+<<<<<<< HEAD
+                                <td th:text="${fal.isPublic}"></td>
+=======
+                                <td th:text="${fal.status}"></td>
+>>>>>>> origin/master
+                                <td th:text="${fal.academicYearId}"></td>
+                                <td th:text="${fal.accountId}"></td>
+                                <td th:text="${fal.facultyId}"></td>
+                                <td th:text="${fal.path}"/></td>
+                                <td><a th:href="@{http://localhost:8090/Fi/files/__${fal.path}__}">Download</a></td>
 
-                                        <td>
-                                            <form th:action="@{/Contribution/Delete}" method="post">
-                                                <input type="hidden" name="id" th:value="${fal.id}">
-                                                <input type="hidden" name="file" th:value="${fal.path}">
-                                                <button type="submit">Delete</button>
-                                            </form>
-                                        </td>
-                                        <td>
-                                            <!--<a th:href="@{/Contribution/Update/{id}(id = ${fal.id})} ">update</a>-->
-                                            <a th:href="@{/Contribution/set/{id}(id = ${fal.id})} ">update</a>
-                                        </td>
-                                        <td>
-                                            <a th:href="@{/FeedBack/Create/{id}(id = ${fal.id})}">Add FeedBack</a>
-                                        </td>
+                                <td>
+                                    <form th:action="@{/Contribution/Delete}" method="post">
+                                        <input type="hidden" name="id" th:value="${fal.id}">
+                                        <input type="hidden" name="file" th:value="${fal.path}">
+                                        <button type="submit">Delete</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <a th:href="@{/Contribution/Update/{id}(id = ${fal.id})} ">update</a>
+<!--                                        <a th:href="@{/Contribution/set/{id}(id = ${fal.id})} ">update</a>-->
+                                </td>
+<<<<<<< HEAD
 
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                                <td>
+                                    <a th:href="@{/FeedBack/Create/{id}(id = ${fal.id})}">Add FeedBack</a>
+                                </td>
+=======
+                                <td>
+<!--                                    <a th:href="@{/Contribution/Update/{id}(id = ${fal.id})} ">update</a>-->
+                                  <a th:href="@{/Contribution/set/{id}(id = ${fal.id})} ">update</a>
+                                </td>
+
+>>>>>>> origin/master
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            </main>
-        </div>
-
+            </div>
+        </main>
     </div>
-</body>
 
+</div>
+</body>
 </html>
