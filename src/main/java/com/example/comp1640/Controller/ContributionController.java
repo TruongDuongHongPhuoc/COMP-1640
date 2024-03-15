@@ -2,9 +2,17 @@ package com.example.comp1640.Controller;
 
 import com.example.comp1640.Service.ContributionService;
 import com.example.comp1640.model.AcademicYear;
+import com.example.comp1640.model.Account;
 import com.example.comp1640.model.Contribution;
+import com.example.comp1640.model.Faculty;
+import com.example.comp1640.repository.AcademicYearRepository;
+import com.example.comp1640.repository.AccountRepository;
+import com.example.comp1640.repository.AccountRepositoryTest;
 import com.example.comp1640.repository.ContributionRepository;
+import com.example.comp1640.repository.FalcultyRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.awt.*;
 import java.util.List;
+import java.util.Optional;
+
 
 @Controller
 @RequestMapping("/Contribution")
@@ -19,10 +29,33 @@ public class ContributionController
 {
     @Autowired
     ContributionRepository re;
+
+    @Autowired
+    AccountRepositoryTest accountRepo;
+
+    @Autowired
+    FalcultyRepository facultyRepo;
+
+    @Autowired
+    AcademicYearRepository acaRepo;
+
     @Autowired
     ContributionService service;
+
+    @Autowired
+    AccountRepositoryTest accountRepoTest;
+
     @GetMapping("/CreateContribution") // Corrected mapping without the trailing slash
-    public String create() {
+    public String create(Model model) {
+        List<AcademicYear> academicYears = acaRepo.ReturnAcademicYears();
+        List<Faculty> faculties = facultyRepo.ReturnFaculties();
+        org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();  
+        Optional<Account> acc = accountRepoTest.findAccountByMail(authentication.getName());
+        Account accounts = acc.get();
+        System.out.println(accounts);
+        model.addAttribute("acc", accounts);
+        model.addAttribute("acaYear", academicYears);
+        model.addAttribute("fals", faculties);
         return "Contribution/CreateContribution";
     }
     @PostMapping("/Hello")
@@ -32,10 +65,11 @@ public class ContributionController
                          @RequestParam(value = "status") int status,
                          @RequestParam("accountId") String accountId,
                          @RequestParam("academicYearId") String academicYearId,
+                         @RequestParam("facultyId") String facultyId,
                          @RequestParam("file")MultipartFile file, Model model){
         System.out.println("Post Run");
 //        service.CreateContribution(id,name,description,submitDate,status,accountId,academicYearId,file);
-        service.CreateContribution(id,name,description,submitDate,status,accountId,academicYearId,file);
+        service.CreateContribution(id, name, description, submitDate, status, accountId, academicYearId, facultyId, file);;
         System.out.println("Service Run");
 
 
@@ -65,9 +99,10 @@ public class ContributionController
     @RequestParam("submitDate") String submitDate,
     @RequestParam(value = "status") int status, @RequestParam("accountId") String accountId,
     @RequestParam("academicYearId") String academicYearId,
+    @RequestParam("facultyId") String facultyId,
     @RequestParam("file") MultipartFile path,
     @RequestParam("oldfile")String oldfile,Model model){
-        service.UpdateContribution(id,name,description,submitDate,status,accountId,academicYearId,path,oldfile);
+        service.UpdateContribution(id, name, description, submitDate, status, accountId, academicYearId, facultyId, path, oldfile);
         return "redirect:/Contribution/View";
     }
 
@@ -77,6 +112,13 @@ public class ContributionController
         model.addAttribute("cons",contris);
         return "Contribution/ViewContribution";
     }
+
+    // @GetMapping("/Update/{id}") // Corrected mapping without the trailing slash
+    // public String CreateFeedBack(@PathVariable String id, Model model) {
+    //     Contribution fe = re.ReturnContribution(id);
+    //     model.addAttribute("con", fe);
+    //     return "Contribution/UpdateContribution";
+    // }
 
     @PostMapping("/Delete")
     public String Delete(@RequestParam("id") String id, @RequestParam("file") String file){

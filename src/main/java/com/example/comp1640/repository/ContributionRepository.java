@@ -19,25 +19,19 @@ public class ContributionRepository {
 
     @Autowired
     MongoTemplate mongoTemplate;
-    public void CreateContribution(String id,
-                                   String name,
-                                   String description,
-                                   String submitDate,
-                                   int isPublic,
-                                   String accountId,
-                                   String academicYearId,
-                                   String path){
-        mongoTemplate.save(new Contribution(id, name, description, submitDate, isPublic, accountId, academicYearId, path));
+    public void CreateContribution(String id, String name, String description, String submitDate, int Status, String accountId, String academicYearId, String facultyId, String path){
+        mongoTemplate.save(new Contribution(id, name, description, submitDate, Status, accountId, academicYearId, facultyId, path));
     }
-    public void UpdateContribution(String id, String name, String description, String submitDate, int status, String accountId, String academicYearId, String path){
+    public void UpdateContribution(String id, String name, String description, String submitDate, int Status, String accountId, String academicYearId, String facultyId, String path){
         Query query = new Query(Criteria.where("id").is(id));
         Update update = new Update();
         update.set("name",name);
         update.set("description",description);
         update.set("submitDate",submitDate);
-        update.set("isPublic",status);
+        update.set("status",Status);
         update.set("accountId",accountId);
         update.set("academicYearId",academicYearId);
+        update.set("facultyId", facultyId);
         update.set("path",path);
         UpdateResult result = mongoTemplate.updateFirst(query, update, Contribution.class);
 

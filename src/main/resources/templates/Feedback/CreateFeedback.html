@@ -7,13 +7,17 @@
 
 <div layout:fragment="content">
 <h1>Welcome to Admin Page</h1>
-<form th:action="@{/FeedBack/Create}" method="post">
+<form th:action="@{/FeedBack/CreateFeedBack}" method="post">
     <label for="id">ID:</label><br>
     <input type="text" id="id" name="id"><br>
-    <label for="content">Group:</label><br>
+
+    <label for="content">FeedBack Here: </label><br>
     <input type="text" id="content" name="content"><br>
-    <label for="userid">Year:</label><br>
-    <input type="text" id="userid" name="userid"><br><br>
+
+    <input type="hidden" id="userid" name="userid" th:value="${acc.name}"><br><br>
+
+    <input type="hidden" id="contributionId" name="contributionId" th:value="${Cons.id}"><br><br>
+     
     <input type="submit" value="Submit">
 </form>
 </div>

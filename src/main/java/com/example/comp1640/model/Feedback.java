@@ -3,40 +3,22 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.stereotype.Component;
 
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Document("FeedbackItem")
 public class Feedback {
     @Id
     private String id;
     private String content;
     private String userId;
-    public Feedback(String id, String content, String userId) {
+    private String contributionId;
+    public Feedback(String id, String content, String userId, String contributionId) {
         this.id = id;
         this.content = content;
         this.userId = userId;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
+        this.contributionId = contributionId;
     }
 }

@@ -1,39 +1,53 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="Layout/_Admin">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_Admin">
 
 <body>
 
-<div layout:fragment="content">
-<h1>Welcome to Admin Page</h1>
-<form th:action="@{/Contribution/Hello}" method="POST" enctype="multipart/form-data">
-    <label for="id">ID:</label><br>
-    <input type="text" id="id" name="id"><br>
+    <div layout:fragment="content">
+        <h1>Welcome to Admin Page</h1>
+        <form th:action="@{/Contribution/Hello}" method="POST" enctype="multipart/form-data">
+            <label for="id">ID:</label><br>
+            <input type="text" id="id" name="id"><br>
 
-    <label for="name">Name:</label><br>
-    <input type="text" id="name" name="name"><br>
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name"><br>
 
-    <label for="description">Type of File:</label><br>
-    <input type="text" id="description" name="description"><br>
+            <label for="description">Type of File:</label><br>
+            <input type="text" id="description" name="description"><br>
 
-    <label for="submitDate">Submit Date:</label><br>
-    <input type="text" id="submitDate" name="submitDate"><br>
+            <label for="submitDate">Submit Date:</label><br>
+            <input type="text" id="submitDate" name="submitDate"><br>
 
-    <label for="status">Is status:</label><br>
-    <input type="number" id="status" name="status" value="true"><br>
+            <label for="status">Is status:</label><br>
+            <input type="number" id="status" name="status" value="true"><br>
 
-    <label for="accountId">Account ID:</label><br>
-    <input type="text" id="accountId" name="accountId"><br>
+            <label for="accountId">Account ID:</label><br>
+            <input type="hidden" id="accountId" name="accountId" th:value="${acc.name}"><br>
 
-    <label for="academicYearId">Academic Year ID:</label><br>
-    <input type="text" id="academicYearId" name="academicYearId"><br>
+            <label for="academicYearId">Academic Year ID:</label><br>
+            <tr th:each="aca: ${acaYear}">
+                <select id="academicYearId" name="academicYearId">
+                    <option> <a th:text="${aca.id}"></a> </option>
+                </select><br><br>
+            </tr>
 
-        <table>
-            <tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
-        </table>
-    <input type="submit" value="Submit">
-</form>
-</div>
+            <label for="facultyId">Faculty ID:</label><br>
+            <!-- <tr th:each="Faculty: ${fals}">
+                <select id="facultyId" name="facultyId">
+                    <option> <a th:text="${Faculty.id}"></a> </option>
+                </select><br><br>
+            </tr> -->
+            <input type="hidden" id="facultyId" name="facultyId" th:value="${acc.facultyId}"><br>
+
+            <table>
+                <tr>
+                    <td>File to upload:</td>
+                    <td><input type="file" name="file" /></td>
+                </tr>
+            </table>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
 </body>
+
 </html>
