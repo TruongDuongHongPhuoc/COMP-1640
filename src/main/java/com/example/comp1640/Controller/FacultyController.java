@@ -49,7 +49,7 @@ public class FacultyController
         re.UpdateFalcuty(id,name,description,academicYear);
         return "redirect:/view";
     }
-
+    
     @GetMapping("/view")
     public String View(Model model){
         List<Faculty> Faculties = re.ReturnFaculties();

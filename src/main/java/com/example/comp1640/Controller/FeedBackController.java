@@ -50,7 +50,7 @@ public class FeedBackController {
         Feedback fe = re.ReturnFeedback(id);
         Contribution con = conRepo.ReturnContribution(id);
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();  
-        Optional<Account> acc = accountRepoTest.findByMail(authentication.getName());
+        Optional<Account> acc = accountRepoTest.findAccountByMail(authentication.getName());
         Account accounts = acc.get();
         System.out.println(accounts);
         model.addAttribute("acc", accounts);
