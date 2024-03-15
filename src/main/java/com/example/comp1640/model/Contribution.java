@@ -3,21 +3,25 @@ package com.example.comp1640.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Document("ContributionItem")
 public class Contribution {
     @Id
     private String id;
     private String name;
     private String description; // typeOfFile -> description
-
     private String submitDate;
-    private Boolean approve; // Bổ sung
     private int Status;
     private String accountId;
     private String academicYearId;
+    private String facultyId;
     private String path;
 
-    public Contribution(String id, String name, String description, String submitDate, int Status, String accountId, String academicYearId, String path) {
+    public Contribution(String id, String name, String description, String submitDate, int Status, String accountId, String academicYearId, String facultyId, String path) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -25,6 +29,7 @@ public class Contribution {
         this.Status = Status;
         this.accountId = accountId;
         this.academicYearId = academicYearId;
+        this.facultyId = facultyId;
         this.path = path;
     }
 
@@ -58,14 +63,6 @@ public class Contribution {
 
     public void setSubmitDate(String submitDate) {
         this.submitDate = submitDate;
-    }
-
-    public Boolean getApprove() {
-        return approve;
-    }
-
-    public void setApprove(Boolean approve) {
-        this.approve = approve;
     }
 
     public int getStatus() {

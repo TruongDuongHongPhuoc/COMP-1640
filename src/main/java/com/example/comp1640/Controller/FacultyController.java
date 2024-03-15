@@ -1,6 +1,8 @@
 package com.example.comp1640.Controller;
 
+import com.example.comp1640.model.AcademicYear;
 import com.example.comp1640.model.Faculty;
+import com.example.comp1640.repository.AcademicYearRepository;
 import com.example.comp1640.repository.FalcultyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,14 +17,21 @@ public class FacultyController
     @Autowired
     FalcultyRepository re;
 
+    @Autowired
+    AcademicYearRepository acaRepo;
+
     @PostMapping("/Hello")
     public String CreateFaculty(@RequestParam("name") String name,@RequestParam("id") String id
-            ,@RequestParam("description") String description,@RequestParam("Year") String year, Model model){
-        re.CreateFalcuty(id,name,description,year);
+            ,@RequestParam("description") String description,@RequestParam("academicYear") String academicYear, Model model){
+        re.CreateFalcuty(id, name, description, academicYear);
         return "redirect:/view";
     }
+
+
     @GetMapping("/CreateFalcuty")
-    public String CreatFul(){
+    public String CreatFul(Model model){
+        List<AcademicYear> aca = acaRepo.ReturnAcademicYears();
+        model.addAttribute("aca1", aca);
         return "Faculty/CreateFaculty";
     }
 
@@ -33,17 +42,14 @@ public class FacultyController
         model.addAttribute("faculty", fe);
         return "Faculty/UpdateFaculty";
     }
+
     @PostMapping("/Updating")
     public String UpdatePostFaculty(@RequestParam("name") String name,@RequestParam("id") String id
-            ,@RequestParam("description") String description,@RequestParam("Year") String year, Model model){
-        System.out.println(name);
-        System.out.println(id);
-        System.out.println(description);
-        System.out.println(year);
-        re.UpdateFalcuty(id,name,description,year);
+    ,@RequestParam("description") String description,@RequestParam("academicYear") String academicYear, Model model){
+        re.UpdateFalcuty(id,name,description,academicYear);
         return "redirect:/view";
     }
-
+    
     @GetMapping("/view")
     public String View(Model model){
         List<Faculty> Faculties = re.ReturnFaculties();

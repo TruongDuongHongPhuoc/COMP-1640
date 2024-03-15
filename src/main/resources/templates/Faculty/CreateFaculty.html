@@ -6,16 +6,43 @@
 <body>
 
 <div layout:fragment="content">
-<h1>Welcome to Admin Page</h1>
+<h1>Welcome to Create Faculty Page</h1>
 <form th:action="@{/Hello}" method="post">
     <label for="name">Name:</label><br>
     <input type="text" id="name" name="name"><br>
+
     <label for="id">ID:</label><br>
     <input type="text" id="id" name="id"><br>
+
     <label for="description">Description:</label><br>
     <input type="text" id="description" name="description"><br>
-    <label for="Year">Year:</label><br>
-    <input type="text" id="Year" name="Year"><br><br>
+
+    <!-- <label for="academicYear">Academic Year ID:</label><br>
+    <input type="text" id="academicYear" name="academicYear"><br><br> -->
+
+    <label for="academicYear">Academic Year ID:</label><br>
+    <tr th:each="aca: ${aca1}">
+        <select id="academicYear" name="academicYear" >
+            <option> <a th:text="${aca.id}"></a> </option>
+        </select><br><br>
+    </tr>
+    
+
+    <!-- <script>
+        // Simulate fetching data from MongoDB
+        // const academicYears = ["2022-2023", "2023-2024", "2024-2025"];
+
+        // Populate the dropdown with options
+        const yearDropdown = document.getElementById("academicYear");
+
+        academicYears.forEach(academicYear => {
+            const option = document.createElement("option");
+            option.value = academicYear;
+            option.text = academicYear;
+            yearDropdown.add(option);
+        });
+     
+    </script> -->
     <input type="submit" value="Submit">
 </form>
 </div>

@@ -19,19 +19,21 @@
         <th>is public</th>
         <th>academic year id</th>
         <th>account id</th>
+        <th>faculty id</th>
         <th>File</th>
       </tr>
       </thead>
       <tbody>
       <tr>
         <td><input type="hidden" name="id" th:value="${con.id}"></td>
-        <td><input type="hidden" name="oldfile" th:value="${con.path_to_file}"></td>
+        <td><input type="hidden" name="oldfile" th:value="${con.path}"></td>
         <td><input type="text" id="name" name="name" th:value="${con.name}"></td>
         <td><input type="text" id="description" name="description" th:value="${con.description}"></td>
         <td><input type="text" id="submitDate" name="submitDate" th:value="${con.submitDate}"></td>
         <td><input type="number" id="status" name="status" th:checked="${con.getStatus()}"></td>
         <td><input type="text" id="academicYearId" name="academicYearId" th:value="${con.academicYearId}"></td>
         <td><input type="text" id="accountId" name="accountId" th:value="${con.accountId}"></td>
+        <td><input type="text" id="facultyId" name="facultyId" th:value="${con.facultyId}" readonly></td>
         <td><table>
           <tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
         </table></td>
