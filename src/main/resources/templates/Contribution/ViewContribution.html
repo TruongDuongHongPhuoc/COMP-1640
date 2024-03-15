@@ -56,12 +56,14 @@
                                         <!-- <td th:text="${fal.status}"></td>  -->
                                         <!-- 0 - waiting, 1 - approve, 2 - reject -->
                                         <td th:text="${fal.status}">
-                                            <span th:switch="${fal.status}">
-                                                <span th:case="0">0 - waiting</span>
+                                            <span th:if="${fal.status == 0}"> waiting </span>
+                                            <span th:if="${fal.status == 1}"> approve </span>
+                                            <span th:if="${fal.status == 2}"> reject </span>
+                                                <!-- <span th:case="0">0 - waiting</span>
                                                 <span th:case="1">1 - approve</span>
                                                 <span th:case="2">2 - reject</span>
-                                                <!-- Add more cases if needed -->
-                                                <span th:case="*" th:text="fal.status + ' - unknown'"></span>
+                                                Add more cases if needed -->
+                                                <!-- <span th:case="*" th:text="fal.status + ' - unknown'"></span> --> 
                                             </span>
                                         </td>
                                         <td th:text="${fal.academicYearId}"></td>
