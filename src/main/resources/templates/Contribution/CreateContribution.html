@@ -6,23 +6,23 @@
     <div layout:fragment="content">
         <h1>Welcome to Admin Page</h1>
         <form th:action="@{/Contribution/Hello}" method="POST" enctype="multipart/form-data">
-            <label for="id">ID:</label><br>
-            <input type="text" id="id" name="id"><br>
+<!--            <label for="id">ID:</label><br>-->
+<!--            <input type="text" id="id" name="id"><br>-->
 
             <label for="name">Name:</label><br>
-            <input type="text" id="name" name="name"><br>
+            <input type="text" class="form-control form-control-lg" id="name" name="name"><br>
 
             <label for="description">Type of File:</label><br>
-            <input type="text" id="description" name="description"><br>
+            <input type="text" class="form-control form-control-lg" id="description" name="description"><br>
 
             <label for="submitDate">Submit Date:</label><br>
-            <input type="text" id="submitDate" name="submitDate"><br>
+            <input type="date" class="form-control form-control-lg" id="submitDate" name="submitDate"><br>
 
-            <label for="status">Is status:</label><br>
-            <input type="number" id="status" name="status" value="true"><br>
+<!--            <label for="status">Is status:</label><br>-->
+<!--            <input type="number" class="form-control form-control-lg" id="status" name="status" value="true"><br>-->
 
-            <label for="accountId">Account ID:</label><br>
-            <input type="hidden" id="accountId" name="accountId" th:value="${acc.name}"><br>
+<!--            <label for="accountId">Account ID:</label><br>-->
+            <input type="hidden" id="accountId" class="form-control form-control-lg" name="accountId" th:value="${acc.id}"><br>
 
             <label for="academicYearId">Academic Year ID:</label><br>
             <tr th:each="aca: ${acaYear}">
@@ -31,13 +31,13 @@
                 </select><br><br>
             </tr>
 
-            <label for="facultyId">Faculty ID:</label><br>
+<!--            <label for="facultyId">Faculty ID:</label><br>-->
             <!-- <tr th:each="Faculty: ${fals}">
                 <select id="facultyId" name="facultyId">
                     <option> <a th:text="${Faculty.id}"></a> </option>
                 </select><br><br>
             </tr> -->
-            <input type="hidden" id="facultyId" name="facultyId" th:value="${acc.facultyId}"><br>
+            <input type="hidden" class="form-control form-control-lg" id="facultyId" name="facultyId" th:value="${acc.facultyId}"><br>
 
             <table>
                 <tr>
@@ -45,7 +45,8 @@
                     <td><input type="file" name="file" /></td>
                 </tr>
             </table>
-            <input type="submit" value="Submit">
+<!--            <input type="submit" value="Submit">-->
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
 </body>

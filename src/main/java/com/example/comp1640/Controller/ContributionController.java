@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.awt.*;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 
 @Controller
@@ -59,25 +60,16 @@ public class ContributionController
         return "Contribution/CreateContribution";
     }
     @PostMapping("/Hello")
-    public String Create(@RequestParam("id") String id, @RequestParam("name") String name,
+    public String Create(@RequestParam("name") String name,
                          @RequestParam("description") String description,
                          @RequestParam("submitDate") String submitDate,
-                         @RequestParam(value = "status") int status,
+                         @RequestParam(value = "status", defaultValue = "0") int status,
                          @RequestParam("accountId") String accountId,
                          @RequestParam("academicYearId") String academicYearId,
                          @RequestParam("facultyId") String facultyId,
                          @RequestParam("file")MultipartFile file, Model model){
-        System.out.println("Post Run");
-//        service.CreateContribution(id,name,description,submitDate,status,accountId,academicYearId,file);
+        String id = UUID.randomUUID().toString();
         service.CreateContribution(id, name, description, submitDate, status, accountId, academicYearId, facultyId, file);;
-        System.out.println("Service Run");
-
-
-//        Contribution contri = new Contribution(id, name, description, submitDate, approve, isPublic, accountId, academicYearId,path);
-//        if(contri == null || contri.equals(null)){
-//            System.out.println("CONTRI IS NULL");
-//        }
-//                re.CreateContribution(id, name, description, submitDate, approve, isPublic, accountId, academicYearId, path);
         return "redirect:/Contribution/View";
     }
 
