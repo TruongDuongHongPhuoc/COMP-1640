@@ -94,6 +94,8 @@ public class ContributionController
     @RequestParam("facultyId") String facultyId,
     @RequestParam("file") MultipartFile path,
     @RequestParam("oldfile")String oldfile,Model model){
+
+
         service.UpdateContribution(id, name, description, submitDate, status, accountId, academicYearId, facultyId, path, oldfile);
         return "redirect:/Contribution/View";
     }

@@ -10,136 +10,92 @@
   <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
   <link href="/adminTemplate/css/styles.css" rel="stylesheet" />
   <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
 </head>
 <style>
   body {
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    min-height: 100vh;
-    position: relative;
   }
 
-  footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 20px;
+  .sidenav {
+    height: 100%;
+    width: 10%; /* Set width to 10% of the viewport width */
     position: fixed;
-    bottom: 0;
-    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: #333;
+    padding-top: 20px;
+    z-index: 1; /* Ensure it's above other content */
+    overflow-x: hidden; /* Hide horizontal overflow */
   }
 
-  #content-wrapper {
-    flex: 1; /* Use flex to allow content to push footer down */
-    padding-left: 250px; /* Width of the sidebar */
-    transition: all 0.3s; /* Add transition for smooth animation */
+  .sidenav a {
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    display: block;
   }
 
-  /* Adjust content padding when the sidebar is collapsed */
-  #layoutSidenav.sb-sidenav-toggled #content-wrapper {
-    padding-left: 50px; /* Adjusted width when sidebar is collapsed */
+  .sidenav a:hover {
+    background-color: #555;
   }
+
+  .main {
+    margin-left: 250px; /* Same width as the sidebar */
+    padding: 20px;
+    z-index: 0; /* Ensure it's behind the side navbar */
+  }
+
+  @media screen and (max-width: 600px) {
+    .sidenav{
+      height: 100%;
+      width: 25%; /* Set width to 10% of the viewport width */
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #333;
+      padding-top: 20px;
+      z-index: 1; /* Ensure it's above other content */
+      overflow-x: hidden; /* Hide horizontal overflow */
+    }
+    .main {
+      margin-left: 150px; /* Same width as the sidebar */
+      padding: 8px;
+      z-index: 0; /* Ensure it's behind the side navbar */
+      min-height: 300px;
+      min-width: 377px;
+    }
+  }
+     /* Styles for the additional box */
+   .additional-box {
+     display: none; /* Hide the box by default */
+     position: fixed;
+     top: 50%; /* Center vertically */
+     left: 50%; /* Center horizontally */
+     transform: translate(-50%, -50%);
+     background-color: #fff;
+     padding: 20px;
+     border: 1px solid #ccc;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+     z-index: 9999; /* Ensure the box is on top of other content */
+   }
 </style>
 <body class="sb-nav-fixed">
-<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-  <!-- Navbar Brand-->
-  <a class="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
-  <!-- Sidebar Toggle-->
-<!--  <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>-->
-  <!-- Navbar Search-->
-  <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-    <div class="input-group">
-      <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-      <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-    </div>
-  </form>
-  <!-- Navbar-->
-  <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-        <li><a class="dropdown-item" href="#!">Settings</a></li>
-        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-        <li><hr class="dropdown-divider" /></li>
-        <li><a class="dropdown-item" href="#!">Logout</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-<div id="layoutSidenav">
-  <div id="layoutSidenav_nav">
-    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-      <div class="sb-sidenav-menu">
-        <div class="nav">
-          <div class="sb-sidenav-menu-heading">Core</div>
-          <a class="nav-link" href="index.html">
-            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-            Dashboard
-          </a>
-          <div class="sb-sidenav-menu-heading">Interface</div>
-          <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-            Layouts
-            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-          </a>
-<!--          <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">-->
-<!--            <nav class="sb-sidenav-menu-nested nav">-->
-<!--              <a class="nav-link" href="layout-static.html">Static Navigation</a>-->
-<!--              <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>-->
-<!--            </nav>-->
-<!--          </div>-->
-          <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-            Pages
-            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-          </a>
-          <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-              <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                Authentication
-                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-              </a>
-              <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                <nav class="sb-sidenav-menu-nested nav">
-                  <a class="nav-link" href="login.html">Login</a>
-                  <a class="nav-link" href="register.html">Register</a>
-                  <a class="nav-link" href="password.html">Forgot Password</a>
-                </nav>
-              </div>
-              <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                Error
-                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-              </a>
-              <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                <nav class="sb-sidenav-menu-nested nav">
-                  <a class="nav-link" href="401.html">401 Page</a>
-                  <a class="nav-link" href="404.html">404 Page</a>
-                  <a class="nav-link" href="500.html">500 Page</a>
-                </nav>
-              </div>
-            </nav>
-          </div>
-          <div class="sb-sidenav-menu-heading">Addons</div>
-          <a class="nav-link" href="charts.html">
-            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-            Charts
-          </a>
-          <a class="nav-link" href="tables.html">
-            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-            Tables
-          </a>
-        </div>
-      </div>
-      <div class="sb-sidenav-footer" style="margin-top: 60px !important;">
-        <div class="small">Logged in as:</div>
-        Start Bootstrap
-      </div>
-    </nav>
+  <div class=" sidenav" id="demo">
+    <a href="/Contribution/View"><i class="fa fa-book"></i> Contribution manage</a>
+    <a href="/Academic/View"><i class="fa fa-graduation-cap"></i> Academic Manage</a>
+    <a href="/view"><i class="fa fa-briefcase"></i> Faculty Manage</a>
+    <a href="/Role/View"><i class="fa fa-user-o"></i> Role manage </a>
+    <a><i class="fa fa-address-card">Account manage</i></a>
   </div>
+</body>
 
   <!-- Content Wrapper -->
-  <div id="content-wrapper" class="d-flex flex-column">
-
+  <div id="content-wrapper" class="d-flex flex-column" >
+  <div class="main">
     <!-- Main Content -->
     <div layout:fragment="content">
 
@@ -200,7 +156,37 @@
 <script src="/adminTemplate/assets/demo/chart-bar-demo.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
 <script src="/adminTemplate/js/datatables-simple-demo.js"></script>
+<script>
+  // Function to open the additional box
+  function openAdditionalBox() {
+    document.getElementById("additionalBox").style.display = "block";
+  }
+  function OpenSubmitButton() {
+    document.getElementById("acceptTerm").style.display = "block";
+  }
 
+  // Function to close the additional box
+  function closeAdditionalBox() {
+    document.getElementById("additionalBox").style.display = "none";
+  }
+  function toggleSubmitButton() {
+    var checkbox = document.getElementById('acceptTerm');
+    var submitButton = document.getElementById('submitButton');
+
+    // If checkbox is checked, show the submit button, otherwise hide it
+    if (checkbox.checked) {
+      submitButton.style.display = 'block';
+    } else {
+      submitButton.style.display = 'none';
+    }
+  }
+
+  // Add event listener to the checkbox to toggle submit button visibility
+  document.getElementById('acceptTerm').addEventListener('change', toggleSubmitButton);
+
+  // Initial call to toggleSubmitButton to set initial state of the button
+  toggleSubmitButton();
+</script>
 </body>
 
 </html>

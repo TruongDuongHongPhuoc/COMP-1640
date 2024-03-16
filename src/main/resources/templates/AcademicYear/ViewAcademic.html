@@ -53,11 +53,11 @@
                 <td>
                   <form th:action="@{/AcademicYear/Delete}" method="post">
                     <input type="hidden" name="id" th:value="${AcademicYear.id}">
-                    <button type="submit">Delete</button>
+                    <button type="submit" class="btn btn-primary">Delete</button>
                   </form>
                 </td>
                 <td>
-                  <a th:href="@{/AcademicYear/Update/{id}(id = ${AcademicYear.id})} ">set Pu</a>
+                  <a th:href="@{/AcademicYear/Update/{id}(id = ${AcademicYear.id})} ">update</a>
                 </td>
               </tr>
               </tbody>
