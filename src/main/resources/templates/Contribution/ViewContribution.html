@@ -1,7 +1,9 @@
+<!-- ViewFalcutlty.html -->
 <!DOCTYPE html>
 <html lang="en"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="Layout/_Admin">
+
 <body>
 <div layout:fragment="content">
     <h1>Table</h1>
@@ -29,14 +31,11 @@
                                 <th>accountid</th>
                                 <th>facultyid</th>
                                 <th>path</th>
-<<<<<<< HEAD
                                 <th>Download</th>
                                 <th>delete</th>
                                 <th>update</th>
-=======
-                                <th>Downlaod</th>
-                                <th>SetPublic</th>
->>>>>>> origin/master
+                                <th>Download</th>
+
                             </tr>
                             </thead>
                             <tfoot>
@@ -51,14 +50,9 @@
                                 <th>facultyid</th>
                                 <th>path</th>
                                 <th>Download</th>
-<<<<<<< HEAD
                                 <th>delete</th>
                                 <th>update</th>
-=======
-                                <th>Delete</th>
-                                <th>Update</th>
-                                <th>SetPublic</th>
->>>>>>> origin/master
+                                <th>Download</th>
                             </tr>
                             </tfoot>
                             <tbody>
@@ -67,17 +61,11 @@
                                 <td th:text="${fal.name}"></td>
                                 <td th:text="${fal.description}"></td>
                                 <td th:text="${fal.submitDate}"></td>
-<<<<<<< HEAD
-                                <td th:text="${fal.isPublic}"></td>
-=======
                                 <td th:text="${fal.status}"></td>
->>>>>>> origin/master
                                 <td th:text="${fal.academicYearId}"></td>
                                 <td th:text="${fal.accountId}"></td>
                                 <td th:text="${fal.facultyId}"></td>
-                                <td th:text="${fal.path}"/></td>
                                 <td><a th:href="@{http://localhost:8090/Fi/files/__${fal.path}__}">Download</a></td>
-
                                 <td>
                                     <form th:action="@{/Contribution/Delete}" method="post">
                                         <input type="hidden" name="id" th:value="${fal.id}">
@@ -89,18 +77,14 @@
                                     <a th:href="@{/Contribution/Update/{id}(id = ${fal.id})} ">update</a>
 <!--                                        <a th:href="@{/Contribution/set/{id}(id = ${fal.id})} ">update</a>-->
                                 </td>
-<<<<<<< HEAD
+
 
                                 <td>
                                     <a th:href="@{/FeedBack/Create/{id}(id = ${fal.id})}">Add FeedBack</a>
                                 </td>
-=======
-                                <td>
+                                <td>-
 <!--                                    <a th:href="@{/Contribution/Update/{id}(id = ${fal.id})} ">update</a>-->
                                   <a th:href="@{/Contribution/set/{id}(id = ${fal.id})} ">update</a>
-                                </td>
-                                <td>
-                                    <a th:href="@{/FeedBack/Create/{id}(id = ${fal.id})}">Add FeedBack</a>
                                 </td>
                             </tr>
                             </tbody>
