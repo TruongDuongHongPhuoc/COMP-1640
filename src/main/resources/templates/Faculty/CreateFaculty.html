@@ -9,41 +9,23 @@
 <h1>Welcome to Create Faculty Page</h1>
 <form th:action="@{/Hello}" method="post">
     <label for="name">Name:</label><br>
-    <input type="text" id="name" name="name"><br>
+    <input class="form-control form-control-lg" type="text" id="name" name="name"><br>
 
     <label for="id">ID:</label><br>
-    <input type="text" id="id" name="id"><br>
+    <input class="form-control form-control-lg" type="text" id="id" name="id"><br>
 
     <label for="description">Description:</label><br>
-    <input type="text" id="description" name="description"><br>
-
-    <!-- <label for="academicYear">Academic Year ID:</label><br>
-    <input type="text" id="academicYear" name="academicYear"><br><br> -->
+    <input class="form-control form-control-lg" type="text" id="description" name="description"><br>
 
     <label for="academicYear">Academic Year ID:</label><br>
-    <tr th:each="aca: ${aca1}">
-        <select id="academicYear" name="academicYear" >
-            <option> <a th:text="${aca.id}"></a> </option>
-        </select><br><br>
-    </tr>
-    
+    <select id="academicYear" name="academicYear" class="form-select" aria-label="Default select example">
+        <tr th:each="aca : ${aca1}">
+            <option th:value="${aca.id}" th:text="${aca.id}"></option>
+        </tr>
+    </select>
 
-    <!-- <script>
-        // Simulate fetching data from MongoDB
-        // const academicYears = ["2022-2023", "2023-2024", "2024-2025"];
 
-        // Populate the dropdown with options
-        const yearDropdown = document.getElementById("academicYear");
-
-        academicYears.forEach(academicYear => {
-            const option = document.createElement("option");
-            option.value = academicYear;
-            option.text = academicYear;
-            yearDropdown.add(option);
-        });
-     
-    </script> -->
-    <input type="submit" value="Submit">
+    <input class="btn btn-primary" type="submit" value="Submit">
 </form>
 </div>
 </body>

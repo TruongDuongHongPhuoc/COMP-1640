@@ -5,7 +5,7 @@
       layout:decorate="Layout/_Admin">
 <body>
 <div layout:fragment="content">
-<h1>List of Faculties</h1>
+<h1>Academic year Management</h1>
 <!--  <h1>Table </h1>-->
   <div id="layoutSidenav_content">
     <main>
@@ -51,13 +51,13 @@
                 <td th:text="${AcademicYear.getendDate()}"></td>
 
                 <td>
-                  <form th:action="@{/AcademicYear/Delete}" method="post">
+                  <form th:action="@{/Academic/Delete}" method="post">
                     <input type="hidden" name="id" th:value="${AcademicYear.id}">
                     <button type="submit" class="btn btn-primary">Delete</button>
                   </form>
                 </td>
                 <td>
-                  <a th:href="@{/AcademicYear/Update/{id}(id = ${AcademicYear.id})} ">update</a>
+                  <a th:href="@{/Academic/Update/{id}(id = ${AcademicYear.id})} ">update</a>
                 </td>
               </tr>
               </tbody>

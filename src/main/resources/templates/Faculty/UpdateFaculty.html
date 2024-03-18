@@ -7,34 +7,21 @@
 <body>
 
 <div layout:fragment="content">
-  <h1>List of Faculties</h1>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>ID</th>
-        <th>Group</th>
-        <th>Year</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
+  <h1 th:text="'update for ' + ${faculty.name}"></h1>
         <form th:action="@{/Updating}" method="POST">
           <input type="hidden" name="id" th:value="${faculty.id}">
           <label for="name">Name:</label>
-          <input type="text" id="name" name="name" th:value="${faculty.name}">
+          <input class="form-control form-control-lg" type="text" id="name" name="name" th:value="${faculty.name}">
           <br>
           <label for="description">Group:</label>
-          <input type="text" id="description" name="description" th:value="${faculty.getdescription()}">
+          <input class="form-control form-control-lg" type="text" id="description" name="description" th:value="${faculty.getdescription()}">
           <br>
           <label for="academicYear">Academic Year ID: </label>
-          <input type="text" id="academicYear" name="academicYear" th:value="${faculty.academicYear}" readonly>
+          <input class="form-control form-control-lg" type="text" id="academicYear" name="academicYear" th:value="${faculty.academicYear}" readonly>
           <br>
-          <button type="submit">Update Faculty</button>
+          <button class="btn btn-primary" type="submit">Update Faculty</button>
         </form>
 
-    </tbody>
-  </table>
 </div>
 </body>
 </html>
