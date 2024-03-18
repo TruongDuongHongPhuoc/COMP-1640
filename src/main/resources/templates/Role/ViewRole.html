@@ -7,7 +7,7 @@
 <body>
 
 <div layout:fragment="content">
-<h1>List of Role</h1>
+<h1>Role management</h1>
   <h1>Table</h1>
   <div id="layoutSidenav_content">
     <main>
@@ -43,7 +43,7 @@
                 <td>
                   <form th:action="@{Role/Delete}" method="post">
                     <input type="hidden" name="id" th:value="${role.id}">
-                    <button type="submit">Delete</button>
+                    <button class="btn btn-primary" type="submit">Delete</button>
                   </form>
                 </td>
                 <td>

@@ -6,7 +6,7 @@
 
 <body>
 <div layout:fragment="content">
-  <h1>Table</h1>
+  <h1>Faculty management</h1>
   <div id="layoutSidenav_content">
     <main>
       <div class="container-fluid px-4">
@@ -50,7 +50,7 @@
                 <td>
                   <form th:action="@{/Delete}" method="post">
                     <input type="hidden" name="id" th:value="${faculty.id}">
-                    <button type="submit">Delete</button>
+                    <button class="btn btn-primary" type="submit">Delete</button>
                   </form>
                 </td>
                 <td>

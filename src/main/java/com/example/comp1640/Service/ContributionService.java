@@ -3,6 +3,7 @@ package com.example.comp1640.Service;
 import com.example.comp1640.Store.FileSystemStorageService;
 import com.example.comp1640.Store.FileUploadController;
 import com.example.comp1640.Store.StorageService;
+import com.example.comp1640.model.Contribution;
 import com.example.comp1640.repository.ContributionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,16 @@ public class ContributionService {
                                 "serveFile", path.getFileName().toString()).build().toUri().toString())
                 .collect(Collectors.toList());
         return null;
+    }
+    public List<Contribution> ReturnPublicContribution(){
+        List<Contribution> cons = contributionRepository.ReturnContributions();
+        List<Contribution> filteredList = cons.stream()
+                .filter(con -> con.getStatus() != 2 && con.getStatus() != 0)
+                .collect(Collectors.toList());
+        return filteredList;
+    }
+    public List<Contribution> ReturnAllContribution(){
+        return contributionRepository.ReturnContributions();
     }
     public void deletefile(String file){
         StoreService.deleteFile(file);
