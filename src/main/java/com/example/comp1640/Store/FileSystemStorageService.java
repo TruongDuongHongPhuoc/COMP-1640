@@ -87,7 +87,7 @@ public class FileSystemStorageService implements StorageService {
 			Path fileToDelete = rootLocation.resolve(filename);
 			Files.deleteIfExists(fileToDelete);
 		} catch (IOException e) {
-			throw new RuntimeException("Failed to delete file: " + filename, e);
+			System.out.println("there is no file");
 		}
 	}
 	@Override

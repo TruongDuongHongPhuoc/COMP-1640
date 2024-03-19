@@ -95,7 +95,7 @@ public class ContributionController
     @RequestParam("file") MultipartFile path,
     @RequestParam("oldfile")String oldfile,Model model){
 
-
+        System.out.println("Updating Contribution controller");
         service.UpdateContribution(id, name, description, submitDate, status, accountId, academicYearId, facultyId, path, oldfile);
         return "redirect:/Contribution/View";
     }
