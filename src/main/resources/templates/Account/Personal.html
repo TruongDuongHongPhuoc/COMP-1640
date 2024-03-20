@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="Layout/_Customer">
+<head>
+    <meta charset="UTF-8">
+    <title>Personal page</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<style>
+    body {
+        background: rgb(99, 39, 120)
+    }
+
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #BA68C8
+    }
+
+    .profile-button {
+        background: rgb(99, 39, 120);
+        box-shadow: none;
+        border: none
+    }
+
+    .profile-button:hover {
+        background: #682773
+    }
+
+    .profile-button:focus {
+        background: #682773;
+        box-shadow: none
+    }
+
+    .profile-button:active {
+        background: #682773;
+        box-shadow: none
+    }
+
+    .back:hover {
+        color: #682773;
+        cursor: pointer
+    }
+
+    .labels {
+        font-size: 11px
+    }
+
+    .add-experience:hover {
+        background: #BA68C8;
+        color: #fff;
+        cursor: pointer;
+        border: solid 1px #BA68C8
+    }
+</style>
+<body>
+<div layout:fragment="content" class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                <img alt="Avatar" class="rounded-circle mt-5" width="150px"
+                     th:src="@{'/images/' + ${account.profileImage}}">
+                <span class="font-weight-bold" th:text="${account.name}"></span>
+                <span
+                        class="text-black-50" th:text="${account.mail}"</span>
+                <span> </span>
+            </div>
+        </div>
+        <div class="col-md-5 border-right">
+            <form th:action="@{/account/personal}" th:object="${account}" method="post" enctype="multipart/form-data">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">Profile Settings</h4>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label for="ex1" class="labels">Full name</label>
+                            <input th:field="*{id}" type="hidden" th:value="${account.id}">
+                            <input th:field="*{name}" type="text" id="ex1" class="form-control" th:value="${account.name}">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="ex2" class="labels">Email</label>
+                            <input th:field="*{mail}" name="email" type="email" id="ex2" class="form-control" th:value="${account.mail}">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="ex3" class="labels">Date of birth</label>
+                            <input th:field="*{dateOfBirth}" name="date" type="date" id="ex3" class="form-control" th:value="${account.dateOfBirth}">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="ex4" class="labels">Address</label>
+                            <input th:field="*{address}" type="text" class="form-control" id="ex4" th:value="${account.address}">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="ex6" class="labels">Phone number</label>
+                            <input th:field="*{phoneNumber}" id="ex6" type="text" class="form-control" th:value="${account.phoneNumber}">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="ex5" class="labels">New Avatar</label>
+                            <input name="image" accept="image/*"  id="ex5" type="file" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="mt-5 text-center">
+                        <a class="btn btn-secondary" th:href="@{/home}">Back</a>
+                        <button class="btn btn-primary profile-button" id="saveButton" type="submit">Edit Profile
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!--        <div class="col-md-4">-->
+        <!--            <div class="p-3 py-5">-->
+        <!--                <div class="d-flex justify-content-between align-items-center experience"><span>Edit Experience</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Experience</span></div><br>-->
+        <!--                <div class="col-md-12"><label class="labels">Experience in Designing</label><input type="text" class="form-control" placeholder="experience" value=""></div> <br>-->
+        <!--                <div class="col-md-12"><label class="labels">Additional Details</label><input type="text" class="form-control" placeholder="additional details" value=""></div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+    </div>
+</div>
+<!--<button class="btn btn-primary profile-button" type="button" id="saveButton">Save Profile</button>-->
+<!--<a class="btn btn-info" id="editButton">Edit Profile</a>-->
+</body>
+</html>

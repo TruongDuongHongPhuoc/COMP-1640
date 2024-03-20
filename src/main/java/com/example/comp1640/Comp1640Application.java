@@ -22,13 +22,14 @@ public class Comp1640Application implements CommandLineRunner{
 		SpringApplication.run(Comp1640Application.class, args);
 
 	}
-//	@Bean
+// 	@Bean
 //    CommandLineRunner init(StorageService storageService) {
 //        return (args) -> {
 //            storageService.deleteAll();
 //            storageService.init();
 //        };
 //    }
+
 	@Override
 	public void run(String... args) throws Exception {
 

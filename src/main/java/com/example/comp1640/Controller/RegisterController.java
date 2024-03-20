@@ -8,23 +8,20 @@ import com.example.comp1640.repository.FalcultyRepository;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
-import java.io.*;
-import java.nio.file.FileSystem;
-import java.nio.file.Paths;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -60,7 +57,7 @@ public class RegisterController {
                                  BindingResult result,  Model model) throws IOException {
         Optional<Account> ac = repositoryTest.findAccountByMail(account.getMail());
         if (ac.isPresent()){
-            result.rejectValue("mail", "error.acount", "Email is existed");
+            result.rejectValue("mail", "error.account", "Email is existed");
             Account user = new Account();
             List<Faculty> facultyList = falcultyRepository.ReturnFaculties();
             model.addAttribute("facultyList", facultyList);
@@ -75,7 +72,7 @@ public class RegisterController {
         try {
             String fileName = file.getOriginalFilename();
             Account saveUser = repositoryTest.save(account);
-            String filePath = "src/main/resources/images/" + fileName;
+            String filePath = "src/main/resources/static/images/" + fileName;
             File imageFileOnDisk = new File(filePath);
             BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream((imageFileOnDisk)));
             stream.write(file.getBytes());

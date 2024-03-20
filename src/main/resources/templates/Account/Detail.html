@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_Admin">
+<body>
+
+<div layout:fragment="content">
+  <h1>Detail information page</h1>
+  <form method="POST" th:action="@{/account/reset}">
+    <div class="mb-3">
+      <label for="ex1" class="form-label font-weight-bold">Username</label>
+      <input class="form-control" id="ex1" type="text" readonly th:value="${account.name}">
+    </div>
+
+    <div class="mb-3">
+    <label for="ex2" class="form-label font-weight-bold">Email</label>
+    <input class="form-control" type="text" readonly th:value="${account.mail}" id="ex2">
+    </div>
+
+    <div class="mb-3">
+    <label for="ex3" class="form-label font-weight-bold">Date of birth</label>
+    <input class="form-control" type="text" readonly id="ex3" th:value="${account.dateOfBirth.toString()}">
+    </div>
+
+    <div class="mb-3">
+    <label for="ex4" class="form-label font-weight-bold">Address</label>
+    <input class="form-control" type="text" readonly id="ex4" th:value="${account.address}">
+    </div>
+
+    <div class="mb-3">
+    <label for="ex5" class="form-label font-weight-bold">Phone number</label>
+    <input class="form-control" type="text" readonly id="ex5" th:value="${account.phoneNumber}">
+    </div>
+
+    <div class="mb-3">
+    <label for="" class="form-label font-weight-bold">Avatar</label>
+    <img src="" alt="Avatar">
+    </div>
+
+    <div class="mb-3">
+    <label for="ex6" class="form-label font-weight-bold">Role</label>
+<!--    <select class="form-select"  name="role" id="ex6">-->
+<!--      <option selected th:value="${account.getRoleId()}" th:text="${account.getRoleName()}"></option>-->
+<!--      <option  th:each="r:${role}" th:value="${r.id}" th:text="${r.name}"></option>-->
+<!--    </select>-->
+    </div>
+
+    <div class="mb-3">
+    <label for="ex7" class="form-label">Faculty</label>
+    <select name="faculty" id="ex7" class="form-select">
+      <option selected th:value="${account.getFacultyId()}" th:text="${account.getFalcutyName()}"></option>
+      <option th:each="f:${faculty}" th:value="${f.id}" th:text="${f.name}"></option>
+    </select>
+    </div>
+
+    <input type="hidden" name="id" th:value="${account.id}">
+
+    <div class="mb-3 flex-column">
+      <button type="submit" class="btn btn-primary">Save</button>
+      <a class="btn btn-info" th:href="@{/account/reset/{id} (id = ${account.getId()})}">Reset password</a>
+      <a class="btn btn-secondary" th:href="@{/account/view}">Back</a>
+    </div>
+  </form>
+</div>
+</body>
+</html>
