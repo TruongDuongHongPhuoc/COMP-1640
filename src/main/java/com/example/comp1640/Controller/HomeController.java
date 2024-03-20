@@ -23,6 +23,7 @@ import java.util.List;
 public class HomeController {
     @Autowired
     private AccountRepositoryTest repo;
+    @Autowired
     private ContributionService contributionService;
     @Autowired
     AccountRepositoryTest accountRepoTest;
