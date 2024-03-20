@@ -16,21 +16,31 @@
                 <th>submitedate</th>
                 <th>status</th>
                 <th>Download</th>
-                <th>Feedback</th>
+<!--                <th>Feedback</th>-->
             </tr>
             </thead>
             <tbody>
-            <tr th:each="con:${cons}">
-                <td th:text="${con.id}"></td>
-                <td th:text="${con.name}"></td>
-                <td th:text="${con.description}"></td>
-                <td th:text="${con.submitDate}"></td>
-                <td th:text="${con.status == 0 ? 'Waiting' : (con.status == 1 ? 'Approved' : 'Rejected')}"></td>
-                <td><a th:href="@{http://localhost:8090/Fi/files/__${con.path}__}">Download</a></td>
-                <td>
-                    <a th:href="@{/FeedBack/Create/{id}(id = ${con.id})}">Add FeedBack</a>
-                </td>
-            </tr>
+            <th:block th:each="con : ${hashi}">
+                <tr>
+                    <!-- Populate contribution details -->
+                    <td th:text="${con.key.id}"></td>
+                    <td th:text="${con.key.name}"></td>
+                    <td th:text="${con.key.description}"></td>
+                    <td th:text="${con.key.submitDate}"></td>
+                    <td th:text="${con.key.status == 0 ? 'Waiting' : (con.key.status == 1 ? 'Approved' : 'Rejected')}"></td>
+                    <td><a th:href="@{http://localhost:8090/Fi/files/__${con.key.path}__}">Download</a></td>
+                </tr>
+                <!-- Form for adding feedback -->
+                <tr>
+                    <form method="post" th:action="@{/FeedBack/feedbackcreate/{id}(id=${con.key.id})}">
+                    <td colspan="5">
+                            <input type="hidden" th:value="${accounts.id}" name="userid">
+                            <input th:value="${con.value.content}" type="text" class="form-control" name="content">
+                    </td>
+                    <td><button type="submit" class="btn btn-primary">Add Feedback</button></td>
+                    </form>
+                </tr>
+            </th:block>
             </tbody>
         </table>
     </div>

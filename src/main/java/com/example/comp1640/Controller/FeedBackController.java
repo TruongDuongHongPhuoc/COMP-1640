@@ -6,6 +6,9 @@ import com.example.comp1640.model.Feedback;
 import com.example.comp1640.repository.AccountRepositoryTest;
 import com.example.comp1640.repository.ContributionRepository;
 import com.example.comp1640.repository.FeedbackRepository;
+import com.fasterxml.jackson.databind.deser.std.ObjectArrayDeserializer;
+import groovyjarjarantlr4.v4.Tool.Option;
+import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -56,6 +59,18 @@ public class FeedBackController {
     @PostMapping("/CreateFeedBack")
     public String UpdatePostFeedback(@RequestParam("id") String id, @RequestParam("content") String content
     , @RequestParam("userid") String userid, @RequestParam("contributionId") String contributionId, Model model){
+            if (id.equals(null)) {
+                id = UUID.randomUUID().toString();
+            }
+            re.CreateFeedBack(id, content, userid, contributionId);
+            return "redirect:/FeedBack/View";
+    }
+    @PostMapping("/feedbackcreate/{idcontri}")
+    public String CreateFeedback( @RequestParam("content") String content
+            , @RequestParam("userid") String userid, @PathVariable("idcontri") String contributionId, Model model){
+
+          String  id = UUID.randomUUID().toString();
+
         re.CreateFeedBack(id, content, userid, contributionId);
         return "redirect:/FeedBack/View";
     }
