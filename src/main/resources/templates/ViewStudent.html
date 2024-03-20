@@ -8,6 +8,7 @@
     <table class="table table-striped">
         <thead>
         <tr>
+            <th>Profile Picture</th>
             <th>name</th>
             <th>Mail</th>
             <th>Phone Number</th>
@@ -16,6 +17,9 @@
         </thead>
         <tbody>
         <tr th:each="acc:${accs}">
+            <td>
+                <img alt="avatar" th:src="@{'/images/' + ${acc.profileImage}}" style="height: 100px; width: 140px">
+            </td>
             <td th:text="${acc.name}"></td>
             <td th:text="${acc.mail}"></td>
             <td th:text="${acc.phoneNumber}"></td>

@@ -50,7 +50,7 @@ public class ContributionController
     public String create(Model model) {
         List<AcademicYear> academicYears = acaRepo.ReturnAcademicYears();
         List<Faculty> faculties = facultyRepo.ReturnFaculties();
-        org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();  
+        org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<Account> acc = accountRepoTest.findAccountByMail(authentication.getName());
         Account accounts = acc.get();
         System.out.println(accounts);

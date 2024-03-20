@@ -12,6 +12,7 @@ import groovyjarjarantlr4.v4.Tool.Option;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
@@ -61,6 +62,18 @@ public class FeedBackController {
     @PostMapping("/CreateFeedBack")
     public String UpdatePostFeedback(@RequestParam("id") String id, @RequestParam("content") String content
     , @RequestParam("userid") String userid, @RequestParam("contributionId") String contributionId, Model model){
+            if (id.equals(null)) {
+                id = UUID.randomUUID().toString();
+            }
+            re.CreateFeedBack(id, content, userid, contributionId);
+            return "redirect:/FeedBack/View";
+    }
+    @PostMapping("/feedbackcreate/{idcontri}")
+    public String CreateFeedback( @RequestParam("content") String content
+            , @RequestParam("userid") String userid, @PathVariable("idcontri") String contributionId, Model model){
+
+          String  id = UUID.randomUUID().toString();
+
         re.CreateFeedBack(id, content, userid, contributionId);
         return "redirect:/FeedBack/View";
     }

@@ -35,7 +35,6 @@
                                 <th>delete</th>
                                 <th>update</th>
                                 <th>Download</th>
-
                             </tr>
                             </thead>
                             <tfoot>
@@ -56,7 +55,8 @@
                             </tr>
                             </tfoot>
                             <tbody>
-                            <tr th:each="fal:${cons}">
+                            <th:block th:each="fal:${cons}">
+                            <tr>
                                 <td th:text="${fal.id}"></td>
                                 <td th:text="${fal.name}"></td>
                                 <td th:text="${fal.description}"></td>
@@ -77,8 +77,6 @@
                                     <a th:href="@{/Contribution/Update/{id}(id = ${fal.id})} ">update</a>
 <!--                                        <a th:href="@{/Contribution/set/{id}(id = ${fal.id})} ">update</a>-->
                                 </td>
-
-
                                 <td>
                                     <a th:href="@{/FeedBack/Create/{id}(id = ${fal.id})}">Add FeedBack</a>
                                 </td>
@@ -87,6 +85,7 @@
                                   <a th:href="@{/Contribution/set/{id}(id = ${fal.id})} ">set public</a>
                                 </td>
                             </tr>
+                            </th:block>
                             </tbody>
                         </table>
                     </div>
