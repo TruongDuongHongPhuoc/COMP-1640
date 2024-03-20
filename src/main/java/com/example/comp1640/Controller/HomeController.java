@@ -1,7 +1,11 @@
 package com.example.comp1640.Controller;
 
 
+
 import com.example.comp1640.model.Account;
+import com.example.comp1640.Service.ContributionService;
+import com.example.comp1640.model.Contribution;
+import com.example.comp1640.model.Customer;
 import com.example.comp1640.repository.AccountRepositoryTest;
 import com.example.comp1640.repository.ContributionRepository;
 import com.example.comp1640.repository.FalcultyRepository;
@@ -12,40 +16,60 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import java.util.Optional;
+import java.util.List;
 
 @Controller
 public class HomeController {
     @Autowired
     private AccountRepositoryTest repo;
+    private ContributionService contributionService;
+    @Autowired
+    AccountRepositoryTest accountRepoTest;
+    @Autowired
     FalcultyRepository falcultyRepository;
 
     @Autowired
     ContributionRepository re;
+
     @GetMapping("/home")
     public String home(Model model){
-        Authentication au = SecurityContextHolder.getContext().getAuthentication();
-        if (au == null || !au.isAuthenticated()){
-
-        }else {
-            Optional<Account> optionalAccount = repo.findAccountByMail(au.getName());
-            if (optionalAccount.isPresent()){
-                Account account = optionalAccount.get();
-                model.addAttribute("account", account);
-            }
-        }
+        List<Contribution> cons = contributionService.ReturnPublicContribution();
+        model.addAttribute("cons", cons);
         return "HomePage";
     }
-        @GetMapping("/layout")
-    public String layout(){
+
+    @GetMapping("/layout")
+    public String layout() {
         return "/Layout/_Customer";
     }
 
+    @GetMapping("/chart")
+    public String getMethodName() {
+        return "DashBoard";
+    }
 
     @GetMapping("/test")
     @ResponseBody
-    public String test(){
+    public String test() {
         return "Login success!";
+    }
+
+    @GetMapping("/GettingToViewWork")
+    public String GettingtoViewWork() {
+        org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext()
+                .getAuthentication();
+        Optional<Account> acc = accountRepoTest.findAccountByMail(authentication.getName());
+        Account accounts = acc.get();
+        return "redirect:/student/" + accounts.getId();
+    }
+
+    @GetMapping("/GettingToViewStudent")
+    public String GettingToViewStudent() {
+        org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext()
+                .getAuthentication();
+        Optional<Account> acc = accountRepoTest.findAccountByMail(authentication.getName());
+        Account accounts = acc.get();
+        return "redirect:/" + accounts.getFacultyId() + "/student";
     }
 }

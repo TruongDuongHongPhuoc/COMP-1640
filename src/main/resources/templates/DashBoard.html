@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MongoDB Charts Example</title>
+    <!-- Include MongoDB Charts SDK -->
+    <script src="https://unpkg.com/@mongodb-js/charts-embed-dom"></script>
+</head>
+<body>
+    <!-- Your HTML content here -->
+    <div id="dashboard"></div>x
+    <script>
+        // Your JavaScript code here
+        const sdk = new ChartsEmbedSDK({
+          baseUrl: "https://charts.mongodb.com/charts-project-0-axrob",
+        });
+
+        const dashboard = sdk.createDashboard( {
+          dashboardId: "5c83d8e5-242f-4acb-a43b-201cfd3380d5", // REPLACE with the Dashboard ID
+          height: "700px",
+          widthMode: "scale",
+          heightMode: "fixed",
+          // Additional options go here
+        });
+
+        dashboard.render(document.getElementById("dashboard"));
+    </script>
+</body>
+</html>

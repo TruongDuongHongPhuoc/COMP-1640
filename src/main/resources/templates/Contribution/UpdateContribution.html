@@ -7,7 +7,7 @@
 <body>
 
 <div layout:fragment="content">
-  <h1>List of Contribution</h1>
+  <h1 th:text="'update for ' + ${con.name}"></h1>
 <!--  <form th:action="@{/Contribution/Updating}" method="POST" enctype="multipart/form-data">-->
 <!--    <table>-->
 <!--      <thead>-->
@@ -57,7 +57,7 @@
 
   <form th:action="@{/Contribution/Updating}" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="id" th:value="${con.id}">
-    <input type="hidden" name="oldfile" th:value="${con.path}">
+    <input  name="oldfile" th:value="${con.path}">
     <input type="hidden" name="accountId" th:value="${con.accountId}">
     <input type="hidden" name="facultyId" th:value="${con.facultyId}">
     <label for="name">Name:</label><br>

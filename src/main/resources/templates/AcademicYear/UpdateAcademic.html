@@ -8,28 +8,19 @@
 <body>
 
 <div layout:fragment="content">
-  <h1>List of Faculties</h1>
+  <h1 th:text="'update for ' + ${AcademicYear.name}">List of Faculties</h1>
   <form th:action="@{/Academic/Updating}" method="POST" enctype="multipart/form-data">
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>ID</th>
-        <th>AcademicYear</th>
-        <th>Start Date</th>
-        <th>End Date</th>
-      </tr>
-    </thead>
-    <tbody>
-    <td><input type="text" id="name" name="name" th:value="${AcademicYear.name}"></td>
-    <td><input type="text" id="id" name="id" th:value="${AcademicYear.id}"></td>
-    <td><input type="text" id="academicyear" name="academicyear" th:value="${AcademicYear.getyearOfAcademic()}"></td>
-    <td><input type="text" id="startdate" name="startdate" th:value="${AcademicYear.getstartDate()}"></td>
-    <td><input type="text" id="enddate" name="enddate" th:value="${AcademicYear.getendDate()}"></td>
-    </tbody>
-  </table>
-  <br>
-    <button type="submit">Update AcademicYear</button>
+    <input type="hidden" id="id" name="id" th:value="${AcademicYear.id}"><br>
+    <label for="name">Name</label><br>
+    <input class="form-control form-control-lg" type="text" id="name" name="name" th:value="${AcademicYear.name}"><br>
+    <label for="yearOfAcademic">Academic Year</label><br>
+    <input class="form-control form-control-lg" type="text" id="yearOfAcademic" name="yearOfAcademic" th:value="${AcademicYear.getyearOfAcademic()}"><br>
+    <label for="startDate">Start Date</label><br>
+    <input class="form-control form-control-lg" type="text" id="startDate" name="startDate" th:value="${AcademicYear.getstartDate()}"><br>
+    <label for="endDate">End Date</label><br>
+    <input class="form-control form-control-lg" type="text" id="endDate" name="endDate" th:value="${AcademicYear.getendDate()}">
+   <br>
+    <button class="btn btn-primary" type="submit">Update AcademicYear</button>
   </form>
 </div>
 </body>
