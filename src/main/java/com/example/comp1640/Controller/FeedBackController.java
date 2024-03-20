@@ -6,19 +6,14 @@ import com.example.comp1640.model.Feedback;
 import com.example.comp1640.repository.AccountRepositoryTest;
 import com.example.comp1640.repository.ContributionRepository;
 import com.example.comp1640.repository.FeedbackRepository;
-import com.fasterxml.jackson.databind.deser.std.ObjectArrayDeserializer;
-
-import groovyjarjarantlr4.v4.Tool.Option;
-
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -52,7 +47,7 @@ public class FeedBackController {
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();  
         Optional<Account> acc = accountRepoTest.findAccountByMail(authentication.getName());
         Account accounts = acc.get();
-        System.out.println(accounts);
+//        System.out.println(accounts);
         model.addAttribute("acc", accounts);
         model.addAttribute("Feedback", fe);
         model.addAttribute("Cons", con);

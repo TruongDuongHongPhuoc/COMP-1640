@@ -1,15 +1,14 @@
 package com.example.comp1640.model;
 
-import lombok.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.thymeleaf.expression.Dates;
 
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.Date;
 
 @Getter
 @Setter
@@ -28,5 +27,10 @@ public class Account {
     private String profileImage;
     private String roleId;
     private String facultyId;
+
+    @Transient
+    private String roleName;
+    @Transient
+    private String falcutyName;
 }
 

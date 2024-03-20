@@ -25,7 +25,7 @@ import java.util.UUID;
 
 
 @Controller
-@RequestMapping("/Contribution")
+@RequestMapping("/contribution")
 public class ContributionController 
 {
     @Autowired
@@ -46,7 +46,7 @@ public class ContributionController
     @Autowired
     AccountRepositoryTest accountRepoTest;
 
-    @GetMapping("/CreateContribution") // Corrected mapping without the trailing slash
+    @GetMapping("/createcontribution") // Corrected mapping without the trailing slash
     public String create(Model model) {
         List<AcademicYear> academicYears = acaRepo.ReturnAcademicYears();
         List<Faculty> faculties = facultyRepo.ReturnFaculties();

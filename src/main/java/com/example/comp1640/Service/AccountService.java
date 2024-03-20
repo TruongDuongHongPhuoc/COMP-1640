@@ -2,12 +2,17 @@ package com.example.comp1640.Service;
 
 import com.example.comp1640.config.SecurityConfig;
 import com.example.comp1640.model.Account;
+import com.example.comp1640.model.Faculty;
 import com.example.comp1640.model.Role;
 import com.example.comp1640.repository.AccountRepositoryTest;
-import com.example.comp1640.repository.RoleInterface;
+import com.example.comp1640.repository.FalcutyRepository;
+import com.example.comp1640.repository.RoleRepositoryTest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,6 +20,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.SecureRandom;
 import java.util.*;
 
 @Service
@@ -23,9 +29,41 @@ public class AccountService implements UserDetailsService {
     AccountRepositoryTest accountRepositoryTest;
 
     @Autowired
-    private RoleInterface roleInterface;
+    private RoleRepositoryTest roleRepositoryTest;
+
+    @Autowired
+    private FalcutyRepository falcutyRepository;
+
 
     BCryptPasswordEncoder bCryptPasswordEncoder = SecurityConfig.bCryptPasswordEncoder();
+
+    public List<Account> getAll(){
+        return accountRepositoryTest.findAll().stream()
+                .peek(account -> {
+                    String roleName = roleRepositoryTest.findById(account.getRoleId()).get().getName();
+                    if(account.getFacultyId() != null){
+                        Faculty falcuty = falcutyRepository
+                                .findById(account.getFacultyId()).orElseGet(null);
+                        account.setFalcutyName(falcuty != null ? falcuty.getName() : "");
+
+                    }
+                    account.setRoleName(roleName);
+                }).toList();
+    }
+
+    public Account getOne(String  accountId) {
+        return accountRepositoryTest.findById(accountId).map(account -> {
+            String roleName = roleRepositoryTest.findById(account.getRoleId()).map(Role::getName).orElse("");
+            String facultyName = "";
+            if (account.getFacultyId() != null) {
+                Faculty faculty = falcutyRepository.findById(account.getFacultyId()).orElse(null);
+                facultyName = (faculty != null) ? faculty.getName() : "";
+            }
+            account.setRoleName(roleName);
+            account.setFalcutyName(facultyName);
+            return account;
+        }).orElse(null);
+    }
 
     @Override
     public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
@@ -42,8 +80,61 @@ public class AccountService implements UserDetailsService {
     }
 
     private GrantedAuthority getUserAuthen(String roleId) {
-        Optional<Role> role = roleInterface.findById(roleId);
+        Optional<Role> role = roleRepositoryTest.findById(roleId);
         return role.map(r -> new SimpleGrantedAuthority(r.getName()))
                 .orElseGet(() -> new SimpleGrantedAuthority("ROLE_GUEST"));
+    }
+
+    public String generateRandomPassword() {
+        String uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String lowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
+        String numbers = "0123456789";
+
+        SecureRandom random = new SecureRandom();
+
+        StringBuilder sb = new StringBuilder();
+
+        // Thêm ít nhất một chữ hoa
+        sb.append(uppercaseLetters.charAt(random.nextInt(uppercaseLetters.length())));
+
+        // Thêm ít nhất một chữ thường
+        sb.append(lowercaseLetters.charAt(random.nextInt(lowercaseLetters.length())));
+
+        // Thêm ít nhất một số
+        sb.append(numbers.charAt(random.nextInt(numbers.length())));
+
+        // Thêm các ký tự ngẫu nhiên cho đến khi đạt được độ dài tối thiểu là 8 ký tự
+        while (sb.length() < 8) {
+            int randomType = random.nextInt(3); // 0: uppercase, 1: lowercase, 2: numbers
+            switch (randomType) {
+                case 0:
+                    sb.append(uppercaseLetters.charAt(random.nextInt(uppercaseLetters.length())));
+                    break;
+                case 1:
+                    sb.append(lowercaseLetters.charAt(random.nextInt(lowercaseLetters.length())));
+                    break;
+                case 2:
+                    sb.append(numbers.charAt(random.nextInt(numbers.length())));
+                    break;
+            }
+        }
+
+        // Trộn ngẫu nhiên chuỗi
+        for (int i = 0; i < sb.length(); i++) {
+            int randomIndex = random.nextInt(sb.length());
+            char temp = sb.charAt(i);
+            sb.setCharAt(i, sb.charAt(randomIndex));
+            sb.setCharAt(randomIndex, temp);
+        }
+        return sb.toString();
+    }
+
+    public boolean checkRole(String role) throws AccessDeniedException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getAuthorities().stream().anyMatch(a->a.getAuthority().equals(role))){
+            return true;
+        }else {
+            throw new AccessDeniedException("Access is denied");
+        }
     }
 }

@@ -7,15 +7,20 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+
 @Configuration
-@EnableWebSecurity
-public class SecurityConfig {
+@EnableGlobalMethodSecurity(
+        prePostEnabled = true,
+        securedEnabled = true,
+        jsr250Enabled = true)
+public class SecurityConfig extends GlobalMethodSecurityConfiguration {
     @Bean
     public static BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
@@ -41,15 +46,17 @@ public class SecurityConfig {
                         .requestMatchers("/register").permitAll()
                         .requestMatchers("/forHomepage/**").permitAll()
                         .requestMatchers("/adminTemplate/**").permitAll()
-                        .anyRequest().authenticated()
-                ).formLogin(
+                        .requestMatchers("/images/**").permitAll()
+                        .anyRequest().permitAll()
+                )
+                .formLogin(
                         (form) -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
                                 .defaultSuccessUrl("/home")
                                 .usernameParameter("email")
                                 .permitAll()
-                )
+                ) // ở day co the them exception custom
                 .rememberMe(Customizer.withDefaults());
         return http.build();
 
