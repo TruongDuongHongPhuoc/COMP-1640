@@ -70,18 +70,18 @@
     }
   }
      /* Styles for the additional box */
-   .additional-box {
-     display: none; /* Hide the box by default */
-     position: fixed;
-     top: 50%; /* Center vertically */
-     left: 50%; /* Center horizontally */
-     transform: translate(-50%, -50%);
-     background-color: #fff;
-     padding: 20px;
-     border: 1px solid #ccc;
-     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-     z-index: 9999; /* Ensure the box is on top of other content */
-   }
+   /*.additional-box {*/
+   /*  display: none; !* Hide the box by default *!*/
+   /*  position: fixed;*/
+   /*  top: 50%; !* Center vertically *!*/
+   /*  left: 50%; !* Center horizontally *!*/
+   /*  transform: translate(-50%, -50%);*/
+   /*  background-color: #fff;*/
+   /*  padding: 20px;*/
+   /*  border: 1px solid #ccc;*/
+   /*  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+   /*  z-index: 9999; !* Ensure the box is on top of other content *!*/
+   /*}*/
 </style>
 <body class="sb-nav-fixed">
   <div class=" sidenav" id="demo">
@@ -156,37 +156,37 @@
 <script src="/adminTemplate/assets/demo/chart-bar-demo.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
 <script src="/adminTemplate/js/datatables-simple-demo.js"></script>
-<script>
-  // Function to open the additional box
-  function openAdditionalBox() {
-    document.getElementById("additionalBox").style.display = "block";
-  }
-  function OpenSubmitButton() {
-    document.getElementById("acceptTerm").style.display = "block";
-  }
+<!--<script>-->
+<!--  // Function to open the additional box-->
+<!--  function openAdditionalBox() {-->
+<!--    document.getElementById("additionalBox").style.display = "block";-->
+<!--  }-->
+<!--  function OpenSubmitButton() {-->
+<!--    document.getElementById("acceptTerm").style.display = "block";-->
+<!--  }-->
 
-  // Function to close the additional box
-  function closeAdditionalBox() {
-    document.getElementById("additionalBox").style.display = "none";
-  }
-  function toggleSubmitButton() {
-    var checkbox = document.getElementById('acceptTerm');
-    var submitButton = document.getElementById('submitButton');
+<!--  // Function to close the additional box-->
+<!--  function closeAdditionalBox() {-->
+<!--    document.getElementById("additionalBox").style.display = "none";-->
+<!--  }-->
+<!--  function toggleSubmitButton() {-->
+<!--    var checkbox = document.getElementById('acceptTerm');-->
+<!--    var submitButton = document.getElementById('submitButton');-->
 
-    // If checkbox is checked, show the submit button, otherwise hide it
-    if (checkbox.checked) {
-      submitButton.style.display = 'block';
-    } else {
-      submitButton.style.display = 'none';
-    }
-  }
+<!--    // If checkbox is checked, show the submit button, otherwise hide it-->
+<!--    if (checkbox.checked) {-->
+<!--      submitButton.style.display = 'block';-->
+<!--    } else {-->
+<!--      submitButton.style.display = 'none';-->
+<!--    }-->
+<!--  }-->
 
-  // Add event listener to the checkbox to toggle submit button visibility
-  document.getElementById('acceptTerm').addEventListener('change', toggleSubmitButton);
+<!--  // Add event listener to the checkbox to toggle submit button visibility-->
+<!--  document.getElementById('acceptTerm').addEventListener('change', toggleSubmitButton);-->
 
-  // Initial call to toggleSubmitButton to set initial state of the button
-  toggleSubmitButton();
-</script>
+<!--  // Initial call to toggleSubmitButton to set initial state of the button-->
+<!--  toggleSubmitButton();-->
+<!--</script>-->
 </body>
 
 </html>

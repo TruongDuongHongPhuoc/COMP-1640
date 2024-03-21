@@ -68,7 +68,6 @@ public class ContributionController
     @PostMapping("/Hello")
     public String Create(@RequestParam("name") String name,
                          @RequestParam("description") String description,
-                         @RequestParam("submitDate") LocalDateTime submitDate,
                          @RequestParam(value = "status", defaultValue = "0") int status,
                          @RequestParam("accountId") String accountId,
                          @RequestParam("academicYearId") String academicYearId,
@@ -76,8 +75,9 @@ public class ContributionController
                          @RequestParam("file")MultipartFile file, Model model){
                             accountService.checkRole("Student");
         String id = UUID.randomUUID().toString();
+        LocalDateTime submitDate = LocalDateTime.now();
         service.CreateContribution(id, name, description, submitDate, status, accountId, academicYearId, facultyId, file);;
-        return "redirect:/Contribution/View";
+        return "ViewWork";
     }
 
     @GetMapping("/Update/{id}") // Corrected mapping without the trailing slash

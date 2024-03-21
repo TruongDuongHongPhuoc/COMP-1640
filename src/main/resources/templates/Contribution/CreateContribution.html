@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_Admin">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_Customer">
 
 <body>
 
     <div layout:fragment="content">
-        <h1>Welcome to Admin Page</h1>
-        <form th:action="@{/Contribution/Hello}" method="POST" enctype="multipart/form-data">
+        <div class="row justify-content-center">
+            <div class="col-lg-7 col-md-10 col-sm-7"> <!-- Adjust column widths as needed -->
+                <div style="height: 50px"></div>
+                <h1>Welcome to Admin Page</h1>
+            <div class="col">
+
+            </div>
+        <form class="col-md-10" th:action="@{/Contribution/Hello}" method="POST" enctype="multipart/form-data" style="padding-right: 33px">
             <!--            <label for="id">ID:</label><br>-->
             <!--            <input type="text" id="id" name="id"><br>-->
             <input type="hidden" class="form-control form-control-lg" id="facultyId" name="facultyId"
@@ -16,8 +22,8 @@
             <label for="description">Description: </label><br>
             <input type="text" class="form-control form-control-lg" id="description" name="description"><br>
 
-            <label for="submitDate">Submit Date:</label><br>
-            <input type="date" class="form-control form-control-lg" id="submitDate" name="submitDate"><br>
+            <!-- <label for="submitDate">Submit Date:</label><br>
+            <input type="date" class="form-control form-control-lg" id="submitDate" name="submitDate"><br> -->
 
             <input type="hidden" id="accountId" class="form-control form-control-lg" name="accountId"
                 th:value="${acc.id}"><br>
@@ -115,9 +121,9 @@
             </p>
             <button class="btn-primary" onclick="closeAdditionalBox()">Close</button>
         </div>
-
+            <div class="col"></div>
     </div>
-
+    </div>
 </body>
 
 </html>
