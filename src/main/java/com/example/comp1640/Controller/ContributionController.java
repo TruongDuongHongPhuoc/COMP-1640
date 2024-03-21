@@ -77,7 +77,12 @@ public class ContributionController
         String id = UUID.randomUUID().toString();
         LocalDateTime submitDate = LocalDateTime.now();
         service.CreateContribution(id, name, description, submitDate, status, accountId, academicYearId, facultyId, file);;
-        return "ViewWork";
+        org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext()
+                .getAuthentication();
+        Optional<Account> acc = accountRepoTest.findAccountByMail(authentication.getName());
+        Account accounts = acc.get();
+
+        return "redirect:/student/" + accounts.getId();
     }
 
     @GetMapping("/Update/{id}") // Corrected mapping without the trailing slash
@@ -105,12 +110,17 @@ public class ContributionController
         accountService.checkRole("Student");
         System.out.println("Updating Contribution controller");
         service.UpdateContribution(id, name, description, submitDate, status, accountId, academicYearId, facultyId, path, oldfile);
-        return "redirect:/Contribution/View";
+        org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext()
+                .getAuthentication();
+        Optional<Account> acc = accountRepoTest.findAccountByMail(authentication.getName());
+        Account accounts = acc.get();
+
+        return "redirect:/student/" + accounts.getId();
     }
 
     @GetMapping("/View")
     public String View(Model model){
-//        accountService.checkRole("Marketing Manager");
+        accountService.checkRole("Marketing Manager");
         List<Contribution> contris = re.ReturnContributions();
         model.addAttribute("cons",contris);
         return "Contribution/ViewContribution";
@@ -125,10 +135,15 @@ public class ContributionController
 
     @PostMapping("/Delete")
     public String Delete(@RequestParam("id") String id, @RequestParam("file") String file){
-        accountService.checkRole("Student");
+        // accountService.checkRole("Student");
         re.DeleteContribution(id);
         service.deletefile(file);
-        return "redirect:/Contribution/View";
+        org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext()
+                .getAuthentication();
+        Optional<Account> acc = accountRepoTest.findAccountByMail(authentication.getName());
+        Account accounts = acc.get();
+
+        return "redirect:/student/" + accounts.getId();
     }
 
     @PostMapping("/publicupdate")

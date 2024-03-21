@@ -15,6 +15,13 @@
                             <th>submitedate</th>
                             <th>status</th>
                             <th>Download</th>
+                            <p th:if="${accounts.getRoleId() == '2' }">
+                                <th>Delete</th>
+                                <th>Update</th>
+                            </p>
+                            <p th:if="${accounts.getRoleId() == '3' }">
+                                <th>Set Public</th>
+                            </p>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,19 +36,63 @@
                                     th:text="${con.key.status == 0 ? 'Waiting' : (con.key.status == 1 ? 'Approved' : 'Rejected')}">
                                 </td>
                                 <td><a th:href="@{http://localhost:8090/Fi/files/__${con.key.path}__}">Download</a></td>
+
+                                <p th:if="${accounts.getRoleId() == '2' }">
+                                    <td>
+                                        <form th:action="@{/Contribution/Delete}" method="post">
+                                            <input type="hidden" name="id" th:value="${con.key.id}">
+                                            <input type="hidden" name="file" th:value="${con.key.path}">
+                                            <button type="submit" class="btn btn-primary">Delete</button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <a th:href="@{/Contribution/Update/{id}(id = ${con.key.id})} ">update</a>
+                                    </td>
+                                </p>
+
+                                <p th:if="${accounts.getRoleId() == '3' }">
+                                    <td>
+                                        <a th:href="@{/Contribution/set/{id}(id = ${con.key.id})} ">set public</a>
+                                    </td>
+                                </p>
                             </tr>
                             <!-- Form for adding feedback -->
                             <tr>
                                 <form method="post" th:action="@{/FeedBack/feedbackcreate/{id}(id=${con.key.id})}">
                                     <td colspan="5">
                                         <input type="hidden" th:value="${accounts.id}" name="userid">
-                                        <input th:value="${con.value.content}" type="text" class="form-control"
+                                        <!--                                        <input th:value="${con.value.content == null ? 'nothing' : con.value.content}"-->
+                                        <!--                                               type="text"-->
+                                        <!--                                               class="form-control"-->
+                                        <!--                                               name="content">-->
+                                        <!--                                        <input th:value="${con.value.content == null ? 'nothing' : con.value.content}" type="text" class="form-control" name="content">-->
+                                        <input type="hidden" th:value="${accounts != null ? accounts.id : ''}"
+                                            name="userid">
+                                        <input th:if="${con.value != null and con.value.content != null}"
+                                            th:value="${con.value.content}" type="text" class="form-control"
                                             name="content">
+                                        <input th:unless="${con.value != null and con.value.content != null}"
+                                            th:value="nothing" type="text" class="form-control" name="content">
+
                                     </td>
                                     <p th:if="${accounts.getRoleId() == '3' }">
+                                        <!-- <th:block th:if="${secondsPassed > 10}"> -->
+                                        <!-- Button will only be shown if 10 seconds have passed since submission -->
+                                        <!-- <td><button type="submit" class="btn btn-primary">Add Feedback</button></td>
+                                        </th:block> -->
+
+                                        <!-- <th:block
+                                            th:with="currentTimeMilliseconds=${#calendars.createNow().timeInMillis}">
+                                            <th:block
+                                                th:if="${currentTimeMilliseconds - con.key.submitDate > 10000}"> -->
+                                        <!-- Button will only be shown if 10 seconds have passed since submission -->
+                                        <!-- <td><button type="submit" class="btn btn-primary">Add Feedback</button>
+                                                </td>
+                                            </th:block>
+                                        </th:block> -->
                                         <td><button type="submit" class="btn btn-primary">Add Feedback</button></td>
                                     </p>
-
+                                    e
                                     <!-- <script th:inline="javascript">
                                         /*<![CDATA[*/
                                     
@@ -58,13 +109,16 @@
                                     
                                         /*]]>*/
                                     </script> -->
+
                                 </form>
                             </tr>
                         </th:block>
                     </tbody>
                 </table>
                 <div>
-                    <a th:href="@{/Contribution/Createcontribution}">Create</a>
+                    <form th:action="@{/Contribution/Createcontribution}" method="get">
+                        <button type="submit" class="btn btn-primary"> Submit new file </button>
+                    </form>
                 </div>
             </div>
         </section>

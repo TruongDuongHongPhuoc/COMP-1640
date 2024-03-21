@@ -51,6 +51,7 @@ public class HomeController {
 
     @GetMapping("/chart")
     public String getMethodName() {
+        accountService.checkRole("Marketing Manager");
         return "DashBoard";
     }
 

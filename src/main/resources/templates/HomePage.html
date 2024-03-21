@@ -72,7 +72,7 @@
                     Uploading your working here
                     </p>
                     <div class="tm-continue">
-                        <a href="#testimonials" class="tm-intro-text tm-btn-primary">Upload </a>
+                        <a href="/Contribution/Createcontribution" class="tm-intro-text tm-btn-primary">Upload </a>
                     </div>
                 </div>
             </div>
@@ -102,10 +102,10 @@
                 <div class="tm-intro-text-container">
                     <h2 class="tm-text-primary mb-4">Tacticle Analysis</h2>
                     <p class="mb-4 tm-intro-text">
-                        View Tacticle Analysis here
+                        View Analysis here
                     </p>
                     <div class="tm-continue">
-                        <a href="#testimonials" class="tm-intro-text tm-btn-primary">Taticle Analysis</a>
+                        <a th:href="@{chart}" class="tm-intro-text tm-btn-primary">Analysis</a>
                     </div>
                 </div>
             </div>
@@ -115,7 +115,7 @@
             </div>
             <div class="col-lg-5">
                 <div class="tm-intro-text-container">
-                    <h2 class="tm-text-primary mb-4">your Student</h2>
+                    <h2 class="tm-text-primary mb-4">View Student</h2>
                     <p class="mb-4 tm-intro-text">
                     View all of your student under your Faculty right here
                     </p>
@@ -127,11 +127,44 @@
 
         </div><!-- third row -->
 
+        <div class="row tm-content-box"><!-- fourth row -->
+            <div class="col-lg-1">
+                <i class="fas fa-3x fa-fingerprint text-center tm-icon" style="color: rgb(13, 110, 253)"></i>
+            </div>
+            <div class="col-lg-5">
+                <div class="tm-intro-text-container">
+                    <h2 class="tm-text-primary mb-4">Admin Page</h2>
+                    <p class="mb-4 tm-intro-text">
+                        Only Admin can access
+                    </p>
+                    <div class="tm-continue">
+                        <a href="/account/view" class="tm-intro-text tm-btn-primary">Access</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-1">
+                <i class="fas fa-3x fa-users text-center tbi bi-archive" style="color: rgb(13, 110, 253)"></i>
+            </div>
+            <div class="col-lg-5">
+                <div class="tm-intro-text-container">
+                    <h2 class="tm-text-primary mb-4">View all Student Work</h2>
+                    <p class="mb-4 tm-intro-text">
+                    View all of your student work
+                    </p>
+                    <div class="tm-continue">
+                        <a href="/Contribution/View" class="tm-intro-text tm-btn-primary">View all Article</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
     </div>
 
 </section>
 
-<section id="testimonials" class="tm-section-pad-top tm-parallax-2">
+<!-- <section id="testimonials" class="tm-section-pad-top tm-parallax-2">
     <div class="container tm-testimonials-content">
         <div class="row">
             <div class="col-lg-12 tm-content-box">
@@ -144,10 +177,10 @@
                             <th>Download</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody> -->
 <!--                    <tr th:each="AcademicYear: ${Fals}">-->
 <!--                        <td th:text="${AcademicYear.name}"></td>-->
-                        <tr th:each="con : ${cons}">
+                        <!-- <tr th:each="con : ${cons}">
                             <td th:text="${con.name}"></td>
                             <td th:text="${con.description}"></td>
                             <td th:text="${con.academicYearId}"></td>
@@ -160,7 +193,7 @@
         </div>
     </div>
     <div class="tm-bg-overlay"></div>
-</section>
+</section> -->
 
 <section id="gallery" class="tm-section-pad-top">
     <div class="container tm-container-gallery">
