@@ -6,6 +6,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Document("ContributionItem")
@@ -14,14 +16,14 @@ public class Contribution {
     private String id;
     private String name;
     private String description; // typeOfFile -> description
-    private String submitDate;
+    private LocalDateTime submitDate;
     private int Status;
     private String accountId;
     private String academicYearId;
     private String facultyId;
     private String path;
 
-    public Contribution(String id, String name, String description, String submitDate, int Status, String accountId, String academicYearId, String facultyId, String path) {
+    public Contribution(String id, String name, String description, LocalDateTime submitDate, int Status, String accountId, String academicYearId, String facultyId, String path) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -58,11 +60,11 @@ public class Contribution {
         this.description = description;
     }
 
-    public String getSubmitDate() {
+    public LocalDateTime getSubmitDate() {
         return submitDate;
     }
 
-    public void setSubmitDate(String submitDate) {
+    public void setSubmitDate(LocalDateTime submitDate) {
         this.submitDate = submitDate;
     }
 

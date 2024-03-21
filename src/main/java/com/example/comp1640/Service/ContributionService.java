@@ -12,6 +12,8 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Service
 public class ContributionService {
@@ -23,7 +25,7 @@ public class ContributionService {
     public void storeFile(MultipartFile file){
         StoreService.store(file);
     }
-    public void CreateContribution(String id,String name,String description,String submitDate,int status,String accountId,String academicYearId, String facultyId, MultipartFile file){
+    public void CreateContribution(String id,String name,String description, LocalDateTime submitDate,int status,String accountId,String academicYearId, String facultyId, MultipartFile file){
         storeFile(file);
         System.out.println("File is Stored");
         String path = file.getOriginalFilename();
@@ -52,7 +54,7 @@ public class ContributionService {
     public void deletefile(String file){
         StoreService.deleteFile(file);
     }
-    public void UpdateContribution(String id,String name,String description,String submitDate,int status,String accountId,String academicYearId, String facultyId, MultipartFile file, String oldfile){
+    public void UpdateContribution(String id,String name,String description,LocalDateTime submitDate,int status,String accountId,String academicYearId, String facultyId, MultipartFile file, String oldfile){
         System.out.println("Update contribution service Run");
         StoreService.deleteFile(oldfile);
         System.out.println("old file deleted");

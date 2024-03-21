@@ -15,7 +15,6 @@
                             <th>submitedate</th>
                             <th>status</th>
                             <th>Download</th>
-                            <!--                <th>Feedback</th>-->
                         </tr>
                     </thead>
                     <tbody>
@@ -42,6 +41,23 @@
                                     <p th:if="${accounts.getRoleId() == '3' }">
                                         <td><button type="submit" class="btn btn-primary">Add Feedback</button></td>
                                     </p>
+
+                                    <!-- <script th:inline="javascript">
+                                        /*<![CDATA[*/
+                                    
+                                        // Function to disable button and enable it after cooldown time
+                                        function addFeedback() {
+                                            var button = document.getElementById("addFeedbackBtn");
+                                            button.disabled = false; // Disable the button
+                                            setTimeout(function() {
+                                                button.disabled = true; // Enable the button after cooldown time
+                                            }, 10000); // Cooldown time in milliseconds (e.g., 5000 milliseconds = 5 seconds)
+                                        }
+                                    
+                                        document.getElementById("feedbackForm").addEventListener("submit", addFeedback);
+                                    
+                                        /*]]>*/
+                                    </script> -->
                                 </form>
                             </tr>
                         </th:block>

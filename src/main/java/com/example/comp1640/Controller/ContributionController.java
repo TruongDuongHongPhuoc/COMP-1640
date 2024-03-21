@@ -23,7 +23,8 @@ import java.awt.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Controller
 @RequestMapping("/Contribution")
@@ -67,7 +68,7 @@ public class ContributionController
     @PostMapping("/Hello")
     public String Create(@RequestParam("name") String name,
                          @RequestParam("description") String description,
-                         @RequestParam("submitDate") String submitDate,
+                         @RequestParam("submitDate") LocalDateTime submitDate,
                          @RequestParam(value = "status", defaultValue = "0") int status,
                          @RequestParam("accountId") String accountId,
                          @RequestParam("academicYearId") String academicYearId,
@@ -95,7 +96,7 @@ public class ContributionController
 //    }
     @PostMapping("/Updating")
     public String UpdatePostContribution(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("description") String description,
-    @RequestParam("submitDate") String submitDate,
+    @RequestParam("submitDate") LocalDateTime submitDate,
     @RequestParam(value = "status") int status, @RequestParam("accountId") String accountId,
     @RequestParam("academicYearId") String academicYearId,
     @RequestParam("facultyId") String facultyId,
