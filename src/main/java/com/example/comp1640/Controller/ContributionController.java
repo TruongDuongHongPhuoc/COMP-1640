@@ -109,6 +109,7 @@ public class ContributionController
 
     @GetMapping("/View")
     public String View(Model model){
+        accountService.checkRole("Marketing Manager");
         List<Contribution> contris = re.ReturnContributions();
         model.addAttribute("cons",contris);
         return "Contribution/ViewContribution";
