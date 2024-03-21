@@ -30,7 +30,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-
 @Controller
 @NotNull
 @AllArgsConstructor
@@ -69,6 +68,7 @@ public class AccountController {
 
     @GetMapping("/detail/{id}")
     public String detail(@PathVariable("id") String id, Model model) {
+        accountService.checkRole("Admin");
         Account account = accountService.getOne(id);
         model.addAttribute("account", account);
         model.addAttribute("faculty", falRepo.findAll());
@@ -78,12 +78,14 @@ public class AccountController {
 
     @GetMapping("/reset/{id}")
     public String reset(@PathVariable("id") String id, Model model) {
+        accountService.checkRole("Admin");
         String randomPassword = accountService.generateRandomPassword();
         var roles = roleRepo.findAll();
         Account account = accountService.getOne(id);
         account.setPassword(bCryptPasswordEncoder.encode(randomPassword));
         repo.save(account);
-        mailService.SendEmail(account.getMail(), "Change Password", "Your password has been changed to: " + randomPassword);
+        mailService.SendEmail(account.getMail(), "Change Password",
+                "Your password has been changed to: " + randomPassword);
         model.addAttribute("account", account);
         model.addAttribute("faculty", falRepo.findAll());
         model.addAttribute("role", roleRepo.findAll());
@@ -92,8 +94,9 @@ public class AccountController {
 
     @PostMapping("/reset")
     public String reset(@RequestParam("faculty") String facId,
-                        @RequestParam("id") String id,
-                        Model model) {
+            @RequestParam("id") String id,
+            Model model) {
+        accountService.checkRole("Admin");
         Account account = accountService.getOne(id);
         account.setFacultyId(facId);
         repo.save(account);
@@ -114,8 +117,8 @@ public class AccountController {
 
     @PostMapping("/personal")
     public String personal(@Valid @ModelAttribute("account") Account account,
-                           @RequestParam("image") MultipartFile file,
-                           BindingResult result, Model model) throws IOException {
+            @RequestParam("image") MultipartFile file,
+            BindingResult result, Model model) throws IOException {
         Account editAccount = accountService.getOne(account.getId());
         Optional<Account> ac = repo.findAccountByMail(account.getMail());
         if (ac.isPresent()) {
@@ -159,13 +162,13 @@ public class AccountController {
             BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream((imageFileOnDisk)));
             stream.write(file.getBytes());
             stream.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-//        System.out.println(account);
-//        System.out.println((editAccount));
-//        System.out.println(file);
+        // System.out.println(account);
+        // System.out.println((editAccount));
+        // System.out.println(file);
         model.addAttribute("account", editAccount);
         model.addAttribute("faculty", falRepo.findAll());
         model.addAttribute("role", roleRepo.findAll());
@@ -181,7 +184,8 @@ public class AccountController {
     }
 
     @GetMapping("/create")
-    public String createAccount(Model model){
+    public String createAccount(Model model) {
+        accountService.checkRole("Admin");
         Account account = new Account();
         List<Faculty> facultyList = falcultyRepository.ReturnFaculties();
         model.addAttribute("roleList", roleRepo.findAll());
@@ -192,10 +196,11 @@ public class AccountController {
 
     @PostMapping("/create")
     public String create(@Valid @ModelAttribute("account") Account account,
-                         @RequestParam("image") MultipartFile file,
-                         BindingResult result,  Model model) throws  IOException{
+            @RequestParam("image") MultipartFile file,
+            BindingResult result, Model model) throws IOException {
+        accountService.checkRole("Admin");
         Optional<Account> ac = repo.findAccountByMail(account.getMail());
-        if (ac.isPresent()){
+        if (ac.isPresent()) {
             result.rejectValue("mail", "error.account", "Email is existed");
             Account a = new Account();
             List<Faculty> facultyList = falcultyRepository.ReturnFaculties();
@@ -207,10 +212,12 @@ public class AccountController {
 
         account.setProfileImage(file.getOriginalFilename());
         account.setId(UUID.randomUUID().toString());
-//        String password = accountService.generateRandomPassword();
+        // String password = accountService.generateRandomPassword();
         account.setPassword(bCryptPasswordEncoder.encode(account.getPassword()));
-//        mailService.SendEmail(account.getMail(), "Create a " + accountService.getOne(account.getId()).getRoleName() +" account", "Password: " + password);
-        try{
+        // mailService.SendEmail(account.getMail(), "Create a " +
+        // accountService.getOne(account.getId()).getRoleName() +" account", "Password:
+        // " + password);
+        try {
             String fileName = file.getOriginalFilename();
             Account saveUser = repo.save(account);
             String filePath = "src/main/resources/static/images/" + fileName;
@@ -218,7 +225,7 @@ public class AccountController {
             BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream((imageFileOnDisk)));
             stream.write(file.getBytes());
             stream.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
