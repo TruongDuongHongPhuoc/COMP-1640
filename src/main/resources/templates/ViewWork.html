@@ -35,8 +35,15 @@
                                 <form method="post" th:action="@{/FeedBack/feedbackcreate/{id}(id=${con.key.id})}">
                                     <td colspan="5">
                                         <input type="hidden" th:value="${accounts.id}" name="userid">
-                                        <input th:value="${con.value.content}" type="text" class="form-control"
-                                            name="content">
+<!--                                        <input th:value="${con.value.content == null ? 'nothing' : con.value.content}"-->
+<!--                                               type="text"-->
+<!--                                               class="form-control"-->
+<!--                                               name="content">-->
+<!--                                        <input th:value="${con.value.content == null ? 'nothing' : con.value.content}" type="text" class="form-control" name="content">-->
+                                        <input type="hidden" th:value="${accounts != null ? accounts.id : ''}" name="userid">
+                                        <input th:if="${con.value != null and con.value.content != null}" th:value="${con.value.content}" type="text" class="form-control" name="content">
+                                        <input th:unless="${con.value != null and con.value.content != null}" th:value="nothing" type="text" class="form-control" name="content">
+
                                     </td>
                                     <p th:if="${accounts.getRoleId() == '3' }">
                                         <td><button type="submit" class="btn btn-primary">Add Feedback</button></td>

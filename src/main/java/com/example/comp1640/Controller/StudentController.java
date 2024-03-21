@@ -42,6 +42,7 @@ public class StudentController {
         //hash Map
         Map<Contribution,Feedback> hash = new HashMap<>();
         for(Contribution conc : FilteredList){
+            hash.put(conc,null);
             for (Feedback feedc : FillteredFeds)
             {
                 if(feedc.getContributionId().equals(conc.getId())){
@@ -49,11 +50,14 @@ public class StudentController {
                 }
             }
         }
-        for (Map.Entry<Contribution, Feedback> entry : hash.entrySet()) {
-            Contribution key = entry.getKey();
-            Feedback value = entry.getValue();
-            System.out.println("Key: " + key + ", Value: " + value);
-        }
+//        for (Map.Entry<Contribution, Feedback> entry : hash.entrySet()) {
+//            Contribution key = entry.getKey();
+//            Feedback value = entry.getValue();
+//            if(value == null){
+//                value = new Feedback("nun","nothing", account.getId(), key.getId());
+//            }
+//
+//        }
 
         model.addAttribute("hashi",hash);
         model.addAttribute("cons",FilteredList);
