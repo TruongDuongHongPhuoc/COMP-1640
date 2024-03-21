@@ -22,36 +22,32 @@
                         <table id="datatablesSimple">
                             <thead>
                             <tr>
-                                <th>id</th>
-                                <th>name</th>
+                                <th>ID</th>
+                                <th>Name</th>
                                 <th>Description</th>
-                                <th>submitedate</th>
-                                <th>status</th>
-                                <th>academicyear</th>
-                                <th>accountid</th>
-                                <th>facultyid</th>
-                                <th>path</th>
+                                <th>Submitedate</th>
+                                <th>Status</th>
+                                <th>Academicyear</th>
+                                <th>Accountid</th>
+                                <th>Facultyid</th>
                                 <th>Download</th>
-                                <th>delete</th>
-                                <th>update</th>
-                                <th>Download</th>
+                                <th>Delete</th>
+                                <th>Update</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
-                                <th>id</th>
-                                <th>name</th>
+                                <th>ID</th>
+                                <th>Name</th>
                                 <th>Description</th>
-                                <th>submitedate</th>
-                                <th>status</th>
-                                <th>academicyear</th>
-                                <th>accountid</th>
-                                <th>facultyid</th>
+                                <th>Submitedate</th>
+                                <th>Status</th>
+                                <th>Academicyear</th>
+                                <th>Accountid</th>
+                                <th>Facultyid</th>
                                 <th>Download</th>
-                                <th>delete</th>
-                                <th>update</th>
-                                <th>feedback</th>
-                                <th>set public</th>
+                                <th>Delete</th>
+                                <th>Update</th>
                             </tr>
                             </tfoot>
                             <tbody>
@@ -75,15 +71,13 @@
                                 </td>
                                 <td>
                                     <a th:href="@{/Contribution/Update/{id}(id = ${fal.id})} ">update</a>
-<!--                                        <a th:href="@{/Contribution/set/{id}(id = ${fal.id})} ">update</a>-->
                                 </td>
-                                <td>
+                                <!-- <td>
                                     <a th:href="@{/FeedBack/Create/{id}(id = ${fal.id})}">Add FeedBack</a>
                                 </td>
-                                <td>-
-<!--                                    <a th:href="@{/Contribution/Update/{id}(id = ${fal.id})} ">update</a>-->
+                                <td>
                                   <a th:href="@{/Contribution/set/{id}(id = ${fal.id})} ">set public</a>
-                                </td>
+                                </td> -->
                             </tr>
                             </th:block>
                             </tbody>
