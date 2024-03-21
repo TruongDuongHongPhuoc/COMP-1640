@@ -62,12 +62,12 @@ public class HomeController {
 
     @GetMapping("/GettingToViewWork")
     public String GettingtoViewWork() {
-        accountService.checkRole("Student");
-        accountService.checkRole("Marketing Coordinator");
+        accountService.checkRoleS("Student", "Marketing Coordinator");
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext()
                 .getAuthentication();
         Optional<Account> acc = accountRepoTest.findAccountByMail(authentication.getName());
         Account accounts = acc.get();
+
         return "redirect:/student/" + accounts.getId();
     }
 

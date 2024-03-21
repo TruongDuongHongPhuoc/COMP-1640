@@ -25,13 +25,12 @@ public class StudentController {
     private FeedbackRepository feedbackRepository;
     @Autowired
     AccountRepositoryTest accountRepoTest;
-
     @Autowired
     private AccountService accountService;
 
     @GetMapping("/student/{id}")
     public String ViewWork(@PathVariable String id, Model model){
-        accountService.checkRole("Marketing Coordinator");
+        accountService.checkRoleS("Marketing Coordinator","Student");
         Account account = returnAccount();
         List<Contribution> cons = contributionService.ReturnAllContribution();
         List<Feedback> feds = feedbackRepository.ReturnFeedBacks();
@@ -41,7 +40,7 @@ public class StudentController {
         List<Feedback> FillteredFeds = feds.stream().filter(feedback -> FilteredList.stream().anyMatch(contribution -> Objects.equals(contribution.getId(), feedback.getContributionId()))).collect(Collectors.toList());
 
         //hash Map
-        Map<Contribution,Feedback> hash = new   HashMap<>();
+        Map<Contribution,Feedback> hash = new HashMap<>();
         for(Contribution conc : FilteredList){
             for (Feedback feedc : FillteredFeds)
             {
@@ -63,7 +62,6 @@ public class StudentController {
         return "ViewWork";
     }
     public Account returnAccount(){
-        accountService.checkRole("Marketing Coordinator");
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<Account> account = accountRepoTest.findAccountByMail(authentication.getName());
         Account accounts = account.get();

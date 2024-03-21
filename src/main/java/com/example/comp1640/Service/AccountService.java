@@ -137,4 +137,18 @@ public class AccountService implements UserDetailsService {
             throw new AccessDeniedException("Access is denied");
         }
     }
+
+    public boolean checkRoleS(String ... roles) throws AccessDeniedException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            for (GrantedAuthority authority : authentication.getAuthorities()) {
+                for (String role : roles) {
+                    if (authority.getAuthority().equals(role)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        throw new AccessDeniedException("Access is denied");
+    }
 }
