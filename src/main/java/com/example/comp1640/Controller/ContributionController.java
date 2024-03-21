@@ -73,6 +73,7 @@ public class ContributionController
                          @RequestParam("academicYearId") String academicYearId,
                          @RequestParam("facultyId") String facultyId,
                          @RequestParam("file")MultipartFile file, Model model){
+                            accountService.checkRole("Student");
         String id = UUID.randomUUID().toString();
         service.CreateContribution(id, name, description, submitDate, status, accountId, academicYearId, facultyId, file);;
         return "redirect:/Contribution/View";
@@ -80,6 +81,7 @@ public class ContributionController
 
     @GetMapping("/Update/{id}") // Corrected mapping without the trailing slash
     public String updateContribution(@PathVariable String id, Model model) {
+        accountService.checkRole("Student");
         Contribution fe = re.ReturnContribution(id);
         model.addAttribute("con", fe);
         return "Contribution/UpdateContribution";
@@ -99,7 +101,7 @@ public class ContributionController
     @RequestParam("facultyId") String facultyId,
     @RequestParam("file") MultipartFile path,
     @RequestParam("oldfile")String oldfile,Model model){
-
+        accountService.checkRole("Student");
         System.out.println("Updating Contribution controller");
         service.UpdateContribution(id, name, description, submitDate, status, accountId, academicYearId, facultyId, path, oldfile);
         return "redirect:/Contribution/View";
@@ -121,6 +123,7 @@ public class ContributionController
 
     @PostMapping("/Delete")
     public String Delete(@RequestParam("id") String id, @RequestParam("file") String file){
+        accountService.checkRole("Student");
         re.DeleteContribution(id);
         service.deletefile(file);
         return "redirect:/Contribution/View";
@@ -128,12 +131,14 @@ public class ContributionController
 
     @PostMapping("/publicupdate")
     public String Public(@RequestParam("id")String id,@RequestParam(value = "status") int status){
+        accountService.checkRole("Marketing Coordinator");
         re.SetPublic(id,status);
         System.out.println(status);
         return "redirect:/Contribution/View";
     }
     @GetMapping("/set/{id}")
     public String set(@PathVariable("id")String id, Model model){
+        accountService.checkRole("Student");
         Contribution con = re.ReturnContribution(id);
         model.addAttribute("con",con);
         return "Contribution/SetPublic";
