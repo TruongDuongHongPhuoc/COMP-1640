@@ -76,7 +76,7 @@ public class ContributionController
                             accountService.checkRole("Student");
         String id = UUID.randomUUID().toString();
         service.CreateContribution(id, name, description, submitDate, status, accountId, academicYearId, facultyId, file);;
-        return "redirect:/Contribution/View";
+        return "redirect:/contribution/View";
     }
 
     @GetMapping("/Update/{id}") // Corrected mapping without the trailing slash
