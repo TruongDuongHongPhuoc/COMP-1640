@@ -3,6 +3,7 @@ package com.example.comp1640.Controller;
 
 
 import com.example.comp1640.model.Account;
+import com.example.comp1640.Service.AccountService;
 import com.example.comp1640.Service.ContributionService;
 import com.example.comp1640.model.Contribution;
 import com.example.comp1640.model.Customer;
@@ -33,6 +34,9 @@ public class HomeController {
     @Autowired
     ContributionRepository re;
 
+    @Autowired
+    private AccountService accountService;
+
     @GetMapping("/home")
     public String home(Model model){
         List<Contribution> cons = contributionService.ReturnPublicContribution();
@@ -58,6 +62,8 @@ public class HomeController {
 
     @GetMapping("/GettingToViewWork")
     public String GettingtoViewWork() {
+        accountService.checkRole("Student");
+        accountService.checkRole("Marketing Coordinator");
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext()
                 .getAuthentication();
         Optional<Account> acc = accountRepoTest.findAccountByMail(authentication.getName());
@@ -67,6 +73,7 @@ public class HomeController {
 
     @GetMapping("/GettingToViewStudent")
     public String GettingToViewStudent() {
+        accountService.checkRole("Marketing Coordinator");
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext()
                 .getAuthentication();
         Optional<Account> acc = accountRepoTest.findAccountByMail(authentication.getName());

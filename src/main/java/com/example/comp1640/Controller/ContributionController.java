@@ -1,5 +1,6 @@
 package com.example.comp1640.Controller;
 
+import com.example.comp1640.Service.AccountService;
 import com.example.comp1640.Service.ContributionService;
 import com.example.comp1640.model.AcademicYear;
 import com.example.comp1640.model.Account;
@@ -25,7 +26,7 @@ import java.util.UUID;
 
 
 @Controller
-@RequestMapping("/contribution")
+@RequestMapping("/Contribution")
 public class ContributionController 
 {
     @Autowired
@@ -46,8 +47,12 @@ public class ContributionController
     @Autowired
     AccountRepositoryTest accountRepoTest;
 
-    @GetMapping("/createcontribution") // Corrected mapping without the trailing slash
+    @Autowired
+    private AccountService accountService;
+
+    @GetMapping("/Createcontribution") // Corrected mapping without the trailing slash
     public String create(Model model) {
+        accountService.checkRole("Student");
         List<AcademicYear> academicYears = acaRepo.ReturnAcademicYears();
         List<Faculty> faculties = facultyRepo.ReturnFaculties();
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

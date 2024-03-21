@@ -31,6 +31,7 @@ public class Contribution {
         this.academicYearId = academicYearId;
         this.facultyId = facultyId;
         this.path = path;
+
     }
 
     public String getId() {

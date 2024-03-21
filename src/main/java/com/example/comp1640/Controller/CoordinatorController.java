@@ -1,5 +1,6 @@
 package com.example.comp1640.Controller;
 
+import com.example.comp1640.Service.AccountService;
 import com.example.comp1640.model.Account;
 import com.example.comp1640.repository.AccountRepositoryTest;
 import com.example.comp1640.repository.FalcultyRepository;
@@ -21,13 +22,13 @@ public class CoordinatorController {
     @Autowired
     PhuocAccountRepo accountRepo;
 
+    @Autowired
+    private AccountService accountService;
 
     FalcultyRepository falcultyRepository;
     @GetMapping("/{Faculty_id}/student")
     public String ViewStudent(@PathVariable String Faculty_id, Model model){
-
-
-
+        accountService.checkRole("Marketing Coordinator");
         List<Account> Accs = accountRepo.findAll();
         List<Account> FilledAccounts = Accs.stream()
                 .filter(acc -> Objects.equals(acc.getFacultyId(), Faculty_id))

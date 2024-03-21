@@ -1,5 +1,6 @@
 package com.example.comp1640.Controller;
 
+import com.example.comp1640.Service.AccountService;
 import com.example.comp1640.Service.ContributionService;
 import com.example.comp1640.model.Account;
 import com.example.comp1640.model.Contribution;
@@ -24,8 +25,13 @@ public class StudentController {
     private FeedbackRepository feedbackRepository;
     @Autowired
     AccountRepositoryTest accountRepoTest;
+
+    @Autowired
+    private AccountService accountService;
+
     @GetMapping("/student/{id}")
     public String ViewWork(@PathVariable String id, Model model){
+        accountService.checkRole("Marketing Coordinator");
         Account account = returnAccount();
         List<Contribution> cons = contributionService.ReturnAllContribution();
         List<Feedback> feds = feedbackRepository.ReturnFeedBacks();
@@ -57,6 +63,7 @@ public class StudentController {
         return "ViewWork";
     }
     public Account returnAccount(){
+        accountService.checkRole("Marketing Coordinator");
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<Account> account = accountRepoTest.findAccountByMail(authentication.getName());
         Account accounts = account.get();

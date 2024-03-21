@@ -47,7 +47,7 @@ public class SecurityConfig extends GlobalMethodSecurityConfiguration {
                         .requestMatchers("/forHomepage/**").permitAll()
                         .requestMatchers("/adminTemplate/**").permitAll()
                         .requestMatchers("/images/**").permitAll()
-                        .anyRequest().permitAll()
+                        .anyRequest().authenticated()
                 )
                 .formLogin(
                         (form) -> form
