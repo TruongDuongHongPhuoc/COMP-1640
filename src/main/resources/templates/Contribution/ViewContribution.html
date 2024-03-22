@@ -57,27 +57,25 @@
                                 <td th:text="${fal.name}"></td>
                                 <td th:text="${fal.description}"></td>
                                 <td th:text="${fal.submitDate}"></td>
-                                <td th:text="${fal.status == 0 ? 'Waiting' : (fal.status == 1 ? 'Approved' : 'Rejected')}"></td>
+                                <td th:text="${fal.status == 0 ? 'Waiting' : (fal.status == 1 ? 'Approved' : (fal.status == 3 ? 'Public' : 'Rejected'))}"></td>
                                 <td th:text="${fal.academicYearId}"></td>
                                 <td th:text="${fal.accountId}"></td>
                                 <td th:text="${fal.facultyId}"></td>
                                 <td><a th:href="@{http://localhost:8090/Fi/files/__${fal.path}__}">Download</a></td>
-                                <!-- <td>
-                                    <form th:action="@{/Contribution/Delete}" method="post">
+                                <td>
+                                    <form th:action="@{/Contribution/publicupdate}" method="POST" enctype="multipart/form-data">
+                                        <label>Status:</label>
                                         <input type="hidden" name="id" th:value="${fal.id}">
-                                        <input type="hidden" name="file" th:value="${fal.path}">
-                                        <button type="submit" class="btn btn-primary">Delete</button>
+                                        <input type="hidden" name="status" th:value="3">
+<!--                                       < <select id="status" name="status" th:readonly="${false}">-->
+<!--                                            <option th:selected="${fal.status == 0}" value="0">Waiting</option>-->
+<!--                                            <option th:selected="${fal.status == 1}" value="1">Approved</option>-->
+<!--                                            <option th:selected="${fal.status == 2}" value="2">Rejected</option>-->
+<!--                                        </select><br>>-->
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+
                                     </form>
                                 </td>
-                                <td>
-                                    <a th:href="@{/Contribution/Update/{id}(id = ${fal.id})} ">update</a>
-                                </td> -->
-                                <!-- <td>
-                                    <a th:href="@{/FeedBack/Create/{id}(id = ${fal.id})}">Add FeedBack</a>
-                                </td>
-                                <td>
-                                  <a th:href="@{/Contribution/set/{id}(id = ${fal.id})} ">set public</a>
-                                </td> -->
                             </tr>
                             </th:block>
                             </tbody>

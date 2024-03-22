@@ -44,6 +44,13 @@ public class ContributionService {
     public List<Contribution> ReturnPublicContribution(){
         List<Contribution> cons = contributionRepository.ReturnContributions();
         List<Contribution> filteredList = cons.stream()
+                .filter(con -> con.getStatus() != 2 && con.getStatus() != 0 && con.getStatus() != 1)
+                .collect(Collectors.toList());
+        return filteredList;
+    }
+    public List<Contribution> ReturnForMarketingManager(){
+        List<Contribution> cons = contributionRepository.ReturnContributions();
+        List<Contribution> filteredList = cons.stream()
                 .filter(con -> con.getStatus() != 2 && con.getStatus() != 0)
                 .collect(Collectors.toList());
         return filteredList;
