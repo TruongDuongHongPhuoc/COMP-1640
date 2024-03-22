@@ -5,7 +5,7 @@ import com.example.comp1640.model.Account;
 import com.example.comp1640.model.Faculty;
 import com.example.comp1640.model.Role;
 import com.example.comp1640.repository.AccountRepositoryTest;
-import com.example.comp1640.repository.FalcutyRepository;
+import com.example.comp1640.repository.FacultyRepository;
 import com.example.comp1640.repository.RoleRepositoryTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
@@ -32,7 +32,7 @@ public class AccountService implements UserDetailsService {
     private RoleRepositoryTest roleRepositoryTest;
 
     @Autowired
-    private FalcutyRepository falcutyRepository;
+    private FacultyRepository falcutyRepository;
 
 
     BCryptPasswordEncoder bCryptPasswordEncoder = SecurityConfig.bCryptPasswordEncoder();

@@ -1,5 +1,6 @@
 package com.example.comp1640.model;
 
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,12 +11,13 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Document("ContributionItem")
 public class Contribution {
     @Id
     private String id;
     private String name;
-    private String description; // typeOfFile -> description
+    private String description;
     private LocalDateTime submitDate;
     private int Status;
     private String accountId;
@@ -34,62 +36,6 @@ public class Contribution {
         this.facultyId = facultyId;
         this.path = path;
 
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public LocalDateTime getSubmitDate() {
-        return submitDate;
-    }
-
-    public void setSubmitDate(LocalDateTime submitDate) {
-        this.submitDate = submitDate;
-    }
-
-    public int getStatus() {
-        return Status;
-    }
-
-    public void setStatus(int aStatus) {
-        Status = aStatus;
-    }
-
-    public String getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
-    }
-
-    public String getAcademicYearId() {
-        return academicYearId;
-    }
-
-    public void setAcademicYearId(String academicYearId) {
-        this.academicYearId = academicYearId;
     }
 
     public String getPath_to_file() {
