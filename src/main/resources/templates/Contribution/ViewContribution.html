@@ -62,22 +62,6 @@
                                 <td th:text="${fal.accountId}"></td>
                                 <td th:text="${fal.facultyId}"></td>
                                 <td><a th:href="@{http://localhost:8090/Fi/files/__${fal.path}__}">Download</a></td>
-                                <!-- <td>
-                                    <form th:action="@{/Contribution/Delete}" method="post">
-                                        <input type="hidden" name="id" th:value="${fal.id}">
-                                        <input type="hidden" name="file" th:value="${fal.path}">
-                                        <button type="submit" class="btn btn-primary">Delete</button>
-                                    </form>
-                                </td>
-                                <td>
-                                    <a th:href="@{/Contribution/Update/{id}(id = ${fal.id})} ">update</a>
-                                </td> -->
-                                <!-- <td>
-                                    <a th:href="@{/FeedBack/Create/{id}(id = ${fal.id})}">Add FeedBack</a>
-                                </td>
-                                <td>
-                                  <a th:href="@{/Contribution/set/{id}(id = ${fal.id})} ">set public</a>
-                                </td> -->
                             </tr>
                             </th:block>
                             </tbody>

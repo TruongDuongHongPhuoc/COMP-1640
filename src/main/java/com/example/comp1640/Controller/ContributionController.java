@@ -155,9 +155,17 @@ public class ContributionController
     }
     @GetMapping("/set/{id}")
     public String set(@PathVariable("id")String id, Model model){
+        Account account = returnAccount();
         accountService.checkRole("Student");
         Contribution con = re.ReturnContribution(id);
         model.addAttribute("con",con);
+        model.addAttribute("account",account);
         return "Contribution/SetPublic";
+    }
+    public Account returnAccount(){
+        org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Optional<Account> account = accountRepoTest.findAccountByMail(authentication.getName());
+        Account accounts = account.get();
+        return accounts;
     }
 }
