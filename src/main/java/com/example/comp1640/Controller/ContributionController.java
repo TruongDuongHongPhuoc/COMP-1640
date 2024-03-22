@@ -21,10 +21,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.awt.*;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/Contribution")
@@ -121,10 +123,18 @@ public class ContributionController
     @GetMapping("/View")
     public String View(Model model){
         accountService.checkRole("Marketing Manager");
-        List<Contribution> contris = re.ReturnContributions();
-        model.addAttribute("cons",contris);
+        List<Contribution> contris = service.ReturnForMarketingManager();
+        List<Contribution> filledContri = contris.stream()
+                .filter(contribution -> contribution.getStatus() != 0 && contribution.getStatus() != 2)
+                .collect(Collectors.toList());
+        model.addAttribute("cons",filledContri);
         return "Contribution/ViewContribution";
     }
+
+//    List<Contribution> FilteredList = cons.stream()
+//            .filter(con -> Objects.equals(con.getAccountId(), id))
+//            .collect(Collectors.toList());
+
 
     // @GetMapping("/Update/{id}") // Corrected mapping without the trailing slash
     // public String CreateFeedBack(@PathVariable String id, Model model) {
@@ -148,7 +158,7 @@ public class ContributionController
 
     @PostMapping("/publicupdate")
     public String Public(@RequestParam("id")String id,@RequestParam(value = "status") int status){
-        accountService.checkRole("Marketing Coordinator");
+        accountService.checkRoleS("Marketing Coordinator","Marketing Manager");
         re.SetPublic(id,status);
         System.out.println(status);
         return "redirect:/Contribution/View";
@@ -156,16 +166,19 @@ public class ContributionController
     @GetMapping("/set/{id}")
     public String set(@PathVariable("id")String id, Model model){
         Account account = returnAccount();
-        accountService.checkRole("Student");
+        accountService.checkRole("Marketing Coordinator");
         Contribution con = re.ReturnContribution(id);
         model.addAttribute("con",con);
         model.addAttribute("account",account);
         return "Contribution/SetPublic";
     }
+
+
     public Account returnAccount(){
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<Account> account = accountRepoTest.findAccountByMail(authentication.getName());
         Account accounts = account.get();
         return accounts;
     }
+
 }

@@ -30,14 +30,15 @@
 
             <label for="academicYearId">Academic Year ID:</label><br>
 
-            <select id="academicYearId" name="academicYearId">
-                <tr th:each="aca: ${acaYear}">
-                    <option>
-                        <az th:text="${aca.id}"></az>
-                    </option>
-                </tr>
-            </select>
+<!--            <select id="academicYearId" name="academicYearId">-->
+<!--                <tr th:each="aca: ${acaYear}">-->
+<!--                    <option>-->
+<!--                        <az th:text="${aca.id}"></az>-->
+<!--                    </option>-->
+<!--                </tr>-->
+<!--            </select>-->
             </tr>
+            <input type="text" id="academicYearId" name="academicYearId">Academic<br>
             <!-- <label for="academicYear">Academic Year ID:</label><br>
             <select id="academicYear" name="academicYear" class="form-select" aria-label="Default select example">
                 <tr th:each="aca : ${aca1}">
@@ -122,6 +123,7 @@
             <button class="btn-primary" onclick="closeAdditionalBox()">Close</button>
         </div>
             <div class="col"></div>
+    </div>
     </div>
     </div>
 </body>
