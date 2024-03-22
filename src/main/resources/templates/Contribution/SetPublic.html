@@ -7,6 +7,7 @@
 <body>
 
 <div layout:fragment="content">
+
     <h1 th:text="'set public for '+${con.getName()}"></h1>
     <form th:action="@{/Contribution/publicupdate}" method="POST" enctype="multipart/form-data">
         <label>Status:</label>
@@ -16,7 +17,6 @@
             <option th:selected="${con.status == 1}" value="1">Approved</option>
             <option th:selected="${con.status == 2}" value="2">Rejected</option>
         </select><br>
-
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>

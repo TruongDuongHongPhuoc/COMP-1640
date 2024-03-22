@@ -6,6 +6,9 @@ import org.springframework.stereotype.Component;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
 @Getter
 @Setter
 @Document("FeedbackItem")
@@ -15,10 +18,13 @@ public class Feedback {
     private String content;
     private String userId;
     private String contributionId;
+    private LocalDateTime localDateTime;
     public Feedback(String id, String content, String userId, String contributionId) {
         this.id = id;
         this.content = content;
         this.userId = userId;
         this.contributionId = contributionId;
+        ZoneId zonid = ZoneId.of("UTC-07");
+        localDateTime = LocalDateTime.now(zonid);
     }
 }
