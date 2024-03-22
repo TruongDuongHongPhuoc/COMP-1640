@@ -7,7 +7,7 @@ import com.example.comp1640.model.Account;
 import com.example.comp1640.model.Faculty;
 import com.example.comp1640.repository.AccountRepositoryTest;
 import com.example.comp1640.repository.FalcultyRepository;
-import com.example.comp1640.repository.FalcutyRepository;
+import com.example.comp1640.repository.FacultyRepository;
 import com.example.comp1640.repository.RoleRepositoryTest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -38,7 +38,7 @@ public class AccountController {
     @Autowired
     AccountRepositoryTest repo;
     @Autowired
-    FalcutyRepository falRepo;
+    FacultyRepository falRepo;
     @Autowired
     RoleRepositoryTest roleRepo;
     @Autowired

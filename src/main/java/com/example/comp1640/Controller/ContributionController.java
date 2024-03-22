@@ -2,30 +2,28 @@ package com.example.comp1640.Controller;
 
 import com.example.comp1640.Service.AccountService;
 import com.example.comp1640.Service.ContributionService;
+import com.example.comp1640.Service.MailService;
 import com.example.comp1640.model.AcademicYear;
 import com.example.comp1640.model.Account;
 import com.example.comp1640.model.Contribution;
 import com.example.comp1640.model.Faculty;
-import com.example.comp1640.repository.AcademicYearRepository;
-import com.example.comp1640.repository.AccountRepository;
-import com.example.comp1640.repository.AccountRepositoryTest;
-import com.example.comp1640.repository.ContributionRepository;
-import com.example.comp1640.repository.FalcultyRepository;
+import com.example.comp1640.repository.*;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.stream.Collectors;
 
 @Controller
@@ -40,6 +38,8 @@ public class ContributionController
 
     @Autowired
     FalcultyRepository facultyRepo;
+    @Autowired
+    FacultyRepository facultyRepository;
 
     @Autowired
     AcademicYearRepository acaRepo;
@@ -48,10 +48,16 @@ public class ContributionController
     ContributionService service;
 
     @Autowired
-    AccountRepositoryTest accountRepoTest;
+    AcademicYearRepositoryInterface academicYearRepositoryInterface;
 
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    ContributionRepositoryInterface contributionRepositoryInterface;
+
+    @Autowired
+    MailService mailService;
 
     @GetMapping("/Createcontribution") // Corrected mapping without the trailing slash
     public String create(Model model) {
@@ -59,32 +65,49 @@ public class ContributionController
         List<AcademicYear> academicYears = acaRepo.ReturnAcademicYears();
         List<Faculty> faculties = facultyRepo.ReturnFaculties();
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Optional<Account> acc = accountRepoTest.findAccountByMail(authentication.getName());
+        Optional<Account> acc = accountRepo.findAccountByMail(authentication.getName());
         Account accounts = acc.get();
-        System.out.println(accounts);
+        System.out.println(accounts.getFacultyId());
+        Contribution contribution = new Contribution();
+        model.addAttribute("contribution", contribution);
         model.addAttribute("acc", accounts);
         model.addAttribute("acaYear", academicYears);
         model.addAttribute("fals", faculties);
         return "Contribution/CreateContribution";
     }
     @PostMapping("/Hello")
-    public String Create(@RequestParam("name") String name,
-                         @RequestParam("description") String description,
-                         @RequestParam(value = "status", defaultValue = "0") int status,
-                         @RequestParam("accountId") String accountId,
-                         @RequestParam("academicYearId") String academicYearId,
-                         @RequestParam("facultyId") String facultyId,
-                         @RequestParam("file")MultipartFile file, Model model){
-                            accountService.checkRole("Student");
-        String id = UUID.randomUUID().toString();
-        LocalDateTime submitDate = LocalDateTime.now();
-        service.CreateContribution(id, name, description, submitDate, status, accountId, academicYearId, facultyId, file);;
+    public String Create(@Valid @ModelAttribute("contribution") Contribution contribution,
+                         @RequestParam("file")MultipartFile file, BindingResult result, Model model){
+        accountService.checkRole("Student");
+
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext()
                 .getAuthentication();
-        Optional<Account> acc = accountRepoTest.findAccountByMail(authentication.getName());
-        Account accounts = acc.get();
+        Optional<Account> acc = accountRepo.findAccountByMail(authentication.getName());
+        Account account = accountService.getOne(acc.get().getId());
 
-        return "redirect:/student/" + accounts.getId();
+        String id = UUID.randomUUID().toString();
+        LocalDateTime submitDate = LocalDateTime.now();
+        contribution.setId(id);
+        contribution.setSubmitDate(submitDate);
+        contribution.setAcademicYearId(facultyRepository.findById(account.getFacultyId()).get().getAcademicYear());
+        contribution.setStatus(0);
+        contribution.setFacultyId(account.getFacultyId());
+        contribution.setAccountId(account.getId());
+        String z = contribution.getFacultyId();
+        contribution.setPath(file.getOriginalFilename());
+        service.storeFile(file);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String formatted = contribution.getSubmitDate().plusDays(14).format(formatter);
+        List<Account> listAccount = accountRepo.findAll();
+        for(Account a : listAccount){
+            if (a.getRoleId().equals("3") && a.getFacultyId().equals(contribution.getFacultyId())) {
+                mailService.SendEmail(a.getMail(),
+                        "Feedback",
+                        "The student with email: " + account.getMail() +" just contributed and need to receive feedback, deadline is: "+ formatted);
+            }
+        }
+        Contribution saveContribution = contributionRepositoryInterface.save(contribution);
+        return "redirect:/student/" + account.getId();
     }
 
     @GetMapping("/Update/{id}") // Corrected mapping without the trailing slash
@@ -114,7 +137,7 @@ public class ContributionController
         service.UpdateContribution(id, name, description, submitDate, status, accountId, academicYearId, facultyId, path, oldfile);
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext()
                 .getAuthentication();
-        Optional<Account> acc = accountRepoTest.findAccountByMail(authentication.getName());
+        Optional<Account> acc = accountRepo.findAccountByMail(authentication.getName());
         Account accounts = acc.get();
 
         return "redirect:/student/" + accounts.getId();
@@ -150,7 +173,7 @@ public class ContributionController
         service.deletefile(file);
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext()
                 .getAuthentication();
-        Optional<Account> acc = accountRepoTest.findAccountByMail(authentication.getName());
+        Optional<Account> acc = accountRepo.findAccountByMail(authentication.getName());
         Account accounts = acc.get();
 
         return "redirect:/student/" + accounts.getId();
@@ -176,7 +199,7 @@ public class ContributionController
 
     public Account returnAccount(){
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Optional<Account> account = accountRepoTest.findAccountByMail(authentication.getName());
+        Optional<Account> account = accountRepo.findAccountByMail(authentication.getName());
         Account accounts = account.get();
         return accounts;
     }
