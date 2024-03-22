@@ -68,7 +68,6 @@ public class HomeController {
                 .getAuthentication();
         Optional<Account> acc = accountRepoTest.findAccountByMail(authentication.getName());
         Account accounts = acc.get();
-
         return "redirect:/student/" + accounts.getId();
     }
 

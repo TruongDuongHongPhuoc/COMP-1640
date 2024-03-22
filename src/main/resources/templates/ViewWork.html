@@ -48,13 +48,13 @@
                                     <td>
                                         <a th:href="@{/Contribution/Update/{id}(id = ${con.key.id})} ">update</a>
                                     </td>
-                                </p>
 
-                                <p th:if="${accounts.getRoleId() == '3' }">
+
+
                                     <td>
-                                        <a th:href="@{/Contribution/set/{id}(id = ${con.key.id})} ">set public</a>
+                                        <a th:href="@{/Contribution/set/{id}(id = ${con.key.id})} ">Approve</a>
                                     </td>
-                                </p>
+
                             </tr>
                             <!-- Form for adding feedback -->
                             <tr>
