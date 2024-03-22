@@ -24,7 +24,8 @@ public class Feedback {
         this.content = content;
         this.userId = userId;
         this.contributionId = contributionId;
-        ZoneId zonid = ZoneId.of("UTC-07");
-        localDateTime = LocalDateTime.now(zonid);
+        ZoneId hoChiMinhZoneId = ZoneId.of("Asia/Ho_Chi_Minh");
+        localDateTime = LocalDateTime.now(hoChiMinhZoneId);
+
     }
 }
