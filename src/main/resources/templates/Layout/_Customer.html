@@ -29,6 +29,13 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         z-index: 9999; /* Ensure the box is on top of other content */
     }
+         /* CSS for the scrollable container */
+     .scrollable-container {
+         max-height: 600px; /* Adjust the maximum height as needed */
+         overflow-y: auto; /* Enable vertical scrolling */
+         border: 1px solid #ccc; /* Optional: Add border for clarity */
+         padding: 10px; /* Optional: Add padding for content */
+     }
 </style>
 <body>
 <nav class="navbar navbar-expand-lg fixed-top">
@@ -105,14 +112,24 @@
 <script src="/forHomepage/js/bootstrap.min.js"></script>
 <script>
 
-    function getOffSet() {
-        var _offset = 450;
-        var windowHeight = window.innerHeight;
+    function scrollToBottom() {
+        var scrollableContainer = document.getElementById("scrollableContainer");
+        scrollableContainer.scrollTop = scrollableContainer.scrollHeight;
+    }
 
-        if (windowHeight > 500) {
-            _offset = 400;
-        }
-        if (windowHeight > 680) {
+    // Scroll to bottom initially
+    scrollToBottom();
+
+
+
+function getOffSet() {
+var _offset = 450;
+var windowHeight = window.innerHeight;
+
+if (windowHeight > 500) {
+_offset = 400;
+}
+if (windowHeight > 680) {
             _offset = 300
         }
         if (windowHeight > 830) {
