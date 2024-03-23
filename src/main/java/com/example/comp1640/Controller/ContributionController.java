@@ -62,6 +62,7 @@ public class ContributionController
     @GetMapping("/Createcontribution") // Corrected mapping without the trailing slash
     public String create(Model model) {
         accountService.checkRole("Student");
+
         List<AcademicYear> academicYears = acaRepo.ReturnAcademicYears();
         List<Faculty> faculties = facultyRepo.ReturnFaculties();
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -86,7 +87,7 @@ public class ContributionController
         Account account = accountService.getOne(acc.get().getId());
 
         String id = UUID.randomUUID().toString();
-        LocalDateTime submitDate = LocalDateTime.now();
+        LocalDate submitDate = LocalDate.now();
         contribution.setId(id);
         contribution.setSubmitDate(submitDate);
         contribution.setAcademicYearId(facultyRepository.findById(account.getFacultyId()).get().getAcademicYear());
@@ -181,7 +182,7 @@ public class ContributionController
 
     @PostMapping("/publicupdate")
     public String Public(@RequestParam("id")String id,@RequestParam(value = "status") int status){
-        accountService.checkRoleS("Marketing Coordinator","Marketing Manager");
+        accountService.checkRoles("Marketing Coordinator","Marketing Manager");
         re.SetPublic(id,status);
         System.out.println(status);
         return "redirect:/Contribution/View";

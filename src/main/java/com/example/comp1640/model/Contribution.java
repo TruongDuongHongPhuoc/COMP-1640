@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -18,14 +19,14 @@ public class Contribution {
     private String id;
     private String name;
     private String description;
-    private LocalDateTime submitDate;
+    private LocalDate submitDate;
     private int Status;
     private String accountId;
     private String academicYearId;
     private String facultyId;
     private String path;
 
-    public Contribution(String id, String name, String description, LocalDateTime submitDate, int Status, String accountId, String academicYearId, String facultyId, String path) {
+    public Contribution(String id, String name, String description, LocalDate submitDate, int Status, String accountId, String academicYearId, String facultyId, String path) {
         this.id = id;
         this.name = name;
         this.description = description;

@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.time.LocalDateTime;
@@ -21,7 +22,7 @@ public class ContributionRepository {
 
     @Autowired
     MongoTemplate mongoTemplate;
-    public void CreateContribution(String id, String name, String description, LocalDateTime submitDate, int Status, String accountId, String academicYearId, String facultyId, String path){
+    public void CreateContribution(String id, String name, String description, LocalDate submitDate, int Status, String accountId, String academicYearId, String facultyId, String path){
         mongoTemplate.save(new Contribution(id, name, description, submitDate, Status, accountId, academicYearId, facultyId, path));
     }
     public void UpdateContribution(String id, String name, String description, LocalDateTime submitDate, int Status, String accountId, String academicYearId, String facultyId, String path){

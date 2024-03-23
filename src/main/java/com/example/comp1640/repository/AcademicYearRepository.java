@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Component
@@ -18,7 +19,7 @@ public class AcademicYearRepository {
 
     @Autowired
     MongoTemplate mongoTemplate;
-    public void CreateAcademicYear(String id, String name, String yearOfAcademic, String startDate, String endDate){
+    public void CreateAcademicYear(String id, String name, String yearOfAcademic, LocalDate startDate, LocalDate endDate){
         mongoTemplate.save(new AcademicYear(id, name, yearOfAcademic, startDate, endDate));
         System.out.println("Academic Year Repo Run");
     }

@@ -61,7 +61,7 @@ public class HomeController {
 
     @GetMapping("/GettingToViewWork")
     public String GettingtoViewWork() {
-        accountService.checkRoleS("Student", "Marketing Coordinator");
+        accountService.checkRoles("Student", "Marketing Coordinator");
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext()
                 .getAuthentication();
         Optional<Account> acc = accountRepoTest.findAccountByMail(authentication.getName());
