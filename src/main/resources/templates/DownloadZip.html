@@ -1,38 +1,38 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="Layout/_Admin">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_Admin">
+
 <body>
-<div layout:fragment="content">
-<h2>Spring Boot Web Application Download Zip File</h2>
-<a href="http://localhost:8090/DownloadAll" class="btn btn-primary">Click Here to Download All</a>
-<div>
-</div>
-  <form action="/DownloadSelected" method="Get">
-    <div class="card-body">
-        <table id="datatablesSimple">
-            <thead>
-            <tr>
-                <th>File name</th>
-                <th>Check box</th>
-            </tr>
-            </thead>
-            <tfoot>
-            <tr>
-                <th>File name</th>
-                <th>Check box</th>
-            </tr>
-            </tfoot>
-            <tbody>
-            <tr th:each="file : ${files}">
-                <td th:for="${file}" th:text="${file}"></td>
-                <td><input type="checkbox" th:id="${file}" th:name="selectedFiles" th:value="${file}" /></td>
-            </tr>
-            </tbody>
-        </table>
-      <button type="submit">Download Selected</button>
+  <div layout:fragment="content">
+    <h2>Spring Boot Web Application Download Zip File</h2>
+    <a href="http://localhost:8090/DownloadAll" class="btn btn-primary">Click Here to Download All</a>
+    <div>
     </div>
-  </form>
-</div>
+    <form action="/DownloadSelected" method="Get">
+      <div class="card-body">
+        <table id="datatablesSimple">
+          <thead>
+            <tr>
+              <th>File name</th>
+              <th>Check box</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>File name</th>
+              <th>Check box</th>
+            </tr>
+          </tfoot>
+          <tbody>
+            <tr th:each="file : ${files}">
+              <td th:for="${file}" th:text="${file}"></td>
+              <td><input type="checkbox" th:id="${file}" th:name="selectedFiles" th:value="${file}" /></td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="submit">Download Selected</button>
+      </div>
+    </form>
+  </div>
 </body>
+
 </html>

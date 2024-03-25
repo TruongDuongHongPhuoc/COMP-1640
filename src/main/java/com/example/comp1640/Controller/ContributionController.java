@@ -155,7 +155,7 @@ public class ContributionController
     }
     @GetMapping("/set/{id}")
     public String set(@PathVariable("id")String id, Model model){
-        accountService.checkRole("Student");
+        accountService.checkRole("Marketing Coordinator");
         Contribution con = re.ReturnContribution(id);
         model.addAttribute("con",con);
         return "Contribution/SetPublic";
