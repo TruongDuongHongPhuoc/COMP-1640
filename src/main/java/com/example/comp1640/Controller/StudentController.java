@@ -87,8 +87,8 @@ public class StudentController {
         return accounts;
     }
 
-    public boolean checkDate(LocalDate ngayHienTai, LocalDate deadline){
-        if(ngayHienTai.isBefore(deadline)){
+    public boolean checkDate(LocalDate currentDate, LocalDate deadline){
+        if(currentDate.isBefore(deadline)){
             return true;
         }
         return false;

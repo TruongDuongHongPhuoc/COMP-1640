@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.Console;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -17,7 +16,7 @@ import java.util.List;
 public class AcademicYearController 
 {
     @Autowired
-    AcademicYearRepository re;
+    AcademicYearRepository academicYearRepository;
 
     @Autowired
     private AccountService accountService;
@@ -34,7 +33,7 @@ public class AcademicYearController
     public String Create(@RequestParam("id") String id, @RequestParam("name") String name,
                          @RequestParam("yearOfAcademic") String yearOfAcademic, @RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate, Model model){
         accountService.checkRole("Admin");
-        re.CreateAcademicYear(id, name, yearOfAcademic, startDate, endDate);
+        academicYearRepository.CreateAcademicYear(id, name, yearOfAcademic, startDate, endDate);
         System.out.println("AcademicYear Controller Runed");
         return "redirect:/Academic/View";
     }
@@ -48,7 +47,7 @@ public class AcademicYearController
     public String update(@PathVariable("id") String id, Model model) {
         accountService.checkRole("Admin");
         System.out.println(id);
-        AcademicYear fe = re.ReturnAcademicYear(id);
+        AcademicYear fe = academicYearRepository.ReturnAcademicYear(id);
         model.addAttribute("AcademicYear", fe);
         return "AcademicYear/UpdateAcademic";
     }
@@ -57,14 +56,14 @@ public class AcademicYearController
     public String UpdatePostAcademicYear(@RequestParam("id") String id, @RequestParam("name") String name, 
     @RequestParam("yearOfAcademic") String yearOfAcademic, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate, Model model){
         accountService.checkRole("Admin");
-        re.UpdateAcademicYear(id, name, yearOfAcademic, startDate, endDate);;
+        academicYearRepository.UpdateAcademicYear(id, name, yearOfAcademic, startDate, endDate);;
         return "redirect:/Academic/View";
     }
 
     @GetMapping("/View")
     public String View(Model model){
         accountService.checkRole("Admin");
-        List<AcademicYear> AcademicYears = re.ReturnAcademicYears();
+        List<AcademicYear> AcademicYears = academicYearRepository.ReturnAcademicYears();
         model.addAttribute("Fals",AcademicYears);
         return "AcademicYear/ViewAcademic";
     }
@@ -72,7 +71,7 @@ public class AcademicYearController
     @PostMapping("/Delete")
     public String Delete(@RequestParam("id") String id) {
         accountService.checkRole("Admin");
-        re.DeleteAcademicYear(id);
+        academicYearRepository.DeleteAcademicYear(id);
         return "redirect:/Academic/View";
     }
 }
