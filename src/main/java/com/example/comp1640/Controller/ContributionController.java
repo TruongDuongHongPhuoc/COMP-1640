@@ -2,6 +2,7 @@ package com.example.comp1640.Controller;
 
 import com.example.comp1640.Service.AccountService;
 import com.example.comp1640.Service.ContributionService;
+import com.example.comp1640.Zip.DownloadService;
 import com.example.comp1640.model.AcademicYear;
 import com.example.comp1640.model.Account;
 import com.example.comp1640.model.Contribution;
@@ -12,20 +13,21 @@ import com.example.comp1640.repository.AccountRepositoryTest;
 import com.example.comp1640.repository.ContributionRepository;
 import com.example.comp1640.repository.FalcultyRepository;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.awt.*;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import java.io.File;
+import java.util.*;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
@@ -52,6 +54,8 @@ public class ContributionController
 
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private DownloadService downloadService;
 
     @GetMapping("/Createcontribution") // Corrected mapping without the trailing slash
     public String create(Model model) {
@@ -119,6 +123,55 @@ public class ContributionController
 
         return "redirect:/student/" + accounts.getId();
     }
+    @GetMapping("/DownloadAllForManager")
+    public void DownloadForManager(HttpServletResponse response){
+        String path = System.getProperty("user.dir");
+        String subPath = File.separator + "upload-dir" + File.separator;
+        String directoryPath = path + subPath;
+        List<String> DownloadList = new ArrayList<>();
+        List<Contribution> contris = service.ReturnForMarketingManager();
+        List<Contribution> filledContri = contris.stream()
+                .filter(contribution -> contribution.getStatus() != 0 && contribution.getStatus() != 2)
+                .collect(Collectors.toList());
+        for (Contribution con : filledContri){
+            String downitem = directoryPath + con.getPath();
+            DownloadList.add(downitem);
+            System.out.println(downitem);
+        }
+        downloadService.downloadZipFile(response, DownloadList);
+    }
+//    @PostMapping("/testDownloadPot")
+//    public void Downloadss(HttpServletResponse response){
+//        String path = System.getProperty("user.dir");
+//        String subPath = File.separator + "upload-dir" + File.separator;
+//        String directoryPath = path + subPath + "BlackDoc.docx";
+//        List<String> lit = new ArrayList<>();
+//        lit.add(directoryPath);
+//        System.out.println("Downlaod Service run");
+//        downloadService.downloadZipFile(response,lit);
+//    }
+    @GetMapping("/downloadmethod")
+    public void DownloadMethod(HttpServletResponse response,@RequestParam("selectedFiles") List<String> list){
+        String path = System.getProperty("user.dir");
+        String subPath = File.separator + "upload-dir" + File.separator;
+        String directoryPath = path + subPath;
+        List<String> DownloadList = new ArrayList<>();
+
+        for (String con : list){
+            String downitem = directoryPath + con;
+            DownloadList.add(downitem);
+            System.out.println(downitem);
+        }
+        downloadService.downloadZipFile(response, DownloadList);
+    }
+
+    @GetMapping("/setpublicCon/{id}")
+    public String SetpublicCon(@PathVariable String id){
+        re.SetPublic(id,3);
+        Contribution con = re.ReturnContribution(id);
+        System.out.println(con.getStatus());
+        return "redirect:/Contribution/View";
+    }
 
     @GetMapping("/View")
     public String View(Model model){
@@ -130,18 +183,6 @@ public class ContributionController
         model.addAttribute("cons",filledContri);
         return "Contribution/ViewContribution";
     }
-
-//    List<Contribution> FilteredList = cons.stream()
-//            .filter(con -> Objects.equals(con.getAccountId(), id))
-//            .collect(Collectors.toList());
-
-
-    // @GetMapping("/Update/{id}") // Corrected mapping without the trailing slash
-    // public String CreateFeedBack(@PathVariable String id, Model model) {
-    //     Contribution fe = re.ReturnContribution(id);
-    //     model.addAttribute("con", fe);
-    //     return "Contribution/UpdateContribution";
-    // }
 
     @PostMapping("/Delete")
     public String Delete(@RequestParam("id") String id, @RequestParam("file") String file){
@@ -160,8 +201,10 @@ public class ContributionController
     public String Public(@RequestParam("id")String id,@RequestParam(value = "status") int status){
         accountService.checkRoleS("Marketing Coordinator","Marketing Manager");
         re.SetPublic(id,status);
+        Contribution con = re.ReturnContribution(id);
+        String accid = con.getAccountId();
         System.out.println(status);
-        return "redirect:/Contribution/View";
+        return "redirect:/student/" + accid;
     }
     @GetMapping("/set/{id}")
     public String set(@PathVariable("id")String id, Model model){
