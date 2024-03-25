@@ -1,7 +1,8 @@
 package com.example.comp1640.Controller;
 
 
-
+import jakarta.servlet.http.HttpServletResponse;
+import com.example.comp1640.Zip.DownloadService;
 import com.example.comp1640.model.Account;
 import com.example.comp1640.Service.AccountService;
 import com.example.comp1640.Service.ContributionService;
@@ -15,6 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.List;
 
@@ -28,12 +32,12 @@ public class HomeController {
     AccountRepositoryTest accountRepoTest;
     @Autowired
     FalcultyRepository falcultyRepository;
-
     @Autowired
     ContributionRepository re;
-
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private DownloadService downloadService;
 
     @GetMapping("/home")
     public String home(Model model){
@@ -51,6 +55,20 @@ public class HomeController {
     public String getMethodName() {
         accountService.checkRole("Marketing Manager");
         return "DashBoard";
+    }
+    @GetMapping("/DownloadAllPublic")
+    public String DownlaodPublics(HttpServletResponse response){
+        String path = System.getProperty("user.dir");
+        String subPath = File.separator + "upload-dir" + File.separator;
+        String directoryPath = path + subPath;
+        List<Contribution> cons = contributionService.ReturnPublicContribution();
+        List<String> downloadslist = new ArrayList<>();
+        for(Contribution con: cons){
+            String pathfile = directoryPath + con.getPath();
+            downloadslist.add(pathfile);
+        }
+        downloadService.downloadZipFile( response,downloadslist);
+        return "redirect:/home";
     }
 
     @GetMapping("/test")

@@ -2,12 +2,14 @@ package com.example.comp1640.Controller;
 
 import com.example.comp1640.Service.AccountService;
 import com.example.comp1640.Service.ContributionService;
+import com.example.comp1640.Zip.DownloadService;
 import com.example.comp1640.model.Account;
 import com.example.comp1640.model.Contribution;
 import com.example.comp1640.model.Feedback;
 import com.example.comp1640.repository.AccountRepositoryTest;
 import com.example.comp1640.repository.ContributionRepository;
 import com.example.comp1640.repository.FeedbackRepository;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -15,7 +17,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+
+import java.io.File;
+import java.lang.constant.Constable;
+
 import java.time.LocalDate;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -31,6 +38,8 @@ public class StudentController {
     AccountRepositoryTest accountRepoTest;
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private DownloadService downloadService;
 
     @GetMapping("/student/{id}")
     public String ViewWork(@PathVariable String id, Model model){
@@ -62,6 +71,9 @@ public class StudentController {
                 }
             }
         }
+
+        model.addAttribute("CurrentID",id);
+
         boolean closureDate = checkDate(LocalDate.now(),account.getAcademicYear());
         boolean finalClosureDate = checkDate(LocalDate.now(),account.getEndYear());
         int dateCheck = 0;
@@ -87,10 +99,31 @@ public class StudentController {
         return accounts;
     }
 
+    @GetMapping("/DownloadAllWorkFromStudent/{accountid}")
+    public void DownloadAllWork(HttpServletResponse response,@PathVariable String accountid){
+        List<Contribution> cons = contributionService.ReturnAllContribution();
+        List<Contribution> FilteredList = cons.stream()
+                .filter(con -> Objects.equals(con.getAccountId(), accountid))
+                .collect(Collectors.toList());
+
+        String path = System.getProperty("user.dir");
+        String subPath = File.separator + "upload-dir" + File.separator;
+        String directoryPath = path + subPath;
+        List<String> DownloadList = new ArrayList<>();
+
+        for (Contribution con : FilteredList){
+            String downitem = directoryPath + con.getPath();
+            DownloadList.add(downitem);
+            System.out.println(downitem);
+        }
+        downloadService.downloadZipFile(response, DownloadList);
+
+
     public boolean checkDate(LocalDate ngayHienTai, LocalDate deadline){
         if(ngayHienTai.isBefore(deadline)){
             return true;
         }
         return false;
+
     }
 }
