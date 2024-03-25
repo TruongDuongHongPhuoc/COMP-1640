@@ -17,12 +17,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+
 import java.io.File;
 import java.lang.constant.Constable;
+
+import java.time.LocalDate;
+
 import java.util.*;
 import java.util.stream.Collectors;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 
 @Controller
 public class StudentController {
@@ -46,7 +48,7 @@ public class StudentController {
         // long secondsPassed = ChronoUnit.SECONDS.between(submitDate, currentTime);
         // model.addAttribute("secondsPassed", secondsPassed);
 
-        accountService.checkRoleS("Marketing Coordinator","Student");
+        accountService.checkRoles("Marketing Coordinator","Student");
         Account account = returnAccount();
         List<Contribution> cons = contributionService.ReturnAllContribution();
         List<Feedback> feds = feedbackRepository.ReturnFeedBacks();
@@ -69,7 +71,21 @@ public class StudentController {
                 }
             }
         }
+
         model.addAttribute("CurrentID",id);
+
+        boolean closureDate = checkDate(LocalDate.now(),account.getAcademicYear());
+        boolean finalClosureDate = checkDate(LocalDate.now(),account.getEndYear());
+        int dateCheck = 0;
+        if (closureDate && finalClosureDate){
+            dateCheck = 0;
+        } else if (!closureDate && finalClosureDate) {
+            dateCheck = 1;
+        } else if (!closureDate && !finalClosureDate) {
+            dateCheck = 2;
+        }
+        model.addAttribute("dateCheck", dateCheck);
+        model.addAttribute("finalDateCheck", finalClosureDate);
         model.addAttribute("hashi",hash);
         model.addAttribute("cons",FilteredList);
         model.addAttribute("feds",FillteredFeds);
@@ -79,9 +95,10 @@ public class StudentController {
     public Account returnAccount(){
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<Account> account = accountRepoTest.findAccountByMail(authentication.getName());
-        Account accounts = account.get();
+        Account accounts = accountService.getOne(account.get().getId());
         return accounts;
     }
+
     @GetMapping("/DownloadAllWorkFromStudent/{accountid}")
     public void DownloadAllWork(HttpServletResponse response,@PathVariable String accountid){
         List<Contribution> cons = contributionService.ReturnAllContribution();
@@ -100,5 +117,13 @@ public class StudentController {
             System.out.println(downitem);
         }
         downloadService.downloadZipFile(response, DownloadList);
+
+
+    public boolean checkDate(LocalDate ngayHienTai, LocalDate deadline){
+        if(ngayHienTai.isBefore(deadline)){
+            return true;
+        }
+        return false;
+
     }
 }

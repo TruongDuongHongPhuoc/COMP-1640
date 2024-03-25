@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.time.LocalDateTime;
@@ -25,7 +26,7 @@ public class ContributionService {
     public void storeFile(MultipartFile file){
         StoreService.store(file);
     }
-    public void CreateContribution(String id,String name,String description, LocalDateTime submitDate,int status,String accountId,String academicYearId, String facultyId, MultipartFile file){
+    public void CreateContribution(String id, String name, String description, LocalDate submitDate, int status, String accountId, String academicYearId, String facultyId, MultipartFile file){
         storeFile(file);
         System.out.println("File is Stored");
         String path = file.getOriginalFilename();
