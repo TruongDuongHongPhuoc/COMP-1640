@@ -9,6 +9,7 @@ import com.example.comp1640.repository.AccountRepositoryTest;
 import com.example.comp1640.repository.ContributionRepository;
 import com.example.comp1640.repository.FeedbackRepository;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,10 +100,16 @@ public class FeedBackController {
         List<Account> Listaccount = accountRepoTest.findAll();
         Contribution con = conRepo.ReturnContribution(id);
         List<Feedback> feds = service.ReturnFeedBackWithContributionId(id);
+        LocalDate Deadline = con.getSubmitDate().plusDays(14);
+        LocalDate currentdate = LocalDate.now();
+        int compare = Deadline.compareTo(currentdate);
+
+        model.addAttribute("isDead",compare);
         model.addAttribute("feds",feds);
         model.addAttribute("con",con);
         model.addAttribute("account",account);
         model.addAttribute("listacc",Listaccount);
+        model.addAttribute("CurrentDate",currentdate);
         return "FeedBackView";
     }
 

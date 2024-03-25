@@ -62,7 +62,6 @@ public class ContributionController
     @GetMapping("/Createcontribution") // Corrected mapping without the trailing slash
     public String create(Model model) {
         accountService.checkRole("Student");
-
         List<AcademicYear> academicYears = acaRepo.ReturnAcademicYears();
         List<Faculty> faculties = facultyRepo.ReturnFaculties();
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -147,11 +146,13 @@ public class ContributionController
     @GetMapping("/View")
     public String View(Model model){
         accountService.checkRole("Marketing Manager");
+        List<Faculty> faculties = facultyRepo.ReturnFaculties();
         List<Contribution> contris = service.ReturnForMarketingManager();
         List<Contribution> filledContri = contris.stream()
                 .filter(contribution -> contribution.getStatus() != 0 && contribution.getStatus() != 2)
                 .collect(Collectors.toList());
         model.addAttribute("cons",filledContri);
+        model.addAttribute("faculties",faculties);
         return "Contribution/ViewContribution";
     }
 
@@ -185,7 +186,7 @@ public class ContributionController
         accountService.checkRoles("Marketing Coordinator","Marketing Manager");
         re.SetPublic(id,status);
         System.out.println(status);
-        return "redirect:/Contribution/View";
+        return "redirect:/ViewWork/" +id ;
     }
     @GetMapping("/set/{id}")
     public String set(@PathVariable("id")String id, Model model){

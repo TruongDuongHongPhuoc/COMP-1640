@@ -25,7 +25,6 @@ public class Contribution {
     private String academicYearId;
     private String facultyId;
     private String path;
-
     public Contribution(String id, String name, String description, LocalDate submitDate, int Status, String accountId, String academicYearId, String facultyId, String path) {
         this.id = id;
         this.name = name;
@@ -36,7 +35,6 @@ public class Contribution {
         this.academicYearId = academicYearId;
         this.facultyId = facultyId;
         this.path = path;
-
     }
 
     public String getPath_to_file() {
@@ -45,5 +43,10 @@ public class Contribution {
 
     public void setPath_to_file(String path) {
         this.path = path;
+    }
+    public LocalDate CalculateDeadline(){
+        LocalDate today = LocalDate.now();
+        LocalDate deadline = today.plusDays(14);
+        return deadline;
     }
 }

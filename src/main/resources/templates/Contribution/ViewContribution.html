@@ -14,6 +14,11 @@
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
                         DataTable Example
+                        <select id="faculty" name="faculty" class="form-select" aria-label="Default select example">
+                        <th:block th:each="fa : ${faculties}">
+                            <option th:Value="${fa.getId()}" th:text="${fa.getName()}"></option>
+                        </th:block>
+                        </select>
                     </div>
                     <div>
                         <a th:href="@{/Contribution/Createcontribution}">Create</a>
@@ -22,44 +27,36 @@
                         <table id="datatablesSimple">
                             <thead>
                             <tr>
-                                <th>ID</th>z
                                 <th>Name</th>
                                 <th>Description</th>
                                 <th>Submitedate</th>
                                 <th>Status</th>
                                 <th>Academicyear</th>
-                                <th>Accountid</th>
                                 <th>Facultyid</th>
                                 <th>Download</th>
-                                <th>Delete</th>
-                                <th>Update</th>
+                                <th>Public</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
-                                <th>ID</th>
                                 <th>Name</th>
                                 <th>Description</th>
                                 <th>Submitedate</th>
                                 <th>Status</th>
-                                <th>Academicyear</th>
-                                <th>Accountid</th>
+                                <th>Academicyear</th>>
                                 <th>Facultyid</th>
                                 <th>Download</th>
-                                <th>Delete</th>
-                                <th>Update</th>
+                                <th>public</th>
                             </tr>
                             </tfoot>
                             <tbody>
                             <th:block th:each="fal:${cons}">
                             <tr>
-                                <td th:text="${fal.id}"></td>
                                 <td th:text="${fal.name}"></td>
                                 <td th:text="${fal.description}"></td>
                                 <td th:text="${fal.submitDate}"></td>
                                 <td th:text="${fal.status == 0 ? 'Waiting' : (fal.status == 1 ? 'Approved' : (fal.status == 3 ? 'Public' : 'Rejected'))}"></td>
                                 <td th:text="${fal.academicYearId}"></td>
-                                <td th:text="${fal.accountId}"></td>
                                 <td th:text="${fal.facultyId}"></td>
                                 <td><a th:href="@{http://localhost:8090/Fi/files/__${fal.path}__}">Download</a></td>
                                 <td>

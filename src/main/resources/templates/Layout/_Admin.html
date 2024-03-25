@@ -188,5 +188,25 @@
 <!--  toggleSubmitButton();-->
 <!--</script>-->
 </body>
+<script>
+  // Function to filter table rows based on selected faculty
+  function filterTable() {
+    var selectedFacultyId = document.getElementById("faculty").value;
+    var tableRows = document.querySelectorAll("#datatablesSimple tbody tr");
 
+    tableRows.forEach(function(row) {
+      var facultyId = row.querySelector("td:nth-child(6)").textContent.trim(); // Assuming facultyId is the 6th column
+      if (selectedFacultyId === "" || facultyId === selectedFacultyId) {
+        row.style.display = ""; // Show the row if it matches the selected faculty or no faculty is selected
+      } else {
+        row.style.display = "none"; // Hide the row if it does not match the selected faculty
+      }
+    });
+  }
+
+  // Event listener for the select list
+  document.getElementById("faculty").addEventListener("change", filterTable);
+  // Initially filter the table based on the selected faculty
+  filterTable();
+</script>
 </html>
