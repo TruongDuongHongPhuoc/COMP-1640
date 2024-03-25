@@ -47,28 +47,9 @@
                         <td th:if="${accounts.getRoleId() == '2' }">
                             <a class="btn btn-primary" th:href="@{/Contribution/Update/{id}(id = ${con.key.id})} ">update</a>
                         </td>
-                        <!--                        <td>-->
-                        <!--                            <a th:href="@{/Contribution/set/{id}(id = ${con.key.id})} ">Approve</a>-->
-                        <!--                        </td>-->
-                    </tr>
-                    <!-- Form for adding feedback -->
-                    <tr>
-                        <form method="post" th:action="@{/FeedBack/feedbackcreate/{id}(id=${con.key.id})}">
-                            <td colspan="5">
-                                <input type="hidden" th:value="${accounts.id}" name="userid">
-                                <input type="hidden" th:value="${accounts != null ? accounts.id : ''}"
-                                       name="userid">
-                                <input th:if="${con.value != null and con.value.content != null}"
-                                       th:value="${con.value.content}" type="text" class="form-control"
-                                       name="content">
-                                <input th:unless="${con.value != null and con.value.content != null}"
-                                       th:value="nothing" type="text" class="form-control" name="content">
-                            </td>
-                            <p th:if="${accounts.getRoleId() == '3' }">
                                 <td>
-                                    <button type="submit" class="btn btn-primary">Add Feedback</button>
+                                    <a th:href="@{/FeedBack/ViewFeedback/{id}(id=${con.key.id})}">Add Feedback</a>
                                 </td>
-//Conflit start
                             </p>
                         </form>
                     </tr>

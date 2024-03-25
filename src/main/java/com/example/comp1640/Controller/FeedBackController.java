@@ -66,7 +66,7 @@ public class FeedBackController {
     @PostMapping("/CreateFeedBack")
     public String UpdatePostFeedback(@RequestParam("id") String id, @RequestParam("content") String content,
             @RequestParam("userid") String userid, @RequestParam("contributionId") String contributionId, Model model) {
-        accountService.checkRoleS("Marketing Coordinator","Student");
+        accountService.checkRoles("Marketing Coordinator","Student");
         if (id.equals(null)) {
             id = UUID.randomUUID().toString();
         }
@@ -78,7 +78,7 @@ public class FeedBackController {
     public String CreateFeedback(@RequestParam("content") String content, @RequestParam("userid") String userid,
             @PathVariable("idcontri") String contributionId, Model model) {
 
-        accountService.checkRoleS("Marketing Coordinator","Student");
+        accountService.checkRoles("Marketing Coordinator","Student");
         String id = UUID.randomUUID().toString();
 
         re.CreateFeedBack(id, content, userid, contributionId);
