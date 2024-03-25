@@ -46,9 +46,9 @@
               <tr th:each="AcademicYear: ${Fals}">
                 <td th:text="${AcademicYear.name}"></td>
                 <td th:text="${AcademicYear.id}"></td>
-                <td th:text="${AcademicYear.getyearOfAcademic()}"></td>
-                <td th:text="${AcademicYear.getstartDate()}"></td>
-                <td th:text="${AcademicYear.getendDate()}"></td>
+                <td th:text="${AcademicYear.getYearOfAcademic()}"></td>
+                <td th:text="${AcademicYear.getClosureDate().toString()}"></td>
+                <td th:text="${AcademicYear.getFinalClosureDate().toString()}"></td>
 
                 <td>
                   <form th:action="@{/Academic/Delete}" method="post">
