@@ -7,9 +7,6 @@
 <body>
 <div layout:fragment="content">
     <h1>Contribution management</h1>
-    <a href="/Contribution/DownloadAllForManager">DownloadAll</a>
-    <form action="/Contribution/downloadmethod" method="get">
-        <button type="submit" class="btn btn-primary">Download Selected</button>
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
@@ -19,59 +16,68 @@
                         DataTable Example
                     </div>
                     <div>
-
+                        <a th:href="@{/Contribution/Createcontribution}">Create</a>
+                    </div>
                     <div class="card-body">
                         <table id="datatablesSimple">
                             <thead>
                             <tr>
-
-                                <th>select
-                                </th>
-
+                                <th>ID</th>z
                                 <th>Name</th>
                                 <th>Description</th>
                                 <th>Submitedate</th>
                                 <th>Status</th>
                                 <th>Academicyear</th>
+                                <th>Accountid</th>
                                 <th>Facultyid</th>
                                 <th>Download</th>
-                                <th>SetPublic</th>
-
+                                <th>Delete</th>
+                                <th>Update</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
-                                <th>select</th>
+                                <th>ID</th>
                                 <th>Name</th>
                                 <th>Description</th>
                                 <th>Submitedate</th>
                                 <th>Status</th>
                                 <th>Academicyear</th>
+                                <th>Accountid</th>
                                 <th>Facultyid</th>
                                 <th>Download</th>
-                                <th>SetPublic</th>
+                                <th>Delete</th>
+                                <th>Update</th>
                             </tr>
                             </tfoot>
                             <tbody>
-
                             <th:block th:each="fal:${cons}">
                             <tr>
-                                <td>
-                                <input type="checkbox" th:id="${fal.id}" th:name="selectedFiles" th:value="${fal.getPath()}"/>
-                                </td>
+                                <td th:text="${fal.id}"></td>
                                 <td th:text="${fal.name}"></td>
                                 <td th:text="${fal.description}"></td>
                                 <td th:text="${fal.submitDate}"></td>
                                 <td th:text="${fal.status == 0 ? 'Waiting' : (fal.status == 1 ? 'Approved' : (fal.status == 3 ? 'Public' : 'Rejected'))}"></td>
                                 <td th:text="${fal.academicYearId}"></td>
+                                <td th:text="${fal.accountId}"></td>
                                 <td th:text="${fal.facultyId}"></td>
                                 <td><a th:href="@{http://localhost:8090/Fi/files/__${fal.path}__}">Download</a></td>
                                 <td>
-                                    <a th:href="@{/Contribution/setpublicCon/{id}(id = ${fal.getId()})}">SetPublic</a>
+                                    <form th:action="@{/Contribution/publicupdate}" method="POST" enctype="multipart/form-data">
+                                        <label>Status:</label>
+                                        <input type="hidden" name="id" th:value="${fal.id}">
+                                        <input type="hidden" name="status" th:value="3">
+<!--                                       < <select id="status" name="status" th:readonly="${false}">-->
+<!--                                            <option th:selected="${fal.status == 0}" value="0">Waiting</option>-->
+<!--                                            <option th:selected="${fal.status == 1}" value="1">Approved</option>-->
+<!--                                            <option th:selected="${fal.status == 2}" value="2">Rejected</option>-->
+<!--                                        </select><br>>-->
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+
+                                    </form>
                                 </td>
                             </tr>
                             </th:block>
-                            </form>
                             </tbody>
                         </table>
                     </div>
