@@ -19,6 +19,7 @@ public class Feedback {
     private String userId;
     private String contributionId;
     private LocalDateTime localDateTime;
+
     public Feedback(String id, String content, String userId, String contributionId) {
         this.id = id;
         this.content = content;
