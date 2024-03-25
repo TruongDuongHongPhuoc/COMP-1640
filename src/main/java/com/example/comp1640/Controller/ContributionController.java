@@ -119,8 +119,7 @@ public class ContributionController
         return "Contribution/UpdateContribution";
     }
 //    @GetMapping("/Update/{id}") // Corrected mapping without the trailing slash
-//    public String update(@PathVariable("id") String id, Model model) 
-{
+//    public String update(@PathVariable("id") String id, Model model) {
 //        System.out.println(id);
 //        AcademicYear fe = re.ReturnAcademicYear(id);
 //        model.addAttribute("AcademicYear", fe);
@@ -190,7 +189,6 @@ public class ContributionController
     }
     @GetMapping("/set/{id}")
     public String set(@PathVariable("id")String id, Model model){
-        accountService.checkRole("Marketing Coordinator");
         Account account = returnAccount();
         accountService.checkRole("Marketing Coordinator");
         Contribution con = re.ReturnContribution(id);
