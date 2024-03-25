@@ -32,5 +32,9 @@ public class Account {
     private String roleName;
     @Transient
     private String falcutyName;
+    @Transient
+    private LocalDate academicYear;
+    @Transient
+    private LocalDate endYear;
 }
 

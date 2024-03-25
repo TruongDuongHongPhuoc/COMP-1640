@@ -1,11 +1,13 @@
 package com.example.comp1640.Service;
 
 import com.example.comp1640.config.SecurityConfig;
+import com.example.comp1640.model.AcademicYear;
 import com.example.comp1640.model.Account;
 import com.example.comp1640.model.Faculty;
 import com.example.comp1640.model.Role;
+import com.example.comp1640.repository.AcademicYearRepositoryInterface;
 import com.example.comp1640.repository.AccountRepositoryTest;
-import com.example.comp1640.repository.FalcutyRepository;
+import com.example.comp1640.repository.FacultyRepository;
 import com.example.comp1640.repository.RoleRepositoryTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
@@ -21,6 +23,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -32,7 +35,10 @@ public class AccountService implements UserDetailsService {
     private RoleRepositoryTest roleRepositoryTest;
 
     @Autowired
-    private FalcutyRepository falcutyRepository;
+    private FacultyRepository falcutyRepository;
+
+    @Autowired
+    AcademicYearRepositoryInterface academicYearRepositoryInterface;
 
 
     BCryptPasswordEncoder bCryptPasswordEncoder = SecurityConfig.bCryptPasswordEncoder();
@@ -55,12 +61,19 @@ public class AccountService implements UserDetailsService {
         return accountRepositoryTest.findById(accountId).map(account -> {
             String roleName = roleRepositoryTest.findById(account.getRoleId()).map(Role::getName).orElse("");
             String facultyName = "";
+            LocalDate academic = null;
+            LocalDate finalacademic = null;
             if (account.getFacultyId() != null) {
                 Faculty faculty = falcutyRepository.findById(account.getFacultyId()).orElse(null);
                 facultyName = (faculty != null) ? faculty.getName() : "";
+                AcademicYear a = academicYearRepositoryInterface.findById(faculty.getAcademicYear()).orElse(null);
+                academic = a.getClosureDate();
+                finalacademic = a.getFinalClosureDate();
             }
             account.setRoleName(roleName);
             account.setFalcutyName(facultyName);
+            account.setAcademicYear(academic);
+            account.setEndYear(finalacademic);
             return account;
         }).orElse(null);
     }
@@ -138,7 +151,7 @@ public class AccountService implements UserDetailsService {
         }
     }
 
-    public boolean checkRoleS(String ... roles) throws AccessDeniedException {
+    public boolean checkRoles(String ... roles) throws AccessDeniedException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null) {
             for (GrantedAuthority authority : authentication.getAuthorities()) {
@@ -150,5 +163,9 @@ public class AccountService implements UserDetailsService {
             }
         }
         throw new AccessDeniedException("Access is denied");
+    }
+
+    public boolean checkAcademicYear(){
+        return false;
     }
 }

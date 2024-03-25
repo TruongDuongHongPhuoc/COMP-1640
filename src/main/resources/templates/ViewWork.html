@@ -2,39 +2,75 @@
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_customer">
 
 <body>
-    <div layout:fragment="content">
-        <h2>Currently your work</h2>
-        <section>
-            <div class="card-body">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>id</th>
-                            <th>name</th>
-                            <th>Description</th>
-                            <th>submitedate</th>
-                            <th>status</th>
-                            <th>Download</th>
-                            <p th:if="${accounts.getRoleId() == '2' }">
-                                <th>Delete</th>
-                                <th>Update</th>
-                            </p>
-                            <p th:if="${accounts.getRoleId() == '3' }">
-                                <th>Set Public</th>
-                            </p>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <th:block th:each="con : ${hashi}">
-                            <tr>
-                                <!-- Populate contribution details -->
-                                <td th:text="${con.key.id}"></td>
-                                <td th:text="${con.key.name}"></td>
-                                <td th:text="${con.key.description}"></td>
-                                <td th:text="${con.key.submitDate}"></td>
-                                <td
-                                    th:text="${con.key.status == 0 ? 'Waiting' : (con.key.status == 1 ? 'Approved' : 'Rejected')}">
+<div layout:fragment="content">
+    <h2>Currently your work</h2>
+    <section>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <!--                            <th>id</th>-->
+                    <th>name</th>
+                    <th>Description</th>
+                    <th>Submite Date</th>
+                    <th>Status</th>
+                    <th>Download</th>
+                    <p th:if="${accounts.getRoleId() == '2' }">
+                        <th>Delete</th>
+                        <th>Update</th>
+                    </p>
+                    <p th:if="${accounts.getRoleId() == '3' }">
+                        <th>Set Public</th>
+                    </p>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="con : ${hashi}">
+                    <tr>
+                        <!-- Populate contribution details -->
+                        <!--                        <td th:text="${con.key.id}"></td>-->
+                        <td th:text="${con.key.name}"></td>
+                        <td th:text="${con.key.description}"></td>
+                        <td th:text="${con.key.submitDate}"></td>
+                        <td
+                                th:text="${con.key.status == 0 ? 'Waiting' : (con.key.status == 1 ? 'Approved' : 'Rejected')}">
+                        </td>
+
+                        <td><a th:href="@{http://localhost:8090/Fi/files/__${con.key.path}__}">Download</a></td>
+                        <td th:if="${accounts.getRoleId() == '2' }">
+                            <form th:action="@{/Contribution/Delete}" method="post">
+                                <input type="hidden" name="id" th:value="${con.key.id}">
+                                <input type="hidden" name="file" th:value="${con.key.path}">
+                                <button type="submit" class="btn btn-primary">Delete</button>
+                            </form>
+                        </td>
+                        <td th:if="${accounts.getRoleId() == '2' }">
+                            <a class="btn btn-primary" th:href="@{/Contribution/Update/{id}(id = ${con.key.id})} ">update</a>
+                        </td>
+                                <td>
+                                    <a th:href="@{/FeedBack/ViewFeedback/{id}(id=${con.key.id})}">Add Feedback</a>
                                 </td>
+                            </p>
+                        </form>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+            <div th:if="${dateCheck == 0}">
+                <form th:action="@{/Contribution/Createcontribution}" method="get">
+                    <button type="submit" class="btn btn-primary"> Submit new file</button>
+                </form>
+            </div>
+            <div th:if="${dateCheck == 1}">
+                <form>
+                    <button disabled class="btn btn-danger">Time up</button>
+                </form>
+            </div>
+            <div th:if="${dateCheck == 2}">
+                <form>
+                    <button disabled class="btn btn-dark">The academic year is finished</button>
+                </form>
+
                                 <td><a th:href="@{http://localhost:8090/Fi/files/__${con.key.path}__}">Download</a></td>
 
                                 <p th:if="${accounts.getRoleId() == '2' }">
@@ -48,69 +84,14 @@
                                     <td>
                                         <a th:href="@{/Contribution/Update/{id}(id = ${con.key.id})} ">update</a>
                                     </td>
-                                </p>
-
-                                <p th:if="${accounts.getRoleId() == '3' }">
                                     <td>
-                                        <a th:href="@{/Contribution/set/{id}(id = ${con.key.id})} ">set public</a>
+                                        <a th:href="@{/Contribution/set/{id}(id = ${con.key.id})} ">Approve</a>
                                     </td>
-                                </p>
-                            </tr>
-                            <!-- Form for adding feedback -->
-                            <tr>
-                                <form method="post" th:action="@{/FeedBack/feedbackcreate/{id}(id=${con.key.id})}">
-                                    <td colspan="5">
-                                        <input type="hidden" th:value="${accounts.id}" name="userid">
-                                        <!--                                        <input th:value="${con.value.content == null ? 'nothing' : con.value.content}"-->
-                                        <!--                                               type="text"-->
-                                        <!--                                               class="form-control"-->
-                                        <!--                                               name="content">-->
-                                        <!--                                        <input th:value="${con.value.content == null ? 'nothing' : con.value.content}" type="text" class="form-control" name="content">-->
-                                        <input type="hidden" th:value="${accounts != null ? accounts.id : ''}"
-                                            name="userid">
-                                        <input th:if="${con.value != null and con.value.content != null}"
-                                            th:value="${con.value.content}" type="text" class="form-control"
-                                            name="content">
-                                        <input th:unless="${con.value != null and con.value.content != null}"
-                                            th:value="nothing" type="text" class="form-control" name="content">
-
+                                    <td>
+                                        <form th:action="@{/FeedBack/ViewFeedback/{id}(id = ${con.key.id})}">
+                                            <button type="submit" value="submit" class="btn btn-primary">feed back</button>
+                                        </form>
                                     </td>
-                                    <p th:if="${accounts.getRoleId() == '3' }">
-                                        <!-- <th:block th:if="${secondsPassed > 10}"> -->
-                                        <!-- Button will only be shown if 10 seconds have passed since submission -->
-                                        <!-- <td><button type="submit" class="btn btn-primary">Add Feedback</button></td>
-                                        </th:block> -->
-
-                                        <!-- <th:block
-                                            th:with="currentTimeMilliseconds=${#calendars.createNow().timeInMillis}">
-                                            <th:block
-                                                th:if="${currentTimeMilliseconds - con.key.submitDate > 10000}"> -->
-                                        <!-- Button will only be shown if 10 seconds have passed since submission -->
-                                        <!-- <td><button type="submit" class="btn btn-primary">Add Feedback</button>
-                                                </td>
-                                            </th:block>
-                                        </th:block> -->
-                                        <td><button type="submit" class="btn btn-primary">Add Feedback</button></td>
-                                    </p>
-                                    e
-                                    <!-- <script th:inline="javascript">
-                                        /*<![CDATA[*/
-                                    
-                                        // Function to disable button and enable it after cooldown time
-                                        function addFeedback() {
-                                            var button = document.getElementById("addFeedbackBtn");
-                                            button.disabled = false; // Disable the button
-                                            setTimeout(function() {
-                                                button.disabled = true; // Enable the button after cooldown time
-                                            }, 10000); // Cooldown time in milliseconds (e.g., 5000 milliseconds = 5 seconds)
-                                        }
-                                    
-                                        document.getElementById("feedbackForm").addEventListener("submit", addFeedback);
-                                    
-                                        /*]]>*/
-                                    </script> -->
-
-                                </form>
                             </tr>
                         </th:block>
                     </tbody>
@@ -120,9 +101,11 @@
                         <button type="submit" class="btn btn-primary"> Submit new file </button>
                     </form>
                 </div>
+// Conflit end
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
+</div>
 </body>
 
 </html>

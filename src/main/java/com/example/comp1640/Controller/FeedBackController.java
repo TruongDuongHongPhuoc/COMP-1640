@@ -1,14 +1,14 @@
 package com.example.comp1640.Controller;
 
 import com.example.comp1640.Service.AccountService;
+import com.example.comp1640.Service.FeedbackService;
 import com.example.comp1640.model.Account;
 import com.example.comp1640.model.Contribution;
 import com.example.comp1640.model.Feedback;
 import com.example.comp1640.repository.AccountRepositoryTest;
 import com.example.comp1640.repository.ContributionRepository;
 import com.example.comp1640.repository.FeedbackRepository;
-import com.fasterxml.jackson.databind.deser.std.ObjectArrayDeserializer;
-import groovyjarjarantlr4.v4.Tool.Option;
+
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +24,8 @@ import java.util.Optional;
 public class FeedBackController {
     @Autowired
     FeedbackRepository re;
+    @Autowired
+    FeedbackService service;
 
     @Autowired
     ContributionRepository conRepo;
@@ -53,12 +55,9 @@ public class FeedBackController {
         accountService.checkRole("Marketing Coordinator");
         Feedback fe = re.ReturnFeedback(id);
         Contribution con = conRepo.ReturnContribution(id);
-        org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext()
-                .getAuthentication();
-        Optional<Account> acc = accountRepoTest.findAccountByMail(authentication.getName());
-        Account accounts = acc.get();
+       Account account = ReturnAccount();
         // System.out.println(accounts);
-        model.addAttribute("acc", accounts);
+        model.addAttribute("acc", account);
         model.addAttribute("Feedback", fe);
         model.addAttribute("Cons", con);
         return "Feedback/CreateFeedback";
@@ -67,7 +66,7 @@ public class FeedBackController {
     @PostMapping("/CreateFeedBack")
     public String UpdatePostFeedback(@RequestParam("id") String id, @RequestParam("content") String content,
             @RequestParam("userid") String userid, @RequestParam("contributionId") String contributionId, Model model) {
-        accountService.checkRole("Marketing Coordinator");
+        accountService.checkRoles("Marketing Coordinator","Student");
         if (id.equals(null)) {
             id = UUID.randomUUID().toString();
         }
@@ -79,11 +78,11 @@ public class FeedBackController {
     public String CreateFeedback(@RequestParam("content") String content, @RequestParam("userid") String userid,
             @PathVariable("idcontri") String contributionId, Model model) {
 
-        accountService.checkRole("Marketing Coordinator");
+        accountService.checkRoles("Marketing Coordinator","Student");
         String id = UUID.randomUUID().toString();
 
         re.CreateFeedBack(id, content, userid, contributionId);
-        return "redirect:/FeedBack/View";
+        return "redirect:/FeedBack/ViewFeedback/"+contributionId;
     }
 
     @GetMapping("/View")
@@ -93,7 +92,26 @@ public class FeedBackController {
         model.addAttribute("feeds", feedbacks);
         return "Feedback/ViewFeedback";
     }
+    @GetMapping("/ViewFeedback/{id}")
+    public String ViewFeedback(@PathVariable String id,Model model) {
+        Account account = ReturnAccount();
+        List<Account> Listaccount = accountRepoTest.findAll();
+        Contribution con = conRepo.ReturnContribution(id);
+        List<Feedback> feds = service.ReturnFeedBackWithContributionId(id);
+        model.addAttribute("feds",feds);
+        model.addAttribute("con",con);
+        model.addAttribute("account",account);
+        model.addAttribute("listacc",Listaccount);
+        return "FeedBackView";
+    }
 
+    public Account ReturnAccount(){
+        org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext()
+                .getAuthentication();
+        Optional<Account> acc = accountRepoTest.findAccountByMail(authentication.getName());
+        Account accounts = acc.get();
+        return accounts;
+    }
     // @PostMapping("/Delete")
     // public String Delete(@RequestParam("id") String id) {
     // re.DeleteFal(id);

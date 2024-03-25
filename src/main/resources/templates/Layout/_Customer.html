@@ -29,6 +29,13 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         z-index: 9999; /* Ensure the box is on top of other content */
     }
+         /* CSS for the scrollable container */
+     .scrollable-container {
+         max-height: 600px; /* Adjust the maximum height as needed */
+         overflow-y: auto; /* Enable vertical scrolling */
+         border: 1px solid #ccc; /* Optional: Add border for clarity */
+         padding: 10px; /* Optional: Add padding for content */
+     }
 </style>
 <body>
 <nav class="navbar navbar-expand-lg fixed-top">
@@ -40,10 +47,10 @@
              style="background-color: #0b0b0b;border-radius: 50px;">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link tm-nav-link" th:href="@{home}" style="color: white ;font-weight: bold">Home</a>
+                    <a class="nav-link tm-nav-link" th:href="@{/home}" style="color: white ;font-weight: bold">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link tm-nav-link" th:href="@{register}" style="color: white  ;font-weight: bold">Register</a>
+                    <a class="nav-link tm-nav-link" th:href="@{/register}" style="color: white  ;font-weight: bold">Register</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link tm-nav-link" href="#testimonials" style="color: white;font-weight: bold ">Testimonials</a>
@@ -55,12 +62,12 @@
                     <a class="nav-link tm-nav-link" href="#contact" style="color: white ;font-weight: bold">Contact</a>
                 </li>
                 <li class="nav-item" sec:authorize="isAnonymous()">
-                    <a class="nav-link tm-nav-link" th:href="@{login}" style="color: white;font-weight: bold">
+                    <a class="nav-link tm-nav-link" th:href="@{/login}" style="color: white;font-weight: bold">
                         Log in
                     </a>
                 </li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link tm-nav-link" th:href="@{logout}" style="color: white;font-weight: bold">Log
+                    <a class="nav-link tm-nav-link" th:href="@{/logout}" style="color: white;font-weight: bold">Log
                         out</a>
                 </li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
@@ -105,14 +112,24 @@
 <script src="/forHomepage/js/bootstrap.min.js"></script>
 <script>
 
-    function getOffSet() {
-        var _offset = 450;
-        var windowHeight = window.innerHeight;
+    function scrollToBottom() {
+        var scrollableContainer = document.getElementById("scrollableContainer");
+        scrollableContainer.scrollTop = scrollableContainer.scrollHeight;
+    }
 
-        if (windowHeight > 500) {
-            _offset = 400;
-        }
-        if (windowHeight > 680) {
+    // Scroll to bottom initially
+    scrollToBottom();
+
+
+
+function getOffSet() {
+var _offset = 450;
+var windowHeight = window.innerHeight;
+
+if (windowHeight > 500) {
+_offset = 400;
+}
+if (windowHeight > 680) {
             _offset = 300
         }
         if (windowHeight > 830) {

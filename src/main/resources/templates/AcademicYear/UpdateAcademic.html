@@ -14,11 +14,11 @@
     <label for="name">Name</label><br>
     <input class="form-control form-control-lg" type="text" id="name" name="name" th:value="${AcademicYear.name}"><br>
     <label for="yearOfAcademic">Academic Year</label><br>
-    <input class="form-control form-control-lg" type="text" id="yearOfAcademic" name="yearOfAcademic" th:value="${AcademicYear.getyearOfAcademic()}"><br>
+    <input class="form-control form-control-lg" type="text" id="yearOfAcademic" name="yearOfAcademic" th:value="${AcademicYear.getYearOfAcademic()()}"><br>
     <label for="startDate">Start Date</label><br>
-    <input class="form-control form-control-lg" type="text" id="startDate" name="startDate" th:value="${AcademicYear.getstartDate()}"><br>
+    <input class="form-control form-control-lg" type="date" id="startDate" name="startDate" th:value="${AcademicYear.getClosureDate()}"><br>
     <label for="endDate">End Date</label><br>
-    <input class="form-control form-control-lg" type="text" id="endDate" name="endDate" th:value="${AcademicYear.getendDate()}">
+    <input class="form-control form-control-lg" type="date" id="endDate" name="endDate" th:value="${AcademicYear.getFinalClosureDate()()}">
    <br>
     <button class="btn btn-primary" type="submit">Update AcademicYear</button>
   </form>

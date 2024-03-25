@@ -6,12 +6,10 @@ import com.example.comp1640.model.Account;
 import com.example.comp1640.Service.AccountService;
 import com.example.comp1640.Service.ContributionService;
 import com.example.comp1640.model.Contribution;
-import com.example.comp1640.model.Customer;
 import com.example.comp1640.repository.AccountRepositoryTest;
 import com.example.comp1640.repository.ContributionRepository;
 import com.example.comp1640.repository.FalcultyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,12 +61,11 @@ public class HomeController {
 
     @GetMapping("/GettingToViewWork")
     public String GettingtoViewWork() {
-        accountService.checkRoleS("Student", "Marketing Coordinator");
+        accountService.checkRoles("Student", "Marketing Coordinator");
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext()
                 .getAuthentication();
         Optional<Account> acc = accountRepoTest.findAccountByMail(authentication.getName());
         Account accounts = acc.get();
-
         return "redirect:/student/" + accounts.getId();
     }
 
