@@ -8,7 +8,12 @@
 <div layout:fragment="content">
     <h1>Contribution management</h1>
     <form action="/Contribution/downloadmethod" method="get">
-        <button type="submit" class="btn btn-primary">Download Selected</button>
+       <div th:if="${!dateCheck}">
+           <button type="submit" class="btn btn-success">Download Selected</button>
+       </div>
+        <div th:if="${dateCheck}">
+            <button class="btn btn-secondary">The academic year hasn't ended yet</button>
+        </div>
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
@@ -63,11 +68,11 @@
                                     </tr>
                                     </tfoot>
                                     <tbody>
-
                                     <th:block th:each="fal:${cons}">
                                         <tr>
                                             <td>
-                                                <input type="checkbox" th:id="${fal.id}" th:name="selectedFiles" th:value="${fal.getPath()}"/>
+                                                <input type="checkbox" th:id="${fal.id}" th:name="selectedFiles"
+                                                       th:value="${fal.getPath()}"/>
                                             </td>
                                             <td th:text="${fal.name}"></td>
                                             <td th:text="${fal.description}"></td>
@@ -75,21 +80,22 @@
                                             <td th:text="${fal.status == 0 ? 'Waiting' : (fal.status == 1 ? 'Approved' : (fal.status == 3 ? 'Public' : 'Rejected'))}"></td>
                                             <td th:text="${fal.academicYearId}"></td>
                                             <td th:text="${fal.facultyId}"></td>
-                                            <td><a th:href="@{http://localhost:8090/Fi/files/__${fal.path}__}">Download</a></td>
+                                            <td>
+                                                <a th:href="@{http://localhost:8090/Fi/files/__${fal.path}__}">Download</a>
+                                            </td>
                                             <td>
                                                 <a th:href="@{/Contribution/SetPublic/{id}(id = ${fal.getId()})}">SetPublic</a>
                                             </td>
                                         </tr>
                                     </th:block>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
     </form>
-    </tbody>
-    </table>
-</div>
-</div>
-</div>
-</main>
-</div>
-
-</div>
 </body>
 </html>
