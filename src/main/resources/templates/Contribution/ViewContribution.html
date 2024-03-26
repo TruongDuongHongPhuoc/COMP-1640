@@ -7,7 +7,6 @@
 <body>
 <div layout:fragment="content">
     <h1>Contribution management</h1>
-    <a href="/Contribution/DownloadAllForManager">DownloadAll</a>
     <form action="/Contribution/downloadmethod" method="get">
         <button type="submit" class="btn btn-primary">Download Selected</button>
         <div id="layoutSidenav_content">
@@ -17,9 +16,20 @@
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
                             DataTable Example
+                            <label for="facultyFilter">Filter by Faculty:</label>
+                            <select class="form-select" id="facultyFilter">
+                                <option value="">All Faculties</option>
+                                <!-- Iterate over the list of faculties -->
+                                <th:block th:each="fa : ${faculties}">
+                                    <option th:value="${fa.id}" th:text="${fa.name}"></option>
+                                </th:block>
+                            </select>
                         </div>
                         <div>
+                            <div>
+                                <button type="button" id="selectAllButton" class="btn btn-primary">Select All</button>
 
+                            </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>

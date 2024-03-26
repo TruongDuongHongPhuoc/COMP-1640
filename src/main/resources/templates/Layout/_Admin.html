@@ -191,12 +191,12 @@
 <script>
   // Function to filter table rows based on selected faculty
   function filterTable() {
-    var selectedFacultyId = document.getElementById("faculty").value;
+    var selectedFacultyName = document.getElementById("facultyFilter").value;
     var tableRows = document.querySelectorAll("#datatablesSimple tbody tr");
 
     tableRows.forEach(function(row) {
-      var facultyId = row.querySelector("td:nth-child(6)").textContent.trim(); // Assuming facultyId is the 6th column
-      if (selectedFacultyId === "" || facultyId === selectedFacultyId) {
+      var facultyName = row.querySelector("td:nth-child(7)").textContent.trim(); // Assuming faculty name is the 7th column
+      if (selectedFacultyName === "" || facultyName === selectedFacultyName) {
         row.style.display = ""; // Show the row if it matches the selected faculty or no faculty is selected
       } else {
         row.style.display = "none"; // Hide the row if it does not match the selected faculty
@@ -204,9 +204,31 @@
     });
   }
 
+  // Function to handle select all button click event
+  function selectAllContributions() {
+    var selectedFacultyName = document.getElementById("facultyFilter").value;
+    var tableRows = document.querySelectorAll("#datatablesSimple tbody tr");
+
+    tableRows.forEach(function(row) {
+      var facultyName = row.querySelector("td:nth-child(7)").textContent.trim(); // Assuming faculty name is the 7th column
+      var checkbox = row.querySelector("input[type='checkbox']");
+
+      // Check if the current row matches the selected faculty or if no faculty is selected
+      if (selectedFacultyName === "" || facultyName === selectedFacultyName) {
+        checkbox.checked = true;
+      }
+    });
+  }
+
+  // Event listener for the select all button
+  document.getElementById("selectAllButton").addEventListener("click", selectAllContributions);
+
+
   // Event listener for the select list
-  document.getElementById("faculty").addEventListener("change", filterTable);
+  document.getElementById("facultyFilter").addEventListener("change", filterTable);
+
   // Initially filter the table based on the selected faculty
   filterTable();
+
 </script>
 </html>
