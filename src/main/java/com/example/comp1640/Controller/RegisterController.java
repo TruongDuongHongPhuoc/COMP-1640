@@ -1,5 +1,7 @@
 package com.example.comp1640.Controller;
 
+import com.example.comp1640.Service.AccountService;
+import com.example.comp1640.Service.MailService;
 import com.example.comp1640.config.SecurityConfig;
 import com.example.comp1640.model.Account;
 import com.example.comp1640.model.Faculty;
@@ -12,10 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedOutputStream;
@@ -40,6 +39,12 @@ public class RegisterController {
 
     @Autowired
     AccountRepositoryTest repositoryTest;
+
+    @Autowired
+    AccountService accountService;
+
+    @Autowired
+    MailService mailService;
 
 
     @GetMapping("/register")
@@ -68,7 +73,7 @@ public class RegisterController {
         account.setProfileImage(file.getOriginalFilename());
         account.setId(UUID.randomUUID().toString());
         account.setPassword(bCryptPasswordEncoder.encode(account.getPassword()));
-        account.setRoleId("2");
+        account.setRoleId("5");
         try {
             String fileName = file.getOriginalFilename();
             Account saveUser = repositoryTest.save(account);
@@ -82,5 +87,19 @@ public class RegisterController {
             return null;
         }
         return "redirect:/login";
+    }
+
+    @GetMapping("/guest/{id}")
+    public String updateGuest(@PathVariable("id") String id, Model model){
+        Account account = accountService.getOne(id);
+        List<Account> listAccount = repositoryTest.findAll();
+        for(Account a : listAccount){
+            if (a.getRoleId().equals("1")) {
+                mailService.SendEmail(a.getMail(),
+                        "Update role",
+                        "The guest with email: " + account.getMail() +" want to register as a student ");
+            }
+        }
+        return "redirect:/home";
     }
 }

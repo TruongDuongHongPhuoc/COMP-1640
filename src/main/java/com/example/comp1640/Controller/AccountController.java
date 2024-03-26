@@ -93,12 +93,12 @@ public class AccountController {
     }
 
     @PostMapping("/reset")
-    public String reset(@RequestParam("faculty") String facId,
+    public String reset(@RequestParam("roleId") String roleId,
             @RequestParam("id") String id,
             Model model) {
         accountService.checkRole("Admin");
         Account account = accountService.getOne(id);
-        account.setFacultyId(facId);
+        account.setRoleId(roleId);
         repo.save(account);
         model.addAttribute("account", account);
         model.addAttribute("faculty", falRepo.findAll());

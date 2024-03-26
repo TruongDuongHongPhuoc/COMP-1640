@@ -13,6 +13,7 @@ import com.example.comp1640.repository.*;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -152,13 +153,17 @@ public class ContributionController
     @GetMapping("/View")
     public String View(Model model){
         accountService.checkRole("Marketing Manager");
+        Account account = returnAccount();
+        account = accountService.getOne(account.getId());
         List<Faculty> faculties = facultyRepo.ReturnFaculties();
         List<Contribution> contris = service.ReturnForMarketingManager();
         List<Contribution> filledContri = contris.stream()
                 .filter(contribution -> contribution.getStatus() != 0 && contribution.getStatus() != 2)
                 .collect(Collectors.toList());
+        boolean dateCheck =  checkDate(LocalDate.now(),account.getAcademicYear());
         model.addAttribute("cons",filledContri);
         model.addAttribute("faculties",faculties);
+        model.addAttribute("dateCheck", dateCheck);
         return "Contribution/ViewContribution";
     }
 
@@ -232,4 +237,10 @@ public class ContributionController
         return accounts;
     }
 
+    public boolean checkDate(LocalDate currentDate, LocalDate deadline){
+        if(currentDate.isBefore(deadline)){
+            return true;
+        }
+        return false;
+    }
 }
