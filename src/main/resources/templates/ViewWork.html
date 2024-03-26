@@ -64,6 +64,9 @@
                     <button type="submit" class="btn btn-primary"> Submit new file</button>
                 </form>
             </div>
+            <div>
+                <a th:href="@{/DownloadStudentWork/{studentid}( studentid = ${studentid})}">Download all</a>
+            </div>
             <div th:if="${dateCheck == 1}">
                 <form>
                     <button disabled class="btn btn-danger">Time up</button>

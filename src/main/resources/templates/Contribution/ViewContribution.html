@@ -7,81 +7,78 @@
 <body>
 <div layout:fragment="content">
     <h1>Contribution management</h1>
-    <div id="layoutSidenav_content">
-        <main>
-            <div class="container-fluid px-4">
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-table me-1"></i>
-                        DataTable Example
-                        <select id="faculty" name="faculty" class="form-select" aria-label="Default select example">
-                        <th:block th:each="fa : ${faculties}">
-                            <option th:Value="${fa.getId()}" th:text="${fa.getName()}"></option>
-                        </th:block>
-                        </select>
-                    </div>
-                    <div>
-                        <a th:href="@{/Contribution/Createcontribution}">Create</a>
-                    </div>
-                    <div class="card-body">
-                        <table id="datatablesSimple">
-                            <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th>Submitedate</th>
-                                <th>Status</th>
-                                <th>Academicyear</th>
-                                <th>Facultyid</th>
-                                <th>Download</th>
-                                <th>Public</th>
-                            </tr>
-                            </thead>
-                            <tfoot>
-                            <tr>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th>Submitedate</th>
-                                <th>Status</th>
-                                <th>Academicyear</th>>
-                                <th>Facultyid</th>
-                                <th>Download</th>
-                                <th>public</th>
-                            </tr>
-                            </tfoot>
-                            <tbody>
-                            <th:block th:each="fal:${cons}">
-                            <tr>
-                                <td th:text="${fal.name}"></td>
-                                <td th:text="${fal.description}"></td>
-                                <td th:text="${fal.submitDate}"></td>
-                                <td th:text="${fal.status == 0 ? 'Waiting' : (fal.status == 1 ? 'Approved' : (fal.status == 3 ? 'Public' : 'Rejected'))}"></td>
-                                <td th:text="${fal.academicYearId}"></td>
-                                <td th:text="${fal.facultyId}"></td>
-                                <td><a th:href="@{http://localhost:8090/Fi/files/__${fal.path}__}">Download</a></td>
-                                <td>
-                                    <form th:action="@{/Contribution/publicupdate}" method="POST" enctype="multipart/form-data">
-                                        <label>Status:</label>
-                                        <input type="hidden" name="id" th:value="${fal.id}">
-                                        <input type="hidden" name="status" th:value="3">
-<!--                                       < <select id="status" name="status" th:readonly="${false}">-->
-<!--                                            <option th:selected="${fal.status == 0}" value="0">Waiting</option>-->
-<!--                                            <option th:selected="${fal.status == 1}" value="1">Approved</option>-->
-<!--                                            <option th:selected="${fal.status == 2}" value="2">Rejected</option>-->
-<!--                                        </select><br>>-->
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+    <a href="/Contribution/DownloadAllForManager">DownloadAll</a>
+    <form action="/Contribution/downloadmethod" method="get">
+        <button type="submit" class="btn btn-primary">Download Selected</button>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-table me-1"></i>
+                            DataTable Example
+                        </div>
+                        <div>
 
-                                    </form>
-                                </td>
-                            </tr>
-                            </th:block>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+                                    <tr>
+
+                                        <th>select
+                                        </th>
+
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Submitedate</th>
+                                        <th>Status</th>
+                                        <th>Academicyear</th>
+                                        <th>Facultyid</th>
+                                        <th>Download</th>
+                                        <th>SetPublic</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tfoot>
+                                    <tr>
+                                        <th>select</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Submitedate</th>
+                                        <th>Status</th>
+                                        <th>Academicyear</th>
+                                        <th>Facultyid</th>
+                                        <th>Download</th>
+                                        <th>SetPublic</th>
+                                    </tr>
+                                    </tfoot>
+                                    <tbody>
+
+                                    <th:block th:each="fal:${cons}">
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" th:id="${fal.id}" th:name="selectedFiles" th:value="${fal.getPath()}"/>
+                                            </td>
+                                            <td th:text="${fal.name}"></td>
+                                            <td th:text="${fal.description}"></td>
+                                            <td th:text="${fal.submitDate}"></td>
+                                            <td th:text="${fal.status == 0 ? 'Waiting' : (fal.status == 1 ? 'Approved' : (fal.status == 3 ? 'Public' : 'Rejected'))}"></td>
+                                            <td th:text="${fal.academicYearId}"></td>
+                                            <td th:text="${fal.facultyId}"></td>
+                                            <td><a th:href="@{http://localhost:8090/Fi/files/__${fal.path}__}">Download</a></td>
+                                            <td>
+                                                <a th:href="@{/Contribution/SetPublic/{id}(id = ${fal.getId()})}">SetPublic</a>
+                                            </td>
+                                        </tr>
+                                    </th:block>
+    </form>
+    </tbody>
+    </table>
+</div>
+</div>
+</div>
+</main>
+</div>
 
 </div>
 </body>
