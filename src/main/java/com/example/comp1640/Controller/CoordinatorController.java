@@ -27,10 +27,12 @@ public class CoordinatorController {
     public String ViewStudent(@PathVariable String Faculty_id, Model model){
         accountService.checkRole("Marketing Coordinator");
         List<Account> Accs = accountRepo.findAll();
-        List<Account> FilledAccounts = Accs.stream()
-                .filter(acc -> Objects.equals(acc.getFacultyId(), Faculty_id))
+        List<Account> filledAccounts = Accs.stream()
+                .filter(acc -> Objects.equals(acc.getFacultyId(), Faculty_id)) // Filter by faculty ID
+                .filter(acc -> "2".equals(acc.getRoleId())) // Filter by role (assuming role 2 means a specific role)
                 .collect(Collectors.toList());
-        model.addAttribute("accs",FilledAccounts);
+
+        model.addAttribute("accs",filledAccounts);
         return "ViewStudent";
     }
 }
