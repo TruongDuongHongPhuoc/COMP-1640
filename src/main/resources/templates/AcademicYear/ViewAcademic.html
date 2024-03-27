@@ -50,32 +50,33 @@
                 <td th:text="${AcademicYear.getFinalClosureDate().toString()}"></td>
                 <td th:text="${AcademicYear.getFinalClosureDate().toString()}"></td>
 
-                <td>
-                  <form th:action="@{/Academic/Delete}" method="post">
-                    <input type="hidden" name="id" th:value="${AcademicYear.id}">
-                    <button type="submit" class="btn btn-primary">Delete</button>
-                  </form>
-                </td>
-                <td>
-                  <a th:href="@{/Academic/Update/{id}(id = ${AcademicYear.id})} ">update</a>
-                </td>
-              </tr>
-              </tbody>
-            </table>
+                    <td>
+                      <form th:action="@{/Academic/Delete}" method="post">
+                        <input type="hidden" name="id" th:value="${AcademicYear.id}">
+                        <button type="submit" class="btn btn-primary">Delete</button>
+                      </form>
+                    </td>
+                    <td>
+                      <a th:href="@{/Academic/Update/{id}(id = ${AcademicYear.id})} ">update</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-      </div>
-    </main>
-  </div>
+      </main>
+    </div>
 
-</div>
+  </div>
 </body>
 <style>
   container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Adjust this value to center vertically on the page */
+    height: 100vh;
+    /* Adjust this value to center vertically on the page */
   }
 
   table {
@@ -83,4 +84,5 @@
     /* Add other styling properties for your table here */
   }
 </style>
+
 </html>
