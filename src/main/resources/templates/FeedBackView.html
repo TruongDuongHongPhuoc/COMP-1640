@@ -4,71 +4,81 @@
       layout:decorate="Layout/_customer">
 <body>
 
-<div layout:fragment="content">
+<div layout:fragment="content" style="margin-top: 20px; margin-bottom: 20px;">
     <div style="height: 50px"></div>
     <div class="container">
         <div class="row">
             <div class="col-md-6">
                 <h2>Contribution</h2>
 
-<!--                Name-->
+                <!--                Name-->
 
                 <label for="name">name</label>
                 <input type="text" class="form-control" id="name" name="name" th:value="${con.name}" readonly>
 
                 <label for="description">Description:</label>
-                <input type="text" class="form-control" id="description" name="description" th:value="${con.description}" readonly><br>
+                <input type="text" class="form-control" id="description" name="description"
+                       th:value="${con.description}" readonly><br>
 
                 <label for="submitDate">Submit Date:</label>
-                <input type="text" class="form-control" id="submitDate" name="submitDate" th:value="${con.submitDate}" readonly><br>
+                <input type="text" class="form-control" id="submitDate" name="submitDate" th:value="${con.submitDate}"
+                       readonly><br>
 
                 <label for="status">Status:</label>
-                <input type="text" class="form-control" id="status" name="status" th:value="${con.status == 0 ? 'Waiting' : (con.status == 1 ? 'Approved' : (con.status == 3 ? 'Public' : 'Rejected'))}" readonly><br>
+                <input type="text" class="form-control" id="status" name="status"
+                       th:value="${con.status == 0 ? 'Waiting' : (con.status == 1 ? 'Approved' : (con.status == 3 ? 'Public' : 'Rejected'))}"
+                       readonly><br>
 
                 <label for="academicYearId">Academic Year ID:</label>
-                <input type="text" class="form-control" id="academicYearId" name="academicYearId" th:value="${con.academicYearId}" readonly><br>
+                <input type="text" class="form-control" id="academicYearId" name="academicYearId"
+                       th:value="${con.academicYearId}" readonly><br>
 
                 <label for="accountId">Account ID:</label>
-                <input type="text" class="form-control" id="accountId" name="accountId" th:value="${con.accountId}" readonly><br>
+                <input type="text" class="form-control" id="accountId" name="accountId" th:value="${con.accountId}"
+                       readonly><br>
 
                 <label for="facultyId">Faculty ID:</label>
-                <input type="text" class="form-control" id="facultyId" name="facultyId" th:value="${con.facultyId}" readonly><br>
+                <input type="text" class="form-control" id="facultyId" name="facultyId" th:value="${con.facultyId}"
+                       readonly><br>
 
                 <label>Download:</label>
-                <a th:href="@{http://localhost:8090/Fi/files/__${con.path}__}">Download</a><br>
+                <a class="btn btn-info" th:href="@{http://localhost:8090/Fi/files/__${con.path}__}">Download</a><br>
             </div>
 
             <!-- Right Column for FeedbackLog details -->
-            <div class="col-md-6" style="border: 1px solid black " >
+            <div class="col-md-6" style="border: 1px solid black ">
                 <h1>FeedbackLog</h1>
 
                 <div class="scrollable-container" id="scrollableContainer">
-                <th:block th:each="fed : ${feds}">l>
-                    <th:block th:each="account : ${listacc}" th:if="${account.id == fed.userId}">
-                        <label th:text="${account.getName().toString()}"></label>
+                    <th:block th:each="fed : ${feds}">l>
+                        <th:block th:each="account : ${listacc}" th:if="${account.id == fed.userId}">
+                            <label th:text="${account.getName().toString()}"></label>
+                        </th:block>
+                        <!--                    <label class="form-control" type="text" th:value="${fed.localDateTime.toString()}" readonly><br>-->
+                        <p class="fst-italic text-muted text-right"
+                           th:text="${#temporals.format(fed.getLocalDateTime(), 'dd-MM-yyy HH:mm:ss')}"></p>
+                        <input class="form-control" type="text" th:value="${fed.content}" readonly><br>
                     </th:block>
-                    <input class="form-control" type="text" th:value="${fed.content}" readonly><br>
-                    <input class="form-control" type="text" th:value="${fed.localDateTime.toString()}" readonly><br>
-                </th:block>
-                <br>
+                    <br>
                 </div>
                 <form th:action="@{'/FeedBack/feedbackcreate/' + ${con.id}}" method="post">
-                    <input  type="hidden" name="userid" th:value="${account.getId()}">
+                    <input type="hidden" name="userid" th:value="${account.getId()}">
                     <input type="hidden" name="contributionId" th:value="${con.id}">
-<!--                    <input class="form-control" type="text" name="content">-->
-<!--                    <button type="submit">Submit</button>-->
+                    <!--                    <input class="form-control" type="text" name="content">-->
+                    <!--                    <button type="submit">Submit</button>-->
 
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <button class="btn btn-primary" type="submit">Button</button>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-primary" type="submit">Comment</button>
+                        </div>
+                        <input class="form-control" type="text" name="content" aria-label=""
+                               aria-describedby="basic-addon1">
                     </div>
-                    <input class="form-control" type="text" name="content" aria-label="" aria-describedby="basic-addon1">
-                </div>
                 </form>
-                </div>
             </div>
+        </div>
     </div>
 
-    </div>
+</div>
 </body>
 </html>

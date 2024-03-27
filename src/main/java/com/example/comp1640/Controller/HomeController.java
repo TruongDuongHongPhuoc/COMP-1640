@@ -21,7 +21,7 @@ import java.util.List;
 @Controller
 public class HomeController {
     @Autowired
-    private AccountRepositoryTest repo;
+    private AccountRepositoryTest accountRepo;
     @Autowired
     private ContributionService contributionService;
     @Autowired
@@ -50,7 +50,30 @@ public class HomeController {
     @GetMapping("/chart")
     public String getMethodName() {
         accountService.checkRole("Marketing Manager");
-        return "DashBoard";
+        return "Dashboard/ManagerDashBoard";
+    }
+
+
+    @GetMapping("/chart1")
+    public String getMethodName1(Model model) {
+        accountService.checkRole("Student");
+        org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext()
+                .getAuthentication();
+        Optional<Account> acc = accountRepo.findAccountByMail(authentication.getName());
+        Account accounts = acc.get();
+        model.addAttribute("account", accounts);
+
+        if (accounts.getFacultyId() == "01")
+        {
+            return "Dashboard/GuestDashBoard";
+        }
+        
+        if (accounts.getFacultyId() == "02")
+        {
+            return "Dashboard/GuestDashBoard1";
+        }
+
+        return "Dashboard/GuestDashBoard";
     }
 
     @GetMapping("/test")
