@@ -62,7 +62,7 @@ public class AcademicYearController
 
     @GetMapping("/View")
     public String View(Model model){
-        accountService.checkRole("Admin");
+        accountService.checkRoles("Admin","Marketing Manager");
         List<AcademicYear> AcademicYears = academicYearRepository.ReturnAcademicYears();
         model.addAttribute("Fals",AcademicYears);
         return "AcademicYear/ViewAcademic";

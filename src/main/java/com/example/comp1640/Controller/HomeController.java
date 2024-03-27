@@ -83,7 +83,7 @@ public class HomeController {
 
     @GetMapping("/chart1")
     public String getMethodName1(Model model) {
-        accountService.checkRole("Student");
+        accountService.checkRole("Guest");
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext()
                 .getAuthentication();
         Optional<Account> acc = accountRepo.findAccountByMail(authentication.getName());

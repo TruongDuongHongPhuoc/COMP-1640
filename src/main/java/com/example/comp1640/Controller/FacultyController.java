@@ -60,7 +60,7 @@ public class FacultyController {
 
     @GetMapping("/view")
     public String View(Model model) {
-        accountService.checkRole("Admin");
+        accountService.checkRoles("Admin","Marketing Manager");
         List<Faculty> Faculties = re.ReturnFaculties();
         model.addAttribute("Fals", Faculties);
         return "Faculty/ViewFacutlty";
