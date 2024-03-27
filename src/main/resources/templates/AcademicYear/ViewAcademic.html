@@ -1,81 +1,81 @@
 <!-- ViewFalcutlty.html -->
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="Layout/_Admin">
-<body>
-<div layout:fragment="content">
-<h1>Academic year Management</h1>
-<!--  <h1>Table </h1>-->
-  <div id="layoutSidenav_content">
-    <main>
-      <div class="container-fluid px-4">
-        <div class="card mb-4">
-          <div class="card-header">
-            <i class="fas fa-table me-1"></i>
-            DataTable Example
-          </div>
-          <div>
-            <a th:href="@{/Academic/CreateAcademicYear}">Create</a>
-          </div>
-          <div class="card-body">
-            <table id="datatablesSimple">
-              <thead>
-              <tr>
-                <th>id</th>
-                <th>Name</th>
-                <th>Year </th>
-                <th>start Date</th>
-                <th>End date</th>
-                <th>Delete</th>
-                <th>Update</th>
-              </tr>
-              </thead>
-              <tfoot>
-              <tr>
-                <th>id</th>
-                <th>Name</th>
-                <th>Year </th>
-                <th>start Date</th>
-                <th>End date</th>
-                <th>Delete</th>
-                <th>Update</th>
-              </tr>
-              </tfoot>
-              <tbody>
-              <tr th:each="AcademicYear: ${Fals}">
-                <td th:text="${AcademicYear.name}"></td>
-                <td th:text="${AcademicYear.id}"></td>
-                <td th:text="${AcademicYear.getYearOfAcademic()}"></td>
-                <td th:text="${AcademicYear.getClosureDate().toString()}"></td>
-                <td th:text="${AcademicYear.getFinalClosureDate().toString()}"></td>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_Admin">
 
-                <td>
-                  <form th:action="@{/Academic/Delete}" method="post">
-                    <input type="hidden" name="id" th:value="${AcademicYear.id}">
-                    <button type="submit" class="btn btn-primary">Delete</button>
-                  </form>
-                </td>
-                <td>
-                  <a th:href="@{/Academic/Update/{id}(id = ${AcademicYear.id})} ">update</a>
-                </td>
-              </tr>
-              </tbody>
-            </table>
+<body>
+  <div layout:fragment="content">
+    <h1>Academic year Management</h1>
+    <!--  <h1>Table </h1>-->
+    <div id="layoutSidenav_content">
+      <main>
+        <div class="container-fluid px-4">
+          <div class="card mb-4">
+            <div class="card-header">
+              <i class="fas fa-table me-1"></i>
+              DataTable Example
+            </div>
+            <div>
+              <a th:href="@{/Academic/CreateAcademicYear}">Create</a>
+            </div>
+            <div class="card-body">
+              <table id="datatablesSimple">
+                <thead>
+                  <tr>
+                    <th>id</th>
+                    <th>Name</th>
+                    <th>Year </th>
+                    <th>start Date</th>
+                    <th>End date</th>
+                    <th>Delete</th>
+                    <th>Update</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>id</th>
+                    <th>Name</th>
+                    <th>Year </th>
+                    <th>start Date</th>
+                    <th>End date</th>
+                    <th>Delete</th>
+                    <th>Update</th>
+                  </tr>
+                </tfoot>
+                <tbody>
+                  <tr th:each="AcademicYear: ${Fals}">
+                    <td th:text="${AcademicYear.name}"></td>
+                    <td th:text="${AcademicYear.id}"></td>
+                    <td th:text="${AcademicYear.getYearOfAcademic()}"></td>
+                    <td th:text="${AcademicYear.getClosureDate().toString()}"></td>
+                    <td th:text="${AcademicYear.getFinalClosureDate().toString()}"></td>
+
+                    <td>
+                      <form th:action="@{/Academic/Delete}" method="post">
+                        <input type="hidden" name="id" th:value="${AcademicYear.id}">
+                        <button type="submit" class="btn btn-primary">Delete</button>
+                      </form>
+                    </td>
+                    <td>
+                      <a th:href="@{/Academic/Update/{id}(id = ${AcademicYear.id})} ">update</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-      </div>
-    </main>
-  </div>
+      </main>
+    </div>
 
-</div>
+  </div>
 </body>
 <style>
   container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Adjust this value to center vertically on the page */
+    height: 100vh;
+    /* Adjust this value to center vertically on the page */
   }
 
   table {
@@ -83,4 +83,5 @@
     /* Add other styling properties for your table here */
   }
 </style>
+
 </html>
