@@ -47,7 +47,7 @@ public class SecurityConfig extends GlobalMethodSecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/home").permitAll()
                         .requestMatchers("/register").permitAll()
-                        .requestMatchers("/chart1").permitAll()
+                        .requestMatchers("/chart2").permitAll()
                         .requestMatchers("/forHomepage/**").permitAll()
                         .requestMatchers("/adminTemplate/**").permitAll()
                         .requestMatchers("/images/**").permitAll()
