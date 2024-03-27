@@ -2,111 +2,110 @@
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_customer">
 
 <body>
-    <div layout:fragment="content" style="margin-top: 20px;">
-        <!--    <h2>Currently your work</h2>-->
-        <section>
-            <div class="card-body">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <!--                            <th>id</th>-->
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Submite Date</th>
-                            <th>Status</th>
-                            <th>Download</th>
-                            <p th:if="${accounts.getRoleId() == '2' }">
-                                <th>Delete</th>
-                                <th>Update</th>
-                            </p>
-                            <p th:if="${accounts.getRoleId() == '3' }">
-                                <th>Set Public</th>
-                            </p>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <th:block th:each="con : ${hashi}">
-                            <tr>
-                                <!-- Populate contribution details -->
-                                <!--                        <td th:text="${con.key.id}"></td>-->
-                                <td th:text="${con.key.name}"></td>
-                                <td th:text="${con.key.description}"></td>
-                                <td th:text="${con.key.submitDate}"></td>
-                                <td
-                                    th:text="${con.key.status == 0 ? 'Waiting' : (con.key.status == 1 ? 'Approved' : 'Rejected')}">
-                                </td>
-
-                                <td><a th:href="@{http://localhost:8090/Fi/files/__${con.key.path}__}">Download</a></td>
-                                <td th:if="${accounts.getRoleId() == '2' }">
-                                    <form th:action="@{/Contribution/Delete}" method="post">
-                                        <input type="hidden" name="id" th:value="${con.key.id}">
-                                        <input type="hidden" name="file" th:value="${con.key.path}">
-                                        <button type="submit" class="btn btn-primary">Delete</button>
-                                    </form>
-                                </td>
-                                <td th:if="${accounts.getRoleId() == '2' && dateCheck!=2}">
-                                    <a class="btn btn-primary"
-                                        th:href="@{/Contribution/Update/{id}(id = ${con.key.id})} ">update</a>
-                                </td>
-                                <td th:if="${dateCheck!=2}">
-                                    <a th:href="@{/FeedBack/ViewFeedback/{id}(id=${con.key.id})}"
-                                        class="btn btn-info">Add Feedback</a>
-                                </td>
-                            </tr>
-                        </th:block>
-                    </tbody>
-                </table>
-                <div th:if="${dateCheck == 0}">
-                    <form th:action="@{/Contribution/Createcontribution}" method="get">
-                        <button type="submit" class="btn btn-primary"> Submit new file</button>
-                    </form>
-                </div>
-                <div th:if="${dateCheck == 1}">
-                    <form>
-                        <button disabled class="btn btn-danger">Time up</button>
-                    </form>
-                </div>
-                <div th:if="${dateCheck == 2}">
-                    <form>
-                        <button disabled class="btn btn-dark">The academic year is finished</button>
-                    </form>
-
-                    <td><a th:href="@{http://localhost:8090/Fi/files/__${con.key.path}__}">Download</a></td>
-
+<div layout:fragment="content" style="margin-top: 20px;">
+    <!--    <h2>Currently your work</h2>-->
+    <section>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <!--                            <th>id</th>-->
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Submite Date</th>
+                    <th>Status</th>
+                    <th>Download</th>
+                    <th>set approve</th>
                     <p th:if="${accounts.getRoleId() == '2' }">
-                        <td>
+                        <th>Delete</th>
+                        <th>Update</th>
+                    </p>
+                    <p th:if="${accounts.getRoleId() == '3' }">
+                        <th>Set Public</th>
+                    </p>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="con : ${hashi}">
+                    <tr>
+                        <!-- Populate contribution details -->
+                        <!--                        <td th:text="${con.key.id}"></td>-->
+                        <td th:text="${con.key.name}"></td>
+                        <td th:text="${con.key.description}"></td>
+                        <td th:text="${con.key.submitDate}"></td>
+                        <td
+                                th:text="${con.key.status == 0 ? 'Waiting' : (con.key.status == 1 ? 'Approved' : 'Rejected')}">
+                        </td>
+
+                        <td><a th:href="@{http://localhost:8090/Fi/files/__${con.key.path}__}">Download</a></td>
+                        <td th:if="${accounts.getRoleId() == '2' }">
                             <form th:action="@{/Contribution/Delete}" method="post">
                                 <input type="hidden" name="id" th:value="${con.key.id}">
                                 <input type="hidden" name="file" th:value="${con.key.path}">
                                 <button type="submit" class="btn btn-primary">Delete</button>
                             </form>
                         </td>
-                        <td>
-                            <a th:href="@{/Contribution/Update/{id}(id = ${con.key.id})} ">update</a>
+                        <td th:if="${accounts.getRoleId() == '2' && dateCheck!=2}">
+                            <a class="btn btn-primary" th:href="@{/Contribution/Update/{id}(id = ${con.key.id})} ">update</a>
                         </td>
-                    </p>
-                    
+                        <td th:if="${dateCheck!=2}">
+                            <a th:href="@{/FeedBack/ViewFeedback/{id}(id=${con.key.id})}" class="btn btn-info">Add
+                                Feedback</a>
+                        </td>
                         <td>
                             <a th:href="@{/Contribution/set/{id}(id = ${con.key.id})} ">Approve</a>
                         </td>
-                        <td>
-                            <form th:action="@{/FeedBack/ViewFeedback/{id}(id = ${con.key.id})}">
-                                <button type="submit" value="submit" class="btn btn-primary">feed back</button>
-                            </form>
-                        </td>
-                        </tr>
-                        </th:block>
-                        </tbody>
-                        </table>
-                    <div>
-                        <form th:action="@{/Contribution/Createcontribution}" method="get">
-                            <button type="submit" class="btn btn-primary"> Submit new file</button>
-                        </form>
-                    </div>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+            <div th:if="${dateCheck == 0}">
+                <form th:action="@{/Contribution/Createcontribution}" method="get">
+                    <button type="submit" class="btn btn-primary"> Submit new file</button>
+                </form>
+            </div>
+            <div>
+                <a th:href="@{/DownloadStudentWork/{studentid}( studentid = ${studentid})}">Download all</a>
+            </div>
+            <div th:if="${dateCheck == 1}">
+                <form>
+                    <button disabled class="btn btn-danger">Time up</button>
+                </form>
+            </div>
+            <div th:if="${dateCheck == 2}">
+                <form>
+                    <button disabled class="btn btn-dark">The academic year is finished</button>
+                </form>
+
+                    <td><a th:href="@{http://localhost:8090/Fi/files/__${con.key.path}__}">Download</a></td>
+
+                <!--                <p th:if="${accounts.getRoleId() == '2' }">-->
+                <td>
+                    <form th:action="@{/Contribution/Delete}" method="post">
+                        <input type="hidden" name="id" th:value="${con.key.id}">
+                        <input type="hidden" name="file" th:value="${con.key.path}">
+                        <button type="submit" class="btn btn-primary">Delete</button>
+                    </form>
+                </td>
+                <td>
+                    <a th:href="@{/Contribution/Update/{id}(id = ${con.key.id})} ">update</a>
+                </td>
+                <td>
+                    <a th:href="@{/Contribution/set/{id}(id = ${con.key.id})} ">Approve</a>
+                </td>
+                <td>
+                    <form th:action="@{/FeedBack/ViewFeedback/{id}(id = ${con.key.id})}">
+                        <button type="submit" value="submit" class="btn btn-primary">feed back</button>
+                    </form>
+                <div>
+                    <form th:action="@{/Contribution/Createcontribution}" method="get">
+                        <button type="submit" class="btn btn-primary"> Submit new file</button>
+                    </form>
                 </div>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
+</div>
 </body>
 
 </html>

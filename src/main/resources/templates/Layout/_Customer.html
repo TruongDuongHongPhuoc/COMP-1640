@@ -28,7 +28,14 @@
         border: 1px solid #ccc;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         z-index: 9999; /* Ensure the box is on top of other content */
+        max-height: 80%; /* Limit the height of the box to 80% of the viewport height */
+        overflow-y: auto; /* Add a vertical scrollbar when content exceeds the box height */
+        @media (max-width: 768px) {
+            padding: 10px; /* Decrease padding on smaller screens */
+            max-height: 30%; /* Reduce the max-height for smaller screens */
+        }
     }
+
          /* CSS for the scrollable container */
      .scrollable-container {
          max-height: 600px; /* Adjust the maximum height as needed */

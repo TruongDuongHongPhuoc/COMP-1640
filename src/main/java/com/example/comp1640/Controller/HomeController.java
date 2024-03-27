@@ -2,6 +2,7 @@ package com.example.comp1640.Controller;
 
 
 
+import com.example.comp1640.Zip.DownloadService;
 import com.example.comp1640.model.Account;
 import com.example.comp1640.Service.AccountService;
 import com.example.comp1640.Service.ContributionService;
@@ -9,12 +10,16 @@ import com.example.comp1640.model.Contribution;
 import com.example.comp1640.repository.AccountRepositoryTest;
 import com.example.comp1640.repository.ContributionRepository;
 import com.example.comp1640.repository.FalcultyRepository;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.List;
 
@@ -35,10 +40,27 @@ public class HomeController {
     @Autowired
     private AccountService accountService;
 
+    @Autowired
+    DownloadService downloadService;
+
     @GetMapping("/home")
     public String home(Model model){
         List<Contribution> cons = contributionService.ReturnPublicContribution();
         model.addAttribute("cons", cons);
+        return "HomePage";
+    }
+    @GetMapping("/DownloadAllFileHome")
+    public String DownloadAllFileHome(HttpServletResponse response){
+        List<Contribution> cons = contributionService.ReturnPublicContribution();
+        List<String> downloadList = new ArrayList<>();
+        String path = System.getProperty("user.dir");
+        String subPath = File.separator + "upload-dir" + File.separator;
+        String directoryPath = path + subPath;
+
+        for(Contribution con : cons){
+            downloadList.add( directoryPath +con.getPath());
+        }
+        downloadService.downloadZipFile(response,downloadList);
         return "HomePage";
     }
 

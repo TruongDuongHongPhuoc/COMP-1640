@@ -104,6 +104,9 @@
                         <a class="btn btn-secondary" th:href="@{/home}">Back</a>
                         <button class="btn btn-primary profile-button" id="saveButton" type="submit">Edit Profile
                         </button>
+                        <div th:if="${account.roleId == 5}">
+                            <a class="btn btn-info" th:href="@{/guest/{id} (id= ${account.id})}">Update to student</a>
+                        </div>
                     </div>
                 </div>
             </form>

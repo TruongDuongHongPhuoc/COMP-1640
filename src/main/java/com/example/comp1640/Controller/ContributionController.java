@@ -3,14 +3,17 @@ package com.example.comp1640.Controller;
 import com.example.comp1640.Service.AccountService;
 import com.example.comp1640.Service.ContributionService;
 import com.example.comp1640.Service.MailService;
+import com.example.comp1640.Zip.DownloadService;
 import com.example.comp1640.model.AcademicYear;
 import com.example.comp1640.model.Account;
 import com.example.comp1640.model.Contribution;
 import com.example.comp1640.model.Faculty;
 import com.example.comp1640.repository.*;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,8 +21,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -58,11 +63,12 @@ public class ContributionController
 
     @Autowired
     MailService mailService;
+    @Autowired
+    DownloadService downloadService;
 
     @GetMapping("/Createcontribution") // Corrected mapping without the trailing slash
     public String create(Model model) {
         accountService.checkRole("Student");
-
         List<AcademicYear> academicYears = acaRepo.ReturnAcademicYears();
         List<Faculty> faculties = facultyRepo.ReturnFaculties();
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -127,15 +133,15 @@ public class ContributionController
 //    }
     @PostMapping("/Updating")
     public String UpdatePostContribution(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("description") String description,
-    @RequestParam("submitDate") LocalDateTime submitDate,
     @RequestParam(value = "status") int status, @RequestParam("accountId") String accountId,
     @RequestParam("academicYearId") String academicYearId,
     @RequestParam("facultyId") String facultyId,
     @RequestParam("file") MultipartFile path,
     @RequestParam("oldfile")String oldfile,Model model){
         accountService.checkRole("Student");
+        LocalDateTime sub = LocalDateTime.now();
         System.out.println("Updating Contribution controller");
-        service.UpdateContribution(id, name, description, submitDate, status, accountId, academicYearId, facultyId, path, oldfile);
+        service.UpdateContribution(id, name, description, sub, status, accountId, academicYearId, facultyId, path, oldfile);
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext()
                 .getAuthentication();
         Optional<Account> acc = accountRepo.findAccountByMail(authentication.getName());
@@ -147,11 +153,17 @@ public class ContributionController
     @GetMapping("/View")
     public String View(Model model){
         accountService.checkRole("Marketing Manager");
+        Account account = returnAccount();
+        account = accountService.getOne(account.getId());
+        List<Faculty> faculties = facultyRepo.ReturnFaculties();
         List<Contribution> contris = service.ReturnForMarketingManager();
         List<Contribution> filledContri = contris.stream()
                 .filter(contribution -> contribution.getStatus() != 0 && contribution.getStatus() != 2)
                 .collect(Collectors.toList());
+        boolean dateCheck =  checkDate(LocalDate.now(),account.getAcademicYear());
         model.addAttribute("cons",filledContri);
+        model.addAttribute("faculties",faculties);
+        model.addAttribute("dateCheck", dateCheck);
         return "Contribution/ViewContribution";
     }
 
@@ -184,8 +196,9 @@ public class ContributionController
     public String Public(@RequestParam("id")String id,@RequestParam(value = "status") int status){
         accountService.checkRoles("Marketing Coordinator","Marketing Manager");
         re.SetPublic(id,status);
+        String studentId = re.ReturnContribution(id).getAccountId();
         System.out.println(status);
-        return "redirect:/Contribution/View";
+        return "redirect:/student/" + studentId ;
     }
     @GetMapping("/set/{id}")
     public String set(@PathVariable("id")String id, Model model){
@@ -196,6 +209,25 @@ public class ContributionController
         model.addAttribute("account",account);
         return "Contribution/SetPublic";
     }
+    @GetMapping("/SetPublic/{id}")
+    public String setpublic(@PathVariable String id){
+        re.SetPublic(id,3);
+        return "redirect:/Contribution/View";
+    }
+    @GetMapping("/downloadmethod")
+    public void DownloadMethod(HttpServletResponse   response, @RequestParam("selectedFiles") List<String> list){
+        String path = System.getProperty("user.dir");
+        String subPath = File.separator + "upload-dir" + File.separator;
+        String directoryPath = path + subPath;
+        List<String> DownloadList = new ArrayList<>();
+
+        for (String con : list){
+            String downitem = directoryPath + con;
+            DownloadList.add(downitem);
+            System.out.println(downitem);
+        }
+        downloadService.downloadZipFile(response, DownloadList);
+    }
 
 
     public Account returnAccount(){
@@ -205,4 +237,10 @@ public class ContributionController
         return accounts;
     }
 
+    public boolean checkDate(LocalDate currentDate, LocalDate deadline){
+        if(currentDate.isBefore(deadline)){
+            return true;
+        }
+        return false;
+    }
 }
