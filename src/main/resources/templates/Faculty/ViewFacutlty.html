@@ -26,8 +26,10 @@
                 <th>ID</th>
                 <th>Academic Year ID</th>
                 <th>Description</th>
+                <th:block th:if="${acc.getRoleId().equals('1')}">
                 <th>delete</th>
                 <th>update</th>
+                </th:block>
               </tr>
               </thead>
               <tfoot>
@@ -36,8 +38,10 @@
                 <th>ID</th>
                 <th>Academic Year ID</th>
                 <th>Description</th>
+                <th:block th:if="${acc.getRoleId().equals('1')}">
                 <th>delete</th>
                 <th>update</th>
+                </th:block>
               </tr>
               </tfoot>
               <tbody>
@@ -46,7 +50,7 @@
                 <td th:text="${faculty.id}"></td>
                 <td th:text="${faculty.academicYear}"></td>
                 <td th:text="${faculty.getdescription()}"></td>
-
+                <th:block th:if="${acc.getRoleId().equals('1')}">
                 <td>
                   <form th:action="@{/Delete}" method="post">
                     <input type="hidden" name="id" th:value="${faculty.id}">
@@ -56,6 +60,7 @@
                 <td>
                   <a th:href="@{/Update/{id}(id = ${faculty.id})} ">update</a>
                 </td>
+                </th:block>
               </tr>
               </tbody>
             </table>

@@ -152,7 +152,7 @@ public class ContributionController
 
     @GetMapping("/View")
     public String View(Model model){
-        accountService.checkRole("Marketing Manager");
+        accountService.checkRoles("Marketing Manager","Admin");
         Account account = returnAccount();
         account = accountService.getOne(account.getId());
         List<Faculty> faculties = facultyRepo.ReturnFaculties();
