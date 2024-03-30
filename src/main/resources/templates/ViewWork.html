@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_customer">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_customer"
+      xmlns:th="http://www.w3.org/1999/xhtml">
 
 <body>
 <div layout:fragment="content" style="margin-top: 20px;">
@@ -37,7 +38,7 @@
                                 th:text="${con.key.status == 0 ? 'Waiting' : (con.key.status == 1 ? 'Approved' : 'Rejected')}">
                         </td>
 
-                        <td><a th:href="@{http://localhost:8090/Fi/files/__${con.key.path}__}">Download</a></td>
+                        <td><a th:href\="@{http://localhost:8090/Fi/files/__${con.key.path}__}">Download</a></td>
                         <td th:if="${accounts.getRoleId() == '2' }">
                             <form th:action="@{/Contribution/Delete}" method="post">
                                 <input type="hidden" name="id" th:value="${con.key.id}">

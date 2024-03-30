@@ -36,6 +36,7 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 	// end::security-dependencies[]
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity6', version: '3.1.0.M1'
 }
 
