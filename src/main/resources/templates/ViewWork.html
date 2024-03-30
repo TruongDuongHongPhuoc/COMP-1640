@@ -26,34 +26,36 @@
                 </tr>
                 </thead>
                 <tbody>
-                <th:block th:each="con : ${hashi}">
+                <th:block th:each="con : ${cons}">
                     <tr>
                         <!-- Populate contribution details -->
                         <!--                        <td th:text="${con.key.id}"></td>-->
-                        <td th:text="${con.key.name}"></td>
-                        <td th:text="${con.key.description}"></td>
-                        <td th:text="${con.key.submitDate}"></td>
+                        <td th:text="${con.name}"></td>
+                        <td th:text="${con.description}"></td>
+                        <td th:text="${con.submitDate}"></td>
                         <td
-                                th:text="${con.key.status == 0 ? 'Waiting' : (con.key.status == 1 ? 'Approved' : 'Rejected')}">
+                                th:text="${con.status == 0 ? 'Waiting' : (con.status == 1 ? 'Approved' : 'Rejected')}">
                         </td>
 
-                        <td><a th:href="@{http://localhost:8090/Fi/files/__${con.key.path}__}">Download</a></td>
+                        <td><a th:href="@{http://localhost:8090/Fi/files/__${con.getPath_to_file()}__}">Download</a>
+                        </td>
                         <td th:if="${accounts.getRoleId() == '2' }">
                             <form th:action="@{/Contribution/Delete}" method="post">
-                                <input type="hidden" name="id" th:value="${con.key.id}">
-                                <input type="hidden" name="file" th:value="${con.key.path}">
+                                <input type="hidden" name="id" th:value="${con.id}">
+                                <input type="hidden" name="file" th:value="${con.path}">
                                 <button type="submit" class="btn btn-primary">Delete</button>
                             </form>
                         </td>
-                        <td th:if="${accounts.getRoleId() == '2' && dateCheck!=2}">
-                            <a class="btn btn-primary" th:href="@{/Contribution/Update/{id}(id = ${con.key.id})} ">update</a>
-                        </td>
-                        <td th:if="${dateCheck!=2}">
-                            <a th:href="@{/FeedBack/ViewFeedback/{id}(id=${con.key.id})}" class="btn btn-info">Add
-                                Feedback</a>
+                        <td th:if="${accounts.getRoleId().equals('2') && dateCheck!=2}">
+                            <a class="btn btn-primary"
+                               th:href="@{/Contribution/Update/{id}(id = ${con.id})} ">update</a>
                         </td>
                         <td>
-                            <a th:href="@{/Contribution/set/{id}(id = ${con.key.id})} ">Approve</a>
+                            <a th:href="@{/FeedBack/ViewFeedback/{id}(id=${con.id})}" class="btn btn-info">
+                                Feedback</a>
+                        </td>
+                        <td th:if="${accounts.getRoleId().equals('3')}">
+                            <a th:href="@{/Contribution/set/{id}(id = ${con.id})} ">Approve</a>
                         </td>
                     </tr>
                 </th:block>
@@ -76,34 +78,12 @@
                 <form>
                     <button disabled class="btn btn-dark">The academic year is finished</button>
                 </form>
-
-                    <td><a th:href="@{http://localhost:8090/Fi/files/__${con.key.path}__}">Download</a></td>
-
-                <!--                <p th:if="${accounts.getRoleId() == '2' }">-->
-                <td>
-                    <form th:action="@{/Contribution/Delete}" method="post">
-                        <input type="hidden" name="id" th:value="${con.key.id}">
-                        <input type="hidden" name="file" th:value="${con.key.path}">
-                        <button type="submit" class="btn btn-primary">Delete</button>
-                    </form>
-                </td>
-                <td>
-                    <a th:href="@{/Contribution/Update/{id}(id = ${con.key.id})} ">update</a>
-                </td>
-                <td>
-                    <a th:href="@{/Contribution/set/{id}(id = ${con.key.id})} ">Approve</a>
-                </td>
-                <td>
-                    <form th:action="@{/FeedBack/ViewFeedback/{id}(id = ${con.key.id})}">
-                        <button type="submit" value="submit" class="btn btn-primary">feed back</button>
-                    </form>
-                <div>
-                    <form th:action="@{/Contribution/Createcontribution}" method="get">
-                        <button type="submit" class="btn btn-primary"> Submit new file</button>
-                    </form>
-                </div>
+                <form th:action="@{/Contribution/Createcontribution}" method="get">
+                    <button type="submit" class="btn btn-primary"> Submit new file</button>
+                </form>
             </div>
         </div>
+        <!--        </div>-->
     </section>
 </div>
 </body>

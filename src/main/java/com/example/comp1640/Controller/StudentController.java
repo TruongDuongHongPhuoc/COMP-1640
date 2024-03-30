@@ -38,11 +38,6 @@ public class StudentController {
     private DownloadService downloadService;
     @GetMapping("/student/{id}")
     public String ViewWork(@PathVariable String id, Model model) {
-        // Contribution submitDate = ; // Example submit date, replace with actual date
-        // LocalDateTime currentTime = LocalDateTime.now();
-        // long secondsPassed = ChronoUnit.SECONDS.between(submitDate, currentTime);
-        // model.addAttribute("secondsPassed", secondsPassed);
-
         accountService.checkRoles("Marketing Coordinator","Student");
         Account account = returnAccount();
         List<Contribution> cons = contributionService.ReturnAllContribution();
@@ -59,15 +54,16 @@ public class StudentController {
         model.addAttribute("con", fe);
 
         // hash Map
-        Map<Contribution, Feedback> hash = new HashMap<>();
-        for (Contribution conc : FilteredList) {
-            hash.put(conc, null);
-            for (Feedback feedc : FillteredFeds) {
-                if (feedc.getContributionId().equals(conc.getId())) {
-                    hash.put(conc, feedc);
-                }
-            }
-        }
+//        Map<Contribution, Feedback> hash = new HashMap<>();
+//        for (Contribution conc : FilteredList) {
+//            hash.put(conc, null);
+//            for (Feedback feedc : FillteredFeds) {
+//                if (feedc.getContributionId().equals(conc.getId())) {
+//                    hash.put(conc, feedc);
+//                }
+//            }
+//        }
+
         boolean closureDate = checkDate(LocalDate.now(),account.getAcademicYear());
         boolean finalClosureDate = checkDate(LocalDate.now(),account.getEndYear());
         int dateCheck = 0;
@@ -80,7 +76,7 @@ public class StudentController {
         }
         model.addAttribute("dateCheck", dateCheck);
         model.addAttribute("finalDateCheck", finalClosureDate);
-        model.addAttribute("hashi",hash);
+//        model.addAttribute("hashi",hash);
         model.addAttribute("cons",FilteredList);
         model.addAttribute("feds",FillteredFeds);
         model.addAttribute("accounts",account);

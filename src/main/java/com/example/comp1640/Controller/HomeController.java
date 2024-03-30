@@ -33,18 +33,24 @@ public class HomeController {
     AccountRepositoryTest accountRepoTest;
     @Autowired
     FalcultyRepository falcultyRepository;
-
     @Autowired
     ContributionRepository re;
-
     @Autowired
     private AccountService accountService;
-
     @Autowired
     DownloadService downloadService;
 
     @GetMapping("/home")
     public String home(Model model){
+        boolean isUser = false;
+        if(SecurityContextHolder.getContext().getAuthentication() != null){
+            System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+            model.addAttribute("acc",SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+        }else{
+            Account acc = returnAccount();
+            System.out.println(acc.getRoleName());
+            model.addAttribute("acc",acc.getRoleName());
+        }
         List<Contribution> cons = contributionService.ReturnPublicContribution();
         model.addAttribute("cons", cons);
         return "HomePage";
@@ -128,5 +134,15 @@ public class HomeController {
         Optional<Account> acc = accountRepoTest.findAccountByMail(authentication.getName());
         Account accounts = acc.get();
         return "redirect:/" + accounts.getFacultyId() + "/student";
+    }
+
+    public Account returnAccount(){
+        org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Optional<Account> account = accountRepo.findAccountByMail(authentication.getName());
+        Account accounts = account.get();
+        System.out.println(authentication.getAuthorities());
+
+
+        return accounts;
     }
 }
