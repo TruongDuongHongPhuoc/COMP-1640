@@ -55,28 +55,26 @@
                     <h2 class="tm-text-primary mb-4 tm-section-title">What We Do</h2>
                     <p class="mb-4 tm-intro-text">
                         This is Infinite Loop, free Bootstrap 4.0 HTML template with a parallax effect. This layout is what you can modify and use for your websites. Please spread a word to your friends about our website. Thank you for supporting us. If you have any question, you can contact us or chat with us on our <a href="https://fb.com/tooplate">Tooplate Facebook page</a>.</p>
-
                 </div>
             </div>
-
         </div><!-- first row -->
-
-        <div class="row tm-content-box"><!-- second row -->
-<!--            <div class="col-lg-1">-->
-            <!--                <i class="fa fa-upload fa-3x" style="color: rgb(13, 110, 253)"></i>-->
-            <!--            </div>-->
-            <!--            <div class="col-lg-5">-->
-            <!--                <div class="tm-intro-text-container">-->
-            <!--                    <h2 class="tm-text-primary mb-4">Upload your Work</h2>-->
-            <!--                    <p class="mb-4 tm-intro-text">-->
-            <!--                    Uploading your working here-->
-            <!--                    </p>-->
-            <!--                    <div class="tm-continue">-->
-            <!--                        <a href="/Contribution/Createcontribution" class="tm-intro-text tm-btn-primary">Upload </a>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--            </div>-->
-
+        <div class="row tm-content-box">
+<!--            <th:block th:if="${acc.toUpperCase().equals('MARKETING MANAGER')}">-->
+            <div class="col-lg-1">
+                <i class="fa fa-book fa-3x" style="color: rgb(13, 110, 253)"></i>
+            </div>
+            <div class="col-lg-5">
+                <div class="tm-intro-text-container">
+                    <h2 class="tm-text-primary mb-4">Views Contributions here</h2>
+                    <p class="mb-4 tm-intro-text">
+                        only for manager
+                    </p>
+                    <div class="tm-continue">
+                        <a href="/Contribution/View" class="tm-intro-text tm-btn-primary">View Contributions</a>
+                    </div>
+                </div>
+            </div>
+<!--            </th:block>-->
             <div class="col-lg-1">
                 <i class="fa fa-book fa-3x" style="color: rgb(13, 110, 253)"></i>
             </div>
@@ -157,6 +155,38 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="row tm-content-box"><!-- fourth row -->
+            <div class="col-lg-1">
+                <i class="fas fa-3x fa-fingerprint text-center tm-icon" style="color: rgb(13, 110, 253)"></i>
+            </div>
+            <div class="col-lg-5">
+                <div class="tm-intro-text-container">
+                    <h2 class="tm-text-primary mb-4">Report for Guest</h2>
+                    <p class="mb-4 tm-intro-text">
+                        Guest Faculty Report
+                    </p>
+                    <div class="tm-continue">
+                        <a href="/chart1" class="tm-intro-text tm-btn-primary">Access</a>
+                    </div>
+                </div>
+            </div>
+
+<!--            <div class="col-lg-1">-->
+<!--                <i class="fas fa-3x fa-users text-center tbi bi-archive" style="color: rgb(13, 110, 253)"></i>-->
+<!--            </div>-->
+<!--            <div class="col-lg-5">-->
+<!--                <div class="tm-intro-text-container">-->
+<!--                    <h2 class="tm-text-primary mb-4">View all Student Work</h2>-->
+<!--                    <p class="mb-4 tm-intro-text">-->
+<!--                    View all of your student work-->
+<!--                    </p>-->
+<!--                    <div class="tm-continue">-->
+<!--                        <a href="#" class="tm-intro-text tm-btn-primary">View all Article</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
 
         </div>
         
@@ -189,7 +219,6 @@
                         </tr>
                     </tbody>
                 </table>
-
             </div>
         </div>
     </div>

@@ -30,9 +30,9 @@
                 <input type="text" class="form-control" id="academicYearId" name="academicYearId"
                        th:value="${con.academicYearId}" readonly><br>
 
-                <label for="accountId">Account ID:</label>
-                <input type="text" class="form-control" id="accountId" name="accountId" th:value="${con.accountId}"
-                       readonly><br>
+<!--                <label for="accountId">Account ID:</label>-->
+<!--                <input type="text" class="form-control" id="accountId" name="accountId" th:value="${con.accountId}"-->
+<!--                       readonly><br>-->
 
                 <label for="facultyId">Faculty ID:</label>
                 <input type="text" class="form-control" id="facultyId" name="facultyId" th:value="${con.facultyId}"
@@ -66,9 +66,9 @@
                     <th:block th:if="${isDead > 0 || isDead == 0}">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-
+                        <th:block th:if="${!account.getRoleId().equals('4')}">
                             <button class="btn btn-primary" type="submit">Comment</button>
-
+                        </th:block>
                         </div>
                         <input class="form-control" type="text" name="content" aria-label=""
                                aria-describedby="basic-addon1">

@@ -46,7 +46,7 @@ public class ShowFileDirection {
         } else {
             System.out.println("Directory " + directoryPath + " does not exist or is not a directory.");
         }
-        return "DownloadZip"; // Assuming you have a template named "DownloadZip.html"
+        return "Contribution/ViewContribution"; // Assuming you have a template named "DownloadZip.html"
     }
 
     @GetMapping("/DownloadSelected")

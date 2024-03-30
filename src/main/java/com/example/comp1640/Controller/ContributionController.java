@@ -116,7 +116,7 @@ public class ContributionController
         Contribution saveContribution = contributionRepositoryInterface.save(contribution);
         return "redirect:/student/" + account.getId();
     }
-
+    
     @GetMapping("/Update/{id}") // Corrected mapping without the trailing slash
     public String updateContribution(@PathVariable String id, Model model) {
         accountService.checkRole("Student");
@@ -152,7 +152,7 @@ public class ContributionController
 
     @GetMapping("/View")
     public String View(Model model){
-        accountService.checkRole("Marketing Manager");
+        accountService.checkRoles("Marketing Manager","Admin");
         Account account = returnAccount();
         account = accountService.getOne(account.getId());
         List<Faculty> faculties = facultyRepo.ReturnFaculties();
@@ -202,8 +202,8 @@ public class ContributionController
     }
     @GetMapping("/set/{id}")
     public String set(@PathVariable("id")String id, Model model){
-        Account account = returnAccount();
         accountService.checkRole("Marketing Coordinator");
+        Account account = returnAccount();
         Contribution con = re.ReturnContribution(id);
         model.addAttribute("con",con);
         model.addAttribute("account",account);

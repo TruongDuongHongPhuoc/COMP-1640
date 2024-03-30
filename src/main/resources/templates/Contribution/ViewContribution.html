@@ -51,7 +51,7 @@
                                         <th>Facultyid</th>
                                         <th>Download</th>
                                         <th>SetPublic</th>
-
+                                        <th>View Feedback</th>
                                     </tr>
                                     </thead>
                                     <tfoot>
@@ -65,6 +65,7 @@
                                         <th>Facultyid</th>
                                         <th>Download</th>
                                         <th>SetPublic</th>
+                                        <th>View Feedback</th>
                                     </tr>
                                     </tfoot>
                                     <tbody>
@@ -85,6 +86,9 @@
                                             </td>
                                             <td>
                                                 <a th:href="@{/Contribution/SetPublic/{id}(id = ${fal.getId()})}">SetPublic</a>
+                                            </td>
+                                            <td>
+                                                <a th:href="@{/FeedBack/ViewFeedback/{id}(id = ${fal.getId()})}">View Feedback</a>
                                             </td>
                                         </tr>
                                     </th:block>

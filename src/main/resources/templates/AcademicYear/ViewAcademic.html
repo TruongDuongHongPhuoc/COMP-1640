@@ -27,8 +27,10 @@
                 <th>Year </th>
                 <th>start Date</th>
                 <th>End date</th>
+                <th:block th:if="${acc.getRoleId().equals('1')}">
                 <th>Delete</th>
                 <th>Update</th>
+                </th:block>
               </tr>
               </thead>
               <tfoot>
@@ -38,8 +40,10 @@
                 <th>Year </th>
                 <th>start Date</th>
                 <th>End date</th>
+                <th:block th:if="${acc.getRoleId().equals('1')}">
                 <th>Delete</th>
                 <th>Update</th>
+                </th:block>
               </tr>
               </tfoot>
               <tbody>
@@ -47,35 +51,37 @@
                 <td th:text="${AcademicYear.name}"></td>
                 <td th:text="${AcademicYear.id}"></td>
                 <td th:text="${AcademicYear.getYearOfAcademic()}"></td>
-                <td th:text="${AcademicYear.getClosureDate().toString()}"></td>
                 <td th:text="${AcademicYear.getFinalClosureDate().toString()}"></td>
-
-                <td>
-                  <form th:action="@{/Academic/Delete}" method="post">
-                    <input type="hidden" name="id" th:value="${AcademicYear.id}">
-                    <button type="submit" class="btn btn-primary">Delete</button>
-                  </form>
-                </td>
-                <td>
-                  <a th:href="@{/Academic/Update/{id}(id = ${AcademicYear.id})} ">update</a>
-                </td>
-              </tr>
-              </tbody>
-            </table>
+                <td th:text="${AcademicYear.getFinalClosureDate().toString()}"></td>
+                <th:block th:if="${acc.getRoleId().equals('1')}">
+                    <td>
+                      <form th:action="@{/Academic/Delete}" method="post">
+                        <input type="hidden" name="id" th:value="${AcademicYear.id}">
+                        <button type="submit" class="btn btn-primary">Delete</button>
+                      </form>
+                    </td>
+                    <td>
+                      <a th:href="@{/Academic/Update/{id}(id = ${AcademicYear.id})} ">update</a>
+                    </td>
+                </th:block>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-      </div>
-    </main>
-  </div>
+      </main>
+    </div>
 
-</div>
+  </div>
 </body>
 <style>
   container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Adjust this value to center vertically on the page */
+    height: 100vh;
+    /* Adjust this value to center vertically on the page */
   }
 
   table {
@@ -83,4 +89,5 @@
     /* Add other styling properties for your table here */
   }
 </style>
+
 </html>

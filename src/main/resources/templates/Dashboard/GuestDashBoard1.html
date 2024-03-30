@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_Customer">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computing Faculty Report</title>
+    <!-- Include MongoDB Charts SDK -->
+    <script src="https://unpkg.com/@mongodb-js/charts-embed-dom"></script>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-10 col-sm-7"> <!-- Adjust column widths as needed -->
+            <div style="height: 50px"></div>
+            <h1>Report For Faculty</h1>
+            <!-- Your HTML content here -->
+            <div id="dashboard"></div>
+
+            <script>
+                // Your JavaScript code here
+                const sdk = new ChartsEmbedSDK({
+                    baseUrl: "https://charts.mongodb.com/charts-project-0-axrob",
+                });
+
+                const dashboard = sdk.createDashboard({
+                    dashboardId: "757c1991-33c5-4b09-a7c1-a2816808eacd", // REPLACE with the Dashboard ID
+                    height: "700px",
+                    widthMode: "scale",
+                    heightMode: "fixed",
+                    // Additional options go here
+                });
+
+                dashboard.render(document.getElementById("dashboard"));
+            </script>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
