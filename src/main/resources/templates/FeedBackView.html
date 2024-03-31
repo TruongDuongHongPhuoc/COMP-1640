@@ -1,84 +1,96 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="Layout/_customer">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_customer">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNDQ069VVF"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-GNDQ069VVF');
+    </script>
+</head>
+
 <body>
 
-<div layout:fragment="content" style="margin-top: 20px; margin-bottom: 20px;">
-    <div style="height: 50px"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h2>Contribution</h2>
-                <label for="name">name</label>
-                <input type="text" class="form-control" id="name" name="name" th:value="${con.name}" readonly>
+    <div layout:fragment="content" style="margin-top: 20px; margin-bottom: 20px;">
+        <div style="height: 50px"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Contribution</h2>
+                    <label for="name">name</label>
+                    <input type="text" class="form-control" id="name" name="name" th:value="${con.name}" readonly>
 
-                <label for="description">Description:</label>
-                <input type="text" class="form-control" id="description" name="description"
-                       th:value="${con.description}" readonly><br>
+                    <label for="description">Description:</label>
+                    <input type="text" class="form-control" id="description" name="description"
+                        th:value="${con.description}" readonly><br>
 
-                <label for="submitDate">Submit Date:</label>
-                <input type="text" class="form-control" id="submitDate" name="submitDate" th:value="${con.submitDate}"
-                       readonly><br>
+                    <label for="submitDate">Submit Date:</label>
+                    <input type="text" class="form-control" id="submitDate" name="submitDate"
+                        th:value="${con.submitDate}" readonly><br>
 
-                <label for="status">Status:</label>
-                <input type="text" class="form-control" id="status" name="status"
-                       th:value="${con.status == 0 ? 'Waiting' : (con.status == 1 ? 'Approved' : (con.status == 3 ? 'Public' : 'Rejected'))}"
-                       readonly><br>
+                    <label for="status">Status:</label>
+                    <input type="text" class="form-control" id="status" name="status"
+                        th:value="${con.status == 0 ? 'Waiting' : (con.status == 1 ? 'Approved' : (con.status == 3 ? 'Public' : 'Rejected'))}"
+                        readonly><br>
 
-                <label for="academicYearId">Academic Year ID:</label>
-                <input type="text" class="form-control" id="academicYearId" name="academicYearId"
-                       th:value="${con.academicYearId}" readonly><br>
+                    <label for="academicYearId">Academic Year ID:</label>
+                    <input type="text" class="form-control" id="academicYearId" name="academicYearId"
+                        th:value="${con.academicYearId}" readonly><br>
 
-<!--                <label for="accountId">Account ID:</label>-->
-<!--                <input type="text" class="form-control" id="accountId" name="accountId" th:value="${con.accountId}"-->
-<!--                       readonly><br>-->
+                    <!--                <label for="accountId">Account ID:</label>-->
+                    <!--                <input type="text" class="form-control" id="accountId" name="accountId" th:value="${con.accountId}"-->
+                    <!--                       readonly><br>-->
 
-                <label for="facultyId">Faculty ID:</label>
-                <input type="text" class="form-control" id="facultyId" name="facultyId" th:value="${con.facultyId}"
-                       readonly><br>
+                    <label for="facultyId">Faculty ID:</label>
+                    <input type="text" class="form-control" id="facultyId" name="facultyId" th:value="${con.facultyId}"
+                        readonly><br>
 
-                <label>Download:</label>
-                <a class="btn btn-info" th:href="@{http://localhost:8090/Fi/files/__${con.path}__}">Download</a><br>
-            </div>
-
-            <!-- Right Column for FeedbackLog details -->
-            <div class="col-md-6" style="border: 1px solid black ">
-                <h1>FeedbackLog</h1>
-
-                <div class="scrollable-container" id="scrollableContainer">
-                    <th:block th:each="fed : ${feds}">l>
-                        <th:block th:each="account : ${listacc}" th:if="${account.id == fed.userId}">
-                            <label th:text="${account.getName().toString()}"></label>
-                        </th:block>
-                        <!--                    <label class="form-control" type="text" th:value="${fed.localDateTime.toString()}" readonly><br>-->
-                        <p class="fst-italic text-muted text-right"
-                           th:text="${#temporals.format(fed.getLocalDateTime(), 'dd-MM-yyy HH:mm:ss')}"></p>
-                        <input class="form-control" type="text" th:value="${fed.content}" readonly><br>
-                    </th:block>
-                    <br>
+                    <label>Download:</label>
+                    <a class="btn btn-info" th:href="@{http://localhost:8090/Fi/files/__${con.path}__}">Download</a><br>
                 </div>
-                <form th:action="@{'/FeedBack/feedbackcreate/' + ${con.id}}" method="post">
-                    <input type="hidden" name="userid" th:value="${account.getId()}">
-                    <input type="hidden" name="contributionId" th:value="${con.id}">
-                    <!--                    <input class="form-control" type="text" name="content">-->
-                    <!--                    <button type="submit">Submit</button>-->
-                    <th:block th:if="${isDead > 0 || isDead == 0}">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                        <th:block th:if="${!account.getRoleId().equals('4')}">
-                            <button class="btn btn-primary" type="submit">Comment</button>
+
+                <!-- Right Column for FeedbackLog details -->
+                <div class="col-md-6" style="border: 1px solid black ">
+                    <h1>FeedbackLog</h1>
+
+                    <div class="scrollable-container" id="scrollableContainer">
+                        <th:block th:each="fed : ${feds}">l>
+                            <th:block th:each="account : ${listacc}" th:if="${account.id == fed.userId}">
+                                <label th:text="${account.getName().toString()}"></label>
+                            </th:block>
+                            <!--                    <label class="form-control" type="text" th:value="${fed.localDateTime.toString()}" readonly><br>-->
+                            <p class="fst-italic text-muted text-right"
+                                th:text="${#temporals.format(fed.getLocalDateTime(), 'dd-MM-yyy HH:mm:ss')}"></p>
+                            <input class="form-control" type="text" th:value="${fed.content}" readonly><br>
                         </th:block>
-                        </div>
-                        <input class="form-control" type="text" name="content" aria-label=""
-                               aria-describedby="basic-addon1">
+                        <br>
                     </div>
-                    </th:block>
-                </form>
+                    <form th:action="@{'/FeedBack/feedbackcreate/' + ${con.id}}" method="post">
+                        <input type="hidden" name="userid" th:value="${account.getId()}">
+                        <input type="hidden" name="contributionId" th:value="${con.id}">
+                        <!--                    <input class="form-control" type="text" name="content">-->
+                        <!--                    <button type="submit">Submit</button>-->
+                        <th:block th:if="${isDead > 0 || isDead == 0}">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <th:block th:if="${!account.getRoleId().equals('4')}">
+                                        <button class="btn btn-primary" type="submit">Comment</button>
+                                    </th:block>
+                                </div>
+                                <input class="form-control" type="text" name="content" aria-label=""
+                                    aria-describedby="basic-addon1">
+                            </div>
+                        </th:block>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
 
-</div>
+    </div>
 </body>
+
 </html>
