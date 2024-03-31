@@ -1,59 +1,74 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  layout:decorate="Layout/_Admin">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_Admin">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNDQ069VVF"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-GNDQ069VVF');
+    </script>
+</head>
 
 <body>
-<div layout:fragment="content">
-    <div id="layoutSidenav_content">
-        <main>
-            <div class="container-fluid px-4">
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-table me-1"></i>
-                        Account management
-                    </div>
-                    <div>
-                        <a class="btn btn-primary btn-lg" th:href="@{/account/create}">Create account</a>
-                    </div>
-                    <div class="card-body">
-                        <table id="datatablesSimple" class="table">
-                            <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Mail</th>
-                                <th scope="col">Date of Birth</th>
-<!--                                <th>Address</th>-->
-<!--                                <th>Phone number</th>-->
-                                <th scope="col">Avatar</th>
-                                <th scope="col">Role</th>
-                                <th scope="col">Faculty</th>
-                                <th scope="col">Detail</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="a:${account}">
-<!--                                <td th:text="${a.id}"></td>-->
-                                <td th:text="${a.name}"></td>
-                                <td th:text="${a.mail}"></td>
-                                <td th:text="${a.dateOfBirth.toString()}"></td>
-<!--                                <td th:text="${a.address}"></td>-->
-<!--                                <td th:text="${a.phoneNumber}"></td>-->
-                                <td> <img th:src="@{'/images/' + ${a.profileImage}}" style="height: 55px !important;" alt="Avatar"> </td>
-                                <td th:text="${a.roleName}"></td>
-                                <td th:text="${a.falcutyName}"></td>
-                                <td><a class="btn btn-info" th:href="@{/account/detail/{id}(id = ${a.id})}">Detail/Edit</a></td>
-<!--                                <td><a th:href="@{http://localhost:8090/Fi/files/__${fal.path}__}">Download</a></td>-->
-<!--                                <td>- -->
-<!--                                    &lt;!&ndash;                                    <a th:href="@{/Contribution/Update/{id}(id = ${fal.id})} ">update</a>&ndash;&gt;-->
-<!--                                    <a th:href="@{/Contribution/set/{id}(id = ${fal.id})} ">set public</a>-->
-<!--                                </td>-->
-                            </tr>
-                            </tbody>
-                        </table>
+    <div layout:fragment="content">
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-table me-1"></i>
+                            Account management
+                        </div>
+                        <div>
+                            <a class="btn btn-primary btn-lg" th:href="@{/account/create}">Create account</a>
+                        </div>
+                        <div class="card-body">
+                            <table id="datatablesSimple" class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Mail</th>
+                                        <th scope="col">Date of Birth</th>
+                                        <!--                                <th>Address</th>-->
+                                        <!--                                <th>Phone number</th>-->
+                                        <th scope="col">Avatar</th>
+                                        <th scope="col">Role</th>
+                                        <th scope="col">Faculty</th>
+                                        <th scope="col">Detail</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="a:${account}">
+                                        <!--                                <td th:text="${a.id}"></td>-->
+                                        <td th:text="${a.name}"></td>
+                                        <td th:text="${a.mail}"></td>
+                                        <td th:text="${a.dateOfBirth.toString()}"></td>
+                                        <!--                                <td th:text="${a.address}"></td>-->
+                                        <!--                                <td th:text="${a.phoneNumber}"></td>-->
+                                        <td> <img th:src="@{'/images/' + ${a.profileImage}}"
+                                                style="height: 55px !important;" alt="Avatar"> </td>
+                                        <td th:text="${a.roleName}"></td>
+                                        <td th:text="${a.falcutyName}"></td>
+                                        <td><a class="btn btn-info"
+                                                th:href="@{/account/detail/{id}(id = ${a.id})}">Detail/Edit</a></td>
+                                        <!--                                <td><a th:href="@{http://localhost:8090/Fi/files/__${fal.path}__}">Download</a></td>-->
+                                        <!--                                <td>- -->
+                                        <!--                                    &lt;!&ndash;                                    <a th:href="@{/Contribution/Update/{id}(id = ${fal.id})} ">update</a>&ndash;&gt;-->
+                                        <!--                                    <a th:href="@{/Contribution/set/{id}(id = ${fal.id})} ">set public</a>-->
+                                        <!--                                </td>-->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </main>
+            </main>
+        </div>
     </div>
-</div>
 </body>
+
 </html>

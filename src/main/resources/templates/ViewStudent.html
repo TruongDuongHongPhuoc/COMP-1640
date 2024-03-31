@@ -1,33 +1,46 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="Layout/_customer">
-<body>
-<div layout:fragment="content">
-    <h2>View Student</h2>
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>Profile Picture</th>
-            <th>name</th>
-            <th>Mail</th>
-            <th>Phone Number</th>
-            <th>To student Work</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="acc:${accs}">
-            <td>
-                <img alt="avatar" th:src="@{'/images/' + ${acc.profileImage}}" style="height: 100px; width: 140px">
-            </td>
-            <td th:text="${acc.name}"></td>
-            <td th:text="${acc.mail}"></td>
-            <td th:text="${acc.phoneNumber}"></td>
-            <td><a th:href="@{/student/{id}(id = ${acc.id})}">View Work</a></td>
-        </tr>
-        </tbody>
-    </table>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_customer">
 
-</div>
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNDQ069VVF"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-GNDQ069VVF');
+    </script>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <h2>View Student</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Profile Picture</th>
+                    <th>name</th>
+                    <th>Mail</th>
+                    <th>Phone Number</th>
+                    <th>To student Work</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="acc:${accs}">
+                    <td>
+                        <img alt="avatar" th:src="@{'/images/' + ${acc.profileImage}}"
+                            style="height: 100px; width: 140px">
+                    </td>
+                    <td th:text="${acc.name}"></td>
+                    <td th:text="${acc.mail}"></td>
+                    <td th:text="${acc.phoneNumber}"></td>
+                    <td><a th:href="@{/student/{id}(id = ${acc.id})}">View Work</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
 </body>
+
 </html>

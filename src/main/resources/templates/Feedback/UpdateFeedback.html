@@ -1,22 +1,32 @@
 <!-- ViewFaculty.html -->
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="Layout/_Admin">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_Admin">
+
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNDQ069VVF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-GNDQ069VVF');
+  </script>
+</head>
 
 <body>
 
-<div layout:fragment="content">
-  <h1>List of Faculties</h1>
-  <table>
-    <thead>
-      <tr>
-        <th>id</th>
-        <th>userid</th>
-        <th>content</th>
-      </tr>
-    </thead>
-    <tbody>
+  <div layout:fragment="content">
+    <h1>List of Faculties</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>userid</th>
+          <th>content</th>
+        </tr>
+      </thead>
+      <tbody>
         <form th:action="@{/FeedBack/Updating}" method="POST">
           <input type="hidden" name="id" th:value="${Feedback.id}">
           <label for="content">id:</label>
@@ -28,8 +38,9 @@
 
           <button type="submit">Update Faculty</button>
         </form>
-    </tbody>
-  </table>
-</div>
+      </tbody>
+    </table>
+  </div>
 </body>
+
 </html>
