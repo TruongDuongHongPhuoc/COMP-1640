@@ -33,63 +33,14 @@
 
   <div layout:fragment="content">
     <h1 th:text="'update for ' + ${con.name}"></h1>
-    <!--  <form th:action="@{/Contribution/Updating}" method="POST" enctype="multipart/form-data">-->
-    <!--    <table>-->
-    <!--      <thead>-->
-    <!--      <tr>-->
-    <!--        <th>name</th>-->
-    <!--        <th>Description</th>-->
-    <!--        <th>submit date</th>-->
-    <!--        <th>Status</th>-->
-    <!--        <th>academic year id</th>-->
-    <!--        <th>account id</th>-->
-    <!--        <th>faculty id</th>-->
-    <!--      </tr>-->
-    <!--      </thead>-->
-    <!--      <tbody>-->
-    <!--      <tr>-->
-    <!--        <input type="hidden" name="id" th:value="${con.id}">-->
-    <!--        <input type="hidden" name="oldfile" th:value="${con.path}">-->
-    <!--        <td><input type="text" id="name" name="name" th:value="${con.name}"></td>-->
-    <!--        <td><input type="text" id="description" name="description" th:value="${con.description}"></td>-->
-    <!--        <td><input type="text" id="submitDate" name="submitDate" th:value="${con.submitDate}"></td>-->
-    <!--        <td>-->
-    <!--          <input type="text" id="status" name="status" readonly th:value="${con.getStatus() == 0 ? 'Waiting' : (con.getStatus() == 1 ? 'Approved' : 'Rejected')}">-->
-    <!--        </td>-->
-    <!--        <td><input type="text" id="academicYearId" name="academicYearId" th:value="${con.academicYearId}"></td>-->
-    <!--        <td><input type="text" id="accountId" name="accountId" th:value="${con.accountId}"></td>-->
-    <!--        <td><input type="text" id="facultyId" name="facultyId" th:value="${con.facultyId}" readonly></td>-->
-    <!--        <td><table>-->
-    <!--          <tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>-->
-    <!--        </table></td>-->
-    <!--      </tr>-->
-    <!--      <tr>-->
-    <!--        <td colspan="7">-->
-    <!--          <input type="submit" value="Submit">-->
-    <!--        </td>-->
-    <!--      </tr>-->
-    <!--      </tbody>-->
-    <!--    </table>-->
-    <!--  </form>-->
 
-
-    <!--        <th>Description</th>-->
-    <!--        <th>submit date</th>-->
-    <!--        <th>Status</th>-->
-    <!--        <th>academic year id</th>-->
-    <!--        <th>account id</th>-->
-    <!--        <th>faculty id</th>-->
 
     <form th:action="@{/Contribution/Updating}" method="POST" enctype="multipart/form-data">
       <input type="hidden" name="token" th:value="${token}">
-      <!--<input type="hidden" name="id" th:value="${con.id}">
-      <input type="hidden" name="oldfile" th:value="${con.path}">
-      <input type="hidden" name="accountId" th:value="${con.accountId}">
-      <input type="hidden" name="facultyId" th:value="${con.facultyId}">-->
       <label for="name">Name:</label><br>
       <br>
       <input th:value="${con.name}" type="text" class="form-control form-control-lg" id="name" name="name"
-        readonly><br><br>
+        ><br><br>
 
       <label for="description">description:</label><br>
       <input th:value="${con.description}" type="text" class="form-control form-control-lg" id="description"
@@ -99,17 +50,19 @@
       <input th:value="${con.submitDate}" type="hidden" class="form-control form-control-lg" id="submitDate"
         name="submitDate"><br>
 
+<!--      Status but it not Nessecsary -->
+<!--      <label for="status">status:</label><br>-->
+<!--      <select id="status" name="status" th:readonly="${true}">-->
+<!--        <option th:if="${con.getStatus() == 0}" value="0" selected>Waiting</option>-->
+<!--        <option th:if="${con.getStatus() == 1}" value="1" selected>Approved</option>-->
+<!--        <option th:if="${con.getStatus() == 2}" value="2" selected>Rejected</option>-->
+<!--      </select><br>-->
 
-      <label for="status">status:</label><br>
-      <select id="status" name="status" th:readonly="${true}">
-        <option th:if="${con.getStatus() == 0}" value="0" selected>Waiting</option>
-        <option th:if="${con.getStatus() == 1}" value="1" selected>Approved</option>
-        <option th:if="${con.getStatus() == 2}" value="2" selected>Rejected</option>
-      </select><br>
+
       <!-- <label for="academicYearId">academicYearId:</label><br> -->
-      <input th:value="${con.academicYearId}" type="hidden" class="form-control form-control-lg" id="academicYearId"
-        name="academicYearId"><br>
-      <td>
+<!--      <input th:value="${con.academicYearId}" type="hidden" class="form-control form-control-lg" id="academicYearId"-->
+<!--        name="academicYearId"><br>-->
+<!--      <td>-->
         <table>
           <tr>
             <td>File to upload:</td>

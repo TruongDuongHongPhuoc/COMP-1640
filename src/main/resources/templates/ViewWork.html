@@ -63,17 +63,26 @@
                         <td><a th:href="@{http://localhost:8090/Fi/files/__${con.getPath_to_file()}__}">Download</a>
                         </td>
 
-                        <td th:if="${accounts.getRoleId() == '2'} && ${con.canDelete}">
-
+<!--                        <td th:if="${accounts.getRoleId().equals('2')} && ${con.canDelete}">-->
+                        <td th:if="${accounts.getRoleId().equals('2') and con.canDelete}">
                             <form th:action="@{/Contribution/Delete}" method="post">
                                 <input type="hidden" name="id" th:value="${con.id}">
                                 <input type="hidden" name="file" th:value="${con.path}">
                                 <button type="submit" class="btn btn-primary">Delete</button>
                             </form>
-                        <td th:if="${accounts.getRoleId().equals('2') && ${con.canUpdate}">
-                            <a class="btn btn-primary"
-                               th:href="@{/Contribution/Update/{id}(id = ${con.id})} ">update</a>
                         </td>
+
+                        <td th:unless="${accounts.getRoleId().equals('2') and con.canDelete == true}">
+                            <p>Cannot Delete, Date is expired</p>
+                        </td>
+
+                        <td th:if="${accounts.getRoleId().equals('2') and con.canUpdate == true}">
+                            <a class="btn btn-primary" th:href="@{/Contribution/Update/{id}(id = ${con.id})}">update</a>
+                        </td>
+                        <td th:unless="${accounts.getRoleId().equals('2') and con.canUpdate == true}">
+                            <p>Cannot Update, Date is expired</p>
+                        </td>
+
                         <td>
                             <a th:href="@{/FeedBack/ViewFeedback/{id}(id=${con.id})}" class="btn btn-info">
                                 Feedback</a>

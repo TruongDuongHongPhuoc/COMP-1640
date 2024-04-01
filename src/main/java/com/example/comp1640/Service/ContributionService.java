@@ -77,11 +77,11 @@ public class ContributionService {
     public void deletefile(String file){
         StoreService.deleteFile(file);
     }
-    public void UpdateContribution(String id,String name,String description,LocalDateTime submitDate,int status,String accountId,String academicYearId, String facultyId, MultipartFile file, String oldfile){
+    public void UpdateContribution(String id,String name,String description,LocalDateTime submitDate,String accountId,String academicYearId, String facultyId, MultipartFile file, String oldfile){
         System.out.println("Update contribution service Run");
         StoreService.deleteFile(oldfile);
         System.out.println("old file deleted");
-        contributionRepository.UpdateContribution(id,name,description,submitDate,status,accountId,academicYearId,facultyId,file.getOriginalFilename());
+        contributionRepository.UpdateContribution(id,name,description,submitDate,accountId,academicYearId,facultyId,file.getOriginalFilename());
         System.out.println("Contribution repository updated");
         StoreService.store(file);
         System.out.println("Store service store file");
