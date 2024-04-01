@@ -27,14 +27,6 @@ public class AcademicYearController
     @Autowired
     private AccountService accountService;
 
-//    @PostMapping("/Hello")
-//    public String Create(@RequestParam("id") String id, @RequestParam("name") String name,
-//    @RequestParam("yearOfAcademic") String yearOfAcademic, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate, Model model){
-//        re.CreateAcademicYear(id, name, yearOfAcademic, startDate, endDate);
-//        System.out.println("AcademicYear Controller Runed");
-//        return "redirect:/Academic/View";
-//    }
-
     @PostMapping("/Hello")
     public String Create(@RequestParam("id") String id, @RequestParam("name") String name,
                          @RequestParam("yearOfAcademic") String yearOfAcademic, @RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate, Model model){
@@ -59,16 +51,18 @@ public class AcademicYearController
     }
 
     @PostMapping("/Updating")
-    public String UpdatePostAcademicYear(@RequestParam("id") String id, @RequestParam("name") String name, 
-    @RequestParam("yearOfAcademic") String yearOfAcademic, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate, Model model){
+    public String UpdatePostAcademicYear(@RequestParam("id") String id, @RequestParam("name") String name,
+    @RequestParam("yearOfAcademic") String yearOfAcademic, @RequestParam("closureDate") LocalDate closureDate, @RequestParam("finalClosureDate") LocalDate finalClosureDate, Model model){
+        System.out.println("Controller Run");
         accountService.checkRole("Admin");
-        academicYearRepository.UpdateAcademicYear(id, name, yearOfAcademic, startDate, endDate);;
+        academicYearRepository.UpdateAcademicYear(id, name, yearOfAcademic, closureDate, finalClosureDate);;
+        System.out.println("Updated");
         return "redirect:/Academic/View";
     }
 
     @GetMapping("/View")
     public String View(Model model){
-        accountService.checkRoles("Admin","Marketing Manager");
+        accountService.checkRole("Admin");
         Account acc = returnAccount();
         List<AcademicYear> AcademicYears = academicYearRepository.ReturnAcademicYears();
         model.addAttribute("Fals",AcademicYears);

@@ -12,6 +12,7 @@ import com.example.comp1640.repository.ContributionRepository;
 import com.example.comp1640.repository.FalcultyRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,14 +43,13 @@ public class HomeController {
 
     @GetMapping("/home")
     public String home(Model model){
-        boolean isUser = false;
-        if(SecurityContextHolder.getContext().getAuthentication() != null){
-            System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
-            model.addAttribute("acc",SecurityContextHolder.getContext().getAuthentication().getAuthorities());
-        }else{
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication.getPrincipal() instanceof String && authentication.getPrincipal().equals("anonymousUser")) {
+            model.addAttribute("acc", '0');
+        } else {
             Account acc = returnAccount();
             System.out.println(acc.getRoleName());
-            model.addAttribute("acc",acc.getRoleName());
+            model.addAttribute("acc", acc.getRoleId());
         }
         List<Contribution> cons = contributionService.ReturnPublicContribution();
         model.addAttribute("cons", cons);
@@ -141,8 +141,6 @@ public class HomeController {
         Optional<Account> account = accountRepo.findAccountByMail(authentication.getName());
         Account accounts = account.get();
         System.out.println(authentication.getAuthorities());
-
-
         return accounts;
     }
 }

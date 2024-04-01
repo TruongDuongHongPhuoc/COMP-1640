@@ -161,6 +161,7 @@ public class ContributionController
                 .filter(contribution -> contribution.getStatus() != 0 && contribution.getStatus() != 2)
                 .collect(Collectors.toList());
         boolean dateCheck =  checkDate(LocalDate.now(),account.getAcademicYear());
+        model.addAttribute("acc",account);
         model.addAttribute("cons",filledContri);
         model.addAttribute("faculties",faculties);
         model.addAttribute("dateCheck", dateCheck);
@@ -179,6 +180,7 @@ public class ContributionController
     //     return "Contribution/UpdateContribution";
     // }
 
+    // Delete for Student
     @PostMapping("/Delete")
     public String Delete(@RequestParam("id") String id, @RequestParam("file") String file){
         // accountService.checkRole("Student");
@@ -188,8 +190,13 @@ public class ContributionController
                 .getAuthentication();
         Optional<Account> acc = accountRepo.findAccountByMail(authentication.getName());
         Account accounts = acc.get();
-
         return "redirect:/student/" + accounts.getId();
+    }
+    //DeleteForAdmin
+    @PostMapping("/DeleteForAdmin")
+    public String DeleteForAdmin(@RequestParam("id") String id){
+        service.DeleteContribution(id);
+        return "redirect:/Contribution/View" ;
     }
 
     @PostMapping("/publicupdate")
@@ -220,7 +227,6 @@ public class ContributionController
         String subPath = File.separator + "upload-dir" + File.separator;
         String directoryPath = path + subPath;
         List<String> DownloadList = new ArrayList<>();
-
         for (String con : list){
             String downitem = directoryPath + con;
             DownloadList.add(downitem);

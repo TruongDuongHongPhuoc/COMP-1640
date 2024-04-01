@@ -85,11 +85,14 @@
 </style>
 <body class="sb-nav-fixed">
   <div class=" sidenav" id="demo">
+
     <a href="/Contribution/View"><i class="fa fa-book"></i> Contribution manage</a>
+    <th:block th:if="${acc.getRoleId().equals('1')}">
     <a href="/Academic/View"><i class="fa fa-graduation-cap"></i> Academic Manage</a>
     <a href="/view"><i class="fa fa-briefcase"></i> Faculty Manage</a>
     <a href="/Role/View"><i class="fa fa-user-o"></i> Role manage </a>
     <a href="/account/view"><i class="fa fa-user-o"></i> Account manage </a>
+    </th:block>
     <a href="/chart"><i class="fa fa-user-o"></i> Statistical Analysis </a>
   </div>
 </body>

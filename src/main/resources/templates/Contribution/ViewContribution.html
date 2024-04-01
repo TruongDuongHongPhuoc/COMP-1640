@@ -56,78 +56,80 @@
                                     </th:block>
                                 </select>
                             </div>
-                            <div>
-                                <div>
-                                    <button type="button" id="selectAllButton" class="btn btn-primary">Select
-                                        All</button>
+//Phuoc
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+                                    <tr>
+                                        <th>select
+                                        </th>
 
-                                </div>
-                                <div class="card-body">
-                                    <table id="datatablesSimple">
-                                        <thead>
-                                            <tr>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Submitedate</th>
+                                        <th>Status</th>
+                                        <th>Academicyear</th>
+                                        <th>Facultyid</th>
+                                        <th>Download</th>
+                                        <th>SetPublic</th>
+                                        <th>View Feedback</th>
+                                        <th:Block th:if="${acc.getRoleId().equals('1')}">
+                                        <th>Delete</th>
+                                        </th:Block>
+                                    </tr>
+                                    </thead>
+                                    <tfoot>
+                                    <tr>
+                                        <th>select</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Submitedate</th>
+                                        <th>Status</th>
+                                        <th>Academicyear</th>
+                                        <th>Facultyid</th>
+                                        <th>Download</th>
+                                        <th>SetPublic</th>
+                                        <th>View Feedback</th>
+                                        <th:Block th:if="${acc.getRoleId().equals('1')}">
+                                        <th>Delete</th>
+                                        </th:Block>
+                                    </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    <th:block th:each="fal:${cons}">
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" th:id="${fal.id}" th:name="selectedFiles"
+                                                       th:value="${fal.getPath()}"/>
+                                            </td>
+                                            <td th:text="${fal.name}"></td>
+                                            <td th:text="${fal.description}"></td>
+                                            <td th:text="${fal.submitDate}"></td>
+                                            <td th:text="${fal.status == 0 ? 'Waiting' : (fal.status == 1 ? 'Approved' : (fal.status == 3 ? 'Public' : 'Rejected'))}"></td>
+                                            <td th:text="${fal.academicYearId}"></td>
+                                            <td th:text="${fal.facultyId}"></td>
+                                            <td>
+                                                <a th:href="@{http://localhost:8090/Fi/files/__${fal.path}__}">Download</a>
+                                            </td>
+                                            <td>
+                                                <a th:href="@{/Contribution/SetPublic/{id}(id = ${fal.getId()})}">SetPublic</a>
+                                            </td>
+                                            <td>
+                                                <a th:href="@{/FeedBack/ViewFeedback/{id}(id = ${fal.getId()})}">View Feedback</a>
+                                            </td>
+                                            <th:Block th:if="${acc.getRoleId().equals('1')}">
+                                            <td>
+                                                <form th:action="@{/Contribution/DeleteForAdmin}" method="Post">
+                                                    <input type="hidden" name="id" th:value="${fal.getId()}">
+                                                    <button class="btn btn-primary">Delete Method</button>
+                                                </form>
+                                            </td>
+                                            </th:Block>
+                                        </tr>
+                                    </th:block>
+                                    </tbody>
+                                </table>
 
-                                                <th>select
-                                                </th>
-
-                                                <th>Name</th>
-                                                <th>Description</th>
-                                                <th>Submitedate</th>
-                                                <th>Status</th>
-                                                <th>Academicyear</th>
-                                                <th>Facultyid</th>
-                                                <th>Download</th>
-                                                <th>SetPublic</th>
-                                                <th>View Feedback</th>
-                                            </tr>
-                                        </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>select</th>
-                                                <th>Name</th>
-                                                <th>Description</th>
-                                                <th>Submitedate</th>
-                                                <th>Status</th>
-                                                <th>Academicyear</th>
-                                                <th>Facultyid</th>
-                                                <th>Download</th>
-                                                <th>SetPublic</th>
-                                                <th>View Feedback</th>
-                                            </tr>
-                                        </tfoot>
-                                        <tbody>
-                                            <th:block th:each="fal:${cons}">
-                                                <tr>
-                                                    <td>
-                                                        <input type="checkbox" th:id="${fal.id}" th:name="selectedFiles"
-                                                            th:value="${fal.getPath()}" />
-                                                    </td>
-                                                    <td th:text="${fal.name}"></td>
-                                                    <td th:text="${fal.description}"></td>
-                                                    <td th:text="${fal.submitDate}"></td>
-                                                    <td
-                                                        th:text="${fal.status == 0 ? 'Waiting' : (fal.status == 1 ? 'Approved' : (fal.status == 3 ? 'Public' : 'Rejected'))}">
-                                                    </td>
-                                                    <td th:text="${fal.academicYearId}"></td>
-                                                    <td th:text="${fal.facultyId}"></td>
-                                                    <td>
-                                                        <a
-                                                            th:href="@{http://localhost:8090/Fi/files/__${fal.path}__}">Download</a>
-                                                    </td>
-                                                    <td>
-                                                        <a
-                                                            th:href="@{/Contribution/SetPublic/{id}(id = ${fal.getId()})}">SetPublic</a>
-                                                    </td>
-                                                    <td>
-                                                        <a
-                                                            th:href="@{/FeedBack/ViewFeedback/{id}(id = ${fal.getId()})}">View
-                                                            Feedback</a>
-                                                    </td>
-                                                </tr>
-                                            </th:block>
-                                        </tbody>
-                                    </table>
-                                </div>
                             </div>
                         </div>
                     </div>
