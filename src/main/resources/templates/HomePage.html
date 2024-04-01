@@ -74,9 +74,43 @@
                 <div class="row tm-content-box"><!-- first row -->
                     <div class="col-lg-12 col-xl-12">
                         <div class="tm-intro-text-container">
-                            <h1 th:text="${acc}"></h1>
-                            <p class="mb-4 tm-intro-text">
-                                This is Infinite Loop, free Bootstrap 4.0 HTML template with a parallax effect. This layout is what you can modify and use for your websites. Please spread a word to your friends about our website. Thank you for supporting us. If you have any question, you can contact us or chat with us on our <a href="https://fb.com/tooplate">Tooplate Facebook page</a>.</p>
+                            <h1>WellCome educators</h1>
+<!--                            Text for Admin-->
+                            <th:block th:if="${acc.equals('1')}">
+                                <p class="mb-4 tm-intro-text">
+                                    you are login as Admin of the website your role is maintain system and make sure anything stay in track and correct. your role is crusial please sure it wisely
+                                </p>
+                            </th:block>
+<!--                            Text for student-->
+                            <th:block th:if="${acc.equals('2')}">
+                                <p class="mb-4 tm-intro-text">
+                                you are login as Student your work is upload your contribution you able to update and delete but time is limit. you also able conversation with tutor as well in feedback
+                                </p>
+                            </th:block>
+<!--                            text for marketing coordinator -->
+                            <th:block th:if="${acc.equals('3')}">
+                                <p class="mb-4 tm-intro-text">
+                                    you are marketing coordinator please give feedback to contribution that are under your faculty it have time limit so make it quick. you also able to set approve or Reject to contribution if approve it will send to manager to consider public
+                                </p>
+                            </th:block>
+<!--                            marketing manager-->
+                            <th:block th:if="${acc.equals('4')}">
+                                <p class="mb-4 tm-intro-text">
+                                you are login as Makerting Manager you have right to observe Faculty, contributions Many thigns more. you will able to downlaod all the file of contribution fillter by faculty if you needed after Academic Year End.
+                                </p>
+                            </th:block>
+<!--                            Text for Guess-->
+                            <th:block th:if="${acc.equals('5')}">
+                                <p class="mb-4 tm-intro-text">
+                                you are Login as Guess you able to download contribution and have right to observe to Charts that report many things.
+                                </p>
+                            </th:block>
+<!--                            text for anonymous-->
+                            <th:block th:unless="${acc.equals('5') or acc.equals('4') or acc.equals('3') or acc.equals('2') or acc.equals('1')}">
+                                <p class="mb-4 tm-intro-text">
+                                    You are not logged in. Consider registering an account as a Guest or Student to unlock more content, or contact the Admin to have a higher priority account.
+                                </p>
+                            </th:block>
                         </div>
                     </div>
                 </div><!-- first row -->
@@ -256,90 +290,90 @@
             <div class="tm-bg-overlay"></div>
         </section>
 
-        <section id="gallery" class="tm-section-pad-top">
-            <div class="container tm-container-gallery">
-                <div class="row">
-                    <div class="text-center col-12">
-                        <h2 class="tm-text-primary tm-section-title mb-4">Gallery</h2>
-                        <p class="mx-auto tm-section-desc">
-                            Praesent sed pharetra lorem, blandit convallis mi. Aenean ornare elit ac metus lacinia, sed iaculis nibh semper. Pellentesque est urna, lobortis eu arcu a, aliquet tristique urna.
-                        </p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="mx-auto tm-gallery-container">
-                            <div class="grid tm-gallery">
-                                <a href="/forHomepage/img/gallery-img-01.jpg">
-                                    <figure class="effect-honey tm-gallery-item">
-                                        <img src="/forHomepage/img/gallery-tn-01.jpg" alt="Image 1" class="img-fluid">
-                                        <figcaption>
-                                            <h2><i>Physical Health <span>Exercise!</span></i></h2>
-                                        </figcaption>
-                                    </figure>
-                                </a>
-                                <a href="/forHomepage/img/gallery-img-02.jpg">
-                                    <figure class="effect-honey tm-gallery-item">
-                                        <img src="/forHomepage/img/gallery-tn-02.jpg" alt="Image 2" class="img-fluid">
-                                        <figcaption>
-                                            <h2><i>Rain on Glass <span>Second Image</span></i></h2>
-                                        </figcaption>
-                                    </figure>
-                                </a>
-                                <a href="/forHomepage/img/gallery-img-03.jpg">
-                                    <figure class="effect-honey tm-gallery-item">
-                                        <img src="/forHomepage/img/gallery-tn-03.jpg" alt="Image 3" class="img-fluid">
-                                        <figcaption>
-                                            <h2><i><span>Sea View</span> Mega City</i></h2>
-                                        </figcaption>
-                                    </figure>
-                                </a>
-                                <a href="/forHomepage/img/gallery-img-04.jpg">
-                                    <figure class="effect-honey tm-gallery-item">
-                                        <img src="/forHomepage/img/gallery-tn-04.jpg" alt="Image 4" class="img-fluid">
-                                        <figcaption>
-                                            <h2><i>Dream Girl <span>Thoughts</span></i></h2>
-                                        </figcaption>
-                                    </figure>
-                                </a>
-                                <a href="/forHomepage/img/gallery-img-05.jpg">
-                                    <figure class="effect-honey tm-gallery-item">
-                                        <img src="/forHomepage/img/gallery-tn-05.jpg" alt="Image 5" class="img-fluid">
-                                        <figcaption>
-                                            <h2><i><span>Workstation</span> Offices</i></h2>
-                                        </figcaption>
-                                    </figure>
-                                </a>
-                                <a href="/forHomepage/img/gallery-img-06.jpg">
-                                    <figure class="effect-honey tm-gallery-item">
-                                        <img src="/forHomepage/img/gallery-tn-06.jpg" alt="Image 6" class="img-fluid">
-                                        <figcaption>
-                                            <h2><i>Just Above <span>The City</span></i></h2>
-                                        </figcaption>
-                                    </figure>
-                                </a>
-                                <a href="/forHomepage/img/gallery-img-01.jpg">
-                                    <figure class="effect-honey tm-gallery-item">
-                                        <img src="/forHomepage/img/gallery-tn-01.jpg" alt="Image 7" class="img-fluid">
-                                        <figcaption>
-                                            <h2><i>Another <span>Exercise Time</span></i></h2>
-                                        </figcaption>
-                                    </figure>
-                                </a>
-                                <a href="/forHomepage/img/gallery-img-02.jpg">
-                                    <figure class="effect-honey tm-gallery-item">
-                                        <img src="/forHomepage/img/gallery-tn-02.jpg" alt="Image 8" class="img-fluid">
-                                        <figcaption>
-                                            <h2><i>Repeated <span>Image Spot</span></i></h2>
-                                        </figcaption>
-                                    </figure>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+<!--        <section id="gallery" class="tm-section-pad-top">-->
+<!--            <div class="container tm-container-gallery">-->
+<!--                <div class="row">-->
+<!--                    <div class="text-center col-12">-->
+<!--                        <h2 class="tm-text-primary tm-section-title mb-4">Gallery</h2>-->
+<!--                        <p class="mx-auto tm-section-desc">-->
+<!--                            Praesent sed pharetra lorem, blandit convallis mi. Aenean ornare elit ac metus lacinia, sed iaculis nibh semper. Pellentesque est urna, lobortis eu arcu a, aliquet tristique urna.-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="row">-->
+<!--                    <div class="col-12">-->
+<!--                        <div class="mx-auto tm-gallery-container">-->
+<!--                            <div class="grid tm-gallery">-->
+<!--                                <a href="/forHomepage/img/gallery-img-01.jpg">-->
+<!--                                    <figure class="effect-honey tm-gallery-item">-->
+<!--                                        <img src="/forHomepage/img/gallery-tn-01.jpg" alt="Image 1" class="img-fluid">-->
+<!--                                        <figcaption>-->
+<!--                                            <h2><i>Physical Health <span>Exercise!</span></i></h2>-->
+<!--                                        </figcaption>-->
+<!--                                    </figure>-->
+<!--                                </a>-->
+<!--                                <a href="/forHomepage/img/gallery-img-02.jpg">-->
+<!--                                    <figure class="effect-honey tm-gallery-item">-->
+<!--                                        <img src="/forHomepage/img/gallery-tn-02.jpg" alt="Image 2" class="img-fluid">-->
+<!--                                        <figcaption>-->
+<!--                                            <h2><i>Rain on Glass <span>Second Image</span></i></h2>-->
+<!--                                        </figcaption>-->
+<!--                                    </figure>-->
+<!--                                </a>-->
+<!--                                <a href="/forHomepage/img/gallery-img-03.jpg">-->
+<!--                                    <figure class="effect-honey tm-gallery-item">-->
+<!--                                        <img src="/forHomepage/img/gallery-tn-03.jpg" alt="Image 3" class="img-fluid">-->
+<!--                                        <figcaption>-->
+<!--                                            <h2><i><span>Sea View</span> Mega City</i></h2>-->
+<!--                                        </figcaption>-->
+<!--                                    </figure>-->
+<!--                                </a>-->
+<!--                                <a href="/forHomepage/img/gallery-img-04.jpg">-->
+<!--                                    <figure class="effect-honey tm-gallery-item">-->
+<!--                                        <img src="/forHomepage/img/gallery-tn-04.jpg" alt="Image 4" class="img-fluid">-->
+<!--                                        <figcaption>-->
+<!--                                            <h2><i>Dream Girl <span>Thoughts</span></i></h2>-->
+<!--                                        </figcaption>-->
+<!--                                    </figure>-->
+<!--                                </a>-->
+<!--                                <a href="/forHomepage/img/gallery-img-05.jpg">-->
+<!--                                    <figure class="effect-honey tm-gallery-item">-->
+<!--                                        <img src="/forHomepage/img/gallery-tn-05.jpg" alt="Image 5" class="img-fluid">-->
+<!--                                        <figcaption>-->
+<!--                                            <h2><i><span>Workstation</span> Offices</i></h2>-->
+<!--                                        </figcaption>-->
+<!--                                    </figure>-->
+<!--                                </a>-->
+<!--                                <a href="/forHomepage/img/gallery-img-06.jpg">-->
+<!--                                    <figure class="effect-honey tm-gallery-item">-->
+<!--                                        <img src="/forHomepage/img/gallery-tn-06.jpg" alt="Image 6" class="img-fluid">-->
+<!--                                        <figcaption>-->
+<!--                                            <h2><i>Just Above <span>The City</span></i></h2>-->
+<!--                                        </figcaption>-->
+<!--                                    </figure>-->
+<!--                                </a>-->
+<!--                                <a href="/forHomepage/img/gallery-img-01.jpg">-->
+<!--                                    <figure class="effect-honey tm-gallery-item">-->
+<!--                                        <img src="/forHomepage/img/gallery-tn-01.jpg" alt="Image 7" class="img-fluid">-->
+<!--                                        <figcaption>-->
+<!--                                            <h2><i>Another <span>Exercise Time</span></i></h2>-->
+<!--                                        </figcaption>-->
+<!--                                    </figure>-->
+<!--                                </a>-->
+<!--                                <a href="/forHomepage/img/gallery-img-02.jpg">-->
+<!--                                    <figure class="effect-honey tm-gallery-item">-->
+<!--                                        <img src="/forHomepage/img/gallery-tn-02.jpg" alt="Image 8" class="img-fluid">-->
+<!--                                        <figcaption>-->
+<!--                                            <h2><i>Repeated <span>Image Spot</span></i></h2>-->
+<!--                                        </figcaption>-->
+<!--                                    </figure>-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </section>-->
         <div class="container-fluid">
             <div class="row">
                 <!--                        H.Phuoc-->
