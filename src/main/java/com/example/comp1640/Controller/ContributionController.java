@@ -193,8 +193,8 @@ public class ContributionController
         return "redirect:/student/" + accounts.getId();
     }
     //DeleteForAdmin
-    @PostMapping("/DeleteForAdmin")
-    public String DeleteForAdmin(@RequestParam("id") String id){
+    @GetMapping("/DeleteForAdmin/{id}")
+    public String DeleteForAdmin(@PathVariable("id") String id){
         service.DeleteContribution(id);
         return "redirect:/Contribution/View" ;
     }

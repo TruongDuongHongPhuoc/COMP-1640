@@ -56,7 +56,6 @@
                                     </th:block>
                                 </select>
                             </div>
-//Phuoc
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>
@@ -119,10 +118,11 @@
                                             </td>
                                             <th:Block th:if="${acc.getRoleId().equals('1')}">
                                             <td>
-                                                <form th:action="@{/Contribution/DeleteForAdmin}" method="Post">
-                                                    <input type="hidden" name="id" th:value="${fal.getId()}">
-                                                    <button class="btn btn-primary">Delete Method</button>
-                                                </form>
+<!--                                                <form th:action="@{/Contribution/DeleteForAdmin}" method="Post">-->
+<!--                                                    <input type="hidden" name="id" th:value="${fal.getId()}">-->
+<!--                                                    <button class="btn btn-primary" type="button">Delete Method</button>-->
+<!--                                                </form>-->
+                                                <a th:href="@{/Contribution/DeleteForAdmin/{id}(id = ${fal.getId()})}">Delete</a>
                                             </td>
                                             </th:Block>
                                         </tr>

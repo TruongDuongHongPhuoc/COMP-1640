@@ -44,9 +44,11 @@ public class AcademicYearController
     @GetMapping("/Update/{id}") // Corrected mapping without the trailing slash
     public String update(@PathVariable("id") String id, Model model) {
         accountService.checkRole("Admin");
+        Account acc = returnAccount();
         System.out.println(id);
         AcademicYear fe = academicYearRepository.ReturnAcademicYear(id);
         model.addAttribute("AcademicYear", fe);
+        model.addAttribute("acc",acc);
         return "AcademicYear/UpdateAcademic";
     }
 

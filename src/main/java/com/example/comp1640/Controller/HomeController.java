@@ -41,6 +41,7 @@ public class HomeController {
     @Autowired
     DownloadService downloadService;
 
+
     @GetMapping("/home")
     public String home(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -76,14 +77,17 @@ public class HomeController {
     }
 
     @GetMapping("/chart")
-    public String getMethodName() {
+    public String getMethodName(Model model) {
+        Account acc = returnAccount();
         accountService.checkRole("Marketing Manager");
+        model.addAttribute("acc",acc);
         return "Dashboard/ManagerDashBoard";
     }
 
     @GetMapping("/chart2")
-    public String getMethodName2() {
-        
+    public String getMethodName2(Model model) {
+        Account acc = returnAccount();
+        model.addAttribute("acc",acc);
         return "Dashboard/GuestDashBoard1";
     }
 
@@ -106,7 +110,8 @@ public class HomeController {
         {
             return "Dashboard/GuestDashBoard1";
         }
-
+        Account account = returnAccount();
+        model.addAttribute("acc",account);
         return "Dashboard/GuestDashBoard";
     }
 
