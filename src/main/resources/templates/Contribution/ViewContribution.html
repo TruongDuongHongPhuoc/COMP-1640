@@ -39,7 +39,6 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                     <tr>
-
                                         <th>select
                                         </th>
 
@@ -52,6 +51,9 @@
                                         <th>Download</th>
                                         <th>SetPublic</th>
                                         <th>View Feedback</th>
+                                        <th:Block th:if="${acc.getRoleId().equals('1')}">
+                                        <th>Delete</th>
+                                        </th:Block>
                                     </tr>
                                     </thead>
                                     <tfoot>
@@ -66,6 +68,9 @@
                                         <th>Download</th>
                                         <th>SetPublic</th>
                                         <th>View Feedback</th>
+                                        <th:Block th:if="${acc.getRoleId().equals('1')}">
+                                        <th>Delete</th>
+                                        </th:Block>
                                     </tr>
                                     </tfoot>
                                     <tbody>
@@ -90,6 +95,14 @@
                                             <td>
                                                 <a th:href="@{/FeedBack/ViewFeedback/{id}(id = ${fal.getId()})}">View Feedback</a>
                                             </td>
+                                            <th:Block th:if="${acc.getRoleId().equals('1')}">
+                                            <td>
+                                                <form th:action="@{/Contribution/DeleteForAdmin}" method="Post">
+                                                    <input type="hidden" name="id" th:value="${fal.getId()}">
+                                                    <button class="btn btn-primary">Delete Method</button>
+                                                </form>
+                                            </td>
+                                            </th:Block>
                                         </tr>
                                     </th:block>
                                     </tbody>

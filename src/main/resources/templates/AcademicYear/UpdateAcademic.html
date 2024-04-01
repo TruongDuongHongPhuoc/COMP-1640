@@ -11,15 +11,18 @@
   <h1 th:text="'update for ' + ${AcademicYear.name}">List of Faculties</h1>
   <form th:action="@{/Academic/Updating}" method="POST" enctype="multipart/form-data">
     <input type="hidden" id="id" name="id" th:value="${AcademicYear.id}"><br>
-    <label for="name">Name</label><br>
-    <input class="form-control form-control-lg" type="text" id="name" name="name" th:value="${AcademicYear.name}"><br>
-    <label for="yearOfAcademic">Academic Year</label><br>
-    <input class="form-control form-control-lg" type="text" id="yearOfAcademic" name="yearOfAcademic" th:value="${AcademicYear.getYearOfAcademic()()}"><br>
-    <label for="startDate">Start Date</label><br>
-    <input class="form-control form-control-lg" type="date" id="startDate" name="startDate" th:value="${AcademicYear.getClosureDate()}"><br>
-    <label for="endDate">End Date</label><br>
-    <input class="form-control form-control-lg" type="date" id="endDate" name="endDate" th:value="${AcademicYear.getFinalClosureDate()()}">
-   <br>
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name"><br>
+
+    <label for="yearOfAcademic">yearOfAcademic:</label><br>
+    <input type="text" id="yearOfAcademic" name="yearOfAcademic"><br>
+
+    <label for="closureDate">Closure Date:</label><br>
+    <input type="Date" id="closureDate" name="closureDate"><br>
+
+    <label for="finalClosureDate">Final Closure Date:</label><br>
+    <input type="Date" id="finalClosureDate" name="finalClosureDate">
+    <br>
     <button class="btn btn-primary" type="submit">Update AcademicYear</button>
   </form>
 </div>

@@ -15,13 +15,13 @@
                     <th>Submite Date</th>
                     <th>Status</th>
                     <th>Download</th>
-                    <th>set approve</th>
-                    <p th:if="${accounts.getRoleId() == '2' }">
+                    <th:block th:if="${accounts.getRoleId().equals('2') && dateCheck!=2}">
                         <th>Delete</th>
                         <th>Update</th>
-                    </p>
+                    </th:block>
+                    <th>Feed Back</th>
                     <p th:if="${accounts.getRoleId() == '3' }">
-                        <th>Set Public</th>
+                        <th>set approve</th>
                     </p>
                 </tr>
                 </thead>
@@ -34,11 +34,12 @@
                         <td th:text="${con.description}"></td>
                         <td th:text="${con.submitDate}"></td>
                         <td
-                                th:text="${con.status == 0 ? 'Waiting' : (con.status == 1 ? 'Approved' : 'Rejected')}">
+                                th:text="${con.status == 0 ? 'Waiting' : (con.status == 1 ? 'Approved' : (con.status == 2 ? 'Rejected' : 'Public'))}">
                         </td>
 
                         <td><a th:href="@{http://localhost:8090/Fi/files/__${con.getPath_to_file()}__}">Download</a>
                         </td>
+                        <th:block th:if="${accounts.getRoleId().equals('2') && dateCheck!=2}">
                         <td th:if="${accounts.getRoleId() == '2' }">
                             <form th:action="@{/Contribution/Delete}" method="post">
                                 <input type="hidden" name="id" th:value="${con.id}">
@@ -46,6 +47,7 @@
                                 <button type="submit" class="btn btn-primary">Delete</button>
                             </form>
                         </td>
+                        </th:block>
                         <td th:if="${accounts.getRoleId().equals('2') && dateCheck!=2}">
                             <a class="btn btn-primary"
                                th:href="@{/Contribution/Update/{id}(id = ${con.id})} ">update</a>
@@ -54,8 +56,11 @@
                             <a th:href="@{/FeedBack/ViewFeedback/{id}(id=${con.id})}" class="btn btn-info">
                                 Feedback</a>
                         </td>
-                        <td th:if="${accounts.getRoleId().equals('3')}">
+                        <td th:if="${accounts.getRoleId().equals('3') and con.getStatus() !=3}">
                             <a th:href="@{/Contribution/set/{id}(id = ${con.id})} ">Approve</a>
+                        </td>
+                        <td th:if="${con.getStatus() ==3}">
+                            <p>Not allow</p>
                         </td>
                     </tr>
                 </th:block>

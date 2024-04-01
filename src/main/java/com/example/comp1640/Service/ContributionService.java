@@ -71,4 +71,9 @@ public class ContributionService {
         StoreService.store(file);
         System.out.println("Store service store file");
     }
+    public void DeleteContribution(String id){
+        Contribution con = contributionRepository.ReturnContribution(id);
+        deletefile(con.getPath());
+        contributionRepository.DeleteContribution(con.getId());
+    }
 }

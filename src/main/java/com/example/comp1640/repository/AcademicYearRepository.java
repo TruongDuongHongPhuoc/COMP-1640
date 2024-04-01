@@ -23,19 +23,21 @@ public class AcademicYearRepository {
         mongoTemplate.save(new AcademicYear(id, name, yearOfAcademic, startDate, endDate));
         System.out.println("Academic Year Repo Run");
     }
-    public void UpdateAcademicYear(String id, String name, String yearOfAcademic, String startDate, String endDate) {
+    public void UpdateAcademicYear(String id, String name, String yearOfAcademic, LocalDate closureDate, LocalDate finalClosureDate) {
+        System.out.println("Repo Aca Run");
         Query query = new Query(Criteria.where("id").is(id));
         Update update = new Update();
         update.set("name",name);
         update.set("yearOfAcademic",yearOfAcademic);
-        update.set("startDate",startDate);
-        update.set("endDate",endDate);
+        update.set("closureDate",closureDate);
+        update.set("finalClosureDate",finalClosureDate);
         UpdateResult result = mongoTemplate.updateFirst(query, update, AcademicYear.class);
 
         if(result == null)
             System.out.println("No documents updated");
         else
             System.out.println(result.getModifiedCount() + " document(s) updated..");
+        System.out.println("Repo Updated");
     }
 
     public List<AcademicYear> ReturnAcademicYears(){

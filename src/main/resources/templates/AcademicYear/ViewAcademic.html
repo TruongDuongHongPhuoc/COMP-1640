@@ -51,7 +51,7 @@
                 <td th:text="${AcademicYear.name}"></td>
                 <td th:text="${AcademicYear.id}"></td>
                 <td th:text="${AcademicYear.getYearOfAcademic()}"></td>
-                <td th:text="${AcademicYear.getFinalClosureDate().toString()}"></td>
+                <td th:text="${AcademicYear.getClosureDate().toString()}"></td>
                 <td th:text="${AcademicYear.getFinalClosureDate().toString()}"></td>
                 <th:block th:if="${acc.getRoleId().equals('1')}">
                     <td>
