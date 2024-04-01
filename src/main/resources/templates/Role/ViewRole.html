@@ -66,10 +66,11 @@
                     <td th:text="${role.id}"></td>
 
                     <td>
-                      <form th:action="@{Role/Delete}" method="post">
-                        <input type="hidden" name="id" th:value="${role.id}">
-                        <button class="btn btn-primary" type="submit">Delete</button>
-                      </form>
+<!--                      <form th:action="@{Role/Delete}" method="post">-->
+<!--                        <input type="hidden" name="id" th:value="${role.id}">-->
+<!--                        <button class="btn btn-primary" type="submit">Delete</button>-->
+<!--                      </form>-->
+                      <a th:href="@{/Role/DeleteGet/{id}(id = ${role.id})} ">Delete</a>
                     </td>
                     <td>
                       <!--      <form th:action="@{/Update}" method="GET"> &lt;!&ndash; Corrected form action without the trailing slash &ndash;&gt;-->

@@ -34,7 +34,7 @@
   <div layout:fragment="content">
     <h1 th:text="'update for ' + ${faculty.name}"></h1>
     <form th:action="@{/Updating}" method="POST">
-      <input type="hidden" name="id" th:value="${faculty.id}">
+      <input type="hidden" name="id" th:value="${facultyid}">
       <label for="name">Name:</label>
       <input class="form-control form-control-lg" type="text" id="name" name="name" th:value="${faculty.name}">
       <br>

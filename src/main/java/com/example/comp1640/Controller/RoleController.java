@@ -70,6 +70,12 @@ accountService.checkRole("Admin");
         re.DeleteRole(id);
         return "redirect:/View";
     }
+    @GetMapping("/DeleteGet/{id}")
+    public String DeleteGet(@PathVariable("id") String id) {
+        accountService.checkRole("Admin");
+        re.DeleteRole(id);
+        return "redirect:/View";
+    }
     public Account returnAccount(){
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<Account> acc = repo.findAccountByMail(authentication.getName());

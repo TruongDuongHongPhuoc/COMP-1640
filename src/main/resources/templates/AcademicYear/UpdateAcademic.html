@@ -35,7 +35,7 @@
 <div layout:fragment="content">
   <h1 th:text="'update for ' + ${AcademicYear.name}">List of Faculties</h1>
   <form th:action="@{/Academic/Updating}" method="POST" enctype="multipart/form-data">
-    <input type="hidden" id="id" name="id" th:value="${AcademicYear.id}"><br>
+    <input type="hidden" id="id" name="id" th:value="${AcademicYearId}"><br>
 
     <label for="name" >Name:</label><br>
     <input type="text" id="name" name="name" class="form-control" th:value="${AcademicYear.name}"><br>

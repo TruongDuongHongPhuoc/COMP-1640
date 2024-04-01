@@ -42,6 +42,7 @@ public class StudentController {
         Account account = returnAccount();
         List<Contribution> cons = contributionService.ReturnAllContribution();
         List<Feedback> feds = feedbackRepository.ReturnFeedBacks();
+        //fill 2 list
         List<Contribution> FilteredList = cons.stream()
                 .filter(con -> Objects.equals(con.getAccountId(), id))
                 .collect(Collectors.toList());
@@ -49,6 +50,7 @@ public class StudentController {
                 .filter(feedback -> FilteredList.stream()
                         .anyMatch(contribution -> Objects.equals(contribution.getId(), feedback.getContributionId())))
                 .collect(Collectors.toList());
+        //send data to view
         model.addAttribute("cons",FilteredList);
         model.addAttribute("feds",FillteredFeds);
         model.addAttribute("accounts",account);

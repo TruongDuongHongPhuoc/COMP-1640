@@ -65,11 +65,13 @@
 
 <!--                        <td th:if="${accounts.getRoleId().equals('2')} && ${con.canDelete}">-->
                         <td th:if="${accounts.getRoleId().equals('2') and con.canDelete}">
-                            <form th:action="@{/Contribution/Delete}" method="post">
-                                <input type="hidden" name="id" th:value="${con.id}">
-                                <input type="hidden" name="file" th:value="${con.path}">
-                                <button type="submit" class="btn btn-primary">Delete</button>
-                            </form>
+<!--                            <form th:action="@{/Contribution/Delete}" method="post">-->
+<!--                                <input type="hidden" name="id" th:value="${con.id}">-->
+<!--                                <input type="hidden" name="file" th:value="${con.path}">-->
+<!--                                <button type="submit" class="btn btn-primary">Delete</button>-->
+
+<!--                            </form>-->
+                            <a th:href="@{/Contribution/DeleteGet/{id}(id = ${con.getId()})}">Delete</a>
                         </td>
 
                         <td th:unless="${accounts.getRoleId().equals('2') and con.canDelete == true}">
