@@ -81,10 +81,11 @@
                 <td th:text="${AcademicYear.getFinalClosureDate().toString()}"></td>
                 <th:block th:if="${acc.getRoleId().equals('1')}">
                     <td>
-                      <form th:action="@{/Academic/Delete}" method="post">
-                        <input type="hidden" name="id" th:value="${AcademicYear.id}">
-                        <button type="submit" class="btn btn-primary">Delete</button>
-                      </form>
+<!--                      <form th:action="@{/Academic/Delete}" method="post">-->
+<!--                        <input type="hidden" name="id" th:value="${AcademicYear.id}">-->
+<!--                        <button type="submit" class="btn btn-primary">Delete</button>-->
+<!--                      </form>-->
+                      <a th:href="@{/Academic/DeleteGet/{id}(id = ${AcademicYear.id})}">Delete</a>
                     </td>
                     <td>
                       <a th:href="@{/Academic/Update/{id}(id = ${AcademicYear.id})} ">update</a>

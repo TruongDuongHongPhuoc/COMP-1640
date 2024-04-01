@@ -195,11 +195,21 @@ public class ContributionController {
 
     // Delete for Student
     @PostMapping("/Delete")
-    public String Delete(@RequestParam("id") String id, @RequestParam("file") String file) {
+    public String Delete(@RequestParam("id") String id) {
         // accountService.checkRole("Student");
+        return getString(id);
+    }
+    @GetMapping("/DeleteGet/{id}")
+    public String DeleteGet(@PathVariable("id") String id) {
+        // accountService.checkRole("Student");
+        return getString(id);
+    }
+
+    private String getString(@PathVariable("id") String id) {
+        Contribution con = re.ReturnContribution(id);
+        service.deletefile(con.getPath());
         re.DeleteContribution(id);
-        service.deletefile(file);
-        org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext()
+        Authentication authentication = SecurityContextHolder.getContext()
                 .getAuthentication();
         Optional<Account> acc = accountRepo.findAccountByMail(authentication.getName());
         Account accounts = acc.get();
