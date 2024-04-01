@@ -81,10 +81,11 @@
     <!--        <th>faculty id</th>-->
 
     <form th:action="@{/Contribution/Updating}" method="POST" enctype="multipart/form-data">
-      <input type="hidden" name="id" th:value="${con.id}">
+      <input type="hidden" name="token" th:value="${token}">
+      <!--<input type="hidden" name="id" th:value="${con.id}">
       <input type="hidden" name="oldfile" th:value="${con.path}">
       <input type="hidden" name="accountId" th:value="${con.accountId}">
-      <input type="hidden" name="facultyId" th:value="${con.facultyId}">
+      <input type="hidden" name="facultyId" th:value="${con.facultyId}">-->
       <label for="name">Name:</label><br>
       <br>
       <input th:value="${con.name}" type="text" class="form-control form-control-lg" id="name" name="name"

@@ -49,34 +49,6 @@ public class StudentController {
                 .filter(feedback -> FilteredList.stream()
                         .anyMatch(contribution -> Objects.equals(contribution.getId(), feedback.getContributionId())))
                 .collect(Collectors.toList());
-
-        Contribution fe = contributionRepository.ReturnContribution(id);
-        model.addAttribute("con", fe);
-
-        // hash Map
-//        Map<Contribution, Feedback> hash = new HashMap<>();
-//        for (Contribution conc : FilteredList) {
-//            hash.put(conc, null);
-//            for (Feedback feedc : FillteredFeds) {
-//                if (feedc.getContributionId().equals(conc.getId())) {
-//                    hash.put(conc, feedc);
-//                }
-//            }
-//        }
-
-        boolean closureDate = checkDate(LocalDate.now(),account.getAcademicYear());
-        boolean finalClosureDate = checkDate(LocalDate.now(),account.getEndYear());
-        int dateCheck = 0;
-        if (closureDate && finalClosureDate){
-            dateCheck = 0;
-        } else if (!closureDate && finalClosureDate) {
-            dateCheck = 1;
-        } else if (!closureDate && !finalClosureDate) {
-            dateCheck = 2;
-        }
-        model.addAttribute("dateCheck", dateCheck);
-        model.addAttribute("finalDateCheck", finalClosureDate);
-//        model.addAttribute("hashi",hash);
         model.addAttribute("cons",FilteredList);
         model.addAttribute("feds",FillteredFeds);
         model.addAttribute("accounts",account);
