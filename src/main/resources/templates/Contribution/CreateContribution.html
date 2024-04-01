@@ -4,10 +4,10 @@
 <body>
 
 <div layout:fragment="content">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center p-1">
         <div class="col-lg-7 col-md-10 col-sm-7"> <!-- Adjust column widths as needed -->
             <div style="height: 50px"></div>
-            <h1>Welcome to Admin Page</h1>
+            <h1>Create new contribution</h1>
             <div class="col">
 
             </div>
@@ -20,7 +20,7 @@
                 <input type="text" th:field="*{name}" class="form-control" id="name" name="name"><br>
 
                 <label for="description">Description: </label><br>
-                <input th:field="*{description}" type="text" class="form-control" id="description"
+                <input th:field="*{description}" type="text" class="form-control form-inline" id="description"
                        name="description"><br>
 
 <!--                <input th:field="*{accountId}" type="hidden" id="accountId" class="form-control" name="accountId"-->
@@ -28,8 +28,12 @@
 
                 <label for="ex1">File to upload</label>
                 <input type="file" required name="file" id="ex1"/>
+                <label for="ex5">Available Academic Year</label>
+                <select id="ex5" th:field="*{academicYearId}" class="form-select form-select form-control">
+                    <option th:each="op : ${acaYear}" th:value="${op.getId()}" th:text="${op.getClosureDate().toString()} + ' - ' + ${op.getFinalClosureDate().toString()}"></option>
+                </select>
                 <input type="checkbox" id="acceptTerm"/>
-                <a href="#" onclick="openAdditionalBox()">term and policy</a><br>
+                <a href="#" class="btn btn-check" onclick="openAdditionalBox()">Term and policy</a><br>
                 <!-- Button to open the additional box -->
                 <button type="submit" id="submitButton" class="btn btn-primary">Submit</button>
             </form>
@@ -117,7 +121,6 @@
                 </p>
                 <button class="btn-primary" onclick="closeAdditionalBox()">Close</button>
             </div>
-            <div class="col"></div>
         </div>
     </div>
 </body>

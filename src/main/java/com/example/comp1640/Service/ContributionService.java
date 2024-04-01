@@ -3,7 +3,10 @@ package com.example.comp1640.Service;
 import com.example.comp1640.Store.FileSystemStorageService;
 import com.example.comp1640.Store.FileUploadController;
 import com.example.comp1640.Store.StorageService;
+import com.example.comp1640.model.AcademicYear;
 import com.example.comp1640.model.Contribution;
+import com.example.comp1640.repository.AcademicYearRepository;
+import com.example.comp1640.repository.AcademicYearRepositoryInterface;
 import com.example.comp1640.repository.ContributionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +23,8 @@ import java.time.LocalTime;
 public class ContributionService {
     @Autowired
     ContributionRepository contributionRepository;
+    @Autowired
+    AcademicYearRepositoryInterface academicYearRepository;
     @Autowired
     FileSystemStorageService StoreService;
 
@@ -57,7 +62,17 @@ public class ContributionService {
         return filteredList;
     }
     public List<Contribution> ReturnAllContribution(){
-        return contributionRepository.ReturnContributions();
+        return contributionRepository.ReturnContributions().stream().map(c->{
+            AcademicYear ac = academicYearRepository.findById(c.getAcademicYearId()).orElseGet(null);
+            LocalDate closureDate = ac.getClosureDate();
+            LocalDate finalDate = ac.getFinalClosureDate();
+            LocalDate currentDate = LocalDate.now();
+            boolean canUpdate = currentDate.isBefore(finalDate);
+            boolean canDelete = currentDate.isBefore(closureDate);
+            c.setCanUpdate(canUpdate);
+            c.setCanDelete(canDelete);
+            return c;
+        }).toList();
     }
     public void deletefile(String file){
         StoreService.deleteFile(file);

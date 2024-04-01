@@ -2,6 +2,7 @@ package com.example.comp1640.model;
 
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Getter;
@@ -25,6 +26,12 @@ public class Contribution {
     private String academicYearId;
     private String facultyId;
     private String path;
+
+    @Transient
+    boolean canDelete;
+    @Transient
+    boolean canUpdate;
+
     public Contribution(String id, String name, String description, LocalDate submitDate, int Status, String accountId, String academicYearId, String facultyId, String path) {
         this.id = id;
         this.name = name;

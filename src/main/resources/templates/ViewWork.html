@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_customer"
-      xmlns:th="http://www.w3.org/1999/xhtml">
+      xmlns="http://www.w3.org/1999/xhtml">
 
 <body>
 <div layout:fragment="content" style="margin-top: 20px;">
@@ -27,10 +27,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <th:block th:each="con : ${cons}">
+                <block th:each="con : ${cons}">
                     <tr>
-                        <!-- Populate contribution details -->
-                        <!--                        <td th:text="${con.key.id}"></td>-->
                         <td th:text="${con.name}"></td>
                         <td th:text="${con.description}"></td>
                         <td th:text="${con.submitDate}"></td>
@@ -40,14 +38,14 @@
 
                         <td><a th:href="@{http://localhost:8090/Fi/files/__${con.getPath_to_file()}__}">Download</a>
                         </td>
-                        <td th:if="${accounts.getRoleId() == '2' }">
+                        <td th:if="${con.canDelete}">
                             <form th:action="@{/Contribution/Delete}" method="post">
                                 <input type="hidden" name="id" th:value="${con.id}">
                                 <input type="hidden" name="file" th:value="${con.path}">
                                 <button type="submit" class="btn btn-primary">Delete</button>
                             </form>
                         </td>
-                        <td th:if="${accounts.getRoleId().equals('2') && dateCheck!=2}">
+                        <td th:if="${con.canUpdate}">
                             <a class="btn btn-primary"
                                th:href="@{/Contribution/Update/{id}(id = ${con.id})} ">update</a>
                         </td>
@@ -59,26 +57,10 @@
                             <a th:href="@{/Contribution/set/{id}(id = ${con.id})} ">Approve</a>
                         </td>
                     </tr>
-                </th:block>
+                </block>
                 </tbody>
             </table>
-            <div th:if="${dateCheck == 0}">
-                <form th:action="@{/Contribution/Createcontribution}" method="get">
-                    <button type="submit" class="btn btn-primary"> Submit new file</button>
-                </form>
-            </div>
             <div>
-                <a th:href="@{/DownloadStudentWork/{studentid}( studentid = ${studentid})}">Download all</a>
-            </div>
-            <div th:if="${dateCheck == 1}">
-                <form>
-                    <button disabled class="btn btn-danger">Time up</button>
-                </form>
-            </div>
-            <div th:if="${dateCheck == 2}">
-                <form>
-                    <button disabled class="btn btn-dark">The academic year is finished</button>
-                </form>
                 <form th:action="@{/Contribution/Createcontribution}" method="get">
                     <button type="submit" class="btn btn-primary"> Submit new file</button>
                 </form>
@@ -88,5 +70,4 @@
     </section>
 </div>
 </body>
-
 </html>

@@ -10,6 +10,7 @@ import com.example.comp1640.model.Contribution;
 import com.example.comp1640.model.Faculty;
 import com.example.comp1640.repository.*;
 
+import com.example.comp1640.utils.JwtUtils;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
@@ -69,16 +67,20 @@ public class ContributionController
     @GetMapping("/Createcontribution") // Corrected mapping without the trailing slash
     public String create(Model model) {
         accountService.checkRole("Student");
-        List<AcademicYear> academicYears = acaRepo.ReturnAcademicYears();
         List<Faculty> faculties = facultyRepo.ReturnFaculties();
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<Account> acc = accountRepo.findAccountByMail(authentication.getName());
-        Account accounts = acc.get();
-        System.out.println(accounts.getFacultyId());
+        Account account = accountService.getOne(acc.get().getId());
+        List<AcademicYear> listAcademicYear = academicYearRepositoryInterface.findAll();
+        for (AcademicYear a : listAcademicYear){
+            if (!a.getClosureDate().isAfter(LocalDate.now())){
+                listAcademicYear.remove(a);
+            }
+        }
         Contribution contribution = new Contribution();
         model.addAttribute("contribution", contribution);
-        model.addAttribute("acc", accounts);
-        model.addAttribute("acaYear", academicYears);
+        model.addAttribute("acc", account);
+        model.addAttribute("acaYear", listAcademicYear);
         model.addAttribute("fals", faculties);
         return "Contribution/CreateContribution";
     }
@@ -96,7 +98,6 @@ public class ContributionController
         LocalDate submitDate = LocalDate.now();
         contribution.setId(id);
         contribution.setSubmitDate(submitDate);
-        contribution.setAcademicYearId(facultyRepository.findById(account.getFacultyId()).get().getAcademicYear());
         contribution.setStatus(0);
         contribution.setFacultyId(account.getFacultyId());
         contribution.setAccountId(account.getId());
@@ -121,7 +122,15 @@ public class ContributionController
     public String updateContribution(@PathVariable String id, Model model) {
         accountService.checkRole("Student");
         Contribution fe = re.ReturnContribution(id);
+        Map<String, String> dataToToken = new HashMap<>();
+        dataToToken.put("id", fe.getId());
+        dataToToken.put("oldfile", fe.getPath());
+        dataToToken.put("accountId", fe.getAccountId());
+        dataToToken.put("facultyId", fe.getFacultyId());
+        String dataToken = JwtUtils.generateToken(dataToToken);
         model.addAttribute("con", fe);
+        model.addAttribute("token", dataToken);
+
         return "Contribution/UpdateContribution";
     }
 //    @GetMapping("/Update/{id}") // Corrected mapping without the trailing slash
@@ -132,22 +141,29 @@ public class ContributionController
 //        return "AcademicYear/UpdateAcademic";
 //    }
     @PostMapping("/Updating")
-    public String UpdatePostContribution(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("description") String description,
-    @RequestParam(value = "status") int status, @RequestParam("accountId") String accountId,
+    public String UpdatePostContribution(
+//            @RequestParam("id") String id,
+            @RequestParam("name") String name, @RequestParam("description") String description,
+    @RequestParam(value = "status") int status,
+//                                         @RequestParam("accountId") String accountId,
     @RequestParam("academicYearId") String academicYearId,
-    @RequestParam("facultyId") String facultyId,
-    @RequestParam("file") MultipartFile path,
-    @RequestParam("oldfile")String oldfile,Model model){
+//    @RequestParam("facultyId") String facultyId,
+    @RequestParam("token") String token,
+    @RequestParam("file") MultipartFile path
+//    @RequestParam("oldfile")String oldfile
+            ,Model model){
+        Map<String, Object> dataFromToken = JwtUtils.decodeToken(token);
         accountService.checkRole("Student");
         LocalDateTime sub = LocalDateTime.now();
         System.out.println("Updating Contribution controller");
-        service.UpdateContribution(id, name, description, sub, status, accountId, academicYearId, facultyId, path, oldfile);
-        org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext()
-                .getAuthentication();
-        Optional<Account> acc = accountRepo.findAccountByMail(authentication.getName());
-        Account accounts = acc.get();
+//        service.UpdateContribution(id, name, description, sub, status, accountId, academicYearId, facultyId, path, oldfile);
+//        org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext()
+//                .getAuthentication();
+//        Optional<Account> acc = accountRepo.findAccountByMail(authentication.getName());
+//        Account accounts = acc.get();
 
-        return "redirect:/student/" + accounts.getId();
+//        return "redirect:/student/" + accounts.getId();
+        return  "redirect:/student/";
     }
 
     @GetMapping("/View")
