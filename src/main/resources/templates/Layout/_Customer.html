@@ -6,7 +6,7 @@
 <head>
     <title th:fragment="title">Title</title>
     <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Infinite Loop - Bootstrap 4.0 HTML Template</title>
     <link rel="stylesheet" href="/forHomepage/fontawesome-5.5/css/all.min.css"/>
@@ -43,6 +43,20 @@
          border: 1px solid #ccc; /* Optional: Add border for clarity */
          padding: 10px; /* Optional: Add padding for content */
      }
+    .navbar {
+        width: 100%; /* Default width */
+    }
+
+    /* Media query for mobile devices */
+    @media (max-width: 768px) {
+        .navbar {
+            width: 80%; /* Set width to 80% for screens up to 768px wide (typically mobile devices) */
+            margin: auto; /* Center the header horizontally */
+        }
+        .table {
+            font-size: 12px; /* Adjust font size for smaller screens */
+        }
+    }
 </style>
 <body>
 <nav class="navbar navbar-expand-lg fixed-top">
