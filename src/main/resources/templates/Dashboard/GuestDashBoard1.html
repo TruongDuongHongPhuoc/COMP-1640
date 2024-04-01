@@ -1,40 +1,68 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_Customer">
+
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNDQ069VVF"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-GNDQ069VVF');
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-NJXG26NL');</script>
+    <!-- End Google Tag Manager -->
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Computing Faculty Report</title>
     <!-- Include MongoDB Charts SDK -->
     <script src="https://unpkg.com/@mongodb-js/charts-embed-dom"></script>
 </head>
+
 <body>
-<div layout:fragment="content">
-    <div class="row justify-content-center">
-        <div class="col-lg-7 col-md-10 col-sm-7"> <!-- Adjust column widths as needed -->
-            <div style="height: 50px"></div>
-            <h1>Report For Faculty</h1>
-            <!-- Your HTML content here -->
-            <div id="dashboard"></div>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJXG26NL" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
-            <script>
-                // Your JavaScript code here
-                const sdk = new ChartsEmbedSDK({
-                    baseUrl: "https://charts.mongodb.com/charts-project-0-axrob",
-                });
+    <div layout:fragment="content">
+        <div class="row justify-content-center">
+            <div class="col-lg-7 col-md-10 col-sm-7"> <!-- Adjust column widths as needed -->
+                <div style="height: 50px"></div>
+                <h1>Report For Faculty</h1>
+                <!-- Your HTML content here -->
+                <div id="dashboard"></div>
 
-                const dashboard = sdk.createDashboard({
-                    dashboardId: "757c1991-33c5-4b09-a7c1-a2816808eacd", // REPLACE with the Dashboard ID
-                    height: "700px",
-                    widthMode: "scale",
-                    heightMode: "fixed",
-                    // Additional options go here
-                });
+                <script>
+                    // Your JavaScript code here
+                    const sdk = new ChartsEmbedSDK({
+                        baseUrl: "https://charts.mongodb.com/charts-project-0-axrob",
+                    });
 
-                dashboard.render(document.getElementById("dashboard"));
-            </script>
+                    const dashboard = sdk.createDashboard({
+                        dashboardId: "757c1991-33c5-4b09-a7c1-a2816808eacd", // REPLACE with the Dashboard ID
+                        height: "700px",
+                        widthMode: "scale",
+                        heightMode: "fixed",
+                        // Additional options go here
+                    });
+
+                    dashboard.render(document.getElementById("dashboard"));
+                </script>
+            </div>
         </div>
     </div>
-</div>
 </body>
 
 </html>
