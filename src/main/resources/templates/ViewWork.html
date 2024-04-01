@@ -2,7 +2,31 @@
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_customer"
       xmlns="http://www.w3.org/1999/xhtml">
 
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNDQ069VVF"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-GNDQ069VVF');
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-NJXG26NL');</script>
+    <!-- End Google Tag Manager -->
+</head>
+
 <body>
+
 <div layout:fragment="content" style="margin-top: 20px;">
     <!--    <h2>Currently your work</h2>-->
     <section>
@@ -16,13 +40,13 @@
                     <th>Submite Date</th>
                     <th>Status</th>
                     <th>Download</th>
-                    <th>set approve</th>
-                    <p th:if="${accounts.getRoleId() == '2' }">
+                    <th:block th:if="${accounts.getRoleId().equals('2') && dateCheck!=2}">
                         <th>Delete</th>
                         <th>Update</th>
-                    </p>
+                    </th:block>
+                    <th>Feed Back</th>
                     <p th:if="${accounts.getRoleId() == '3' }">
-                        <th>Set Public</th>
+                        <th>set approve</th>
                     </p>
                 </tr>
                 </thead>
@@ -33,19 +57,20 @@
                         <td th:text="${con.description}"></td>
                         <td th:text="${con.submitDate}"></td>
                         <td
-                                th:text="${con.status == 0 ? 'Waiting' : (con.status == 1 ? 'Approved' : 'Rejected')}">
+                                th:text="${con.status == 0 ? 'Waiting' : (con.status == 1 ? 'Approved' : (con.status == 2 ? 'Rejected' : 'Public'))}">
                         </td>
 
                         <td><a th:href="@{http://localhost:8090/Fi/files/__${con.getPath_to_file()}__}">Download</a>
                         </td>
-                        <td th:if="${con.canDelete}">
+
+                        <td th:if="${accounts.getRoleId() == '2'} && ${con.canDelete}">
+
                             <form th:action="@{/Contribution/Delete}" method="post">
                                 <input type="hidden" name="id" th:value="${con.id}">
                                 <input type="hidden" name="file" th:value="${con.path}">
                                 <button type="submit" class="btn btn-primary">Delete</button>
                             </form>
-                        </td>
-                        <td th:if="${con.canUpdate}">
+                        <td th:if="${accounts.getRoleId().equals('2') && ${con.canUpdate}">
                             <a class="btn btn-primary"
                                th:href="@{/Contribution/Update/{id}(id = ${con.id})} ">update</a>
                         </td>
@@ -53,8 +78,11 @@
                             <a th:href="@{/FeedBack/ViewFeedback/{id}(id=${con.id})}" class="btn btn-info">
                                 Feedback</a>
                         </td>
-                        <td th:if="${accounts.getRoleId().equals('3')}">
+                        <td th:if="${accounts.getRoleId().equals('3') and con.getStatus() !=3}">
                             <a th:href="@{/Contribution/set/{id}(id = ${con.id})} ">Approve</a>
+                        </td>
+                        <td th:if="${con.getStatus() ==3}">
+                            <p>Not allow</p>
                         </td>
                     </tr>
                 </block>
@@ -64,10 +92,7 @@
                 <form th:action="@{/Contribution/Createcontribution}" method="get">
                     <button type="submit" class="btn btn-primary"> Submit new file</button>
                 </form>
-            </div>
-        </div>
-        <!--        </div>-->
-    </section>
-</div>
+        </section>
+    </div>
 </body>
 </html>

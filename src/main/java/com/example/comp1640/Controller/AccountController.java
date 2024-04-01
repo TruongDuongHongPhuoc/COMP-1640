@@ -53,6 +53,7 @@ public class AccountController {
     @GetMapping("/view")
     public String view(Model model) {
         accountService.checkRole("Admin");
+        Account acc = returnAccount();
         Authentication au = SecurityContextHolder.getContext().getAuthentication();
         if (au == null || !au.isAuthenticated()) {
             return "Không có người dùng đang được xác thực";
@@ -60,6 +61,7 @@ public class AccountController {
             System.out.println(au.getAuthorities());
         }
         var roles = roleRepo.findAll();
+        model.addAttribute("acc",acc);
         model.addAttribute("account", accountService.getAll());
         model.addAttribute("role", roles);
         model.addAttribute("falcuty", falRepo.findAll());
@@ -234,5 +236,12 @@ public class AccountController {
         model.addAttribute("role", roles);
         model.addAttribute("falcuty", falRepo.findAll());
         return "Account/View";
+    }
+    public Account returnAccount(){
+        org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Optional<Account> acc = repo.findAccountByMail(authentication.getName());
+        Account account = acc.get();
+        account = accountService.getOne(account.getId());
+        return account;
     }
 }

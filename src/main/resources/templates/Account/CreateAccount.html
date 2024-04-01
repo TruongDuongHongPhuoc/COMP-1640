@@ -1,75 +1,113 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  layout:decorate="Layout/_Admin">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_Admin">
+
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNDQ069VVF"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-GNDQ069VVF');
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-NJXG26NL');</script>
+    <!-- End Google Tag Manager -->
+
     <meta charset="UTF-8">
     <title>Create account</title>
 </head>
+
 <body>
-<div class="" layout:fragment="content">
-    <h1>Sign up</h1>
-    <form th:action="@{/account/create}" id="registerForm" method="post" th:object="${account}" enctype="multipart/form-data">
-        <!-- Fullname input -->
-        <div class="form-outline mb-4">
-            <label class="form-label" for="form1Example9">Fullname</label>
-            <input th:field="*{name}" id="form1Example9" type="text" name="name" class="form-control" />
-        </div>
-        <div th:if="${#fields.hasErrors('mail')}" class="alert alert-danger">
-            <p th:errors="*{mail}" style="color: red"></p>
-        </div>
-        <!-- Email input -->
-        <div class="form-outline mb-4">
-            <label class="form-label" for="form1Example13">Email address</label>
-            <input th:field="*{mail}" type="email" name="email" id="form1Example13" class="form-control form-control-lg" />
-        </div>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJXG26NL" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
-        <!-- Date input -->
-        <div class="form-outline mb-4">
-            <label class="form-label" for="form1Example18">Date of birth</label>
-            <input th:field="*{dateOfBirth}" type="date" name="date" id="form1Example18" class="form-control form-control-lg" />
-        </div>
+    <div class="" layout:fragment="content">
+        <h1>Sign up</h1>
+        <form th:action="@{/account/create}" id="registerForm" method="post" th:object="${account}"
+            enctype="multipart/form-data">
+            <!-- Fullname input -->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form1Example9">Fullname</label>
+                <input th:field="*{name}" id="form1Example9" type="text" name="name" class="form-control" />
+            </div>
+            <div th:if="${#fields.hasErrors('mail')}" class="alert alert-danger">
+                <p th:errors="*{mail}" style="color: red"></p>
+            </div>
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form1Example13">Email address</label>
+                <input th:field="*{mail}" type="email" name="email" id="form1Example13"
+                    class="form-control form-control-lg" />
+            </div>
 
-        <!-- Address input -->
-        <div class="form-outline mb-4">
-            <label class="form-label" for="form1Example17">Address</label>
-            <input th:field="*{address}" type="text" name="address" id="form1Example17" class="form-control form-control-lg" />
-        </div>
+            <!-- Date input -->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form1Example18">Date of birth</label>
+                <input th:field="*{dateOfBirth}" type="date" name="date" id="form1Example18"
+                    class="form-control form-control-lg" />
+            </div>
 
-        <!-- Address input -->
-        <div class="form-outline mb-4">
-            <label class="form-label" for="form1Example16">Phone</label>
-            <input th:field="*{phoneNumber}" type="text" name="phone" id="form1Example16" class="form-control form-control-lg" />
-        </div>
+            <!-- Address input -->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form1Example17">Address</label>
+                <input th:field="*{address}" type="text" name="address" id="form1Example17"
+                    class="form-control form-control-lg" />
+            </div>
 
-        <!-- Image input -->
-        <div class="form-outline mb-4">
-            <label class="form-label" for="form1Example11">Avatar</label>
-            <input type="file" name="image" accept="image/*" id="form1Example11" class="form-control form-control-lg" />
-        </div>
+            <!-- Address input -->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form1Example16">Phone</label>
+                <input th:field="*{phoneNumber}" type="text" name="phone" id="form1Example16"
+                    class="form-control form-control-lg" />
+            </div>
 
-        <!-- Faculty input -->
-        <div class="form-outline mb-4">
-            <label class="form-label" for="form1Example12">Falcuty</label>
-            <select th:field="*{facultyId}" id="form1Example12" class="form-select form-select-lg">
-                <option th:each="option : ${facultyList}" th:value="${option.getId()}" th:text="${option.getName()}"></option>
-            </select>
-        </div>
+            <!-- Image input -->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form1Example11">Avatar</label>
+                <input type="file" name="image" accept="image/*" id="form1Example11"
+                    class="form-control form-control-lg" />
+            </div>
 
-        <div class="form-outline mb-4">
-            <label class="form-label" for="form1Example20">Role</label>
-            <select th:field="*{roleId}" id="form1Example20" class="form-select form-select-lg">
-                <option th:each="option : ${roleList}" th:value="${option.getId()}" th:text="${option.getName()}"></option>
-            </select>
-        </div>
+            <!-- Faculty input -->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form1Example12">Falcuty</label>
+                <select th:field="*{facultyId}" id="form1Example12" class="form-select form-select-lg">
+                    <option th:each="option : ${facultyList}" th:value="${option.getId()}"
+                        th:text="${option.getName()}"></option>
+                </select>
+            </div>
 
-        <!-- Password input -->
-        <div class="form-outline mb-4">
-            <label class="form-label" for="form1Example23">Password</label>
-            <input th:field="*{password}" type="password" name="password" id="form1Example23" class="form-control form-control-lg" />
-        </div>
-        <!-- Submit button -->
-        <a class="btn btn-secondary" th:href="@{/account/view}">Back</a>
-        <button type="submit"  class="btn btn-primary">Create</button>
-    </form>
-</div>
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form1Example20">Role</label>
+                <select th:field="*{roleId}" id="form1Example20" class="form-select form-select-lg">
+                    <option th:each="option : ${roleList}" th:value="${option.getId()}" th:text="${option.getName()}">
+                    </option>
+                </select>
+            </div>
+
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form1Example23">Password</label>
+                <input th:field="*{password}" type="password" name="password" id="form1Example23"
+                    class="form-control form-control-lg" />
+            </div>
+            <!-- Submit button -->
+            <a class="btn btn-secondary" th:href="@{/account/view}">Back</a>
+            <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+    </div>
 </body>
+
 </html>
