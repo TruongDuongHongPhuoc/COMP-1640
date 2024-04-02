@@ -24,6 +24,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class HomeController {
@@ -84,6 +86,12 @@ public class HomeController {
         model.addAttribute("acc",acc);
         return "Dashboard/ManagerDashBoard";
     }
+
+    @GetMapping("/abc")
+    public String getMethodName3() {
+        return "Test1";
+    }
+    
 
     @GetMapping("/chart2")
     public String getMethodName2(Model model) {

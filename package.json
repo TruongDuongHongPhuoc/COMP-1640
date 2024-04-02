@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@mongodb-js/charts-embed-dom": "^3.2.1"
+    "@mongodb-js/charts-embed-dom": "^3.2.1",
+    "mdb-easydata": "^1.0.0-alpha5"
   }
 }
