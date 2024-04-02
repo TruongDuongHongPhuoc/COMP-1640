@@ -8,6 +8,7 @@ import com.example.comp1640.model.Contribution;
 import com.example.comp1640.repository.AcademicYearRepository;
 import com.example.comp1640.repository.AcademicYearRepositoryInterface;
 import com.example.comp1640.repository.ContributionRepository;
+import com.example.comp1640.repository.FeedbackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,6 +30,8 @@ public class ContributionService {
     AcademicYearRepositoryInterface academicYearRepository;
     @Autowired
     FileSystemStorageService StoreService;
+    @Autowired
+    FeedbackRepository feedbackRepository;
 
     public void storeFile(MultipartFile file){
         StoreService.store(file);
@@ -99,6 +102,11 @@ public class ContributionService {
         Contribution con = contributionRepository.ReturnContribution(id);
         deletefile(con.getPath());
         contributionRepository.DeleteContribution(con.getId());
+    }
+
+    public void deleteContribution(String id){
+        Contribution con = contributionRepository.ReturnContribution(id);
+
     }
 
 }
