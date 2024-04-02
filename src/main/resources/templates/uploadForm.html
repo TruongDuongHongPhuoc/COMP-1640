@@ -25,6 +25,9 @@
 </head>
 
 <body>
+<div th:if="${message}">
+	<h2 th:text="${message}"></h2>
+</div>
 	<!-- Google Tag Manager (noscript) -->
 	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJXG26NL" height="0" width="0"
 			style="display:none;visibility:hidden"></iframe></noscript>
@@ -33,6 +36,7 @@
 	<div th:if="${message}">
 		<h2 th:text="${message}"></h2>
 	</div>
+
 
 	<div>
 		<form method="POST" enctype="multipart/form-data" action="/Fi/" th:action="@{/Fi/}">

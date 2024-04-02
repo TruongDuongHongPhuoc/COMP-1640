@@ -74,6 +74,7 @@ public class RegisterController {
         account.setId(UUID.randomUUID().toString());
         account.setPassword(bCryptPasswordEncoder.encode(account.getPassword()));
         account.setRoleId("5");
+        account.setLastSession(null);
         try {
             String fileName = file.getOriginalFilename();
             Account saveUser = repositoryTest.save(account);

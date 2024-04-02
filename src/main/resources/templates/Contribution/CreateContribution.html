@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_Customer">
 <head>
+    <title>
+        Contributions page
+    </title>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNDQ069VVF"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'G-GNDQ069VVF');
@@ -13,21 +20,28 @@
 
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-NJXG26NL');</script>
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-NJXG26NL');</script>
     <!-- End Google Tag Manager -->
 </head>
 
 
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJXG26NL" height="0" width="0"
-            style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJXG26NL" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 <body>
 
@@ -38,13 +52,13 @@
             <h1>Create new contribution</h1>
             <div class="col">
 
-                </div>
-            
+            </div>
+
             <form class="col-md-10" th:action="@{/Contribution/Hello}" th:object="${contribution}" method="POST"
                   enctype="multipart/form-data"
                   style="padding-right: 33px">
-<!--                <input type="hidden" th:field="*{facultyId}" class="form-control" id="facultyId" name="facultyId"-->
-<!--                       th:value="${acc.facultyId}">--><br>
+                <!--                <input type="hidden" th:field="*{facultyId}" class="form-control" id="facultyId" name="facultyId"-->
+                <!--                       th:value="${acc.facultyId}">--><br>
                 <label for="name">Name:</label><br>
                 <input type="text" th:field="*{name}" class="form-control" id="name" name="name"><br>
 
@@ -52,14 +66,15 @@
                 <input th:field="*{description}" type="text" class="form-control form-inline" id="description"
                        name="description"><br>
 
-<!--                <input th:field="*{accountId}" type="hidden" id="accountId" class="form-control" name="accountId"-->
-<!--                       th:value="${acc.id}">-->
+                <!--                <input th:field="*{accountId}" type="hidden" id="accountId" class="form-control" name="accountId"-->
+                <!--                       th:value="${acc.id}">-->
 
                 <label for="ex1">File to upload</label>
                 <input type="file" required name="file" id="ex1"/>
                 <label for="ex5">Available Academic Year</label>
                 <select id="ex5" th:field="*{academicYearId}" class="form-select form-select form-control">
-                    <option th:each="op : ${acaYear}" th:value="${op.getId()}" th:text="${op.getClosureDate().toString()} + ' - ' + ${op.getFinalClosureDate().toString()}"></option>
+                    <option th:each="op : ${acaYear}" th:value="${op.getId()}"
+                            th:text="${op.getClosureDate().toString()} + ' - ' + ${op.getFinalClosureDate().toString()}"></option>
                 </select>
                 <input type="checkbox" id="acceptTerm"/>
                 <a href="#" class="btn btn-check" onclick="openAdditionalBox()">Term and policy</a><br>

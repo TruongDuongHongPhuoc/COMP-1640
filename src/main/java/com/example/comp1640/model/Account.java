@@ -7,8 +7,11 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.TimeSeries;
 
+import java.security.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -27,6 +30,7 @@ public class Account {
     private String profileImage;
     private String roleId;
     private String facultyId;
+    private LocalDateTime lastSession;
 
     @Transient
     private String roleName;
