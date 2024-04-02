@@ -41,8 +41,13 @@ public class FeedbackRepository {
         Feedback fa = mongoTemplate.findById(id, Feedback.class);
         return fa;
     }
+    public List<Feedback> ReturnFeedBacksWithContributionId(String id){
+        List<Feedback> allFeedback = mongoTemplate.findAll(Feedback.class);
+        List<Feedback> fillteredFeedBack = allFeedback.stream().filter(feedback -> feedback.getContributionId().equals(id)).collect(Collectors.toList());
+        return fillteredFeedBack;
+    }
 
-    public void DeleteFal(String id){
+    public void DeleteFeedback(String id){
         Query query = new Query(Criteria.where("id").is(id));
         mongoTemplate.remove(query, Feedback.class);
     }
