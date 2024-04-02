@@ -1,10 +1,13 @@
 package com.example.comp1640.Service;
 
 
+import com.example.comp1640.model.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+
+import java.util.Locale;
 
 @Service
 public class MailService  {
@@ -22,4 +25,6 @@ public class MailService  {
 
 //        System.out.println("Mail Sended");
     }
+
+
 }

@@ -31,6 +31,7 @@ public class Account {
     private String roleId;
     private String facultyId;
     private LocalDateTime lastSession;
+    private String resetPasswordToken;
 
     @Transient
     private String roleName;

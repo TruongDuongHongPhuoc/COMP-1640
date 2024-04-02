@@ -1,20 +1,28 @@
 package com.example.comp1640.Controller;
 
 import com.example.comp1640.Service.AccountService;
+import com.example.comp1640.Service.ContributionService;
 import com.example.comp1640.Service.MailService;
 import com.example.comp1640.config.SecurityConfig;
 import com.example.comp1640.model.Account;
+import com.example.comp1640.model.Contribution;
 import com.example.comp1640.model.Faculty;
 import com.example.comp1640.repository.AccountRepositoryTest;
 import com.example.comp1640.repository.FalcultyRepository;
 import com.example.comp1640.repository.FacultyRepository;
 import com.example.comp1640.repository.RoleRepositoryTest;
+import com.example.comp1640.utils.Utility;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.servlet.http.HttpServletRequest;
 import com.example.comp1640.utils.JwtUtils;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import jdk.jshell.execution.Util;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,7 +31,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
+import javax.security.auth.login.AccountNotFoundException;
+import java.io.*;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -47,6 +61,10 @@ public class AccountController {
     SecurityConfig securityConfig;
     @Autowired
     MailService mailService;
+    @Autowired
+    ContributionService contributionService;
+    @Autowired
+    JavaMailSender mailSender;
     private final FalcultyRepository falcultyRepository;
     BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
@@ -55,11 +73,6 @@ public class AccountController {
         accountService.checkRole("Admin");
         Account acc = returnAccount();
         Authentication au = SecurityContextHolder.getContext().getAuthentication();
-        if (au == null || !au.isAuthenticated()) {
-            return "Không có người dùng đang được xác thực";
-        } else {
-            System.out.println(au.getAuthorities());
-        }
         var roles = roleRepo.findAll();
         model.addAttribute("acc",acc);
         model.addAttribute("account", accountService.getAll());
@@ -128,6 +141,12 @@ public class AccountController {
     public String personal(@PathVariable("id") String id, Model model) {
         Account acc = returnAccount();
         Account account = accountService.getOne(id);
+
+        List<Contribution> cons = contributionService.ReturnAllContribution();
+        List<Contribution> contributions = cons.stream()
+                .filter(con -> Objects.equals(con.getAccountId(), id))
+                .collect(Collectors.toList());
+        model.addAttribute("contributions", contributions);
         model.addAttribute("account", account);
         model.addAttribute("faculty", falRepo.findAll());
         model.addAttribute("role", roleRepo.findAll());
@@ -164,7 +183,7 @@ public class AccountController {
                 model.addAttribute("account", editAccount);
                 model.addAttribute("faculty", falRepo.findAll());
                 model.addAttribute("role", roleRepo.findAll());
-                return "Account/Personal";
+                return personal(account.getId(),model);
             } else
                 return "/account/getuser";
         }
@@ -186,10 +205,15 @@ public class AccountController {
             e.printStackTrace();
             return null;
         }
+        List<Contribution> cons = contributionService.ReturnAllContribution();
+        List<Contribution> contributions = cons.stream()
+                .filter(con -> Objects.equals(con.getAccountId(), account.getId()))
+                .collect(Collectors.toList());
+        model.addAttribute("contributions", contributions);
         model.addAttribute("account", editAccount);
         model.addAttribute("faculty", falRepo.findAll());
         model.addAttribute("role", roleRepo.findAll());
-        return "Account/Personal";
+        return personal(account.getId(),model);
     }
 
     @GetMapping("/getuser")
@@ -251,6 +275,82 @@ public class AccountController {
         model.addAttribute("falcuty", falRepo.findAll());
         return "Account/View";
     }
+
+    @PostMapping("/forgotPassword")
+    public String processForgotPassword(HttpServletRequest request, Model model){
+        UUID uuid = UUID.randomUUID();
+        String email = request.getParameter("email");
+        String token = uuid.toString().replaceAll("-", "").substring(0, 8);
+        try {
+            accountService.updateResetPasswordToken(token, email);
+            String resetPasswordLink = Utility.getSiteURL(request) + "/account/reset_password?token="+token;
+            sendEmail(email, resetPasswordLink);
+        } catch (AccountNotFoundException e) {
+            model.addAttribute("error", e.getMessage());
+        } catch (MessagingException | UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+        return "Login";
+    }
+
+    public void sendEmail(String recipientEmail, String link)
+            throws MessagingException, UnsupportedEncodingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom("contact@shopme.com", "Shopme Support");
+        helper.setTo(recipientEmail);
+
+        String subject = "Here's the link to reset your password";
+
+        String content = "<p>Hello,</p>"
+                + "<p>You have requested to reset your password.</p>"
+                + "<p>Click the link below to change your password:</p>"
+                + "<p><a href=\"" + link + "\">Change my password</a></p>"
+                + "<br>"
+                + "<p>Ignore this email if you do remember your password, "
+                + "or you have not made the request.</p>";
+
+        helper.setSubject(subject);
+
+        helper.setText(content, true);
+
+        mailSender.send(message);
+    }
+
+    @GetMapping("/reset_password")
+    public String showResetPasswordForm(@Param(value = "token") String token, Model model) {
+        Account customer = accountService.getByResetPasswordToken(token);
+        model.addAttribute("token", token);
+
+        if (customer == null) {
+            model.addAttribute("message", "Invalid Token");
+            return "message";
+        }
+
+        return "reset_password_form";
+    }
+
+    @PostMapping("/reset_password")
+    public String processResetPassword(HttpServletRequest request, Model model) {
+        String token = request.getParameter("token");
+        String password = request.getParameter("password");
+
+        Account customer = accountService.getByResetPasswordToken(token);
+        model.addAttribute("title", "Reset your password");
+
+        if (customer == null) {
+            model.addAttribute("message", "Invalid Token");
+            return "message";
+        } else {
+            accountService.updatePassword(customer, password);
+
+            model.addAttribute("message", "You have successfully changed your password.");
+        }
+
+        return "message";
+    }
+
     public Account returnAccount(){
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<Account> acc = repo.findAccountByMail(authentication.getName());

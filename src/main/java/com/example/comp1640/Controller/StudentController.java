@@ -40,8 +40,8 @@ public class StudentController {
     public String ViewWork(@PathVariable String id, Model model) {
         accountService.checkRoles("Marketing Coordinator","Student");
         Account account = returnAccount();
-        List<Contribution> cons = contributionService.ReturnAllContribution();
         List<Feedback> feds = feedbackRepository.ReturnFeedBacks();
+        List<Contribution> cons = contributionService.ReturnAllContribution();
         //fill 2 list
         List<Contribution> FilteredList = cons.stream()
                 .filter(con -> Objects.equals(con.getAccountId(), id))
