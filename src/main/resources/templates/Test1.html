@@ -1,57 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Google Analytics Report</title>
-    <!-- Load the Google Embed API -->
-    <script src="https://www.google.com/jsapi"></script>
+    <title>Real-time Google Analytics Report</title>
+    <!-- Load the Google Analytics Data API client library -->
+    <script src="https://apis.google.com/js/api.js"></script>
     <script>
-        google.load('visualization', '1', {'packages': ['corechart']});
-        google.setOnLoadCallback(drawChart);
+        function handleClientLoad() {
+            // Load the API client and authenticate the user
+            gapi.load('client:auth2', initClient);
+        }
 
-        function drawChart() {
-            // Replace 'YOUR_VIEW_ID' with your Google Analytics view ID
-            var viewId = '434690086';
+        function initClient() {
+            // Initialize the API client with your API key
+            gapi.client.init({
+                'apiKey': 'AIzaSyArPUJftrB7y-Lg8GM1cHN67k9Uj18KT68', // Replace with your API key
+                'discoveryDocs': ['https://analyticsdata.googleapis.com/$discovery/rest'],
+            }).then(function() {
+                // After initializing, call the function to fetch real-time data
+                fetchRealTimeData();
+            });
+        }
 
-            // Replace 'YOUR_METRIC' and 'YOUR_DIMENSION' with the desired metric and dimension
-            var metric = 'ga:pageviews';
-            var dimension = 'ga:date';
-
-            // Create the query object
-            var query = {
-                'ids': viewId,
-                'metrics': metric,
-                'dimensions': dimension,
-                'start-date': '30daysAgo',
-                'end-date': 'yesterday'
+        function fetchRealTimeData() {
+            // Create a request to fetch real-time data
+            var request = {
+                'property': 'properties/434690086', // Replace with your GA4 property ID
+                'metrics': [{'name': 'activeUsers'}], // Metric for active users
             };
 
-            // Send a query to Google Analytics
-            gapi.client.analytics.data.ga.get(query).then(function (response) {
-                var data = response.result.rows;
-                var dataTable = new google.visualization.DataTable();
-                dataTable.addColumn('string', 'Date');
-                dataTable.addColumn('number', 'Page Views');
-                for (var i = 0; i < data.length; i++) {
-                    dataTable.addRow([data[i][0], parseInt(data[i][1])]);
-                }
-
-                var options = {
-                    title: 'Page Views Over Time',
-                    curveType: 'function',
-                    legend: {position: 'bottom'}
-                };
-
-                var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-                chart.draw(dataTable, options);
+            // Send the request to the Real-time API
+            gapi.client.analyticsdata.properties.realtime.report(request).then(function(response) {
+                // Handle the response and display the real-time data
+                var activeUsers = response.result.rows[0].metricValues[0].value;
+                document.getElementById('realtimeData').innerText = activeUsers;
+            }, function(error) {
+                console.error('Error fetching real-time data:', error);
             });
         }
     </script>
 </head>
 <body>
-    <h1>Google Analytics Report</h1>
-    <!-- Div to hold the Google Analytics chart -->
-    <div id="chart_div" style="width: 900px; height: 500px;"></div>
-    <!-- Load the Google Analytics Reporting API -->
-    <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+    <h1>Real-time Google Analytics Report</h1>
+    <p>Active Users: <span id="realtimeData"></span></p>
 </body>
 </html>
