@@ -7,7 +7,11 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNDQ069VVF"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'G-GNDQ069VVF');
@@ -15,13 +19,18 @@
 
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-NJXG26NL');</script>
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-NJXG26NL');</script>
     <!-- End Google Tag Manager -->
 
     <meta charset="UTF-8">
@@ -30,9 +39,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <style>
-    body {
-        background: rgb(99, 39, 120)
-    }
 
     .form-control:focus {
         box-shadow: none;
@@ -72,81 +78,137 @@
         background: #BA68C8;
         color: #fff;
         cursor: pointer;
-        border: solid 1px #BA68C8
+        border: solid 1px #BA68C8;
+    }
+    #myTable tbody tr:nth-child(n+6){
+        display: none !important;
     }
 </style>
 
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJXG26NL" height="0" width="0"
-            style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJXG26NL" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
 
-    <div layout:fragment="content" class="container rounded bg-white mt-5 mb-5">
-        <div class="row">
-            <div class="col-md-3 border-right">
-                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                    <img alt="Avatar" class="rounded-circle mt-5" width="150px"
-                        th:src="@{'/images/' + ${account.profileImage}}">
-                    <span class="font-weight-bold" th:text="${account.name}"></span>
-                    <span class="text-black-50" th:text="${account.mail}"></span>
-                    <span> </span>
-                </div>
+<div layout:fragment="content" class="container rounded bg-white mt-5 mb-5">
+    <div class="row" style="background: #5ab9ea !important;">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5 bg-light mt-5 rounded">
+                <img alt="Avatar" class="rounded-circle mt-5" style="width: 200px;"
+                     th:src="@{'/images/' + ${account.profileImage}}">
+                <span class="font-weight-bold" th:text="${account.name}"></span>
+                <span class="text-black-50" th:text="${account.mail}"></span>
+                <span> </span>
             </div>
-            <div class="col-md-5 border-right">
-                <form th:action="@{/account/personal}" th:object="${account}" method="post"
-                    enctype="multipart/form-data">
-                    <div class="p-3 py-5">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h4 class="text-right">Profile Settings</h4>
+        </div>
+        <div class="col-md-5 border-right rounded mt-2 mb-2">
+            <form th:action="@{/account/personal}" th:object="${account}" method="post"
+                  enctype="multipart/form-data">
+                <div class="p-3 py-5 bg-light">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">Profile Settings</h4>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label for="ex1" class="labels">Full name</label>
+                            <input th:field="*{id}" type="hidden" th:value="${account.id}">
+                            <input th:field="*{name}" type="text" id="ex1" class="form-control"
+                                   th:value="${account.name}">
                         </div>
-                        <div class="row mt-3">
-                            <div class="col-md-12">
-                                <label for="ex1" class="labels">Full name</label>
-                                <input th:field="*{id}" type="hidden" th:value="${account.id}">
-                                <input th:field="*{name}" type="text" id="ex1" class="form-control"
-                                    th:value="${account.name}">
-                            </div>
-                            <div class="col-md-12">
-                                <label for="ex2" class="labels">Email</label>
-                                <input th:field="*{mail}" name="email" type="email" id="ex2" class="form-control"
-                                    th:value="${account.mail}">
-                            </div>
-                            <div class="col-md-12">
-                                <label for="ex3" class="labels">Date of birth</label>
-                                <input th:field="*{dateOfBirth}" name="date" type="date" id="ex3" class="form-control"
-                                    th:value="${account.dateOfBirth}">
-                            </div>
-                            <div class="col-md-12">
-                                <label for="ex4" class="labels">Address</label>
-                                <input th:field="*{address}" type="text" class="form-control" id="ex4"
-                                    th:value="${account.address}">
-                            </div>
-                            <div class="col-md-12">
-                                <label for="ex6" class="labels">Phone number</label>
-                                <input th:field="*{phoneNumber}" id="ex6" type="text" class="form-control"
-                                    th:value="${account.phoneNumber}">
-                            </div>
-                            <div class="col-md-12">
-                                <label for="ex5" class="labels">New Avatar</label>
-                                <input name="image" accept="image/*" id="ex5" type="file" class="form-control" required>
-                            </div>
+                        <div class="col-md-12">
+                            <label for="ex2" class="labels">Email</label>
+                            <input th:field="*{mail}" name="email" type="email" id="ex2" class="form-control"
+                                   th:value="${account.mail}">
                         </div>
-                        <div class="mt-5 text-center">
-                            <a class="btn btn-secondary" th:href="@{/home}">Back</a>
-                            <button class="btn btn-primary profile-button" id="saveButton" type="submit">Edit Profile
-                            </button>
-                            <div th:if="${account.roleId.equals('5')}">
-                                <a class="btn btn-info" th:href="@{/guest/{id} (id= ${account.id})}">Update to
-                                    student</a>
-                            </div>
+                        <div class="col-md-12">
+                            <label for="ex3" class="labels">Date of birth</label>
+                            <input th:field="*{dateOfBirth}" name="date" type="date" id="ex3" class="form-control"
+                                   th:value="${account.dateOfBirth}">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="ex4" class="labels">Address</label>
+                            <input th:field="*{address}" type="text" class="form-control" id="ex4"
+                                   th:value="${account.address}">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="ex6" class="labels">Phone number</label>
+                            <input th:field="*{phoneNumber}" id="ex6" type="text" class="form-control"
+                                   th:value="${account.phoneNumber}">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="ex5" class="labels">New Avatar</label>
+                            <input name="image" accept="image/*" id="ex5" type="file" class="form-control" required>
                         </div>
                     </div>
-                </form>
+                    <div class="mt-5 text-center">
+                        <a class="btn btn-secondary" th:href="@{/home}">Back</a>
+                        <button class="btn btn-primary profile-button" id="saveButton" type="submit">Edit Profile
+                        </button>
+                        <div th:if="${account.roleId.equals('5')}">
+                            <a class="btn btn-info" th:href="@{/guest/{id} (id= ${account.id})}">Update to
+                                student</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <h4 class="fw-bolder text-light mt-4">Contributions</h4>
+            <div class="p-3 py-5 bg-light rounded">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="font-weight-bold" th:text="'Your faculty: ' + ${account.falcutyName}"></span>
+                    <a th:href="@{/Contribution/Createcontribution}" style="text-underline: none; color: black;">
+                            <span class="border px-3 p-1 add-experience">
+                                <i class="fa fa-plus"></i>&nbsp;Add new?
+                            </span>
+                    </a>
+                </div>
+                <br>
+                <div class="justify-content-between align-items-center table-responsive vertical-scroll" style="max-height: 650px;">
+                    <table id="myTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Status</th>
+                                <th class="pr-2 text-center">Feedbacks</th>
+                            </tr>
+                        </thead>
+                        <tbody  th:each="c:${contributions}" style="">
+                            <tr class="border-bottom">
+                                <td class="border-right mr-1" th:text="${c.name}"></td>
+                                <td class="border-right mr-2 ml-2" th:text="${c.status == 0 ? 'Waiting' : (c.status == 1 ? 'Approved' : (c.status == 3 ? 'Public' : 'Rejected'))}"></td>
+                                <td class="text-center">
+                                    <a class="btn btn-primary" th:href="@{/FeedBack/ViewFeedback/{id}(id=${c.id})}">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
         </div>
     </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var table = document.getElementById("myTable");
+        var tbody = table.getElementsByTagName("tbody")[0];
+        var rows = tbody.getElementsByTagName("tr");
+        var rowCount = rows.length;
+
+        // Giới hạn chỉ hiển thị 5 dòng
+        if (rowCount > 5) {
+            for (var i = 5; i < rowCount; i++) {
+                tbody.removeChild(rows[i]);
+            }
+        }
+    });
+</script>
 </body>
 
 </html>

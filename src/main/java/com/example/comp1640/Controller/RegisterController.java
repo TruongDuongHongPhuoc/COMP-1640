@@ -75,9 +75,9 @@ public class RegisterController {
         account.setPassword(bCryptPasswordEncoder.encode(account.getPassword()));
         account.setRoleId("5");
         account.setLastSession(null);
+        repositoryTest.save(account);
         try {
             String fileName = file.getOriginalFilename();
-            Account saveUser = repositoryTest.save(account);
             String filePath = "src/main/resources/static/images/" + fileName;
             File imageFileOnDisk = new File(filePath);
             BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream((imageFileOnDisk)));

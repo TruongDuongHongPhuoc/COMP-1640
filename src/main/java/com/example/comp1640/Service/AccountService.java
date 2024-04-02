@@ -1,14 +1,8 @@
 package com.example.comp1640.Service;
 
 import com.example.comp1640.config.SecurityConfig;
-import com.example.comp1640.model.AcademicYear;
-import com.example.comp1640.model.Account;
-import com.example.comp1640.model.Faculty;
-import com.example.comp1640.model.Role;
-import com.example.comp1640.repository.AcademicYearRepositoryInterface;
-import com.example.comp1640.repository.AccountRepositoryTest;
-import com.example.comp1640.repository.FacultyRepository;
-import com.example.comp1640.repository.RoleRepositoryTest;
+import com.example.comp1640.model.*;
+import com.example.comp1640.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
@@ -22,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.security.auth.login.AccountNotFoundException;
 import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.util.*;
@@ -173,7 +168,25 @@ public class AccountService implements UserDetailsService {
         throw new AccessDeniedException("Access is denied");
     }
 
-    public boolean checkAcademicYear(){
-        return false;
+    public void updateResetPasswordToken(String token, String email) throws AccountNotFoundException {
+        Account customer = accountRepositoryTest.findAccountByMail(email).get();
+        if (customer != null) {
+            customer.setResetPasswordToken(token);
+            accountRepositoryTest.save(customer);
+        } else {
+            throw new AccountNotFoundException("Could not find any customer with the email " + email);
+        }
+    }
+    public Account getByResetPasswordToken(String token) {
+        return accountRepositoryTest.findByResetPasswordToken(token);
+    }
+
+    public void updatePassword(Account customer, String newPassword) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        customer.setPassword(encodedPassword);
+
+        customer.setResetPasswordToken(null);
+        accountRepositoryTest.save(customer);
     }
 }
