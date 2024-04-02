@@ -2,11 +2,18 @@
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_customer">
 
 <head>
+    <title>
+        Feedbacks page
+    </title>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNDQ069VVF"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'G-GNDQ069VVF');
@@ -14,59 +21,65 @@
 
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-NJXG26NL');</script>
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-NJXG26NL');</script>
     <!-- End Google Tag Manager -->
 </head>
 
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJXG26NL" height="0" width="0"
-            style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJXG26NL" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
 
-    <div layout:fragment="content" style="margin-top: 20px; margin-bottom: 20px;">
-        <div style="height: 50px"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h2>Contribution</h2>
-                    <label for="name">name</label>
-                    <input type="text" class="form-control" id="name" name="name" th:value="${con.name}" readonly>
+<div layout:fragment="content" style="margin-top: 20px; margin-bottom: 20px;">
+    <div style="height: 50px"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Contribution</h2>
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" name="name" th:value="${con.name}" readonly>
+                <label for="description">Description:</label>
+                <input type="text" class="form-control" id="description" name="description"
+                       th:value="${con.description}" readonly><br>
 
-                    <label for="description">Description:</label>
-                    <input type="text" class="form-control" id="description" name="description"
-                        th:value="${con.description}" readonly><br>
+                <label for="submitDate">Submit Date:</label>
+                <input type="text" class="form-control" id="submitDate" name="submitDate"
+                       th:value="${con.submitDate}" readonly><br>
 
-                    <label for="submitDate">Submit Date:</label>
-                    <input type="text" class="form-control" id="submitDate" name="submitDate"
-                        th:value="${con.submitDate}" readonly><br>
+                <label for="status">Status:</label>
+                <input type="text" class="form-control" id="status" name="status"
+                       th:value="${con.status == 0 ? 'Waiting' : (con.status == 1 ? 'Approved' : (con.status == 3 ? 'Public' : 'Rejected'))}"
+                       readonly><br>
 
-                    <label for="status">Status:</label>
-                    <input type="text" class="form-control" id="status" name="status"
-                        th:value="${con.status == 0 ? 'Waiting' : (con.status == 1 ? 'Approved' : (con.status == 3 ? 'Public' : 'Rejected'))}"
-                        readonly><br>
+                <label for="academicYearId">Academic Year ID:</label>
+                <input type="text" class="form-control" id="academicYearId" name="academicYearId"
+                       th:value="${con.academicYearId}" readonly><br>
 
-                    <label for="academicYearId">Academic Year ID:</label>
-                    <input type="text" class="form-control" id="academicYearId" name="academicYearId"
-                        th:value="${con.academicYearId}" readonly><br>
+                <!--                <label for="accountId">Account ID:</label>-->
+                <!--                <input type="text" class="form-control" id="accountId" name="accountId" th:value="${con.accountId}"-->
+                <!--                       readonly><br>-->
 
-                    <!--                <label for="accountId">Account ID:</label>-->
-                    <!--                <input type="text" class="form-control" id="accountId" name="accountId" th:value="${con.accountId}"-->
-                    <!--                       readonly><br>-->
+                <label for="facultyId">Faculty ID:</label>
+                <input type="text" class="form-control" id="facultyId" name="facultyId" th:value="${con.facultyId}"
+                       readonly><br>
 
-                    <label for="facultyId">Faculty ID:</label>
-                    <input type="text" class="form-control" id="facultyId" name="facultyId" th:value="${con.facultyId}"
-                        readonly><br>
-
-                    <label>Download:</label>
-                    <a class="btn btn-info" th:href="@{http://localhost:8090/Fi/files/__${con.path}__}">Download</a><br>
-                </div>
+                <label>Download:</label>
+                <a class="btn btn-info" th:href="@{http://localhost:8090/Fi/files/__${con.path}__}">Download</a><br>
+            </div>
 
                 <!-- Right Column for FeedbackLog details -->
                 <div class="col-md-6" style="border: 1px solid black ">
@@ -98,13 +111,13 @@
                                 <input class="form-control" type="text" name="content" aria-label=""
                                     aria-describedby="basic-addon1">
                             </div>
-                        </th:block>
-                    </form>
-                </div>
+                    </th:block>
+                </form>
             </div>
         </div>
-
     </div>
+
+</div>
 </body>
 
 </html>
