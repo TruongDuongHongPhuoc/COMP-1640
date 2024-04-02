@@ -34,7 +34,9 @@ public class ContributionRepository {
         update.set("accountId",accountId);
         update.set("academicYearId",academicYearId);
         update.set("facultyId", facultyId);
-        update.set("path",path);
+        if(path != null) {
+            update.set("path", path);
+        }
         UpdateResult result = mongoTemplate.updateFirst(query, update, Contribution.class);
 
         if(result == null)

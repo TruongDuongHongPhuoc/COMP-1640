@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -157,7 +158,12 @@ public class ContributionController {
         String accountId = dataFromToken.get("accountId").toString();
         String facultyId = dataFromToken.get("facultyId").toString();
         String oldPath = dataFromToken.get("oldfile").toString();
-        service.UpdateContribution(id,name,description,sub,accountId,academicId,facultyId,path,oldPath);
+        if(!path.isEmpty()) {
+            service.UpdateContribution(id, name, description, sub, accountId, academicId, facultyId, path, oldPath);
+        }
+        else {
+            service.UpdateContribution(id,name,description,sub,accountId,academicId,facultyId,oldPath);
+        }
         accountService.checkRole("Student");
         Account account = returnAccount();
         return "redirect:/student/" + account.getId();
