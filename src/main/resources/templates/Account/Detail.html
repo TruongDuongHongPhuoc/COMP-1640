@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_Admin">
+<head>
+  <meta charset="UTF-8">
+  <title>Accounts manager page</title>
+</head>
 <body>
-  
   <div layout:fragment="content">
     <h1>Detail information page</h1>
     <form method="POST" th:action="@{/account/reset}">

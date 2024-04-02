@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.File;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.List;
@@ -138,11 +139,16 @@ public class HomeController {
 
     public Account returnAccount(){
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Optional<Account> account = accountRepo.findAccountByMail(authentication.getName());
-        Account accounts = account.get();
-        System.out.println(authentication.getAuthorities());
+        Optional<Account> acc = accountRepo.findAccountByMail(authentication.getName());
+        Account account = accountService.getOne(acc.get().getId());
+        return account;
+    }
 
-
-        return accounts;
+    @GetMapping("/savesession")
+    public String saveSession(){
+        Account account = accountService.getOne(returnAccount().getId());
+        account.setLastSession(LocalDateTime.now());
+        accountRepoTest.save(account);
+        return "redirect:/logout";
     }
 }

@@ -94,8 +94,8 @@ public class AccountController {
 
     @PostMapping("/reset")
     public String reset(@RequestParam("roleId") String roleId,
-            @RequestParam("id") String id,
-            Model model) {
+                        @RequestParam("id") String id,
+                        Model model) {
         accountService.checkRole("Admin");
         Account account = accountService.getOne(id);
         account.setRoleId(roleId);
@@ -117,8 +117,8 @@ public class AccountController {
 
     @PostMapping("/personal")
     public String personal(@Valid @ModelAttribute("account") Account account,
-            @RequestParam("image") MultipartFile file,
-            BindingResult result, Model model) throws IOException {
+                           @RequestParam("image") MultipartFile file,
+                           BindingResult result, Model model) throws IOException {
         Account editAccount = accountService.getOne(account.getId());
         Optional<Account> ac = repo.findAccountByMail(account.getMail());
         if (ac.isPresent()) {
@@ -196,8 +196,8 @@ public class AccountController {
 
     @PostMapping("/create")
     public String create(@Valid @ModelAttribute("account") Account account,
-            @RequestParam("image") MultipartFile file,
-            BindingResult result, Model model) throws IOException {
+                         @RequestParam("image") MultipartFile file,
+                         BindingResult result, Model model) throws IOException {
         accountService.checkRole("Admin");
         Optional<Account> ac = repo.findAccountByMail(account.getMail());
         if (ac.isPresent()) {
@@ -212,11 +212,10 @@ public class AccountController {
 
         account.setProfileImage(file.getOriginalFilename());
         account.setId(UUID.randomUUID().toString());
-        // String password = accountService.generateRandomPassword();
         account.setPassword(bCryptPasswordEncoder.encode(account.getPassword()));
-        // mailService.SendEmail(account.getMail(), "Create a " +
-        // accountService.getOne(account.getId()).getRoleName() +" account", "Password:
-        // " + password);
+        account.setLastSession(null);
+        mailService.SendEmail(account.getMail(), "Create a " +
+                accountService.getOne(account.getId()).getRoleName() + " account", "Password: " + account.getPassword());
         try {
             String fileName = file.getOriginalFilename();
             Account saveUser = repo.save(account);
