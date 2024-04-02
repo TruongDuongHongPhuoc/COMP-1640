@@ -3,10 +3,7 @@ package com.example.comp1640.Service;
 import com.example.comp1640.Store.FileSystemStorageService;
 import com.example.comp1640.Store.FileUploadController;
 import com.example.comp1640.Store.StorageService;
-import com.example.comp1640.model.AcademicYear;
-import com.example.comp1640.model.Contribution;
-import com.example.comp1640.model.Faculty;
-import com.example.comp1640.model.Feedback;
+import com.example.comp1640.model.*;
 import com.example.comp1640.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +32,8 @@ public class ContributionService {
     FacultyRepository facultyRepository;
     @Autowired
     AcademicYearRepositoryInterface academicYearRepositoryInterface;
+    @Autowired
+    AccountService accountService;
 
     public void storeFile(MultipartFile file){
         StoreService.store(file);
@@ -60,7 +59,7 @@ public class ContributionService {
         List<Contribution> filteredList = cons.stream()
                 .filter(con -> con.getStatus() != 2 && con.getStatus() != 0 && con.getStatus() != 1)
                 .collect(Collectors.toList());
-        return filteredList;
+        return attachingInfor(filteredList);
     }
     public List<Contribution> ReturnForMarketingManager(){
         List<Contribution> cons = contributionRepository.ReturnContributions();
@@ -116,6 +115,7 @@ public class ContributionService {
             String year = academicYearRepositoryInterface.findById(con.getAcademicYearId()).get().getYearOfAcademic();
             String facultyName = facultyRepository.findById(con.getFacultyId()).get().getName();
             AcademicYear ac = academicYearRepository.findById(con.getAcademicYearId()).orElseGet(null);
+            Account account = accountService.getOne(con.getAccountId());
             LocalDate closureDate = ac.getClosureDate();
             LocalDate finalDate = ac.getFinalClosureDate();
             LocalDate currentDate = LocalDate.now();
@@ -126,6 +126,7 @@ public class ContributionService {
             con.setCanUpdate(canUpdate);
             con.setCanDowload(canDowload);
             con.setFaculty(facultyName);
+            con.setAuthor(account.getMail());
             con.setYear(year);
         }).toList();
     }

@@ -28,6 +28,8 @@ public class Contribution {
     private String path;
 
     @Transient
+    String author;
+    @Transient
     boolean canDelete;
     @Transient
     boolean canUpdate;

@@ -22,8 +22,6 @@ public class MailService  {
         message.setText(body);
         message.setSubject(subject);
         mailSender.send(message);
-
-//        System.out.println("Mail Sended");
     }
 
 

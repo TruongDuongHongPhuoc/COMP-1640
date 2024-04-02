@@ -89,18 +89,4 @@ public class RegisterController {
         }
         return "redirect:/login";
     }
-
-    @GetMapping("/guest/{id}")
-    public String updateGuest(@PathVariable("id") String id, Model model){
-        Account account = accountService.getOne(id);
-        List<Account> listAccount = repositoryTest.findAll();
-        for(Account a : listAccount){
-            if (a.getRoleId().equals("1")) {
-                mailService.SendEmail(a.getMail(),
-                        "Update role",
-                        "The guest with email: " + account.getMail() +" want to register as a student ");
-            }
-        }
-        return "redirect:/home";
-    }
 }

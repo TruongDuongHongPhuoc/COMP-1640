@@ -100,14 +100,14 @@
                             <!--                            Text for Admin-->
                             <th:block th:if="${acc.equals('1')}">
                                 <p class="mb-4 tm-intro-text">
-                                    you are login as Admin of the website your role is maintain system and make sure
+                                    You are login as Admin of the website your role is maintain system and make sure
                                     anything stay in track and correct. your role is crusial please sure it wisely
                                 </p>
                             </th:block>
                             <!--                            Text for student-->
                             <th:block th:if="${acc.equals('2')}">
                                 <p class="mb-4 tm-intro-text">
-                                    you are login as Student your work is upload your contribution you able to update
+                                    You are login as Student your work is upload your contribution you able to update
                                     and
                                     delete but time is limit. you also able conversation with tutor as well in feedback
                                 </p>
@@ -115,7 +115,7 @@
                             <!--                            text for marketing coordinator -->
                             <th:block th:if="${acc.equals('3')}">
                                 <p class="mb-4 tm-intro-text">
-                                    you are marketing coordinator please give feedback to contribution that are under
+                                    You are marketing coordinator please give feedback to contribution that are under
                                     your
                                     faculty it have time limit so make it quick. you also able to set approve or Reject
                                     to
@@ -125,9 +125,9 @@
                             <!--                            marketing manager-->
                             <th:block th:if="${acc.equals('4')}">
                                 <p class="mb-4 tm-intro-text">
-                                    you are login as Makerting Manager you have right to observe Faculty, contributions
+                                    You are login as Makerting Manager you have right to observe Faculty, contributions
                                     Many
-                                    thigns more. you will able to downlaod all the file of contribution fillter by
+                                    thigns more. You will able to download all the file of contribution fillter by
                                     faculty
                                     if you needed after Academic Year End.
                                 </p>
@@ -135,7 +135,7 @@
                             <!--                            Text for Guess-->
                             <th:block th:if="${acc.equals('5')}">
                                 <p class="mb-4 tm-intro-text">
-                                    you are Login as Guess you able to download contribution and have right to observe
+                                    You are Login as Guess you able to download contribution and have right to observe
                                     to
                                     Charts that report many things.
                                 </p>
@@ -286,7 +286,7 @@
             </div>
         </section>
 
-        <section id="testimonials" class="tm-section-pad-top tm-parallax-2">
+        <section id="testimonials" class="tm-section-pad-top tm-parallax-2 mb-5">
             <div class="container tm-testimonials-content">
                 <div class="row">
                     <div class="col-lg-12 tm-content-box">
@@ -296,6 +296,7 @@
                                 <tr>
                                     <th>Author</th>
                                     <th>Description</th>
+                                    <th>Faculty</th>
                                     <th>Academic year</th>
                                     <th>Download</th>
                                 </tr>
@@ -304,9 +305,10 @@
                                 <!--                 <tr th:each="AcademicYear: ${Fals}">-->
                                 <!--                        <td th:text="${AcademicYear.name}"></td>-->
                                 <tr th:each="con : ${cons}">
-                                    <td th:text="${con.name}"></td>
+                                    <td th:text="${con.author}"></td>
                                     <td th:text="${con.description}"></td>
-                                    <td th:text="${con.academicYearId}"></td>
+                                    <td th:text="${con.faculty}"></td>
+                                    <td th:text="${con.year}"></td>
                                     <td><a th:href="@{http://localhost:8090/Fi/files/__${con.path}__}">Download</a></td>
                                 </tr>
                             </tbody>
