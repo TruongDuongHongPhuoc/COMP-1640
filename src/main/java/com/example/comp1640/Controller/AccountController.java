@@ -53,6 +53,7 @@ public class AccountController {
     @GetMapping("/view")
     public String view(Model model) {
         accountService.checkRole("Admin");
+        Account acc = returnAccount();
         Authentication au = SecurityContextHolder.getContext().getAuthentication();
         if (au == null || !au.isAuthenticated()) {
             return "Không có người dùng đang được xác thực";
@@ -60,6 +61,7 @@ public class AccountController {
             System.out.println(au.getAuthorities());
         }
         var roles = roleRepo.findAll();
+        model.addAttribute("acc",acc);
         model.addAttribute("account", accountService.getAll());
         model.addAttribute("role", roles);
         model.addAttribute("falcuty", falRepo.findAll());
@@ -94,8 +96,8 @@ public class AccountController {
 
     @PostMapping("/reset")
     public String reset(@RequestParam("roleId") String roleId,
-            @RequestParam("id") String id,
-            Model model) {
+                        @RequestParam("id") String id,
+                        Model model) {
         accountService.checkRole("Admin");
         Account account = accountService.getOne(id);
         account.setRoleId(roleId);
@@ -117,8 +119,8 @@ public class AccountController {
 
     @PostMapping("/personal")
     public String personal(@Valid @ModelAttribute("account") Account account,
-            @RequestParam("image") MultipartFile file,
-            BindingResult result, Model model) throws IOException {
+                           @RequestParam("image") MultipartFile file,
+                           BindingResult result, Model model) throws IOException {
         Account editAccount = accountService.getOne(account.getId());
         Optional<Account> ac = repo.findAccountByMail(account.getMail());
         if (ac.isPresent()) {
@@ -166,9 +168,6 @@ public class AccountController {
             e.printStackTrace();
             return null;
         }
-        // System.out.println(account);
-        // System.out.println((editAccount));
-        // System.out.println(file);
         model.addAttribute("account", editAccount);
         model.addAttribute("faculty", falRepo.findAll());
         model.addAttribute("role", roleRepo.findAll());
@@ -196,8 +195,8 @@ public class AccountController {
 
     @PostMapping("/create")
     public String create(@Valid @ModelAttribute("account") Account account,
-            @RequestParam("image") MultipartFile file,
-            BindingResult result, Model model) throws IOException {
+                         @RequestParam("image") MultipartFile file,
+                         BindingResult result, Model model) throws IOException {
         accountService.checkRole("Admin");
         Optional<Account> ac = repo.findAccountByMail(account.getMail());
         if (ac.isPresent()) {
@@ -212,11 +211,10 @@ public class AccountController {
 
         account.setProfileImage(file.getOriginalFilename());
         account.setId(UUID.randomUUID().toString());
-        // String password = accountService.generateRandomPassword();
         account.setPassword(bCryptPasswordEncoder.encode(account.getPassword()));
-        // mailService.SendEmail(account.getMail(), "Create a " +
-        // accountService.getOne(account.getId()).getRoleName() +" account", "Password:
-        // " + password);
+        account.setLastSession(null);
+        mailService.SendEmail(account.getMail(), "Create a " +
+                accountService.getOne(account.getId()).getRoleName() + " account", "Password: " + account.getPassword());
         try {
             String fileName = file.getOriginalFilename();
             Account saveUser = repo.save(account);
@@ -234,5 +232,12 @@ public class AccountController {
         model.addAttribute("role", roles);
         model.addAttribute("falcuty", falRepo.findAll());
         return "Account/View";
+    }
+    public Account returnAccount(){
+        org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Optional<Account> acc = repo.findAccountByMail(authentication.getName());
+        Account account = acc.get();
+        account = accountService.getOne(account.getId());
+        return account;
     }
 }

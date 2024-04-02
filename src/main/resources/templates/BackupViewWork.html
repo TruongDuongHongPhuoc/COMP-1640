@@ -65,9 +65,6 @@
                                 <form method="post" th:action="@{/FeedBack/feedbackcreate/{id}(id=${con.id})}">
                                     <td colspan="2">
                                         <input type="hidden" th:value="${accounts.id}" name="userid">
-                                        <!--                        <th:block th:each="fed : ${feds}">-->
-                                        <!--                            <input th:value="${con.id == fed.contributionId ? (fed.getContent() == null ? 'There is no content' : fed.getContent()) : ''}" type="text" class="form-control" name="content">-->
-                                        <!--                        </th:block>-->
                                         <th:block th:each="fed : ${feds}">
                                             <input
                                                 th:value="${con.id == fed.contributionId ? (fed.getContent() == null ? 'There is no content' : fed.getContent()) : ''}"

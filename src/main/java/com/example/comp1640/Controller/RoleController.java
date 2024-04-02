@@ -1,15 +1,19 @@
 package com.example.comp1640.Controller;
 
 import com.example.comp1640.Service.AccountService;
+import com.example.comp1640.model.Account;
 import com.example.comp1640.model.Role;
+import com.example.comp1640.repository.AccountRepositoryTest;
 import com.example.comp1640.repository.RoleRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequestMapping("/Role")
 @Controller
@@ -17,6 +21,8 @@ public class RoleController
 {
     @Autowired
     RoleRepository re;
+    @Autowired
+    AccountRepositoryTest repo;
 
     @Autowired
     private AccountService accountService;
@@ -51,8 +57,10 @@ accountService.checkRole("Admin");
     @GetMapping("/View")
     public String View(Model model){
         accountService.checkRole("Admin");
+        Account acc = returnAccount();
         List<Role> Roles = re.ReturnRoles();
         model.addAttribute("Fals",Roles);
+        model.addAttribute("acc",acc);
         return "Role/ViewRole";
     }
 
@@ -61,5 +69,18 @@ accountService.checkRole("Admin");
         accountService.checkRole("Admin");
         re.DeleteRole(id);
         return "redirect:/View";
+    }
+    @GetMapping("/DeleteGet/{id}")
+    public String DeleteGet(@PathVariable("id") String id) {
+        accountService.checkRole("Admin");
+        re.DeleteRole(id);
+        return "redirect:/View";
+    }
+    public Account returnAccount(){
+        org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Optional<Account> acc = repo.findAccountByMail(authentication.getName());
+        Account account = acc.get();
+        account = accountService.getOne(account.getId());
+        return account;
     }
 }

@@ -1,8 +1,12 @@
 <!-- ViewFalcutlty.html -->
 <!DOCTYPE html>
+
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_Admin">
 
 <head>
+  <title>
+    Faculties manager page
+  </title>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNDQ069VVF"></script>
   <script>
@@ -78,9 +82,10 @@
                     <td th:text="${faculty.getdescription()}"></td>
                     <th:block th:if="${acc.getRoleId().equals('1')}">
                       <td>
-                        <form th:action="@{/Delete}" method="post">
-                          <input type="hidden" name="id" th:value="${faculty.id}">
-                          <button class="btn btn-primary" type="submit">Delete</button>
+<!--                        <form th:action="@{/Delete}" method="post">-->
+<!--                          <input type="hidden" name="id" th:value="${faculty.id}">-->
+<!--                          <button class="btn btn-primary" type="submit">Delete</button>-->
+                        <a th:href="@{/DeleteGet/{id}(id = ${faculty.id})}">Delete</a>
                         </form>
                       </td>
                       <td>

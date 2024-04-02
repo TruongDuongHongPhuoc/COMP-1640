@@ -1,8 +1,12 @@
 <!-- ViewFaculty.html -->
 <!DOCTYPE html>
+
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_Admin">
 
 <head>
+  <title>
+    Faculties manager page
+  </title>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNDQ069VVF"></script>
   <script>
@@ -34,7 +38,7 @@
   <div layout:fragment="content">
     <h1 th:text="'update for ' + ${faculty.name}"></h1>
     <form th:action="@{/Updating}" method="POST">
-      <input type="hidden" name="id" th:value="${faculty.id}">
+      <input type="hidden" name="id" th:value="${facultyid}">
       <label for="name">Name:</label>
       <input class="form-control form-control-lg" type="text" id="name" name="name" th:value="${faculty.name}">
       <br>

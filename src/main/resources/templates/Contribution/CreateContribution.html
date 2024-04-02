@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_Customer">
-
 <head>
+    <title>
+        Contributions page
+    </title>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNDQ069VVF"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'G-GNDQ069VVF');
@@ -14,148 +20,150 @@
 
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-NJXG26NL');</script>
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-NJXG26NL');</script>
     <!-- End Google Tag Manager -->
 </head>
 
+
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJXG26NL" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
+
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJXG26NL" height="0" width="0"
-            style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
 
-    <div layout:fragment="content">
-        <div class="row justify-content-center">
-            <div class="col-lg-7 col-md-10 col-sm-7"> <!-- Adjust column widths as needed -->
-                <div style="height: 50px"></div>
-                <h1>Welcome to Admin Page</h1>
-                <div class="col">
+<div layout:fragment="content">
+    <div class="row justify-content-center p-1">
+        <div class="col-lg-7 col-md-10 col-sm-7"> <!-- Adjust column widths as needed -->
+            <div style="height: 50px"></div>
+            <h1>Create new contribution</h1>
+            <div class="col">
 
-                </div>
-                <form class="col-md-10" th:action="@{/Contribution/Hello}" th:object="${contribution}" method="POST"
-                    enctype="multipart/form-data" style="padding-right: 33px">
-                    <!--                <input type="hidden" th:field="*{facultyId}" class="form-control" id="facultyId" name="facultyId"-->
-                    <!--                       th:value="${acc.facultyId}">--><br>
-                    <label for="name">Name:</label><br>
-                    <input type="text" th:field="*{name}" class="form-control" id="name" name="name"><br>
+            </div>
 
-                    <label for="description">Description: </label><br>
-                    <input th:field="*{description}" type="text" class="form-control" id="description"
-                        name="description"><br>
+            <form class="col-md-10" th:action="@{/Contribution/Hello}" th:object="${contribution}" method="POST"
+                  enctype="multipart/form-data"
+                  style="padding-right: 33px">
+                <!--                <input type="hidden" th:field="*{facultyId}" class="form-control" id="facultyId" name="facultyId"-->
+                <!--                       th:value="${acc.facultyId}">--><br>
+                <label for="name">Name:</label><br>
+                <input type="text" th:field="*{name}" class="form-control" id="name" name="name"><br>
 
-                    <!--                <input th:field="*{accountId}" type="hidden" id="accountId" class="form-control" name="accountId"-->
-                    <!--                       th:value="${acc.id}">-->
+                <label for="description">Description: </label><br>
+                <input th:field="*{description}" type="text" class="form-control form-inline" id="description"
+                       name="description"><br>
 
-                    <label for="ex1">File to upload</label>
-                    <input type="file" required name="file" id="ex1" />
-                    <input type="checkbox" id="acceptTerm" />
-                    <a href="#" onclick="openAdditionalBox()">term and policy</a><br>
-                    <!-- Button to open the additional box -->
-                    <button type="submit" id="submitButton" class="btn btn-primary">Submit</button>
-                </form>
+                <!--                <input th:field="*{accountId}" type="hidden" id="accountId" class="form-control" name="accountId"-->
+                <!--                       th:value="${acc.id}">-->
 
-                <div id="additionalBox" class="additional-box">
-                    <h2>Term and Condition</h2>
-                    <p>As an educational institution committed to fostering academic integrity and excellence, it is
-                        imperative
-                        to establish a comprehensive long-term policy governing the submission of student work through
-                        our
-                        website. This policy aims to uphold the principles of fairness, transparency, and accountability
-                        while
-                        ensuring the security and integrity of all submitted files.
+                <label for="ex1">File to upload</label>
+                <input type="file" required name="file" id="ex1"/>
+                <label for="ex5">Available Academic Year</label>
+                <select id="ex5" th:field="*{academicYearId}" class="form-select form-select form-control">
+                    <option th:each="op : ${acaYear}" th:value="${op.getId()}"
+                            th:text="${op.getClosureDate().toString()} + ' - ' + ${op.getFinalClosureDate().toString()}"></option>
+                </select>
+                <input type="checkbox" id="acceptTerm"/>
+                <a href="#" class="btn btn-check" onclick="openAdditionalBox()">Term and policy</a><br>
+                <!-- Button to open the additional box -->
+                <button type="submit" id="submitButton" class="btn btn-primary">Submit</button>
+            </form>
 
-                        Purpose:
-                        The purpose of this policy is to outline the guidelines and procedures for students when
-                        submitting
-                        their work through the institution's website. It also aims to provide clarity on the
-                        responsibilities of
-                        both students and the institution in maintaining academic standards and integrity.
+            <div id="additionalBox" class="additional-box">
+                <h2>Term and Condition</h2>
+                <p>As an educational institution committed to fostering academic integrity and excellence, it is
+                    imperative
+                    to establish a comprehensive long-term policy governing the submission of student work through our
+                    website. This policy aims to uphold the principles of fairness, transparency, and accountability
+                    while
+                    ensuring the security and integrity of all submitted files.
 
-                        Submission Guidelines:
-                        a. File Formats: Students are required to submit their work in formats specified by the
-                        instructor
-                        or as
-                        outlined in the assignment guidelines. Commonly accepted formats include PDF, DOCX, or similar
-                        standard
-                        document formats.
-                        b. Naming Conventions: Students must adhere to specific naming conventions provided by the
-                        instructor or
-                        outlined in the assignment instructions. This helps in efficient organization and tracking of
-                        submissions.
-                        c. Submission Deadlines: Clear deadlines for file submissions will be communicated to students
-                        well
-                        in
-                        advance. Late submissions may be subject to penalties unless valid reasons are provided and
-                        approved
-                        by
-                        the instructor.
+                    Purpose:
+                    The purpose of this policy is to outline the guidelines and procedures for students when submitting
+                    their work through the institution's website. It also aims to provide clarity on the
+                    responsibilities of
+                    both students and the institution in maintaining academic standards and integrity.
 
-                        Academic Integrity:
-                        a. Originality: Students are expected to submit original work that is their own and properly
-                        cite
-                        any
-                        sources used. Plagiarism in any form will not be tolerated and may result in disciplinary
-                        action.
-                        b. Collaboration: Collaboration policies should be clearly stated for each assignment. If
-                        collaboration
-                        is permitted, students must appropriately acknowledge their contributions and those of others.
-                        c. Integrity Violations: Any suspected violations of academic integrity will be thoroughly
-                        investigated,
-                        and appropriate actions will be taken as per the institution's academic integrity policy.
+                    Submission Guidelines:
+                    a. File Formats: Students are required to submit their work in formats specified by the instructor
+                    or as
+                    outlined in the assignment guidelines. Commonly accepted formats include PDF, DOCX, or similar
+                    standard
+                    document formats.
+                    b. Naming Conventions: Students must adhere to specific naming conventions provided by the
+                    instructor or
+                    outlined in the assignment instructions. This helps in efficient organization and tracking of
+                    submissions.
+                    c. Submission Deadlines: Clear deadlines for file submissions will be communicated to students well
+                    in
+                    advance. Late submissions may be subject to penalties unless valid reasons are provided and approved
+                    by
+                    the instructor.
 
-                        File Security and Privacy:
-                        a. Data Encryption: All submitted files will be encrypted to ensure data security and privacy.
-                        b. Access Control: Access to submitted files will be restricted to authorized personnel only,
-                        such
-                        as
-                        instructors and designated administrators.
-                        c. Data Retention: Submitted files will be retained for a specified period as per the
-                        institution's
-                        data
-                        retention policy. After this period, files may be securely archived or deleted in compliance
-                        with
-                        relevant regulations.
+                    Academic Integrity:
+                    a. Originality: Students are expected to submit original work that is their own and properly cite
+                    any
+                    sources used. Plagiarism in any form will not be tolerated and may result in disciplinary action.
+                    b. Collaboration: Collaboration policies should be clearly stated for each assignment. If
+                    collaboration
+                    is permitted, students must appropriately acknowledge their contributions and those of others.
+                    c. Integrity Violations: Any suspected violations of academic integrity will be thoroughly
+                    investigated,
+                    and appropriate actions will be taken as per the institution's academic integrity policy.
 
-                        Technical Support:
-                        a. Submission Portal: The institution will provide a user-friendly submission portal where
-                        students
-                        can
-                        securely upload their files.
-                        b. Technical Assistance: Technical support will be available to assist students in case of any
-                        difficulties or issues encountered during the submission process.
+                    File Security and Privacy:
+                    a. Data Encryption: All submitted files will be encrypted to ensure data security and privacy.
+                    b. Access Control: Access to submitted files will be restricted to authorized personnel only, such
+                    as
+                    instructors and designated administrators.
+                    c. Data Retention: Submitted files will be retained for a specified period as per the institution's
+                    data
+                    retention policy. After this period, files may be securely archived or deleted in compliance with
+                    relevant regulations.
 
-                        Feedback and Grades:
-                        a. Timely Feedback: Instructors are responsible for providing timely feedback on submitted work,
-                        adhering to the established grading timeline.
-                        b. Grade Confidentiality: Grades and feedback will be communicated to students in a confidential
-                        manner,
-                        respecting their privacy and academic standing.
+                    Technical Support:
+                    a. Submission Portal: The institution will provide a user-friendly submission portal where students
+                    can
+                    securely upload their files.
+                    b. Technical Assistance: Technical support will be available to assist students in case of any
+                    difficulties or issues encountered during the submission process.
 
-                        Policy Review and Updates:
-                        a. Regular Review: This policy will be periodically reviewed and updated as necessary to adapt
-                        to
-                        changes in technology, academic standards, or institutional requirements.
-                        b. Stakeholder Input: Input from students, faculty, and other stakeholders will be sought during
-                        policy
-                        review processes to ensure inclusivity and relevance.
+                    Feedback and Grades:
+                    a. Timely Feedback: Instructors are responsible for providing timely feedback on submitted work,
+                    adhering to the established grading timeline.
+                    b. Grade Confidentiality: Grades and feedback will be communicated to students in a confidential
+                    manner,
+                    respecting their privacy and academic standing.
 
-                        Compliance and Enforcement:
-                        a. Compliance: All students are expected to comply with this policy as a condition of their
-                        enrollment.
-                        b. Enforcement: Violations of this policy will be addressed through established disciplinary
-                        procedures,
-                        which may include academic sanctions or other appropriate measures.
+                    Policy Review and Updates:
+                    a. Regular Review: This policy will be periodically reviewed and updated as necessary to adapt to
+                    changes in technology, academic standards, or institutional requirements.
+                    b. Stakeholder Input: Input from students, faculty, and other stakeholders will be sought during
+                    policy
+                    review processes to ensure inclusivity and relevance.
 
-                    </p>
-                    <button class="btn-primary" onclick="closeAdditionalBox()">Close</button>
-                </div>
-                <div class="col"></div>
+                    Compliance and Enforcement:
+                    a. Compliance: All students are expected to comply with this policy as a condition of their
+                    enrollment.
+                    b. Enforcement: Violations of this policy will be addressed through established disciplinary
+                    procedures,
+                    which may include academic sanctions or other appropriate measures.
+
+                </p>
+                <button class="btn-primary" onclick="closeAdditionalBox()">Close</button>
             </div>
         </div>
 </body>

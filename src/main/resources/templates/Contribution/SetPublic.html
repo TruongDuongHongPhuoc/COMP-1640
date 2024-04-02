@@ -3,11 +3,18 @@
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_Customer">
 
 <head>
+    <title>
+        Contributions page
+    </title>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNDQ069VVF"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'G-GNDQ069VVF');
@@ -15,36 +22,43 @@
 
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-NJXG26NL');</script>
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-NJXG26NL');</script>
     <!-- End Google Tag Manager -->
 </head>
 
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJXG26NL" height="0" width="0"
-            style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJXG26NL" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
 
-    <div layout:fragment="content">
+<div layout:fragment="content">
 
-        <h1 th:text="'set public for '+${con.getName()}"></h1>
-        <form th:action="@{/Contribution/publicupdate}" method="POST" enctype="multipart/form-data">
-            <label>Status:</label>
-            <input type="hidden" name="id" th:value="${con.id}">
-            <select id="status" name="status" th:readonly="${false}">
-                <option th:selected="${con.status == 0}" value="0">Waiting</option>
-                <option th:selected="${con.status == 1}" value="1">Approved</option>
-                <option th:selected="${con.status == 2}" value="2">Rejected</option>
-            </select><br>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
+    <h1 th:text="'set public for '+${con.getName()}"></h1>
+    <form th:action="@{/Contribution/publicupdate}" method="POST" enctype="multipart/form-data">
+        <label>Status:</label>
+        <input type="hidden" name="conId" th:value="${conId}">
+        <select id="status" name="status" th:readonly="${false}">
+            <option th:selected="${con.status == 0}" value="0">Waiting</option>
+            <option th:selected="${con.status == 1}" value="1">Approved</option>
+            <option th:selected="${con.status == 2}" value="2">Rejected</option>
+        </select><br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
 </body>
 
 </html>
