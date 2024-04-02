@@ -18,304 +18,320 @@
 
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({
-            'gtm.start':
-                new Date().getTime(), event: 'gtm.js'
-        });
-        var f = d.getElementsByTagName(s)[0],
-            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
-        j.async = true;
-        j.src =
-            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-        f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-NJXG26NL');</script>
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-NJXG26NL');</script>
     <!-- End Google Tag Manager -->
 </head>
+
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJXG26NL" height="0" width="0"
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJXG26NL" height="0" width="0"
             style="display:none;visibility:hidden"></iframe>
-</noscript>
-<!-- End Google Tag Manager (noscript) -->
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
-<div layout:fragment="content">
-    <!-- Hero section -->
-    <section id="infinite" class="text-white tm-font-big tm-parallax">
-        <div id="infinite">
-            <video autoplay muted loop>
-                <source src="/forHomepage/img/Frieren.mp4" type="video/mp4">
-                <!-- Add additional source elements for other video formats if needed -->
-                Your browser does not support the video tag.
-            </video>
-            <div id="overlay"
-                 style="position: absolute; top: 0; left: 0; width: 50%; height: 100%; background-color: rgba(0, 0, 0, 0.5);">
-                <h1 style="color: white; font-size: 50px; text-align: center; padding-top: 10%;">Scholary Papers</h1>
-                <p style="padding: 10%;">Welcome to our comprehensive online platform designed to streamline school work
-                    management!
-                    Our website provides an intuitive interface for students to effortlessly upload scientific papers,
-                    facilitating seamless collaboration and knowledge sharing. With our user-friendly system,
-                    students can easily submit their work while coordinators are warmly welcomed to oversee and guide
-                    the process.
-                    Whether you're a diligent student eager to showcase your research or a dedicated coordinator
-                    ensuring academic excellence,
-                    our platform offers a polished solution tailored to your needs.
-                    Join our community today and experience the convenience of efficient
-                    school work management coupled with a welcoming environment for collaboration and academic growth.
-                </p>
+    <div layout:fragment="content">
+        <!-- Hero section -->
+        <section id="infinite" class="text-white tm-font-big tm-parallax">
+            <div id="infinite">
+                <video autoplay muted loop>
+                    <source src="/forHomepage/img/Frieren.mp4" type="video/mp4">
+                    <!-- Add additional source elements for other video formats if needed -->
+                    Your browser does not support the video tag.
+                </video>
+                <div id="overlay"
+                    style="position: absolute; top: 0; left: 0; width: 50%; height: 100%; background-color: rgba(0, 0, 0, 0.5);">
+                    <h1 style="color: white; font-size: 50px; text-align: center; padding-top: 10%;">Scholary Papers
+                    </h1>
+                    <p style="padding: 10%;">Welcome to our comprehensive online platform designed to streamline school
+                        work
+                        management!
+                        Our website provides an intuitive interface for students to effortlessly upload scientific
+                        papers,
+                        facilitating seamless collaboration and knowledge sharing. With our user-friendly system,
+                        students can easily submit their work while coordinators are warmly welcomed to oversee and
+                        guide
+                        the process.
+                        Whether you're a diligent student eager to showcase your research or a dedicated coordinator
+                        ensuring academic excellence,
+                        our platform offers a polished solution tailored to your needs.
+                        Join our community today and experience the convenience of efficient
+                        school work management coupled with a welcoming environment for collaboration and academic
+                        growth.
+                    </p>
+                </div>
             </div>
-        </div>
 
 
-        <div class="text-center tm-hero-text-container">
-            <div class="tm-hero-text-container-inner">
-                <h2 class="tm-hero-title">Infinite Loop</h2>
-                <p class="tm-hero-subtitle">
-                    Bootstrap 4.0 Parallax Theme
-                    <br>Free HTML Template by TOOPLATE
-                </p>
+            <div class="text-center tm-hero-text-container">
+                <div class="tm-hero-text-container-inner">
+                    <h2 class="tm-hero-title">Infinite Loop</h2>
+                    <p class="tm-hero-subtitle">
+                        Bootstrap 4.0 Parallax Theme
+                        <br>Free HTML Template by TOOPLATE
+                    </p>
+                </div>
             </div>
-        </div>
 
-        <div class="tm-next tm-intro-next">
-            <a href="#whatwedo" class="text-center tm-down-arrow-link">
-                <i class="fas fa-2x fa-arrow-down tm-down-arrow"></i>
-            </a>
-        </div>
-    </section>
+            <div class="tm-next tm-intro-next">
+                <a href="#whatwedo" class="text-center tm-down-arrow-link">
+                    <i class="fas fa-2x fa-arrow-down tm-down-arrow"></i>
+                </a>
+            </div>
+        </section>
 
-    <section id="whatwedo" class="tm-section-pad-top">
-        <div class="container">
-            <div class="row tm-content-box"><!-- first row -->
-                <div class="col-lg-12 col-xl-12">
-                    <div class="tm-intro-text-container">
-                        <h1>WellCome educators</h1>
-                        <!--                            Text for Admin-->
-                        <th:block th:if="${acc.equals('1')}">
-                            <p class="mb-4 tm-intro-text">
-                                you are login as Admin of the website your role is maintain system and make sure
-                                anything stay in track and correct. your role is crusial please sure it wisely
-                            </p>
-                        </th:block>
-                        <!--                            Text for student-->
-                        <th:block th:if="${acc.equals('2')}">
-                            <p class="mb-4 tm-intro-text">
-                                you are login as Student your work is upload your contribution you able to update and
-                                delete but time is limit. you also able conversation with tutor as well in feedback
-                            </p>
-                        </th:block>
-                        <!--                            text for marketing coordinator -->
-                        <th:block th:if="${acc.equals('3')}">
-                            <p class="mb-4 tm-intro-text">
-                                you are marketing coordinator please give feedback to contribution that are under your
-                                faculty it have time limit so make it quick. you also able to set approve or Reject to
-                                contribution if approve it will send to manager to consider public
-                            </p>
-                        </th:block>
-                        <!--                            marketing manager-->
-                        <th:block th:if="${acc.equals('4')}">
-                            <p class="mb-4 tm-intro-text">
-                                you are login as Makerting Manager you have right to observe Faculty, contributions Many
-                                thigns more. you will able to downlaod all the file of contribution fillter by faculty
-                                if you needed after Academic Year End.
-                            </p>
-                        </th:block>
-                        <!--                            Text for Guess-->
-                        <th:block th:if="${acc.equals('5')}">
-                            <p class="mb-4 tm-intro-text">
-                                you are Login as Guess you able to download contribution and have right to observe to
-                                Charts that report many things.
-                            </p>
-                        </th:block>
-                        <!--                            text for anonymous-->
-                        <th:block
+        <section id="whatwedo" class="tm-section-pad-top">
+            <div class="container">
+                <div class="row tm-content-box"><!-- first row -->
+                    <div class="col-lg-12 col-xl-12">
+                        <div class="tm-intro-text-container">
+                            <h1>WellCome educators</h1>
+                            <!--                            Text for Admin-->
+                            <th:block th:if="${acc.equals('1')}">
+                                <p class="mb-4 tm-intro-text">
+                                    you are login as Admin of the website your role is maintain system and make sure
+                                    anything stay in track and correct. your role is crusial please sure it wisely
+                                </p>
+                            </th:block>
+                            <!--                            Text for student-->
+                            <th:block th:if="${acc.equals('2')}">
+                                <p class="mb-4 tm-intro-text">
+                                    you are login as Student your work is upload your contribution you able to update
+                                    and
+                                    delete but time is limit. you also able conversation with tutor as well in feedback
+                                </p>
+                            </th:block>
+                            <!--                            text for marketing coordinator -->
+                            <th:block th:if="${acc.equals('3')}">
+                                <p class="mb-4 tm-intro-text">
+                                    you are marketing coordinator please give feedback to contribution that are under
+                                    your
+                                    faculty it have time limit so make it quick. you also able to set approve or Reject
+                                    to
+                                    contribution if approve it will send to manager to consider public
+                                </p>
+                            </th:block>
+                            <!--                            marketing manager-->
+                            <th:block th:if="${acc.equals('4')}">
+                                <p class="mb-4 tm-intro-text">
+                                    you are login as Makerting Manager you have right to observe Faculty, contributions
+                                    Many
+                                    thigns more. you will able to downlaod all the file of contribution fillter by
+                                    faculty
+                                    if you needed after Academic Year End.
+                                </p>
+                            </th:block>
+                            <!--                            Text for Guess-->
+                            <th:block th:if="${acc.equals('5')}">
+                                <p class="mb-4 tm-intro-text">
+                                    you are Login as Guess you able to download contribution and have right to observe
+                                    to
+                                    Charts that report many things.
+                                </p>
+                            </th:block>
+                            <!--                            text for anonymous-->
+                            <th:block
                                 th:unless="${acc.equals('5') or acc.equals('4') or acc.equals('3') or acc.equals('2') or acc.equals('1')}">
-                            <p class="mb-4 tm-intro-text">
-                                You are not logged in. Consider registering an account as a Guest or Student to unlock
-                                more content, or contact the Admin to have a higher priority account.
-                            </p>
-                        </th:block>
+                                <p class="mb-4 tm-intro-text">
+                                    You are not logged in. Consider registering an account as a Guest or Student to
+                                    unlock
+                                    more content, or contact the Admin to have a higher priority account.
+                                </p>
+                            </th:block>
+                        </div>
+                    </div>
+                </div><!-- first row -->
+                <div class="row tm-content-box">
+                    <th:block th:if="${acc.equals('1')}">
+                        <div class="col-lg-1">
+                            <i class="fa fa-book fa-3x" style="color: rgb(13, 110, 253)"></i>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="tm-intro-text-container">
+                                <h2 class="tm-text-primary mb-4">Views Contributions here</h2>
+                                <p class="mb-4 tm-intro-text">
+                                    only for manager
+                                </p>
+                                <div class="tm-continue">
+                                    <a href="/Contribution/View" class="tm-intro-text tm-btn-primary">View
+                                        Contributions</a>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                    <th:block th:if="${acc.equals('2')}">
+                        <div class="col-lg-1">
+                            <i class="fa fa-book fa-3x" style="color: rgb(13, 110, 253)"></i>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="tm-intro-text-container">
+                                <h2 class="tm-text-primary mb-4">View your Work</h2>
+                                <p class="mb-4 tm-intro-text">
+                                    View your work here
+                                </p>
+                                <div class="tm-continue">
+                                    <a href="/GettingToViewWork" class="tm-intro-text tm-btn-primary">Your Work</a>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                    <!-- second row -->
+                </div>
+                <div class="row tm-content-box"><!-- third row -->
+                    <th:block th:if="${acc.equals('4')}">
+                        <div class="col-lg-1">
+                            <i class="fas fa-3x fa-fingerprint text-center tm-icon"
+                                style="color: rgb(13, 110, 253)"></i>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="tm-intro-text-container">
+                                <h2 class="tm-text-primary mb-4">Tacticle Analysis</h2>
+                                <p class="mb-4 tm-intro-text">
+                                    View Analysis here
+                                </p>
+                                <div class="tm-continue">
+                                    <a th:href="@{chart}" class="tm-intro-text tm-btn-primary">Analysis</a>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                    <th:block th:if="${acc.equals('3')}">
+                        <div class="col-lg-1">
+                            <i class="fas fa-3x fa-users text-center tm-icon" style="color: rgb(13, 110, 253)"></i>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="tm-intro-text-container">
+                                <h2 class="tm-text-primary mb-4">View Student</h2>
+                                <p class="mb-4 tm-intro-text">
+                                    View all of your student under your Faculty right here
+                                </p>
+                                <div class="tm-continue">
+                                    <a href="/GettingToViewStudent" class="tm-intro-text tm-btn-primary">Students
+                                        View</a>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                </div><!-- third row -->
+
+                <div class="row tm-content-box"><!-- fourth row -->
+                    <th:block th:if="${acc.equals('1')}">
+                        <div class="col-lg-1">
+                            <i class="fas fa-3x fa-fingerprint text-center tm-icon"
+                                style="color: rgb(13, 110, 253)"></i>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="tm-intro-text-container">
+                                <h2 class="tm-text-primary mb-4">Admin Page</h2>
+                                <p class="mb-4 tm-intro-text">
+                                    Only Admin can access
+                                </p>
+                                <div class="tm-continue">
+                                    <a href="/account/view" class="tm-intro-text tm-btn-primary">Access</a>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                    <th:block th:if="${acc.equals('4')}">
+                        <div class="col-lg-1">
+                            <i class="fas fa-3x fa-users text-center tbi bi-archive"
+                                style="color: rgb(13, 110, 253)"></i>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="tm-intro-text-container">
+                                <h2 class="tm-text-primary mb-4">View all Student Work</h2>
+                                <p class="mb-4 tm-intro-text">
+                                    View all of your student work
+                                </p>
+                                <div class="tm-continue">
+                                    <a href="/Contribution/View" class="tm-intro-text tm-btn-primary">View all
+                                        Article</a>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+
+                <div class="row tm-content-box"><!-- fourth row -->
+                    <th:block th:if="${acc.equals('5')}">
+                        <div class="col-lg-1">
+                            <i class="fas fa-3x fa-fingerprint text-center tm-icon"
+                                style="color: rgb(13, 110, 253)"></i>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="tm-intro-text-container">
+                                <h2 class="tm-text-primary mb-4">Report for Guest</h2>
+                                <p class="mb-4 tm-intro-text">
+                                    Guest Faculty Report
+                                </p>
+                                <div class="tm-continue">
+                                    <a href="/chart1" class="tm-intro-text tm-btn-primary">Access</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="tm-section-pad-top tm-parallax-2">
+            <div class="container tm-testimonials-content">
+                <div class="row">
+                    <div class="col-lg-12 tm-content-box">
+                        <a th:href="@{/DownloadAllFileHome}">Download all</a>
+                        <table class="table">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Author</th>
+                                    <th>Description</th>
+                                    <th>Academic year</th>
+                                    <th>Download</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!--                 <tr th:each="AcademicYear: ${Fals}">-->
+                                <!--                        <td th:text="${AcademicYear.name}"></td>-->
+                                <tr th:each="con : ${cons}">
+                                    <td th:text="${con.name}"></td>
+                                    <td th:text="${con.description}"></td>
+                                    <td th:text="${con.academicYearId}"></td>
+                                    <td><a th:href="@{http://localhost:8090/Fi/files/__${con.path}__}">Download</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            </div><!-- first row -->
-            <div class="row tm-content-box">
-                <th:block th:if="${acc.equals('1')}">
-                    <div class="col-lg-1">
-                        <i class="fa fa-book fa-3x" style="color: rgb(13, 110, 253)"></i>
-                    </div>
-                    <div class="col-lg-5">
-                        <div class="tm-intro-text-container">
-                            <h2 class="tm-text-primary mb-4">Views Contributions here</h2>
-                            <p class="mb-4 tm-intro-text">
-                                only for manager
-                            </p>
-                            <div class="tm-continue">
-                                <a href="/Contribution/View" class="tm-intro-text tm-btn-primary">View Contributions</a>
-                            </div>
-                        </div>
-                    </div>
-                </th:block>
-                <th:block th:if="${acc.equals('2')}">
-                    <div class="col-lg-1">
-                        <i class="fa fa-book fa-3x" style="color: rgb(13, 110, 253)"></i>
-                    </div>
-                    <div class="col-lg-5">
-                        <div class="tm-intro-text-container">
-                            <h2 class="tm-text-primary mb-4">View your Work</h2>
-                            <p class="mb-4 tm-intro-text">
-                                View your work here
-                            </p>
-                            <div class="tm-continue">
-                                <a href="/GettingToViewWork" class="tm-intro-text tm-btn-primary">Your Work</a>
-                            </div>
-                        </div>
-                    </div>
-                </th:block>
-                <!-- second row -->
             </div>
-            <div class="row tm-content-box"><!-- third row -->
-                <th:block th:if="${acc.equals('4')}">
-                    <div class="col-lg-1">
-                        <i class="fas fa-3x fa-fingerprint text-center tm-icon" style="color: rgb(13, 110, 253)"></i>
-                    </div>
-                    <div class="col-lg-5">
-                        <div class="tm-intro-text-container">
-                            <h2 class="tm-text-primary mb-4">Tacticle Analysis</h2>
-                            <p class="mb-4 tm-intro-text">
-                                View Analysis here
-                            </p>
-                            <div class="tm-continue">
-                                <a th:href="@{chart}" class="tm-intro-text tm-btn-primary">Analysis</a>
-                            </div>
-                        </div>
-                    </div>
-                </th:block>
-                <th:block th:if="${acc.equals('3')}">
-                    <div class="col-lg-1">
-                        <i class="fas fa-3x fa-users text-center tm-icon" style="color: rgb(13, 110, 253)"></i>
-                    </div>
-                    <div class="col-lg-5">
-                        <div class="tm-intro-text-container">
-                            <h2 class="tm-text-primary mb-4">View Student</h2>
-                            <p class="mb-4 tm-intro-text">
-                                View all of your student under your Faculty right here
-                            </p>
-                            <div class="tm-continue">
-                                <a href="/GettingToViewStudent" class="tm-intro-text tm-btn-primary">Students View</a>
-                            </div>
-                        </div>
-                    </div>
-                </th:block>
-            </div><!-- third row -->
-
-            <div class="row tm-content-box"><!-- fourth row -->
-                <th:block th:if="${acc.equals('1')}">
-                    <div class="col-lg-1">
-                        <i class="fas fa-3x fa-fingerprint text-center tm-icon" style="color: rgb(13, 110, 253)"></i>
-                    </div>
-                    <div class="col-lg-5">
-                        <div class="tm-intro-text-container">
-                            <h2 class="tm-text-primary mb-4">Admin Page</h2>
-                            <p class="mb-4 tm-intro-text">
-                                Only Admin can access
-                            </p>
-                            <div class="tm-continue">
-                                <a href="/account/view" class="tm-intro-text tm-btn-primary">Access</a>
-                            </div>
-                        </div>
-                    </div>
-                </th:block>
-                <th:block th:if="${acc.equals('4')}">
-                    <div class="col-lg-1">
-                        <i class="fas fa-3x fa-users text-center tbi bi-archive" style="color: rgb(13, 110, 253)"></i>
-                    </div>
-                    <div class="col-lg-5">
-                        <div class="tm-intro-text-container">
-                            <h2 class="tm-text-primary mb-4">View all Student Work</h2>
-                            <p class="mb-4 tm-intro-text">
-                                View all of your student work
-                            </p>
-                            <div class="tm-continue">
-                                <a href="/Contribution/View" class="tm-intro-text tm-btn-primary">View all Article</a>
-                            </div>
-                        </div>
-                    </div>
-                </th:block>
-            </div>
-
-            <div class="row tm-content-box"><!-- fourth row -->
-                <th:block th:if="${acc.equals('5')}">
-                    <div class="col-lg-1">
-                        <i class="fas fa-3x fa-fingerprint text-center tm-icon" style="color: rgb(13, 110, 253)"></i>
-                    </div>
-                    <div class="col-lg-5">
-                        <div class="tm-intro-text-container">
-                            <h2 class="tm-text-primary mb-4">Report for Guest</h2>
-                            <p class="mb-4 tm-intro-text">
-                                Guest Faculty Report
-                            </p>
-                            <div class="tm-continue">
-                                <a href="/chart1" class="tm-intro-text tm-btn-primary">Access</a>
-                            </div>
-                        </div>
-
-                    </div>
-                </th:block>
-            </div>
-        </div>
-    </section>
-
-    <section id="testimonials" class="tm-section-pad-top tm-parallax-2">
-        <div class="container tm-testimonials-content">
+            <div class="tm-bg-overlay"></div>
+        </section>
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-12 tm-content-box">
-                    <a th:href="@{/DownloadAllFileHome}">Download all</a>
-                    <table class="table">
-                        <thead class="table-dark">
-                        <tr>
-                            <th>Author</th>
-                            <th>Description</th>
-                            <th>Academic year</th>
-                            <th>Download</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <!--                 <tr th:each="AcademicYear: ${Fals}">-->
-                        <!--                        <td th:text="${AcademicYear.name}"></td>-->
-                        <tr th:each="con : ${cons}">
-                            <td th:text="${con.name}"></td>
-                            <td th:text="${con.description}"></td>
-                            <td th:text="${con.academicYearId}"></td>
-                            <td><a th:href="@{http://localhost:8090/Fi/files/__${con.path}__}">Download</a></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="tm-bg-overlay"></div>
-    </section>
-    <div class="container-fluid">
-        <div class="row">
-            <!--                        H.Phuoc-->
-            <div class="col-lg-12">
-                <div id="map">
-                    <iframe src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=160%20%C4%90.%2030%20Th%C3%A1ng%204,%20An%20Ph%C3%BA,%20Ninh%20Ki%E1%BB%81u,%20C%E1%BA%A7n%20Th%C6%A1,%20Vi%E1%BB%87t%20Nam+(School)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+                <!--                        H.Phuoc-->
+                <div class="col-lg-12">
+                    <div id="map">
+                        <iframe
+                            src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=160%20%C4%90.%2030%20Th%C3%A1ng%204,%20An%20Ph%C3%BA,%20Ninh%20Ki%E1%BB%81u,%20C%E1%BA%A7n%20Th%C6%A1,%20Vi%E1%BB%87t%20Nam+(School)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
                             width="100%" height="450px" frameborder="0"
                             style="border:0; border-radius: 5px; position: relative; z-index: 2;"
                             allowfullscreen=""></iframe>
-                </div>
-                <div id="map">
-                    <iframe src="https://lookerstudio.google.com/reporting/dded5470-dec0-429c-9e62-609001393340"
-                    width="600" height="920" frameborder="0"
-                            style="border:0"
-                            allowfullscreen=""></iframe>
+                    </div>
                 </div>
             </div>
-        </div>
 
+        </div>
     </div>
-</div>
 </body>
+
 </html>

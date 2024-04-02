@@ -1,23 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Embedded Looker Report</title>
 </head>
-<body>
+<body style="height: auto;">
+    
     <h1>Embedded Looker Report</h1>
-    <div id="lookerEmbed" style="width: 100%; height: 800px;"></div>
-
-    <!-- Looker Embed SDK -->
-    <script src="https://lookerstudio.google.com/embed/public/latest/looker_embed.js"></script>
-
-    <script>
-        // Initialize Looker embed
-        LookerEmbed.init(
-            "https://lookerstudio.google.com/embed/reporting/dded5470-dec0-429c-9e62-609001393340", // Replace with your actual Looker report ID
-            "lookerEmbed" // ID of the div where the report should be embedded
-        );
-    </script>
+    <iframe src="https://lookerstudio.google.com/embed/reporting/dded5470-dec0-429c-9e62-609001393340/page/kIV1C" frameborder="0" style="border:0; width: 100%; height: 1000px;" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
 </body>
 </html>
