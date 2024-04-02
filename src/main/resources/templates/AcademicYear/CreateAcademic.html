@@ -33,24 +33,13 @@
     <!-- End Google Tag Manager (noscript) -->
 
     <div layout:fragment="content">
-        <h1>Welcome to Admin Page</h1>
+        <h1>Create new Academic Year</h1>
         <form th:action="@{/Academic/Hello}" method="post">
-            <label for="name">Name:</label><br>
-            <input type="text" id="name" name="name" class="form-control"><br>
-
-            <label for="id">ID:</label><br>
-            <input type="text" id="id" name="id"><br>
-
-            <label for="yearOfAcademic">academic year:</label><br>
-            <input type="text" id="yearOfAcademic" name="yearOfAcademic" class="form-control"><br>
-
-            <label for="startDate">start date:</label><br>
+            <label class="fw-bolder" for="startDate">Closure Date:</label><br>
             <input type="Date" id="startDate" name="startDate" class="form-control"><br>
-
-            <label for="endDate">end date:</label><br>
+            <label class="fw-bolder" for="endDate">Final Closure Date:</label><br>
             <input type="Date" id="endDate" name="endDate" class="form-control"><br>
-
-            <input type="submit" value="Submit">
+            <button class="btn btn-primary" type="submit">Create New</button>
         </form>
     </div>
 </body>

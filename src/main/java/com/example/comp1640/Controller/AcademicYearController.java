@@ -4,6 +4,7 @@ import com.example.comp1640.Service.AccountService;
 import com.example.comp1640.model.AcademicYear;
 import com.example.comp1640.model.Account;
 import com.example.comp1640.repository.AcademicYearRepository;
+import com.example.comp1640.repository.AcademicYearRepositoryInterface;
 import com.example.comp1640.repository.AccountRepositoryTest;
 import com.example.comp1640.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RequestMapping("/Academic")
 @Controller
@@ -27,16 +25,18 @@ public class AcademicYearController
 
     @Autowired
     AcademicYearRepository academicYearRepository;
-
+    @Autowired
+    AcademicYearRepositoryInterface academicYearRepositoryInterface;
     @Autowired
     private AccountService accountService;
 
     @PostMapping("/Hello")
-    public String Create(@RequestParam("id") String id, @RequestParam("name") String name,
-                         @RequestParam("yearOfAcademic") String yearOfAcademic, @RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate, Model model){
+    public String Create(@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate, Model model){
         accountService.checkRole("Admin");
-        academicYearRepository.CreateAcademicYear(id, name, yearOfAcademic, startDate, endDate);
-        System.out.println("AcademicYear Controller Runed");
+        String id = UUID.randomUUID().toString();
+        String yearOfAcademic = generateAcademicYear(LocalDate.now(), endDate);
+        AcademicYear academicYear = new AcademicYear(id, null, yearOfAcademic, startDate, endDate);
+        academicYearRepositoryInterface.save(academicYear);
         return "redirect:/Academic/View";
     }
     @GetMapping("/CreateAcademicYear") 
@@ -64,14 +64,18 @@ public class AcademicYearController
     }
 
     @PostMapping("/Updating")
-    public String UpdatePostAcademicYear(@RequestParam("id") String id, @RequestParam("name") String name,
-    @RequestParam("yearOfAcademic") String yearOfAcademic, @RequestParam("closureDate") LocalDate closureDate, @RequestParam("finalClosureDate") LocalDate finalClosureDate, Model model){
-        System.out.println("Controller Run");
+    public String UpdatePostAcademicYear(@RequestParam("id") String id,@RequestParam("closureDate") LocalDate closureDate, @RequestParam("finalClosureDate") LocalDate finalClosureDate, Model model){
         accountService.checkRole("Admin");
         Map<String, Object> dataFromToken = JwtUtils.decodeToken(id);
         String decodedid = dataFromToken.get("id").toString();
-        academicYearRepository.UpdateAcademicYear(decodedid, name, yearOfAcademic, closureDate, finalClosureDate);;
-        System.out.println("Updated");
+        Optional<AcademicYear> optionalAcademicYear = academicYearRepositoryInterface.findById(decodedid);
+        AcademicYear academicYear = optionalAcademicYear.get();
+        String[] partsYear = academicYear.getYearOfAcademic().split("\\s+");
+        String year = partsYear[0];
+        academicYear.setYearOfAcademic(generateAcademicYear(year, finalClosureDate));
+        academicYear.setClosureDate(closureDate);
+        academicYear.setFinalClosureDate(finalClosureDate);
+        academicYearRepositoryInterface.save(academicYear);
         return "redirect:/Academic/View";
     }
 
@@ -99,8 +103,14 @@ public class AcademicYearController
     }
     public Account returnAccount(){
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Optional<Account> account = accountRepo.findAccountByMail(authentication.getName());
-        Account accounts = account.get();
-        return accounts;
+        Optional<Account> acc = accountRepo.findAccountByMail(authentication.getName());
+        Account account = accountService.getOne(acc.get().getId());
+        return account;
+    }
+    public String generateAcademicYear(LocalDate closureDate, LocalDate finalClosureDate){
+        return closureDate.getYear() + " - " + finalClosureDate.getYear();
+    }
+    public String generateAcademicYear(String startYear , LocalDate finalClosureDate){
+        return startYear + " - " + finalClosureDate.getYear();
     }
 }
