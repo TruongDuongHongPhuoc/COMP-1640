@@ -85,8 +85,7 @@
                         <br>
                     </div>
                     <form th:action="@{'/FeedBack/feedbackcreate/' + ${con.id}}" method="post">
-                        <input type="hidden" name="userid" th:value="${account.getId()}">
-                        <input type="hidden" name="contributionId" th:value="${con.id}">
+                        <input type="hidden" name="token" th:value="${toKen}">
                         <!--                    <input class="form-control" type="text" name="content">-->
                         <!--                    <button type="submit">Submit</button>-->
                         <th:block th:if="${isDead > 0 || isDead == 0}">
