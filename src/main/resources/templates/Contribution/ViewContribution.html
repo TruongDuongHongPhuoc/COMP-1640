@@ -39,11 +39,11 @@
 
     <div layout:fragment="content">
 
-        <h1 id="contentHeader">Contribution management</h1>
+        <h1 id="contentHeader">Contribution Management</h1>
 
         <form action="/Contribution/downloadmethod" method="get">
             <div th:if="${!dateCheck}">
-                <button type="submit" class="btn btn-success">Download Selected</button>
+                <button type="submit" class="btn btn-success mb-4">Download Selected</button>
             </div>
             <div th:if="${dateCheck}">
                 <button class="btn btn-secondary">The academic year hasn't ended yet</button>
@@ -66,39 +66,22 @@
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>
-                                    <tr>
-                                        <th>select</th>
-                                        <th>Name</th>
-                                        <th>Description</th>
-                                        <th>Submitedate</th>
-                                        <th>Status</th>
-                                        <th>Academicyear</th>
-                                        <th>Facultyid</th>
-                                        <th>Download</th>
-                                        <th>SetPublic</th>
-                                        <th>View Feedback</th>
+                                    <tr class="align-middle">
+                                        <th></th>
+                                        <th class="text-center">Name</th>
+                                        <th class="text-center">Description</th>
+                                        <th class="text-center">Submite date</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-center">Academic year</th>
+                                        <th class="text-center">Faculty</th>
+                                        <th class="text-center">Download</th>
+                                        <th class="text-center">Set public</th>
+                                        <th class="text-center">Feedbacks</th>
                                         <th:Block th:if="${acc.getRoleId().equals('1')}">
-                                        <th>Delete</th>
+                                        <th class="text-center">Delete</th>
                                         </th:Block>
                                     </tr>
                                     </thead>
-                                    <tfoot>
-                                    <tr>
-                                        <th>select</th>
-                                        <th>Name</th>
-                                        <th>Description</th>
-                                        <th>Submitedate</th>
-                                        <th>Status</th>
-                                        <th>Academicyear</th>
-                                        <th>Facultyid</th>
-                                        <th>Download</th>
-                                        <th>SetPublic</th>
-                                        <th>View Feedback</th>
-                                        <th:Block th:if="${acc.getRoleId().equals('1')}">
-                                        <th>Delete</th>
-                                        </th:Block>
-                                    </tr>
-                                    </tfoot>
                                     <tbody>
                                     <th:block th:each="fal:${cons}">
                                         <tr>
@@ -113,17 +96,17 @@
                                             <td th:text="${fal.academicYearId}"></td>
                                             <td th:text="${fal.facultyId}"></td>
                                             <td>
-                                                <a th:href="@{http://localhost:8090/Fi/files/__${fal.path}__}">Download</a>
+                                                <a class="btn btn-success" th:href="@{http://localhost:8090/Fi/files/__${fal.path}__}">Download</a>
                                             </td>
                                             <td>
-                                                <a th:href="@{/Contribution/SetPublic/{id}(id = ${fal.getId()})}">SetPublic</a>
+                                                <a class="btn btn-info" th:href="@{/Contribution/SetPublic/{id}(id = ${fal.getId()})}">Set</a>
                                             </td>
                                             <td>
-                                                <a th:href="@{/FeedBack/ViewFeedback/{id}(id = ${fal.getId()})}">View Feedback</a>
+                                                <a class="btn btn-primary" th:href="@{/FeedBack/ViewFeedback/{id}(id = ${fal.getId()})}">View</a>
                                             </td>
                                             <th:Block th:if="${acc.getRoleId().equals('1')}">
                                             <td>
-                                                <a th:href="@{/Contribution/DeleteForAdmin/{id}(id = ${fal.getId()})}">Delete</a>
+                                                <a class="btn btn-danger" th:href="@{/Contribution/DeleteForAdmin/{id}(id = ${fal.getId()})}">Delete</a>
                                             </td>
                                             </th:Block>
                                         </tr>

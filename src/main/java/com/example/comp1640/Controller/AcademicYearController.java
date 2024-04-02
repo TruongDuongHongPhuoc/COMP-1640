@@ -33,15 +33,10 @@ public class AcademicYearController
     public String Create(@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate, Model model){
         accountService.checkRole("Admin");
         String id = UUID.randomUUID().toString();
-        String yearOfAcademic = genergateAcademicYear(LocalDate.now(), endDate);
+        String yearOfAcademic = generateAcademicYear(LocalDate.now(), endDate);
         AcademicYear academicYear = new AcademicYear(id, null, yearOfAcademic, startDate, endDate);
         academicYearRepositoryInterface.save(academicYear);
         return "redirect:/Academic/View";
-    }
-
-    public String genergateAcademicYear(LocalDate closureDate, LocalDate finalClosureDate){
-        String academicYear = closureDate.getYear() + " - " + finalClosureDate.getYear();
-        return academicYear;
     }
     @GetMapping("/CreateAcademicYear") 
     public String CreateAcademicYear(Model model){
@@ -72,8 +67,11 @@ public class AcademicYearController
         accountService.checkRole("Admin");
         Map<String, Object> dataFromToken = JwtUtils.decodeToken(id);
         String decodedid = dataFromToken.get("id").toString();
-        Optional<AcademicYear> optionalAcademicYear = academicYearRepositoryInterface.findById(id);
+        Optional<AcademicYear> optionalAcademicYear = academicYearRepositoryInterface.findById(decodedid);
         AcademicYear academicYear = optionalAcademicYear.get();
+        String[] partsYear = academicYear.getYearOfAcademic().split("\\s+");
+        String year = partsYear[0];
+        academicYear.setYearOfAcademic(generateAcademicYear(year, finalClosureDate));
         academicYear.setClosureDate(closureDate);
         academicYear.setFinalClosureDate(finalClosureDate);
         academicYearRepositoryInterface.save(academicYear);
@@ -104,8 +102,14 @@ public class AcademicYearController
     }
     public Account returnAccount(){
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Optional<Account> account = accountRepo.findAccountByMail(authentication.getName());
-        Account accounts = account.get();
-        return accounts;
+        Optional<Account> acc = accountRepo.findAccountByMail(authentication.getName());
+        Account account = accountService.getOne(acc.get().getId());
+        return account;
+    }
+    public String generateAcademicYear(LocalDate closureDate, LocalDate finalClosureDate){
+        return closureDate.getYear() + " - " + finalClosureDate.getYear();
+    }
+    public String generateAcademicYear(String startYear , LocalDate finalClosureDate){
+        return startYear + " - " + finalClosureDate.getYear();
     }
 }
