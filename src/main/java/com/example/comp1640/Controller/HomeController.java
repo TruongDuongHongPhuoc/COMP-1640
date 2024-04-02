@@ -187,5 +187,9 @@ public class HomeController {
        model.addAttribute("acc",account);
         return "WelcomeFirstTime";
     }
+    @GetMapping("/forgotsomething")
+    public String ff(Model model){
+        return "reset_password_form";
+    }
 
 }
