@@ -11,15 +11,14 @@ import com.example.comp1640.repository.FeedbackRepository;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.UUID;
+import java.util.*;
+
+import com.example.comp1640.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/FeedBack")
@@ -77,9 +76,12 @@ public class FeedBackController {
     }
 
     @PostMapping("/feedbackcreate/{idcontri}")
-    public String CreateFeedback(@RequestParam("content") String content, @RequestParam("userid") String userid,
-            @PathVariable("idcontri") String contributionId, Model model) {
-
+    public String CreateFeedback(@RequestParam("content") String content,
+                                 @RequestParam("token") String token,
+                                 Model model) {
+        Map<String, Object> dataFromToken = JwtUtils.decodeToken(token);
+        String userid = dataFromToken.get("acc").toString();
+        String contributionId = dataFromToken.get("id").toString();
         accountService.checkRoles("Marketing Coordinator","Student");
         String id = UUID.randomUUID().toString();
 
@@ -104,6 +106,12 @@ public class FeedBackController {
         LocalDate currentdate = LocalDate.now();
         int compare = Deadline.compareTo(currentdate);
 
+        Map<String, String> dataToToken = new HashMap<>();
+        dataToToken.put("id", con.getId());
+        dataToToken.put("acc",account.getId());
+        String dataToken = JwtUtils.generateToken(dataToToken);
+
+        model.addAttribute("toKen",dataToken);
         model.addAttribute("isDead",compare);
         model.addAttribute("feds",feds);
         model.addAttribute("con",con);

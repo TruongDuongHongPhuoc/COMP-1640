@@ -81,37 +81,36 @@
                 <a class="btn btn-info" th:href="@{http://localhost:8090/Fi/files/__${con.path}__}">Download</a><br>
             </div>
 
-            <!-- Right Column for FeedbackLog details -->
-            <div class="col-md-6" style="border: 1px solid black ">
-                <h1>FeedbackLog</h1>
+                <!-- Right Column for FeedbackLog details -->
+                <div class="col-md-6" style="border: 1px solid black ">
+                    <h1>FeedbackLog</h1>
 
-                <div class="scrollable-container" id="scrollableContainer">
-                    <th:block th:each="fed : ${feds}">l>
-                        <th:block th:each="account : ${listacc}" th:if="${account.id == fed.userId}">
-                            <label th:text="${account.getName().toString()}"></label>
+                    <div class="scrollable-container" id="scrollableContainer">
+                        <th:block th:each="fed : ${feds}">l>
+                            <th:block th:each="account : ${listacc}" th:if="${account.id == fed.userId}">
+                                <label th:text="${account.getName().toString()}"></label>
+                            </th:block>
+                            <!--                    <label class="form-control" type="text" th:value="${fed.localDateTime.toString()}" readonly><br>-->
+                            <p class="fst-italic text-muted text-right"
+                                th:text="${#temporals.format(fed.getLocalDateTime(), 'dd-MM-yyy HH:mm:ss')}"></p>
+                            <input class="form-control" type="text" th:value="${fed.content}" readonly><br>
                         </th:block>
-                        <!--                    <label class="form-control" type="text" th:value="${fed.localDateTime.toString()}" readonly><br>-->
-                        <p class="fst-italic text-muted text-right"
-                           th:text="${#temporals.format(fed.getLocalDateTime(), 'dd-MM-yyy HH:mm:ss')}"></p>
-                        <input class="form-control" type="text" th:value="${fed.content}" readonly><br>
-                    </th:block>
-                    <br>
-                </div>
-                <form th:action="@{'/FeedBack/feedbackcreate/' + ${con.id}}" method="post">
-                    <input type="hidden" name="userid" th:value="${account.getId()}">
-                    <input type="hidden" name="contributionId" th:value="${con.id}">
-                    <!--                    <input class="form-control" type="text" name="content">-->
-                    <!--                    <button type="submit">Submit</button>-->
-                    <th:block th:if="${isDead > 0 || isDead == 0}">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <th:block th:if="${!account.getRoleId().equals('4')}">
-                                    <button class="btn btn-primary" type="submit">Comment</button>
-                                </th:block>
+                        <br>
+                    </div>
+                    <form th:action="@{'/FeedBack/feedbackcreate/' + ${con.id}}" method="post">
+                        <input type="hidden" name="token" th:value="${toKen}">
+                        <!--                    <input class="form-control" type="text" name="content">-->
+                        <!--                    <button type="submit">Submit</button>-->
+                        <th:block th:if="${isDead > 0 || isDead == 0}">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <th:block th:if="${!account.getRoleId().equals('4')}">
+                                        <button class="btn btn-primary" type="submit">Comment</button>
+                                    </th:block>
+                                </div>
+                                <input class="form-control" type="text" name="content" aria-label=""
+                                    aria-describedby="basic-addon1">
                             </div>
-                            <input class="form-control" type="text" name="content" aria-label=""
-                                   aria-describedby="basic-addon1">
-                        </div>
                     </th:block>
                 </form>
             </div>
