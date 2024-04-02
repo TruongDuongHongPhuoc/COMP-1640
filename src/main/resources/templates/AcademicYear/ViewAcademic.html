@@ -52,56 +52,36 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
-                        DataTable Example
+                        DataTable Academic years
                     </div>
                     <div>
-                        <a th:href="@{/Academic/CreateAcademicYear}">Create</a>
+                        <a class="btn btn-primary" th:href="@{/Academic/CreateAcademicYear}">Create new Academic year</a>
                     </div>
                     <div class="card-body">
                         <table id="datatablesSimple">
                             <thead>
                             <tr>
-                                <th>id</th>
-                                <th>Name</th>
                                 <th>Year</th>
-                                <th>start Date</th>
-                                <th>End date</th>
+                                <th>Closure Date</th>
+                                <th>Final Closure Date</th>
                                 <th:block th:if="${acc.getRoleId().equals('1')}">
                                     <th>Delete</th>
                                     <th>Update</th>
                                 </th:block>
                             </tr>
                             </thead>
-                            <tfoot>
-                            <tr>
-                                <th>id</th>
-                                <th>Name</th>
-                                <th>Year</th>
-                                <th>start Date</th>
-                                <th>End date</th>
-                                <th:block th:if="${acc.getRoleId().equals('1')}">
-                                    <th>Delete</th>
-                                    <th>Update</th>
-                                </th:block>
-                            </tr>
-                            </tfoot>
                             <tbody>
                             <tr th:each="AcademicYear: ${Fals}">
-                                <td th:text="${AcademicYear.name}"></td>
-                                <td th:text="${AcademicYear.id}"></td>
                                 <td th:text="${AcademicYear.getYearOfAcademic()}"></td>
                                 <td th:text="${AcademicYear.getClosureDate().toString()}"></td>
                                 <td th:text="${AcademicYear.getFinalClosureDate().toString()}"></td>
                                 <th:block th:if="${acc.getRoleId().equals('1')}">
                                     <td>
-                                        <!--                      <form th:action="@{/Academic/Delete}" method="post">-->
-                                        <!--                        <input type="hidden" name="id" th:value="${AcademicYear.id}">-->
-                                        <!--                        <button type="submit" class="btn btn-primary">Delete</button>-->
-                                        <!--                      </form>-->
-                                        <a th:href="@{/Academic/DeleteGet/{id}(id = ${AcademicYear.id})}">Delete</a>
+                                        </form>
+                                        <a class="btn btn-danger" th:href="@{/Academic/DeleteGet/{id}(id = ${AcademicYear.id})}">Delete</a>
                                     </td>
                                     <td>
-                                        <a th:href="@{/Academic/Update/{id}(id = ${AcademicYear.id})} ">update</a>
+                                        <a class="btn btn-primary" th:href="@{/Academic/Update/{id}(id = ${AcademicYear.id})} ">Update</a>
                                     </td>
                                 </th:block>
                             </tr>

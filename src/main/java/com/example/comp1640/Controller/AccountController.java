@@ -168,9 +168,6 @@ public class AccountController {
             e.printStackTrace();
             return null;
         }
-        // System.out.println(account);
-        // System.out.println((editAccount));
-        // System.out.println(file);
         model.addAttribute("account", editAccount);
         model.addAttribute("faculty", falRepo.findAll());
         model.addAttribute("role", roleRepo.findAll());
