@@ -1,35 +1,60 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="Layout/_Admin">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_Admin">
+
 <head>
     <title>
         Faculties manager page
     </title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNDQ069VVF"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-GNDQ069VVF');
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-NJXG26NL');</script>
+    <!-- End Google Tag Manager -->
 </head>
+
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJXG26NL" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
-<div layout:fragment="content">
-<h1>Welcome to Create Faculty Page</h1>
-<form th:action="@{/Hello}" method="post">
-    <label for="name">Name:</label><br>
-    <input class="form-control form-control-lg" type="text" id="name" name="name"><br>
+    <div layout:fragment="content">
+        <h1>Welcome to Create Faculty Page</h1>
+        <form th:action="@{/Hello}" method="post">
+            <label for="name">Name:</label><br>
+            <input class="form-control form-control-lg" type="text" id="name" name="name"><br>
 
-    <label for="id">ID:</label><br>
-    <input class="form-control form-control-lg" type="text" id="id" name="id"><br>
+            <label for="id">ID:</label><br>
+            <input class="form-control form-control-lg" type="text" id="id" name="id"><br>
 
-    <label for="description">Description:</label><br>
-    <input class="form-control form-control-lg" type="text" id="description" name="description"><br>
+            <label for="description">Description:</label><br>
+            <input class="form-control form-control-lg" type="text" id="description" name="description"><br>
 
-    <label for="academicYear">Academic Year ID:</label><br>
-    <select id="academicYear" name="academicYear" class="form-select" aria-label="Default select example">
-        <tr th:each="aca : ${aca1}">
-            <option th:value="${aca.id}" th:text="${aca.id}"></option>
-        </tr>
-    </select>
+            <label for="academicYear">Academic Year ID:</label><br>
+            <select id="academicYear" name="academicYear" class="form-select" aria-label="Default select example">
+                <tr th:each="aca : ${aca1}">
+                    <option th:value="${aca.id}" th:text="${aca.id}"></option>
+                </tr>
+            </select>
 
-    <input class="btn btn-primary" type="submit" value="Submit">
-</form>
-</div>
+            <input class="btn btn-primary" type="submit" value="Submit">
+        </form>
+    </div>
 </body>
+
 </html>

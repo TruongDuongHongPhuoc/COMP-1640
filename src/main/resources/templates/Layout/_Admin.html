@@ -85,16 +85,18 @@
 </style>
 <body class="sb-nav-fixed">
   <div class=" sidenav" id="demo">
+    <a href="/home" ><i class="fa fa-home"></i>HomePage</a>
     <a href="/Contribution/View"><i class="fa fa-book"></i> Contribution manage</a>
+    <th:block th:if="${acc.getRoleId().equals('1')}">
     <a href="/Academic/View"><i class="fa fa-graduation-cap"></i> Academic Manage</a>
     <a href="/view"><i class="fa fa-briefcase"></i> Faculty Manage</a>
-    <a href="/Role/View"><i class="fa fa-user-o"></i> Role manage </a>
-    <a href="/account/view"><i class="fa fa-user-o"></i> Account manage </a>
-    <a href="/chart"><i class="fa fa-user-o"></i> Statistical Analysis </a>
+    <a href="/Role/View"><i class="fa fa-suitcase"></i> Role manage </a>
+    <a href="/account/view"><i class="fa fa-users"></i> Account manage </a>
+    </th:block>
+    <a href="/chart"><i class="fa fa-pie-chart"></i> Statistical Analysis </a>
+    <a href="/logout"><i class="fa fa-sign-out"></i> Log out </a>
   </div>
 </body>
-
-  <!-- Content Wrapper -->
   <div id="content-wrapper" class="d-flex flex-column" >
   <div class="main">
     <!-- Main Content -->
@@ -191,45 +193,46 @@
 </body>
 <script>
   // Function to filter table rows based on selected faculty
-  function filterTable() {
-    var selectedFacultyName = document.getElementById("facultyFilter").value;
-    var tableRows = document.querySelectorAll("#datatablesSimple tbody tr");
-
-    tableRows.forEach(function(row) {
-      var facultyName = row.querySelector("td:nth-child(7)").textContent.trim(); // Assuming faculty name is the 7th column
-      if (selectedFacultyName === "" || facultyName === selectedFacultyName) {
-        row.style.display = ""; // Show the row if it matches the selected faculty or no faculty is selected
-      } else {
-        row.style.display = "none"; // Hide the row if it does not match the selected faculty
-      }
-    });
-  }
-
-  // Function to handle select all button click event
-  function selectAllContributions() {
-    var selectedFacultyName = document.getElementById("facultyFilter").value;
-    var tableRows = document.querySelectorAll("#datatablesSimple tbody tr");
-
-    tableRows.forEach(function(row) {
-      var facultyName = row.querySelector("td:nth-child(7)").textContent.trim(); // Assuming faculty name is the 7th column
-      var checkbox = row.querySelector("input[type='checkbox']");
-
-      // Check if the current row matches the selected faculty or if no faculty is selected
-      if (selectedFacultyName === "" || facultyName === selectedFacultyName) {
-        checkbox.checked = true;
-      }
-    });
-  }
-
-  // Event listener for the select all button
-  document.getElementById("selectAllButton").addEventListener("click", selectAllContributions);
-
-
-  // Event listener for the select list
-  document.getElementById("facultyFilter").addEventListener("change", filterTable);
-
-  // Initially filter the table based on the selected faculty
-  filterTable();
+  // function filterTable() {
+  //   var selectedFacultyName = document.getElementById("facultyFilter").value;
+  //   var tableRows = document.querySelectorAll("#datatablesSimple tbody tr");
+  //
+  //   tableRows.forEach(function(row) {
+  //     var facultyName = row.querySelector("td:nth-child(7)").textContent.trim(); // Assuming faculty name is the 7th column
+  //     if (selectedFacultyName === "" || facultyName === selectedFacultyName) {
+  //       row.style.display = ""; // Show the row if it matches the selected faculty or no faculty is selected
+  //     } else {
+  //       row.style.display = "none"; // Hide the row if it does not match the selected faculty
+  //     }
+  //   });
+  // }
+  //
+  // // Function to handle select all button click event
+  // function selectAllContributions() {
+  //   var selectedFacultyName = document.getElementById("facultyFilter").value;
+  //   var tableRows = document.querySelectorAll("#datatablesSimple tbody tr");
+  //
+  //   tableRows.forEach(function(row) {
+  //     var facultyName = row.querySelector("td:nth-child(7)").textContent.trim(); // Assuming faculty name is the 7th column
+  //     var checkbox = row.querySelector("input[type='checkbox']");
+  //
+  //     // Check if the current row matches the selected faculty or if no faculty is selected
+  //     if (selectedFacultyName === "" || facultyName === selectedFacultyName) {
+  //       checkbox.checked = true;
+  //     }
+  //   });
+  // }
+  //
+  // // Event listener for the select all button
+  // document.getElementById("selectAllButton").addEventListener("click", selectAllContributions);
+  //
+  //
+  // // Event listener for the select list
+  // document.getElementById("facultyFilter").addEventListener("change", filterTable);
+  //
+  // // Initially filter the table based on the selected faculty
+  // filterTable();
 
 </script>
+<script src="/myjavascript/TableFillter.js"></script>
 </html>

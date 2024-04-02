@@ -1,90 +1,57 @@
 <!-- ViewFaculty.html -->
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_Admin">
+
 <head>
   <title>
     Contributions page
   </title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNDQ069VVF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-GNDQ069VVF');
+  </script>
+
+  <!-- Google Tag Manager -->
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-NJXG26NL');</script>
+  <!-- End Google Tag Manager -->
 </head>
+
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJXG26NL" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
 
   <div layout:fragment="content">
     <h1 th:text="'update for ' + ${con.name}"></h1>
-    <!--  <form th:action="@{/Contribution/Updating}" method="POST" enctype="multipart/form-data">-->
-    <!--    <table>-->
-    <!--      <thead>-->
-    <!--      <tr>-->
-    <!--        <th>name</th>-->
-    <!--        <th>Description</th>-->
-    <!--        <th>submit date</th>-->
-    <!--        <th>Status</th>-->
-    <!--        <th>academic year id</th>-->
-    <!--        <th>account id</th>-->
-    <!--        <th>faculty id</th>-->
-    <!--      </tr>-->
-    <!--      </thead>-->
-    <!--      <tbody>-->
-    <!--      <tr>-->
-    <!--        <input type="hidden" name="id" th:value="${con.id}">-->
-    <!--        <input type="hidden" name="oldfile" th:value="${con.path}">-->
-    <!--        <td><input type="text" id="name" name="name" th:value="${con.name}"></td>-->
-    <!--        <td><input type="text" id="description" name="description" th:value="${con.description}"></td>-->
-    <!--        <td><input type="text" id="submitDate" name="submitDate" th:value="${con.submitDate}"></td>-->
-    <!--        <td>-->
-    <!--          <input type="text" id="status" name="status" readonly th:value="${con.getStatus() == 0 ? 'Waiting' : (con.getStatus() == 1 ? 'Approved' : 'Rejected')}">-->
-    <!--        </td>-->
-    <!--        <td><input type="text" id="academicYearId" name="academicYearId" th:value="${con.academicYearId}"></td>-->
-    <!--        <td><input type="text" id="accountId" name="accountId" th:value="${con.accountId}"></td>-->
-    <!--        <td><input type="text" id="facultyId" name="facultyId" th:value="${con.facultyId}" readonly></td>-->
-    <!--        <td><table>-->
-    <!--          <tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>-->
-    <!--        </table></td>-->
-    <!--      </tr>-->
-    <!--      <tr>-->
-    <!--        <td colspan="7">-->
-    <!--          <input type="submit" value="Submit">-->
-    <!--        </td>-->
-    <!--      </tr>-->
-    <!--      </tbody>-->
-    <!--    </table>-->
-    <!--  </form>-->
 
-
-    <!--        <th>Description</th>-->
-    <!--        <th>submit date</th>-->
-    <!--        <th>Status</th>-->
-    <!--        <th>academic year id</th>-->
-    <!--        <th>account id</th>-->
-    <!--        <th>faculty id</th>-->
 
     <form th:action="@{/Contribution/Updating}" method="POST" enctype="multipart/form-data">
       <input type="hidden" name="token" th:value="${token}">
-      <!--<input type="hidden" name="id" th:value="${con.id}">
-      <input type="hidden" name="oldfile" th:value="${con.path}">
-      <input type="hidden" name="accountId" th:value="${con.accountId}">
-      <input type="hidden" name="facultyId" th:value="${con.facultyId}">-->
       <label for="name">Name:</label><br>
       <br>
-      <input th:value="${con.name}" type="text" class="form-control form-control-lg" id="name" name="name" readonly><br><br>
+      <input th:value="${con.name}" type="text" class="form-control form-control-lg" id="name" name="name"
+        ><br><br>
 
       <label for="description">description:</label><br>
       <input th:value="${con.description}" type="text" class="form-control form-control-lg" id="description"
         name="description"><br>
 
       <!-- <label for="submitDate">submitDate:</label><br> -->
-    <input  th:value="${con.submitDate}" type="hidden" class="form-control form-control-lg" id="submitDate" name="submitDate"><br>
-
-
-      <label for="status">status:</label><br>
-      <select id="status" name="status" th:readonly="${true}">
-        <option th:if="${con.getStatus() == 0}" value="0" selected>Waiting</option>
-        <option th:if="${con.getStatus() == 1}" value="1" selected>Approved</option>
-        <option th:if="${con.getStatus() == 2}" value="2" selected>Rejected</option>
-      </select><br>
-      <!-- <label for="academicYearId">academicYearId:</label><br> -->
-      <input th:value="${con.academicYearId}" type="hidden" class="form-control form-control-lg" id="academicYearId"
-        name="academicYearId"><br>
-      <td>
+      <input th:value="${con.submitDate}" type="hidden" class="form-control form-control-lg" id="submitDate"
+        name="submitDate"><br>
         <table>
           <tr>
             <td>File to upload:</td>

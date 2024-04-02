@@ -1,10 +1,37 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_Admin">
+
 <head>
-  <meta charset="UTF-8">
   <title>Accounts manager page</title>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNDQ069VVF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-GNDQ069VVF');
+  </script>
+
+  <!-- Google Tag Manager -->
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-NJXG26NL');</script>
+  <!-- End Google Tag Manager -->
 </head>
+
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJXG26NL" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
   <div layout:fragment="content">
     <h1>Detail information page</h1>
     <form method="POST" th:action="@{/account/reset}">
@@ -38,30 +65,31 @@
         <img src="" alt="Avatar">
       </div>
 
-    <div class="mb-3">
-    <label for="ex6" class="form-label font-weight-bold">Role</label>
-    <select class="form-select"  name="role" id="ex6">
-      <option selected th:value="${account.getRoleId()}" th:text="${account.getRoleName()}"></option>
-      <option  th:each="r:${role}" th:value="${r.id}" th:text="${r.name}"></option>
-    </select>
-    </div>
+      <div class="mb-3">
+        <label for="ex6" class="form-label font-weight-bold">Role</label>
+        <select class="form-select" name="role" id="ex6">
+          <option selected th:value="${account.getRoleId()}" th:text="${account.getRoleName()}"></option>
+          <option th:each="r:${role}" th:value="${r.id}" th:text="${r.name}"></option>
+        </select>
+      </div>
 
-<!--    <div class="mb-3">-->
-<!--    <label for="ex7" class="form-label">Faculty</label>-->
-<!--    <select name="faculty" id="ex7" class="form-select">-->
-<!--      <option selected th:value="${account.getFacultyId()}" th:text="${account.getFalcutyName()}"></option>-->
-<!--      <option th:each="f:${faculty}" th:value="${f.id}" th:text="${f.name}"></option>-->
-<!--    </select>-->
-<!--    </div>-->
+      <!--    <div class="mb-3">-->
+      <!--    <label for="ex7" class="form-label">Faculty</label>-->
+      <!--    <select name="faculty" id="ex7" class="form-select">-->
+      <!--      <option selected th:value="${account.getFacultyId()}" th:text="${account.getFalcutyName()}"></option>-->
+      <!--      <option th:each="f:${faculty}" th:value="${f.id}" th:text="${f.name}"></option>-->
+      <!--    </select>-->
+      <!--    </div>-->
 
-    <input type="hidden" name="id" th:value="${account.id}">
+      <input type="hidden" name="id" th:value="${account.id}">
 
-    <div class="mb-3 flex-column">
-      <button type="submit" class="btn btn-primary">Save</button>
-      <a class="btn btn-info" th:href="@{/account/reset/{id} (id = ${account.getId()})}">Reset password</a>
-      <a class="btn btn-secondary" th:href="@{/account/view}">Back</a>
-    </div>
-  </form>
-</div>
+      <div class="mb-3 flex-column">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a class="btn btn-info" th:href="@{/account/reset/{id} (id = ${account.getId()})}">Reset password</a>
+        <a class="btn btn-secondary" th:href="@{/account/view}">Back</a>
+      </div>
+    </form>
+  </div>
 </body>
+
 </html>

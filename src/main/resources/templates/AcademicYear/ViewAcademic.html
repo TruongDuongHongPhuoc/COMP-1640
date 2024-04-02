@@ -1,96 +1,133 @@
 <!-- ViewFalcutlty.html -->
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="Layout/_Admin">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_Admin">
+
 <head>
-  <title>Academic Years manager page</title>
+    <title>Academic Years manager page</title>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNDQ069VVF"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-GNDQ069VVF');
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-NJXG26NL');</script>
+    <!-- End Google Tag Manager -->
 </head>
+<!--   Google Tag Manager (noscript) -->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJXG26NL" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!--   End Google Tag Manager (noscript) -->
 <body>
+
 <div layout:fragment="content">
-<h1>Academic year Management</h1>
-<!--  <h1>Table </h1>-->
-  <div id="layoutSidenav_content">
-    <main>
-      <div class="container-fluid px-4">
-        <div class="card mb-4">
-          <div class="card-header">
-            <i class="fas fa-table me-1"></i>
-            DataTable Example
-          </div>
-          <div>
-            <a th:href="@{/Academic/CreateAcademicYear}">Create</a>
-          </div>
-          <div class="card-body">
-            <table id="datatablesSimple">
-              <thead>
-              <tr>
-                <th>id</th>
-                <th>Name</th>
-                <th>Year </th>
-                <th>start Date</th>
-                <th>End date</th>
-                <th:block th:if="${acc.getRoleId().equals('1')}">
-                <th>Delete</th>
-                <th>Update</th>
-                </th:block>
-              </tr>
-              </thead>
-              <tfoot>
-              <tr>
-                <th>id</th>
-                <th>Name</th>
-                <th>Year </th>
-                <th>start Date</th>
-                <th>End date</th>
-                <th:block th:if="${acc.getRoleId().equals('1')}">
-                <th>Delete</th>
-                <th>Update</th>
-                </th:block>
-              </tr>
-              </tfoot>
-              <tbody>
-              <tr th:each="AcademicYear: ${Fals}">
-                <td th:text="${AcademicYear.name}"></td>
-                <td th:text="${AcademicYear.id}"></td>
-                <td th:text="${AcademicYear.getYearOfAcademic()}"></td>
-                <td th:text="${AcademicYear.getFinalClosureDate().toString()}"></td>
-                <td th:text="${AcademicYear.getFinalClosureDate().toString()}"></td>
-                <th:block th:if="${acc.getRoleId().equals('1')}">
-                    <td>
-                      <form th:action="@{/Academic/Delete}" method="post">
-                        <input type="hidden" name="id" th:value="${AcademicYear.id}">
-                        <button type="submit" class="btn btn-primary">Delete</button>
-                      </form>
-                    </td>
-                    <td>
-                      <a th:href="@{/Academic/Update/{id}(id = ${AcademicYear.id})} ">update</a>
-                    </td>
-                </th:block>
-                  </tr>
-                </tbody>
-              </table>
+    <h1>Academic year Management</h1>
+    <!--  <h1>Table </h1>-->
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        DataTable Example
+                    </div>
+                    <div>
+                        <a th:href="@{/Academic/CreateAcademicYear}">Create</a>
+                    </div>
+                    <div class="card-body">
+                        <table id="datatablesSimple">
+                            <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>Name</th>
+                                <th>Year</th>
+                                <th>start Date</th>
+                                <th>End date</th>
+                                <th:block th:if="${acc.getRoleId().equals('1')}">
+                                    <th>Delete</th>
+                                    <th>Update</th>
+                                </th:block>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>id</th>
+                                <th>Name</th>
+                                <th>Year</th>
+                                <th>start Date</th>
+                                <th>End date</th>
+                                <th:block th:if="${acc.getRoleId().equals('1')}">
+                                    <th>Delete</th>
+                                    <th>Update</th>
+                                </th:block>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            <tr th:each="AcademicYear: ${Fals}">
+                                <td th:text="${AcademicYear.name}"></td>
+                                <td th:text="${AcademicYear.id}"></td>
+                                <td th:text="${AcademicYear.getYearOfAcademic()}"></td>
+                                <td th:text="${AcademicYear.getClosureDate().toString()}"></td>
+                                <td th:text="${AcademicYear.getFinalClosureDate().toString()}"></td>
+                                <th:block th:if="${acc.getRoleId().equals('1')}">
+                                    <td>
+                                        <!--                      <form th:action="@{/Academic/Delete}" method="post">-->
+                                        <!--                        <input type="hidden" name="id" th:value="${AcademicYear.id}">-->
+                                        <!--                        <button type="submit" class="btn btn-primary">Delete</button>-->
+                                        <!--                      </form>-->
+                                        <a th:href="@{/Academic/DeleteGet/{id}(id = ${AcademicYear.id})}">Delete</a>
+                                    </td>
+                                    <td>
+                                        <a th:href="@{/Academic/Update/{id}(id = ${AcademicYear.id})} ">update</a>
+                                    </td>
+                                </th:block>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </main>
+        </main>
     </div>
 
-  </div>
+</div>
 </body>
 <style>
-  container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    /* Adjust this value to center vertically on the page */
-  }
+    container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        /* Adjust this value to center vertically on the page */
+    }
 
-  table {
-    width: 100%;
-    /* Add other styling properties for your table here */
-  }
+    table {
+        width: 100%;
+        /* Add other styling properties for your table here */
+    }
 </style>
 
 </html>

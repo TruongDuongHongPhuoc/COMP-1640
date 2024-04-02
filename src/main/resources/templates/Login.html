@@ -1,6 +1,28 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNDQ069VVF"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-GNDQ069VVF');
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-NJXG26NL');</script>
+    <!-- End Google Tag Manager -->
+
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -12,29 +34,37 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
-<section class="vh-100">
-    <div class="container py-5 h-100">
-        <div class="row d-flex align-items-center justify-content-center h-100">
-            <div class="col-md-8 col-lg-7 col-xl-6">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
-                     class="img-fluid" alt="Phone image">
-            </div>
-            <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-                <h1>Please Log In</h1>
-                <div th:if="${param.error}">
-                    Wrong email or password.
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJXG26NL" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <section class="vh-100">
+        <div class="container py-5 h-100">
+            <div class="row d-flex align-items-center justify-content-center h-100">
+                <div class="col-md-8 col-lg-7 col-xl-6">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+                        class="img-fluid" alt="Phone image">
                 </div>
-                <div th:if="${param.logout}">
-                    You have been logged out.
-                </div>
-                <form th:action="@{/login}" method="post">
-                    <!-- Email input -->
-                    <div class="form-outline mb-4">
-                        <input type="email" name="email" id="form1Example13" class="form-control form-control-lg" />
-                        <label class="form-label" for="form1Example13">Email address</label>
+                <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+                    <h1>Please Log In</h1>
+                    <div th:if="${param.error}">
+                        Wrong email or password.
                     </div>
-                    <!-- Password input -->
+
+                    <div th:if="${param.logout}">
+                        You have been logged out.
+                    </div>
+                    <form th:action="@{/login}" method="post">
+                        <!-- Email input -->
+                        <div class="form-outline mb-4">
+                            <input type="email" name="email" id="form1Example13" class="form-control form-control-lg" />
+                            <label class="form-label" for="form1Example13">Email address</label>
+                        </div>
+
+                       <!-- Password input -->
                     <div class="form-outline mb-4">
                         <input type="password" name="password" id="form1Example23" class="form-control form-control-lg" />
                         <label class="form-label" for="form1Example23">Password</label>
@@ -50,6 +80,9 @@
         </div>
     </div>
 </section>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+
 </body>
+
 </html>

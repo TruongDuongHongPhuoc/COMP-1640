@@ -1,29 +1,64 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="Layout/_customer">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_customer">
+
 <head>
     <title>
         Feedbacks page
     </title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNDQ069VVF"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-GNDQ069VVF');
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-NJXG26NL');</script>
+    <!-- End Google Tag Manager -->
 </head>
+
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJXG26NL" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
+
 <div layout:fragment="content" style="margin-top: 20px; margin-bottom: 20px;">
     <div style="height: 50px"></div>
     <div class="container">
         <div class="row">
             <div class="col-md-6">
                 <h2>Contribution</h2>
-                <label for="name">name</label>
+                <label for="name">Name</label>
                 <input type="text" class="form-control" id="name" name="name" th:value="${con.name}" readonly>
-
                 <label for="description">Description:</label>
                 <input type="text" class="form-control" id="description" name="description"
                        th:value="${con.description}" readonly><br>
 
                 <label for="submitDate">Submit Date:</label>
-                <input type="text" class="form-control" id="submitDate" name="submitDate" th:value="${con.submitDate}"
-                       readonly><br>
+                <input type="text" class="form-control" id="submitDate" name="submitDate"
+                       th:value="${con.submitDate}" readonly><br>
 
                 <label for="status">Status:</label>
                 <input type="text" class="form-control" id="status" name="status"
@@ -34,9 +69,9 @@
                 <input type="text" class="form-control" id="academicYearId" name="academicYearId"
                        th:value="${con.academicYearId}" readonly><br>
 
-<!--                <label for="accountId">Account ID:</label>-->
-<!--                <input type="text" class="form-control" id="accountId" name="accountId" th:value="${con.accountId}"-->
-<!--                       readonly><br>-->
+                <!--                <label for="accountId">Account ID:</label>-->
+                <!--                <input type="text" class="form-control" id="accountId" name="accountId" th:value="${con.accountId}"-->
+                <!--                       readonly><br>-->
 
                 <label for="facultyId">Faculty ID:</label>
                 <input type="text" class="form-control" id="facultyId" name="facultyId" th:value="${con.facultyId}"
@@ -68,15 +103,15 @@
                     <!--                    <input class="form-control" type="text" name="content">-->
                     <!--                    <button type="submit">Submit</button>-->
                     <th:block th:if="${isDead > 0 || isDead == 0}">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                        <th:block th:if="${!account.getRoleId().equals('4')}">
-                            <button class="btn btn-primary" type="submit">Comment</button>
-                        </th:block>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <th:block th:if="${!account.getRoleId().equals('4')}">
+                                    <button class="btn btn-primary" type="submit">Comment</button>
+                                </th:block>
+                            </div>
+                            <input class="form-control" type="text" name="content" aria-label=""
+                                   aria-describedby="basic-addon1">
                         </div>
-                        <input class="form-control" type="text" name="content" aria-label=""
-                               aria-describedby="basic-addon1">
-                    </div>
                     </th:block>
                 </form>
             </div>
@@ -85,4 +120,5 @@
 
 </div>
 </body>
+
 </html>
