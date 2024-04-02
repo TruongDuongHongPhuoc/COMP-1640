@@ -67,14 +67,10 @@
 
                 <label for="academicYearId">Academic Year ID:</label>
                 <input type="text" class="form-control" id="academicYearId" name="academicYearId"
-                       th:value="${con.academicYearId}" readonly><br>
-
-                <!--                <label for="accountId">Account ID:</label>-->
-                <!--                <input type="text" class="form-control" id="accountId" name="accountId" th:value="${con.accountId}"-->
-                <!--                       readonly><br>-->
+                       th:value="${con.year}" readonly><br>
 
                 <label for="facultyId">Faculty ID:</label>
-                <input type="text" class="form-control" id="facultyId" name="facultyId" th:value="${con.facultyId}"
+                <input type="text" class="form-control" id="facultyId" name="facultyId" th:value="${con.faculty}"
                        readonly><br>
 
                 <label>Download:</label>
@@ -83,7 +79,7 @@
 
                 <!-- Right Column for FeedbackLog details -->
                 <div class="col-md-6" style="border: 1px solid black ">
-                    <h1>FeedbackLog</h1>
+                    <h1>Feedback Log</h1>
 
                     <div class="scrollable-container" id="scrollableContainer">
                         <th:block th:each="fed : ${feds}">l>
@@ -104,7 +100,7 @@
                         <th:block th:if="${isDead > 0 || isDead == 0}">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <th:block th:if="${!account.getRoleId().equals('4')}">
+                                    <th:block th:if="${!account.getRoleId().equals('4') and !account.getRoleId().equals('1')}">
                                         <button class="btn btn-primary" type="submit">Comment</button>
                                     </th:block>
                                 </div>

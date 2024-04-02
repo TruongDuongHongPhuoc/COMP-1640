@@ -37,20 +37,6 @@ public class FeedBackController {
     @Autowired
     private AccountService accountService;
 
-    // @PostMapping("/Create")
-    // public String CreateFeedback(@RequestParam("id") String id,
-    // @RequestParam("content") String content
-    // , @RequestParam("userid") String userid, @RequestParam("contributionId")
-    // String contributionId, Model model){
-    // re.CreateFeedBack(id, content, userid, contributionId);;
-    // return "redirect:/FeedBack/View";
-    // }
-
-    // @GetMapping("/CreateFeedback")
-    // public String CreatFul(){
-    // return "Feedback/CreateFeedback";
-    // }
-
     @GetMapping("/Create/{id}") // Corrected mapping without the trailing slash
     public String update(@PathVariable String id, Model model) {
         accountService.checkRole("Marketing Coordinator");
