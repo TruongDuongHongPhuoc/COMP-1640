@@ -9,5 +9,6 @@ import java.util.Optional;
 @Repository
 public interface AccountRepositoryTest extends MongoRepository<Account, String> {
     Optional<Account> findAccountByMail(String mail);
+    public Account findByResetPasswordToken(String token);
 //    Optional<Account> findAllCorrdinator(String facultyId, String role);
 }

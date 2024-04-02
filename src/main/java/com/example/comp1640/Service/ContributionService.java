@@ -6,6 +6,7 @@ import com.example.comp1640.Store.StorageService;
 import com.example.comp1640.model.AcademicYear;
 import com.example.comp1640.model.Contribution;
 import com.example.comp1640.model.Faculty;
+import com.example.comp1640.model.Feedback;
 import com.example.comp1640.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -104,6 +105,10 @@ public class ContributionService {
         Contribution con = contributionRepository.ReturnContribution(id);
         deletefile(con.getPath());
         contributionRepository.DeleteContribution(con.getId());
+        List<Feedback> feedbacksToDelete = feedbackRepository.ReturnFeedBacksWithContributionId(id);
+        for(Feedback fe : feedbacksToDelete){
+            feedbackRepository.DeleteFeedback(fe.getId());
+        }
     }
 
     public List<Contribution> attachingInfor(List<Contribution> lst){

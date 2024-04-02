@@ -48,6 +48,9 @@ public class SecurityConfig extends GlobalMethodSecurityConfiguration {
                         .requestMatchers("/home").permitAll()
                         .requestMatchers("/register").permitAll()
                         .requestMatchers("/chart2").permitAll()
+                        .requestMatchers("/account/forgotPassword").permitAll()
+                        .requestMatchers("/account/reset_password").permitAll()
+                        .requestMatchers("/account/reset_password?**").permitAll()
                         .requestMatchers("/abc").permitAll()
                         .requestMatchers("/forHomepage/**").permitAll()
                         .requestMatchers("/adminTemplate/**").permitAll()
@@ -58,7 +61,7 @@ public class SecurityConfig extends GlobalMethodSecurityConfiguration {
                         (form) -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/home", true)
+                                .defaultSuccessUrl("/CheckFirstLogin", true)
                                 .usernameParameter("email")
                                 .permitAll()
                 ) // ở day co the them exception custom

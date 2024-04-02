@@ -17,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.File;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.List;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
@@ -46,7 +48,7 @@ public class HomeController {
 
 
     @GetMapping("/home")
-    public String home(Model model){
+    public String home(@RequestParam(name = "isFirst",defaultValue = "false",required = false) boolean isFirst,Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication.getPrincipal() instanceof String && authentication.getPrincipal().equals("anonymousUser")) {
             model.addAttribute("acc", '0');
@@ -57,6 +59,7 @@ public class HomeController {
         }
         List<Contribution> cons = contributionService.ReturnPublicContribution();
         model.addAttribute("cons", cons);
+        model.addAttribute("isFirst",isFirst);
         return "HomePage";
     }
     @GetMapping("/DownloadAllFileHome")
@@ -164,4 +167,29 @@ public class HomeController {
         accountRepoTest.save(account);
         return "redirect:/logout";
     }
+
+    @GetMapping("/CheckFirstLogin")
+    public String checkFirstLogin(RedirectAttributes redirectAttributes){
+        if(returnAccount() != null){
+            Account account = returnAccount();
+            if(account.getLastSession() == null){
+                System.out.println("Welcome");
+                redirectAttributes.addAttribute("isFirst",true);
+                return "redirect:/animation";
+            }
+        }
+        return "redirect:/home";
+    }
+
+    @GetMapping("/animation")
+    public String blank(Model model){
+       Account account = returnAccount();
+       model.addAttribute("acc",account);
+        return "WelcomeFirstTime";
+    }
+    @GetMapping("/forgotsomething")
+    public String ff(Model model){
+        return "reset_password_form";
+    }
+
 }
