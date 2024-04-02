@@ -81,7 +81,11 @@
       min-height: 300px;
       min-width: 377px;
     }
-
+  #dataTable td {
+    border-left: 2px solid #ddd; /* Add left border */
+    border-right: 2px solid #ddd; /* Add right border */
+    padding: 8px; /* Add padding for better spacing */
+  }
      /* Styles for the additional box */
    /*.additional-box {*/
    /*  display: none; !* Hide the box by default *!*/
@@ -279,16 +283,64 @@
 <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
 
 <script>
-  $(document).ready(function() {
-    $('#dataTable').DataTable( {
-      dom: 'Bfrtip',
+
+    $(document).ready(function() {
+      var table = $('#dataTable').DataTable( {
+        dom: 'Bfrtip',
       buttons: [
         { extend: 'copyHtml5', className: 'btn btn-primary' },
         { extend: 'excelHtml5', className: 'btn btn-success' },
         { extend: 'csvHtml5', className: 'btn btn-info' },
         { extend: 'pdfHtml5', className: 'btn btn-danger' }
-      ]
+      ],
+      "pageLength": 5 // Set the default page length
     } );
+    $('#pageLengthSelect').change(function() {
+      var val = $(this).val();
+      table.page.len(val).draw();
+    });
   });
+    function checkAll() {
+      var checkboxes = document.querySelectorAll("#dataTable tbody tr td:first-child input[type='checkbox']");
+      checkboxes.forEach(function(checkbox) {
+        checkbox.checked = true;
+      });
+    }
+</script>
+<script>
+  function filterTable() {
+    console.log("Fillter Table run")
+    var selectedFacultyName = document.getElementById("facultyFilter").value;
+    var tableRows = document.querySelectorAll("#dataTable tbody tr");
+
+    if (selectedFacultyName === "selectAll") {
+      showAllContributions();
+      return; // Exit the function early
+    }
+
+    tableRows.forEach(function(row) {
+      var facultyId = row.querySelector("td:nth-child(7)").textContent.trim(); // Assuming faculty name is the 7th column
+      if (facultyId === selectedFacultyName || facultyId === "selectAll") {
+        row.style.display = ""; // Show the row if it matches the selected faculty or no faculty is selected
+      }
+      else {
+        row.style.display = "none"; // Hide the row if it does not match the selected faculty
+      }
+    });
+  }
+  function showAllContributions() {
+    var tableRows = document.querySelectorAll("#dataTable tbody tr");
+
+    tableRows.forEach(function(row) {
+      row.style.display = ""; // Show all rows
+    });
+  }
+
+  // document.getElementById("selectAllButton").addEventListener("click", selectAllContributions);
+  // Event listener for the select list
+  document.getElementById("facultyFilter").addEventListener("change", filterTable);
+  document.getElementById("contentHeader")
+  // Initially filter the table based on the selected faculty
+  filterTable();
 </script>
 </html>

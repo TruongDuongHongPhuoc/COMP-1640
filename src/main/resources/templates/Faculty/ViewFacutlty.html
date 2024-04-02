@@ -49,7 +49,22 @@
               <a th:href="@{/CreateFalcuty}">Create</a>
             </div>
             <div class="card-body">
-              <table id="datatablesSimple">
+              <table id="dataTable">
+                  <div class="row">
+                      <div class="col-auto">
+                          <p class="ms-2 mb-0 font-weight-bold">Entry</p>
+                      </div>
+                      <div class="col d-flex align-items-center">
+                          <select id="pageLengthSelect" class="form-select" style="width: 20%">
+                              <option value="5">5</option>
+                              <option value="10">10</option>
+                              <option value="20">20</option>
+                              <option value="50">50</option>
+                          </select>
+                      </div>
+                      <div class="col-auto">
+                      </div>
+                  </div>
                 <thead>
                   <tr>
                     <th>Name</th>
@@ -62,18 +77,6 @@
                     </th:block>
                   </tr>
                 </thead>
-                <tfoot>
-                  <tr>
-                    <th>Name</th>
-                    <th>ID</th>
-                    <th>Academic Year ID</th>
-                    <th>Description</th>
-                    <th:block th:if="${acc.getRoleId().equals('1')}">
-                      <th>delete</th>
-                      <th>update</th>
-                    </th:block>
-                  </tr>
-                </tfoot>
                 <tbody>
                   <tr th:each="faculty: ${Fals}">
                     <td th:text="${faculty.name}"></td>

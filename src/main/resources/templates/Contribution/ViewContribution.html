@@ -65,12 +65,29 @@
                             <select class="form-select" id="facultyFilter">
                                 <option value="selectAll">All Faculties</option>
                                 <th:block th:each="fa : ${faculties}">
-                                    <option th:value="${fa.id}" th:text="${fa.name}"></option>
+                                    <option th:value="${fa.name}" th:text="${fa.name}"></option>
                                 </th:block>
                             </select>
                         </div>
                         <div class="card-body">
                             <table class="table datatablesSimple" id="dataTable">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <p class="ms-2 mb-0 font-weight-bold">Entry</p>
+                                    </div>
+                                    <div class="col d-flex align-items-center">
+                                        <select id="pageLengthSelect" class="form-select" style="width: 20%">
+                                            <option value="5">5</option>
+                                            <option value="10">10</option>
+                                            <option value="20">20</option>
+                                            <option value="50">50</option>
+                                        </select>
+                                        <button class="btn btn-primary" type="button" onclick="checkAll()">Select all</button>
+                                    </div>
+                                    <div class="col-auto">
+                                    </div>
+                                </div>
+
                                 <thead>
                                 <tr class="align-middle">
                                     <th></th>
@@ -96,7 +113,7 @@
                                                    th:value="${c.getPath()}"/>
                                         </td>
                                         <td th:unless="${c.canDowload}">
-                                            <input type="checkbox" disabled>
+<!--                                            <input type="checkbox" disabled>-->
                                         </td>
                                         <td th:text="${c.name}"></td>
                                         <td th:text="${c.description}"></td>
@@ -104,15 +121,15 @@
                                         <td th:text="${c.status == 0 ? 'Waiting' : (c.status == 1 ? 'Approved' : (c.status == 3 ? 'Public' : 'Rejected'))}"></td>
                                         <td th:text="${c.year}"></td>
                                         <td th:text="${c.faculty}"></td>
-                                        <td th:if="${c.canDowload}" class="align-middle">
-                                            <a class="btn btn-success align-middle"
+                                        <td th:if="${c.canDowload}" class="text-center">
+                                            <a class="btn btn-success"
                                                th:href="@{http://localhost:8090/Fi/files/__${c.path}__}"><i
                                                     class="fa fa-download"></i></a>
                                         </td>
-                                        <td th:unless="${c.canDowload}">
+                                        <td th:unless="${c.canDowload}" class="text-center">
                                             <a class="btn btn-dark">Disable</a>
                                         </td>
-                                        <td th:if="${acc.getRoleId().equals('4')}">
+                                        <td th:if="${acc.getRoleId().equals('4')}" class="text-center">
                                             <a class="btn btn-info"
                                                th:href="@{/Contribution/SetPublic/{id}(id = ${c.getId()})}">
                                                 <i class="fa fa-edit"></i>
@@ -125,7 +142,7 @@
                                             </a>
                                         </td>
                                         <th:Block th:if="${acc.getRoleId().equals('1')}">
-                                            <td class="align-middle">
+                                            <td class="text-center">
                                                 <a class="btn btn-danger"
                                                    th:href="@{/Contribution/DeleteForAdmin/{id}(id = ${c.getId()})}">
                                                     <i class="fa fa-trash"></i>
