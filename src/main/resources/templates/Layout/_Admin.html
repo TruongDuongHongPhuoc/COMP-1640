@@ -81,7 +81,11 @@
       min-height: 300px;
       min-width: 377px;
     }
-
+  #dataTable td {
+    border-left: 2px solid #ddd; /* Add left border */
+    border-right: 2px solid #ddd; /* Add right border */
+    padding: 8px; /* Add padding for better spacing */
+  }
      /* Styles for the additional box */
    /*.additional-box {*/
    /*  display: none; !* Hide the box by default *!*/
@@ -164,7 +168,6 @@
   </div>
 </div>
 
-<!-- Bootstrap core JavaScript-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="/adminTemplate/js/scripts.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
@@ -172,81 +175,9 @@
 <script src="/adminTemplate/assets/demo/chart-bar-demo.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
 <script src="/adminTemplate/js/datatables-simple-demo.js"></script>
-<!--<script>-->
-<!--  // Function to open the additional box-->
-<!--  function openAdditionalBox() {-->
-<!--    document.getElementById("additionalBox").style.display = "block";-->
-<!--  }-->
-<!--  function OpenSubmitButton() {-->
-<!--    document.getElementById("acceptTerm").style.display = "block";-->
-<!--  }-->
 
-<!--  // Function to close the additional box-->
-<!--  function closeAdditionalBox() {-->
-<!--    document.getElementById("additionalBox").style.display = "none";-->
-<!--  }-->
-<!--  function toggleSubmitButton() {-->
-<!--    var checkbox = document.getElementById('acceptTerm');-->
-<!--    var submitButton = document.getElementById('submitButton');-->
-
-<!--    // If checkbox is checked, show the submit button, otherwise hide it-->
-<!--    if (checkbox.checked) {-->
-<!--      submitButton.style.display = 'block';-->
-<!--    } else {-->
-<!--      submitButton.style.display = 'none';-->
-<!--    }-->
-<!--  }-->
-
-<!--  // Add event listener to the checkbox to toggle submit button visibility-->
-<!--  document.getElementById('acceptTerm').addEventListener('change', toggleSubmitButton);-->
-
-<!--  // Initial call to toggleSubmitButton to set initial state of the button-->
-<!--  toggleSubmitButton();-->
-<!--</script>-->
 </body>
-<script>
-  // Function to filter table rows based on selected faculty
-  // function filterTable() {
-  //   var selectedFacultyName = document.getElementById("facultyFilter").value;
-  //   var tableRows = document.querySelectorAll("#datatablesSimple tbody tr");
-  //
-  //   tableRows.forEach(function(row) {
-  //     var facultyName = row.querySelector("td:nth-child(7)").textContent.trim(); // Assuming faculty name is the 7th column
-  //     if (selectedFacultyName === "" || facultyName === selectedFacultyName) {
-  //       row.style.display = ""; // Show the row if it matches the selected faculty or no faculty is selected
-  //     } else {
-  //       row.style.display = "none"; // Hide the row if it does not match the selected faculty
-  //     }
-  //   });
-  // }
-  //
-  // // Function to handle select all button click event
-  // function selectAllContributions() {
-  //   var selectedFacultyName = document.getElementById("facultyFilter").value;
-  //   var tableRows = document.querySelectorAll("#datatablesSimple tbody tr");
-  //
-  //   tableRows.forEach(function(row) {
-  //     var facultyName = row.querySelector("td:nth-child(7)").textContent.trim(); // Assuming faculty name is the 7th column
-  //     var checkbox = row.querySelector("input[type='checkbox']");
-  //
-  //     // Check if the current row matches the selected faculty or if no faculty is selected
-  //     if (selectedFacultyName === "" || facultyName === selectedFacultyName) {
-  //       checkbox.checked = true;
-  //     }
-  //   });
-  // }
-  //
-  // // Event listener for the select all button
-  // document.getElementById("selectAllButton").addEventListener("click", selectAllContributions);
-  //
-  //
-  // // Event listener for the select list
-  // document.getElementById("facultyFilter").addEventListener("change", filterTable);
-  //
-  // // Initially filter the table based on the selected faculty
-  // filterTable();
 
-</script>
 <script src="/myjavascript/TableFillter.js"></script>
 <script>
   function validateInputs() {
@@ -279,16 +210,64 @@
 <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
 
 <script>
-  $(document).ready(function() {
-    $('#dataTable').DataTable( {
-      dom: 'Bfrtip',
+
+    $(document).ready(function() {
+      var table = $('#dataTable').DataTable( {
+        dom: 'Bfrtip',
       buttons: [
         { extend: 'copyHtml5', className: 'btn btn-primary' },
         { extend: 'excelHtml5', className: 'btn btn-success' },
         { extend: 'csvHtml5', className: 'btn btn-info' },
         { extend: 'pdfHtml5', className: 'btn btn-danger' }
-      ]
+      ],
+      "pageLength": 5 // Set the default page length
     } );
+    $('#pageLengthSelect').change(function() {
+      var val = $(this).val();
+      table.page.len(val).draw();
+    });
   });
+    function checkAll() {
+      var checkboxes = document.querySelectorAll("#dataTable tbody tr td:first-child input[type='checkbox']");
+      checkboxes.forEach(function(checkbox) {
+        checkbox.checked = true;
+      });
+    }
+</script>
+<script>
+  function filterTable() {
+    console.log("Fillter Table run")
+    var selectedFacultyName = document.getElementById("facultyFilter").value;
+    var tableRows = document.querySelectorAll("#dataTable tbody tr");
+
+    if (selectedFacultyName === "selectAll") {
+      showAllContributions();
+      return; // Exit the function early
+    }
+
+    tableRows.forEach(function(row) {
+      var facultyId = row.querySelector("td:nth-child(7)").textContent.trim(); // Assuming faculty name is the 7th column
+      if (facultyId === selectedFacultyName || facultyId === "selectAll") {
+        row.style.display = ""; // Show the row if it matches the selected faculty or no faculty is selected
+      }
+      else {
+        row.style.display = "none"; // Hide the row if it does not match the selected faculty
+      }
+    });
+  }
+  function showAllContributions() {
+    var tableRows = document.querySelectorAll("#dataTable tbody tr");
+
+    tableRows.forEach(function(row) {
+      row.style.display = ""; // Show all rows
+    });
+  }
+
+  // document.getElementById("selectAllButton").addEventListener("click", selectAllContributions);
+  // Event listener for the select list
+  document.getElementById("facultyFilter").addEventListener("change", filterTable);
+  document.getElementById("contentHeader")
+  // Initially filter the table based on the selected faculty
+  filterTable();
 </script>
 </html>
