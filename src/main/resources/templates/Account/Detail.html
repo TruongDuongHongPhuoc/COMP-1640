@@ -45,7 +45,7 @@
 
 <div layout:fragment="content">
     <h1>Detail information page</h1>
-    <form method="POST" th:action="@{/account/reset}">
+    <form method="POST" th:action="@{/account/reset}" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="ex1" class="form-label font-weight-bold">Username</label>
             <input class="form-control" id="ex1" type="text" readonly th:value="${account.name}">
@@ -72,8 +72,8 @@
         </div>
 
         <div class="mb-3">
-            <label for="" class="form-label font-weight-bold">Avatar</label>
-            <img src="" alt="Avatar">
+            <label for="img" class="form-label font-weight-bold">Avatar</label>
+            <img id="img" src="" alt="Avatar">
         </div>
 
         <div class="mb-3">
@@ -84,15 +84,7 @@
             </select>
         </div>
 
-        <!--    <div class="mb-3">-->
-        <!--    <label for="ex7" class="form-label">Faculty</label>-->
-        <!--    <select name="faculty" id="ex7" class="form-select">-->
-        <!--      <option selected th:value="${account.getFacultyId()}" th:text="${account.getFalcutyName()}"></option>-->
-        <!--      <option th:each="f:${faculty}" th:value="${f.id}" th:text="${f.name}"></option>-->
-        <!--    </select>-->
-        <!--    </div>-->
-
-        <input type="hidden" name="id" th:value="${account.id}">
+        <input type="hidden" name="token" th:value="${accountid}">
 
         <div class="mb-3 flex-column">
             <button type="submit" class="btn btn-primary">Save</button>
