@@ -93,7 +93,7 @@
                         <td th:if="${accounts.getRoleId().equals('3') and con.getStatus() !=3}">
                             <a th:href="@{/Contribution/set/{id}(id = ${con.id})} ">Approve</a>
                         </td>
-                        <td th:if="${con.getStatus() ==3}">
+                        <td th:if="${con.getStatus() ==3 and accounts.getRoleId().equals('3')}">
                             <p>Not allow</p>
                         </td>
                     </tr>
