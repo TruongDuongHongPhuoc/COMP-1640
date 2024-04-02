@@ -196,7 +196,7 @@ public class ContributionController {
     private String getString(@PathVariable("id") String id) {
         Contribution con = re.ReturnContribution(id);
         service.deletefile(con.getPath());
-        re.DeleteContribution(id);
+        service.DeleteContribution(id);
         Authentication authentication = SecurityContextHolder.getContext()
                 .getAuthentication();
         Account accounts = returnAccount();
