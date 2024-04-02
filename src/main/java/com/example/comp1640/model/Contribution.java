@@ -31,7 +31,12 @@ public class Contribution {
     boolean canDelete;
     @Transient
     boolean canUpdate;
-
+    @Transient
+    boolean canDowload;
+    @Transient
+    String year;
+    @Transient
+    String faculty;
     public Contribution(String id, String name, String description, LocalDate submitDate, int Status, String accountId, String academicYearId, String facultyId, String path) {
         this.id = id;
         this.name = name;

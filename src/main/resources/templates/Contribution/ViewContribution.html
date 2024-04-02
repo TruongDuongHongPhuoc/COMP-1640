@@ -11,7 +11,11 @@
 
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'G-GNDQ069VVF');
@@ -21,106 +25,120 @@
 
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-NJXG26NL');</script>
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-NJXG26NL');</script>
     <!-- End Google Tag Manager -->
 </head>
 
 <body>
-    <!-- Google Tag Manager F(noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJXG26NL" height="0" width="0"
-            style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager F(noscript) -->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJXG26NL" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
 
-    <div layout:fragment="content">
+<div layout:fragment="content">
 
-        <h1 id="contentHeader">Contribution Management</h1>
+    <h1 id="contentHeader">Contribution Management</h1>
 
-        <form action="/Contribution/downloadmethod" method="get">
-            <div th:if="${!dateCheck}">
-                <button type="submit" class="btn btn-success mb-4">Download Selected</button>
-            </div>
-            <div th:if="${dateCheck}">
-                <button class="btn btn-secondary">The academic year hasn't ended yet</button>
-            </div>
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid px-4">
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                DataTable
-                                <label for="facultyFilter">Filter by Faculty:</label>
-                                <select class="form-select" id="facultyFilter">
-                                    <option value="selectAll">All Faculties</option>
-                                    <th:block th:each="fa : ${faculties}">
-                                        <option th:value="${fa.id}" th:text="${fa.name}"></option>
-                                    </th:block>
-                                </select>
-                            </div>
-                            <div class="card-body">
-                                <table id="datatablesSimple">
-                                    <thead>
-                                    <tr class="align-middle">
-                                        <th></th>
-                                        <th class="text-center">Name</th>
-                                        <th class="text-center">Description</th>
-                                        <th class="text-center">Submite date</th>
-                                        <th class="text-center">Status</th>
-                                        <th class="text-center">Academic year</th>
-                                        <th class="text-center">Faculty</th>
-                                        <th class="text-center">Download</th>
-                                        <th class="text-center">Set public</th>
-                                        <th class="text-center">Feedbacks</th>
-                                        <th:Block th:if="${acc.getRoleId().equals('1')}">
+    <form action="/Contribution/downloadmethod" method="get">
+        <button type="submit" class="btn btn-success mb-4">Download Selected</button>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-table me-1"></i>
+                            DataTable
+                            <label for="facultyFilter">Filter by Faculty:</label>
+                            <select class="form-select" id="facultyFilter">
+                                <option value="selectAll">All Faculties</option>
+                                <th:block th:each="fa : ${faculties}">
+                                    <option th:value="${fa.id}" th:text="${fa.name}"></option>
+                                </th:block>
+                            </select>
+                        </div>
+                        <div class="card-body">
+                            <table id="datatablesSimple">
+                                <thead>
+                                <tr class="align-middle">
+                                    <th></th>
+                                    <th class="text-center">Name</th>
+                                    <th class="text-center">Description</th>
+                                    <th class="text-center">Submite date</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center">Academic year</th>
+                                    <th class="text-center">Faculty</th>
+                                    <th class="text-center">Download</th>
+                                    <th th:if="${acc.getRoleId().equals('4')}" class="text-center">Set public</th>
+                                    <th class="text-center">Feedbacks</th>
+                                    <th:Block th:if="${acc.getRoleId().equals('1')}">
                                         <th class="text-center">Delete</th>
+                                    </th:Block>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <th:block th:each="c:${cons}">
+                                    <tr>
+                                        <td th:if="${c.canDowload}">
+                                            <input type="checkbox" th:id="${c.id}" th:name="selectedFiles"
+                                                   th:value="${c.getPath()}"/>
+                                        </td>
+                                        <td th:unless="${c.canDowload}">
+                                            <input type="checkbox" disabled>
+                                        </td>
+                                        <td th:text="${c.name}"></td>
+                                        <td th:text="${c.description}"></td>
+                                        <td th:text="${c.submitDate}"></td>
+                                        <td th:text="${c.status == 0 ? 'Waiting' : (c.status == 1 ? 'Approved' : (c.status == 3 ? 'Public' : 'Rejected'))}"></td>
+                                        <td th:text="${c.year}"></td>
+                                        <td th:text="${c.faculty}"></td>
+                                        <td th:if="${c.canDowload}" class="align-middle">
+                                            <a class="btn btn-success align-middle" th:href="@{http://localhost:8090/Fi/files/__${c.path}__}"><i class="fa fa-download"></i></a>
+                                        </td>
+                                        <td th:unless="${c.canDowload}">
+                                            <a class="btn btn-dark">Disable</a>
+                                        </td>
+                                        <td th:if="${acc.getRoleId().equals('4')}">
+                                            <a class="btn btn-info" th:href="@{/Contribution/SetPublic/{id}(id = ${c.getId()})}">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        </td>
+                                        <td class="text-center">
+                                            <a class="btn btn-info" th:href="@{/FeedBack/ViewFeedback/{id}(id = ${c.getId()})}">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </td>
+                                        <th:Block th:if="${acc.getRoleId().equals('1')}">
+                                            <td class="align-middle">
+                                                <a class="btn btn-danger" th:href="@{/Contribution/DeleteForAdmin/{id}(id = ${c.getId()})}">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </td>
                                         </th:Block>
                                     </tr>
-                                    </thead>
-                                    <tbody>
-                                    <th:block th:each="fal:${cons}">
-                                        <tr>
-                                            <td>
-                                                <input type="checkbox" th:id="${fal.id}" th:name="selectedFiles"
-                                                       th:value="${fal.getPath()}"/>
-                                            </td>
-                                            <td th:text="${fal.name}"></td>
-                                            <td th:text="${fal.description}"></td>
-                                            <td th:text="${fal.submitDate}"></td>
-                                            <td th:text="${fal.status == 0 ? 'Waiting' : (fal.status == 1 ? 'Approved' : (fal.status == 3 ? 'Public' : 'Rejected'))}"></td>
-                                            <td th:text="${fal.academicYearId}"></td>
-                                            <td th:text="${fal.facultyId}"></td>
-                                            <td>
-                                                <a class="btn btn-success" th:href="@{http://localhost:8090/Fi/files/__${fal.path}__}">Download</a>
-                                            </td>
-                                            <td>
-                                                <a class="btn btn-info" th:href="@{/Contribution/SetPublic/{id}(id = ${fal.getId()})}">Set</a>
-                                            </td>
-                                            <td>
-                                                <a class="btn btn-primary" th:href="@{/FeedBack/ViewFeedback/{id}(id = ${fal.getId()})}">View</a>
-                                            </td>
-                                            <th:Block th:if="${acc.getRoleId().equals('1')}">
-                                            <td>
-                                                <a class="btn btn-danger" th:href="@{/Contribution/DeleteForAdmin/{id}(id = ${fal.getId()})}">Delete</a>
-                                            </td>
-                                            </th:Block>
-                                        </tr>
-                                    </th:block>
-                                    </tbody>
-                                </table>
+                                </th:block>
+                                </tbody>
+                            </table>
 
-                            </div>
                         </div>
                     </div>
-                </main>
-            </div>
-        </form>
-    </div>
+                </div>
+            </main>
+        </div>
+    </form>
+</div>
 </body>
 
 </html>

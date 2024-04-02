@@ -47,13 +47,21 @@ public class AccountService implements UserDetailsService {
         return accountRepositoryTest.findAll().stream()
                 .peek(account -> {
                     String roleName = roleRepositoryTest.findById(account.getRoleId()).get().getName();
+                    String facultyName = "";
+                    LocalDate academic = null;
+                    LocalDate finalacademic = null;
                     if(account.getFacultyId() != null){
-                        Faculty falcuty = falcutyRepository
+                        Faculty faculty = falcutyRepository
                                 .findById(account.getFacultyId()).orElseGet(null);
-                        account.setFalcutyName(falcuty != null ? falcuty.getName() : "");
-
+                        facultyName = (faculty != null) ? faculty.getName() : "";
+                        AcademicYear a = academicYearRepositoryInterface.findById(faculty.getAcademicYear()).orElse(null);
+                        academic = a.getClosureDate();
+                        finalacademic = a.getFinalClosureDate();
                     }
                     account.setRoleName(roleName);
+                    account.setFalcutyName(facultyName);
+                    account.setAcademicYear(academic);
+                    account.setEndYear(finalacademic);
                 }).toList();
     }
 
