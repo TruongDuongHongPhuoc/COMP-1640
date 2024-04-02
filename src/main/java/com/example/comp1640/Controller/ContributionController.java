@@ -139,13 +139,7 @@ public class ContributionController {
         return "Contribution/UpdateContribution";
     }
 
-    //    @GetMapping("/Update/{id}") // Corrected mapping without the trailing slash
-//    public String update(@PathVariable("id") String id, Model model) {
-//        System.out.println(id);
-//        AcademicYear fe = re.ReturnAcademicYear(id);
-//        model.addAttribute("AcademicYear", fe);
-//        return "AcademicYear/UpdateAcademic";
-//    }
+
     @PostMapping("/Updating")
     public String UpdatePostContribution(
             @RequestParam("name") String name, @RequestParam("description") String description,
@@ -180,25 +174,12 @@ public class ContributionController {
         List<Contribution> filledContri = contris.stream()
                 .filter(contribution -> contribution.getStatus() != 0 && contribution.getStatus() != 2)
                 .collect(Collectors.toList());
-        boolean dateCheck = checkDate(LocalDate.now(), account.getAcademicYear());
         model.addAttribute("acc", account);
         model.addAttribute("cons", filledContri);
         model.addAttribute("faculties", faculties);
-        model.addAttribute("dateCheck", dateCheck);
         return "Contribution/ViewContribution";
     }
 
-//    List<Contribution> FilteredList = cons.stream()
-//            .filter(con -> Objects.equals(con.getAccountId(), id))
-//            .collect(Collectors.toList());
-
-
-    // @GetMapping("/Update/{id}") // Corrected mapping without the trailing slash
-    // public String CreateFeedBack(@PathVariable String id, Model model) {
-    //     Contribution fe = re.ReturnContribution(id);
-    //     model.addAttribute("con", fe);
-    //     return "Contribution/UpdateContribution";
-    // }
 
     // Delete for Student
     @PostMapping("/Delete")
@@ -218,8 +199,7 @@ public class ContributionController {
         re.DeleteContribution(id);
         Authentication authentication = SecurityContextHolder.getContext()
                 .getAuthentication();
-        Optional<Account> acc = accountRepo.findAccountByMail(authentication.getName());
-        Account accounts = acc.get();
+        Account accounts = returnAccount();
         return "redirect:/student/" + accounts.getId();
     }
 
@@ -284,15 +264,9 @@ public class ContributionController {
 
     public Account returnAccount() {
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Optional<Account> account = accountRepo.findAccountByMail(authentication.getName());
-        Account accounts = account.get();
-        return accounts;
+        Optional<Account> acc = accountRepo.findAccountByMail(authentication.getName());
+        Account account = accountService.getOne(acc.get().getId());
+        return account;
     }
 
-    public boolean checkDate(LocalDate currentDate, LocalDate deadline) {
-        if (currentDate.isBefore(deadline)) {
-            return true;
-        }
-        return false;
-    }
 }

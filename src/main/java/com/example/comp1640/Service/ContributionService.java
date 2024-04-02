@@ -5,10 +5,8 @@ import com.example.comp1640.Store.FileUploadController;
 import com.example.comp1640.Store.StorageService;
 import com.example.comp1640.model.AcademicYear;
 import com.example.comp1640.model.Contribution;
-import com.example.comp1640.repository.AcademicYearRepository;
-import com.example.comp1640.repository.AcademicYearRepositoryInterface;
-import com.example.comp1640.repository.ContributionRepository;
-import com.example.comp1640.repository.FeedbackRepository;
+import com.example.comp1640.model.Faculty;
+import com.example.comp1640.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,6 +30,10 @@ public class ContributionService {
     FileSystemStorageService StoreService;
     @Autowired
     FeedbackRepository feedbackRepository;
+    @Autowired
+    FacultyRepository facultyRepository;
+    @Autowired
+    AcademicYearRepositoryInterface academicYearRepositoryInterface;
 
     public void storeFile(MultipartFile file){
         StoreService.store(file);
@@ -64,7 +66,7 @@ public class ContributionService {
         List<Contribution> filteredList = cons.stream()
                 .filter(con -> con.getStatus() != 2 && con.getStatus() != 0)
                 .collect(Collectors.toList());
-        return filteredList;
+        return attachingInfor(filteredList);
     }
     public List<Contribution> ReturnAllContribution(){
         return contributionRepository.ReturnContributions().stream().map(c->{
@@ -104,9 +106,23 @@ public class ContributionService {
         contributionRepository.DeleteContribution(con.getId());
     }
 
-    public void deleteContribution(String id){
-        Contribution con = contributionRepository.ReturnContribution(id);
-
+    public List<Contribution> attachingInfor(List<Contribution> lst){
+        return  lst.stream().peek(con ->{
+            String year = academicYearRepositoryInterface.findById(con.getAcademicYearId()).get().getYearOfAcademic();
+            String facultyName = facultyRepository.findById(con.getFacultyId()).get().getName();
+            AcademicYear ac = academicYearRepository.findById(con.getAcademicYearId()).orElseGet(null);
+            LocalDate closureDate = ac.getClosureDate();
+            LocalDate finalDate = ac.getFinalClosureDate();
+            LocalDate currentDate = LocalDate.now();
+            boolean canUpdate = currentDate.isBefore(finalDate);
+            boolean canDelete = currentDate.isBefore(closureDate);
+            boolean canDowload = currentDate.isAfter(finalDate);
+            con.setCanDelete(canDelete);
+            con.setCanUpdate(canUpdate);
+            con.setCanDowload(canDowload);
+            con.setFaculty(facultyName);
+            con.setYear(year);
+        }).toList();
     }
 
 }
