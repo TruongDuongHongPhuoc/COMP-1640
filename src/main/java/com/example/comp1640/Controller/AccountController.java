@@ -358,4 +358,18 @@ public class AccountController {
         account = accountService.getOne(account.getId());
         return account;
     }
+
+    @GetMapping("/guest/{id}")
+    public String updateGuest(@PathVariable("id") String id, Model model){
+        Account account = accountService.getOne(id);
+        List<Account> listAccount = repo.findAll();
+        for(Account a : listAccount){
+            if (a.getRoleId().equals("1")) {
+                mailService.SendEmail(a.getMail(),
+                        "Update role",
+                        "The guest with email: " + account.getMail() +" want to register as a student ");
+            }
+        }
+        return personal(account.getId(), model);
+    }
 }
