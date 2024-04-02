@@ -51,7 +51,7 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <div class="card mb-4">
+                        <div class="card mb-4" style="width: fit-content">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 DataTable
@@ -64,7 +64,7 @@
                                 </select>
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
+                                <table class="table datatablesSimple" id="dataTable">
                                     <thead>
                                     <tr class="align-middle">
                                         <th></th>
@@ -89,7 +89,7 @@
                                                 <input type="checkbox" th:id="${fal.id}" th:name="selectedFiles"
                                                        th:value="${fal.getPath()}"/>
                                             </td>
-                                            <td th:text="${fal.name}"></td>
+                                            <td style="max-width: 150px" th:text="${fal.name}"></td>
                                             <td th:text="${fal.description}"></td>
                                             <td th:text="${fal.submitDate}"></td>
                                             <td th:text="${fal.status == 0 ? 'Waiting' : (fal.status == 1 ? 'Approved' : (fal.status == 3 ? 'Public' : 'Rejected'))}"></td>
