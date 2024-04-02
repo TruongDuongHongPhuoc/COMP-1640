@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -79,16 +81,24 @@ public class ContributionService {
     }
     public void UpdateContribution(String id,String name,String description,LocalDateTime submitDate,String accountId,String academicYearId, String facultyId, MultipartFile file, String oldfile){
         System.out.println("Update contribution service Run");
-        StoreService.deleteFile(oldfile);
-        System.out.println("old file deleted");
+        if(!file.isEmpty()) {
+            StoreService.deleteFile(oldfile);
+            System.out.println("old file deleted");
+        }
         contributionRepository.UpdateContribution(id,name,description,submitDate,accountId,academicYearId,facultyId,file.getOriginalFilename());
         System.out.println("Contribution repository updated");
         StoreService.store(file);
         System.out.println("Store service store file");
+    }
+    public void UpdateContribution(String id,String name,String description,LocalDateTime submitDate,String accountId,String academicYearId, String facultyId, String oldfile){
+        System.out.println("Update contribution service Run");
+        contributionRepository.UpdateContribution(id,name,description,submitDate,accountId,academicYearId,facultyId,oldfile);
+        System.out.println("Contribution repository updated");
     }
     public void DeleteContribution(String id){
         Contribution con = contributionRepository.ReturnContribution(id);
         deletefile(con.getPath());
         contributionRepository.DeleteContribution(con.getId());
     }
+
 }

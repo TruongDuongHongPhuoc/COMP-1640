@@ -354,4 +354,26 @@ if (windowHeight > 680) {
         // Initial call to toggleSubmitButton to set initial state of the button
         toggleSubmitButton();
 </script>
+<script>
+    function validateInputs() {
+        var inputs = document.querySelectorAll('input[type="text"], input[type="password"], textarea');
+
+        for (var i = 0; i < inputs.length; i++) {
+            if (!inputs[i].value.trim()) {
+                alert('Please fill in all fields.');
+                return false; // Prevent form submission if any field is empty
+            }
+        }
+
+        return true; // All fields are filled
+    }
+
+    // Attach the validateInputs function to a form submit event
+    document.querySelector('form').addEventListener('submit', function(event) {
+        if (!validateInputs()) {
+            event.preventDefault(); // Prevent form submission if validation fails
+        }
+    });
+
+</script>
 </html>
