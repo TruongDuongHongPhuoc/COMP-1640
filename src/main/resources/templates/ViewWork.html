@@ -37,7 +37,6 @@
 <body>
 
 <div layout:fragment="content" style="margin-top: 20px;">
-    <!--    <h2>Currently your work</h2>-->
     <section>
         <div class="card-body">
             <table class="table table-striped">
@@ -72,7 +71,6 @@
                         <td><a th:href="@{http://localhost:8090/Fi/files/__${con.getPath_to_file()}__}">Download</a>
                         </td>
 
-                        <!--                        <td th:if="${accounts.getRoleId().equals('2')} && ${con.canDelete}">-->
                         <td th:if="${accounts.getRoleId().equals('2') and con.canDelete}">
                             <a th:href="@{/Contribution/DeleteGet/{id}(id = ${con.getId()})}">Delete</a>
                         </td>

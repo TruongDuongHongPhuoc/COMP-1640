@@ -40,8 +40,6 @@
     <div layout:fragment="content">
 
         <h1 id="contentHeader">Contribution management</h1>
-        <button id="changeContentHeader">Change</button>
-
 
         <form action="/Contribution/downloadmethod" method="get">
             <div th:if="${!dateCheck}">
@@ -56,11 +54,10 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                DataTable Example
+                                DataTable
                                 <label for="facultyFilter">Filter by Faculty:</label>
                                 <select class="form-select" id="facultyFilter">
                                     <option value="selectAll">All Faculties</option>
-                                    <!-- Iterate over the list of faculties -->
                                     <th:block th:each="fa : ${faculties}">
                                         <option th:value="${fa.id}" th:text="${fa.name}"></option>
                                     </th:block>
