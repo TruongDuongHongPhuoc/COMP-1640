@@ -131,4 +131,24 @@ public class ContributionService {
         }).toList();
     }
 
+    public Contribution attachingInfor(Contribution con){
+        String year = academicYearRepositoryInterface.findById(con.getAcademicYearId()).get().getYearOfAcademic();
+        String facultyName = facultyRepository.findById(con.getFacultyId()).get().getName();
+        AcademicYear ac = academicYearRepository.findById(con.getAcademicYearId()).orElseGet(null);
+        Account account = accountService.getOne(con.getAccountId());
+        LocalDate closureDate = ac.getClosureDate();
+        LocalDate finalDate = ac.getFinalClosureDate();
+        LocalDate currentDate = LocalDate.now();
+        boolean canUpdate = currentDate.isBefore(finalDate);
+        boolean canDelete = currentDate.isBefore(closureDate);
+        boolean canDowload = currentDate.isAfter(finalDate);
+        con.setCanDelete(canDelete);
+        con.setCanUpdate(canUpdate);
+        con.setCanDowload(canDowload);
+        con.setFaculty(facultyName);
+        con.setAuthor(account.getMail());
+        con.setYear(year);
+
+        return con;
+    }
 }
