@@ -5,12 +5,15 @@
 <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNDQ069VVF"></script>
+
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
         gtag('config', 'G-GNDQ069VVF');
+
+
     </script>
 
     <!-- Google Tag Manager -->
@@ -26,13 +29,17 @@
 </head>
 
 <body>
-    <!-- Google Tag Manager (noscript) -->
+    <!-- Google Tag Manager F(noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJXG26NL" height="0" width="0"
             style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
     <div layout:fragment="content">
-        <h1>Contribution management</h1>
+
+        <h1 id="contentHeader">Contribution management</h1>
+        <button id="changeContentHeader">Change</button>
+
+
         <form action="/Contribution/downloadmethod" method="get">
             <div th:if="${!dateCheck}">
                 <button type="submit" class="btn btn-success">Download Selected</button>
@@ -49,7 +56,7 @@
                                 DataTable Example
                                 <label for="facultyFilter">Filter by Faculty:</label>
                                 <select class="form-select" id="facultyFilter">
-                                    <option value="">All Faculties</option>
+                                    <option value="selectAll">All Faculties</option>
                                     <!-- Iterate over the list of faculties -->
                                     <th:block th:each="fa : ${faculties}">
                                         <option th:value="${fa.id}" th:text="${fa.name}"></option>
@@ -60,9 +67,7 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                     <tr>
-                                        <th>select
-                                        </th>
-
+                                        <th>select</th>
                                         <th>Name</th>
                                         <th>Description</th>
                                         <th>Submitedate</th>
