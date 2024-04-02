@@ -9,8 +9,10 @@ import com.example.comp1640.repository.AccountRepositoryTest;
 import com.example.comp1640.repository.FalcultyRepository;
 import com.example.comp1640.repository.FacultyRepository;
 import com.example.comp1640.repository.RoleRepositoryTest;
+import com.example.comp1640.utils.JwtUtils;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import jdk.jshell.execution.Util;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -26,9 +28,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 @NotNull
@@ -71,16 +71,26 @@ public class AccountController {
     @GetMapping("/detail/{id}")
     public String detail(@PathVariable("id") String id, Model model) {
         accountService.checkRole("Admin");
+        Account authorite = returnAccount();
         Account account = accountService.getOne(id);
+        Account acc = returnAccount();
+        Map<String,String> dataToToken = new HashMap<>();
+        dataToToken.put("id",account.getId());
+        String token = JwtUtils.generateToken(dataToToken);
+
+        model.addAttribute("acc",authorite);
+        model.addAttribute("accountid",token);
         model.addAttribute("account", account);
         model.addAttribute("faculty", falRepo.findAll());
         model.addAttribute("role", roleRepo.findAll());
+        model.addAttribute("acc",acc);
         return "Account/Detail";
     }
 
     @GetMapping("/reset/{id}")
     public String reset(@PathVariable("id") String id, Model model) {
         accountService.checkRole("Admin");
+        Account acc = returnAccount();
         String randomPassword = accountService.generateRandomPassword();
         var roles = roleRepo.findAll();
         Account account = accountService.getOne(id);
@@ -88,6 +98,8 @@ public class AccountController {
         repo.save(account);
         mailService.SendEmail(account.getMail(), "Change Password",
                 "Your password has been changed to: " + randomPassword);
+
+        model.addAttribute("acc",acc);
         model.addAttribute("account", account);
         model.addAttribute("faculty", falRepo.findAll());
         model.addAttribute("role", roleRepo.findAll());
@@ -95,25 +107,31 @@ public class AccountController {
     }
 
     @PostMapping("/reset")
-    public String reset(@RequestParam("roleId") String roleId,
-                        @RequestParam("id") String id,
+    public String reset(@RequestParam("role") String roleId,
+                        @RequestParam("token") String token,
                         Model model) {
         accountService.checkRole("Admin");
+        Account acc = returnAccount();
+        Map<String, Object> dataFromToken = JwtUtils.decodeToken(token);
+        String id = dataFromToken.get("id").toString();
         Account account = accountService.getOne(id);
         account.setRoleId(roleId);
         repo.save(account);
+        model.addAttribute("acc",acc);
         model.addAttribute("account", account);
         model.addAttribute("faculty", falRepo.findAll());
         model.addAttribute("role", roleRepo.findAll());
-        return "Account/Detail";
+        return "Account/View";
     }
 
     @GetMapping("/personal/{id}")
     public String personal(@PathVariable("id") String id, Model model) {
+        Account acc = returnAccount();
         Account account = accountService.getOne(id);
         model.addAttribute("account", account);
         model.addAttribute("faculty", falRepo.findAll());
         model.addAttribute("role", roleRepo.findAll());
+        model.addAttribute("acc",acc);
         return "Account/Personal";
     }
 
