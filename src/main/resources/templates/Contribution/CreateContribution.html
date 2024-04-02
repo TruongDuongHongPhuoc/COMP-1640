@@ -59,27 +59,28 @@
                   style="padding-right: 33px">
                 <!--                <input type="hidden" th:field="*{facultyId}" class="form-control" id="facultyId" name="facultyId"-->
                 <!--                       th:value="${acc.facultyId}">--><br>
-                <label for="name">Name:</label><br>
+                <label for="name" class="fw-bolder fw-bold">Name:</label><br>
                 <input type="text" th:field="*{name}" class="form-control" id="name" name="name"><br>
 
-                <label for="description">Description: </label><br>
+                <label for="description" class="fw-bolder fw-bold">Description: </label><br>
                 <input th:field="*{description}" type="text" class="form-control form-inline" id="description"
                        name="description"><br>
 
                 <!--                <input th:field="*{accountId}" type="hidden" id="accountId" class="form-control" name="accountId"-->
                 <!--                       th:value="${acc.id}">-->
 
-                <label for="ex1">File to upload</label>
+                <label for="ex1" class="fw-bolder fw-bold">File to upload</label>
                 <input type="file" required name="file" id="ex1"/>
-                <label for="ex5">Available Academic Year</label>
+                <label for="ex5" class="fw-bolder fw-bold">Available Academic Year</label>
                 <select id="ex5" th:field="*{academicYearId}" class="form-select form-select form-control">
                     <option th:each="op : ${acaYear}" th:value="${op.getId()}"
                             th:text="${op.getClosureDate().toString()} + ' - ' + ${op.getFinalClosureDate().toString()}"></option>
                 </select>
                 <input type="checkbox" id="acceptTerm"/>
-                <a href="#" class="btn btn-check" onclick="openAdditionalBox()">Term and policy</a><br>
+                <a class="btn btn-check fw-bolder fw-bold" onclick="openAdditionalBox()">Term and policy</a><br>
                 <!-- Button to open the additional box -->
-                <button type="submit" id="submitButton" class="btn btn-primary">Submit</button>
+                <button type="submit" id="submitButton" class="btn btn-primary mt-4 mb-4 form-control fw-bolder">Submit</button>
+                <div style="height: 10px"></div>
             </form>
 
             <div id="additionalBox" class="additional-box">

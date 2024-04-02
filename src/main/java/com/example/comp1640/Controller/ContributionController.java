@@ -73,15 +73,16 @@ public class ContributionController {
         Optional<Account> acc = accountRepo.findAccountByMail(authentication.getName());
         Account account = accountService.getOne(acc.get().getId());
         List<AcademicYear> listAcademicYear = academicYearRepositoryInterface.findAll();
+        List<AcademicYear> tempListAcademicYear = new ArrayList<>();
         for (AcademicYear a : listAcademicYear) {
-            if (!a.getClosureDate().isAfter(LocalDate.now())) {
-                listAcademicYear.remove(a);
+            if (a.getClosureDate().isAfter(LocalDate.now())) {
+                tempListAcademicYear.add(a);
             }
         }
         Contribution contribution = new Contribution();
         model.addAttribute("contribution", contribution);
         model.addAttribute("acc", account);
-        model.addAttribute("acaYear", listAcademicYear);
+        model.addAttribute("acaYear", tempListAcademicYear);
         model.addAttribute("fals", faculties);
         return "Contribution/CreateContribution";
     }
