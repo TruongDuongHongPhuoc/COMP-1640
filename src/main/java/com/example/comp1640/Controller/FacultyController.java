@@ -14,10 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class FacultyController {
@@ -34,10 +31,11 @@ public class FacultyController {
     private AccountService accountService;
 
     @PostMapping("/Hello")
-    public String CreateFaculty(@RequestParam("name") String name, @RequestParam("id") String id,
+    public String CreateFaculty(@RequestParam("name") String name,
             @RequestParam("description") String description, @RequestParam("academicYear") String academicYear,
             Model model) {
         accountService.checkRole("Admin");
+        String id = UUID.randomUUID().toString();
         re.CreateFalcuty(id, name, description, academicYear);
         return "redirect:/view";
     }
@@ -84,9 +82,11 @@ public class FacultyController {
     public String View(Model model) {
         Account acc = returnAccount();
         accountService.checkRole("Admin");
+        List<AcademicYear> academicYears = acaRepo.ReturnAcademicYears();
         List<Faculty> Faculties = re.ReturnFaculties();
         model.addAttribute("Fals", Faculties);
         model.addAttribute("acc",acc);
+        model.addAttribute("aca",academicYears);
         return "Faculty/ViewFacutlty";
     }
 

@@ -39,8 +39,8 @@
             <label for="name">Name:</label><br>
             <input class="form-control form-control-lg" type="text" id="name" name="name"><br>
 
-            <label for="id">ID:</label><br>
-            <input class="form-control form-control-lg" type="text" id="id" name="id"><br>
+<!--            <label for="id">ID:</label><br>-->
+<!--            <input class="form-control form-control-lg" type="text" id="id" name="id"><br>-->
 
             <label for="description">Description:</label><br>
             <input class="form-control form-control-lg" type="text" id="description" name="description"><br>
@@ -48,7 +48,7 @@
             <label for="academicYear">Academic Year ID:</label><br>
             <select id="academicYear" name="academicYear" class="form-select" aria-label="Default select example">
                 <tr th:each="aca : ${aca1}">
-                    <option th:value="${aca.id}" th:text="${aca.id}"></option>
+                    <option th:value="${aca.id}" th:text="${aca.getYearOfAcademic()}"></option>
                 </tr>
             </select>
 
