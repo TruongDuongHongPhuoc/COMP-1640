@@ -123,7 +123,7 @@ public class ContributionController {
 
     @GetMapping("/Update/{id}") // Corrected mapping without the trailing slash
     public String updateContribution(@PathVariable String id, Model model) {
-        accountService.checkRole("Student");
+        accountService.checkRoles("Student", "Admin");
         Contribution fe = re.ReturnContribution(id);
         Map<String, String> dataToToken = new HashMap<>();
         dataToToken.put("id", fe.getId());

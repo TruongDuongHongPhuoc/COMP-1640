@@ -131,7 +131,8 @@ public class ContributionService {
         }).toList();
     }
 
-    public Contribution attachingInfor(Contribution con){
+    public Contribution attachingInfor(String id){
+        Contribution con = contributionRepository.ReturnContribution(id);
         String year = academicYearRepositoryInterface.findById(con.getAcademicYearId()).get().getYearOfAcademic();
         String facultyName = facultyRepository.findById(con.getFacultyId()).get().getName();
         AcademicYear ac = academicYearRepository.findById(con.getAcademicYearId()).orElseGet(null);
