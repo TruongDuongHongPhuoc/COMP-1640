@@ -91,8 +91,10 @@ public class FeedBackController {
 
     @GetMapping("/View")
     public String View(Model model) {
+        Account acc = returnAccount();
         accountService.checkRole("Marketing Coordinator");
         List<Feedback> feedbacks = re.ReturnFeedBacks();
+        model.addAttribute("acc",acc);
         model.addAttribute("feeds", feedbacks);
         return "Feedback/ViewFeedback";
     }
@@ -133,4 +135,10 @@ public class FeedBackController {
     // re.DeleteFal(id);
     // return "redirect:/FeedBack/View";
     // }
+    public Account returnAccount() {
+        org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Optional<Account> account = accountRepoTest.findAccountByMail(authentication.getName());
+        Account accounts = account.get();
+        return accounts;
+    }
 }

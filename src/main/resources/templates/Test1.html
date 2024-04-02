@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Google Analytics Report</title>
+    <!-- Load the Google Embed API -->
+    <script src="https://www.google.com/jsapi"></script>
+    <script>
+        google.load('visualization', '1', {'packages': ['corechart']});
+        google.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            // Replace 'YOUR_VIEW_ID' with your Google Analytics view ID
+            var viewId = '434690086';
+
+            // Replace 'YOUR_METRIC' and 'YOUR_DIMENSION' with the desired metric and dimension
+            var metric = 'ga:pageviews';
+            var dimension = 'ga:date';
+
+            // Create the query object
+            var query = {
+                'ids': viewId,
+                'metrics': metric,
+                'dimensions': dimension,
+                'start-date': '30daysAgo',
+                'end-date': 'yesterday'
+            };
+
+            // Send a query to Google Analytics
+            gapi.client.analytics.data.ga.get(query).then(function (response) {
+                var data = response.result.rows;
+                var dataTable = new google.visualization.DataTable();
+                dataTable.addColumn('string', 'Date');
+                dataTable.addColumn('number', 'Page Views');
+                for (var i = 0; i < data.length; i++) {
+                    dataTable.addRow([data[i][0], parseInt(data[i][1])]);
+                }
+
+                var options = {
+                    title: 'Page Views Over Time',
+                    curveType: 'function',
+                    legend: {position: 'bottom'}
+                };
+
+                var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+                chart.draw(dataTable, options);
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Google Analytics Report</h1>
+    <!-- Div to hold the Google Analytics chart -->
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+    <!-- Load the Google Analytics Reporting API -->
+    <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+</body>
+</html>

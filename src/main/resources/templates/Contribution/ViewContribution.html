@@ -70,7 +70,7 @@
                             </select>
                         </div>
                         <div class="card-body">
-                            <table id="datatablesSimple">
+                            <table class="table datatablesSimple" id="dataTable">
                                 <thead>
                                 <tr class="align-middle">
                                     <th></th>
@@ -105,24 +105,29 @@
                                         <td th:text="${c.year}"></td>
                                         <td th:text="${c.faculty}"></td>
                                         <td th:if="${c.canDowload}" class="align-middle">
-                                            <a class="btn btn-success align-middle" th:href="@{http://localhost:8090/Fi/files/__${c.path}__}"><i class="fa fa-download"></i></a>
+                                            <a class="btn btn-success align-middle"
+                                               th:href="@{http://localhost:8090/Fi/files/__${c.path}__}"><i
+                                                    class="fa fa-download"></i></a>
                                         </td>
                                         <td th:unless="${c.canDowload}">
                                             <a class="btn btn-dark">Disable</a>
                                         </td>
                                         <td th:if="${acc.getRoleId().equals('4')}">
-                                            <a class="btn btn-info" th:href="@{/Contribution/SetPublic/{id}(id = ${c.getId()})}">
+                                            <a class="btn btn-info"
+                                               th:href="@{/Contribution/SetPublic/{id}(id = ${c.getId()})}">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>
                                         <td class="text-center">
-                                            <a class="btn btn-info" th:href="@{/FeedBack/ViewFeedback/{id}(id = ${c.getId()})}">
+                                            <a class="btn btn-info"
+                                               th:href="@{/FeedBack/ViewFeedback/{id}(id = ${c.getId()})}">
                                                 <i class="fa fa-eye"></i>
                                             </a>
                                         </td>
                                         <th:Block th:if="${acc.getRoleId().equals('1')}">
                                             <td class="align-middle">
-                                                <a class="btn btn-danger" th:href="@{/Contribution/DeleteForAdmin/{id}(id = ${c.getId()})}">
+                                                <a class="btn btn-danger"
+                                                   th:href="@{/Contribution/DeleteForAdmin/{id}(id = ${c.getId()})}">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
                                             </td>
@@ -131,7 +136,6 @@
                                 </th:block>
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
                 </div>
