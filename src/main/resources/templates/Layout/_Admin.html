@@ -130,7 +130,9 @@
       <!--    <a href="/Role/View"><i class="fa fa-suitcase"></i> Role manage </a>-->
       <a href="/account/view"><i class="fa fa-users"></i> Account manage </a>
     </th:block>
+    <th:block th:if="${acc.getRoleId().equals('3')}">
     <a href="/chart"><i class="fa fa-pie-chart"></i> Statistical Analysis </a>
+    </th:block>
     <th:block th:if="${acc.getRoleId().equals('1')}">
       <a href="/abc"><i class="fa fa-bars"></i> Web trafic management</a>
     </th:block>
