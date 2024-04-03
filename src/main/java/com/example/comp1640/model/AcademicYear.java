@@ -16,7 +16,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AcademicYear {
-
     @Id
     private String id;
     private String name;

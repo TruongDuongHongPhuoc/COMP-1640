@@ -54,7 +54,6 @@ public class HomeController {
             model.addAttribute("acc", '0');
         } else {
             Account acc = returnAccount();
-            System.out.println(acc.getRoleName());
             model.addAttribute("acc", acc.getRoleId());
         }
         List<Contribution> cons = contributionService.ReturnPublicContribution();
@@ -160,6 +159,7 @@ public class HomeController {
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<Account> acc = accountRepo.findAccountByMail(authentication.getName());
         Account account = accountService.getOne(acc.get().getId());
+//        Account account = acc.get();
         return account;
     }
 

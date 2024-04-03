@@ -134,7 +134,7 @@ public class AccountController {
         model.addAttribute("account", account);
         model.addAttribute("faculty", falRepo.findAll());
         model.addAttribute("role", roleRepo.findAll());
-        return "Account/View";
+        return view(model);
     }
 
     @GetMapping("/personal/{id}")
@@ -228,10 +228,12 @@ public class AccountController {
     public String createAccount(Model model) {
         accountService.checkRole("Admin");
         Account account = new Account();
+        Account acc = returnAccount();
         List<Faculty> facultyList = falcultyRepository.ReturnFaculties();
         model.addAttribute("roleList", roleRepo.findAll());
         model.addAttribute("facultyList", facultyList);
         model.addAttribute("account", account);
+        model.addAttribute("acc",acc);
         return "Account/CreateAccount";
     }
 
@@ -250,16 +252,14 @@ public class AccountController {
             model.addAttribute("account", account);
             return "Account/CreateAccount";
         }
-
         account.setProfileImage(file.getOriginalFilename());
         account.setId(UUID.randomUUID().toString());
         account.setPassword(bCryptPasswordEncoder.encode(account.getPassword()));
         account.setLastSession(null);
-        mailService.SendEmail(account.getMail(), "Create a " +
-                accountService.getOne(account.getId()).getRoleName() + " account", "Password: " + account.getPassword());
+        repo.save(account);
+        mailService.SendEmail(account.getMail(), "Create a new account", "Password: " + account.getPassword());
         try {
             String fileName = file.getOriginalFilename();
-            Account saveUser = repo.save(account);
             String filePath = "src/main/resources/static/images/" + fileName;
             File imageFileOnDisk = new File(filePath);
             BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream((imageFileOnDisk)));
@@ -269,11 +269,9 @@ public class AccountController {
             e.printStackTrace();
             return null;
         }
-        var roles = roleRepo.findAll();
-        model.addAttribute("account", accountService.getAll());
-        model.addAttribute("role", roles);
-        model.addAttribute("falcuty", falRepo.findAll());
-        return "Account/View";
+        Account acc = returnAccount();
+        model.addAttribute("acc", acc);
+        return view(model);
     }
 
     @PostMapping("/forgotPassword")
