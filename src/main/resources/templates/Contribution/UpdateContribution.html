@@ -35,7 +35,7 @@
   <!-- End Google Tag Manager (noscript) -->
 
   <div layout:fragment="content">
-    <h1 th:text="'Update Contribution Management"></h1>
+    <h1>Update Contribution Management</h1>
 
 
     <form th:action="@{/Contribution/Updating}" method="POST" enctype="multipart/form-data">
@@ -49,8 +49,12 @@
       <input th:value="${con.description}" type="text" class="form-control form-control-lg" id="description"
         name="description"><br>
 
-      <!-- <label for="submitDate">submitDate:</label><br> -->
-      <input th:value="${con.submitDate}" type="hidden" class="form-control form-control-lg" id="submitDate"
+<!--      <label for="description">St:</label><br>-->
+<!--      <input th:value="${con.description}" type="text" class="form-control form-control-lg" id="description"-->
+<!--             name="description"><br>-->
+
+       <label for="submitDate">submitDate:</label><br>
+      <input th:value="${con.submitDate}" type="datetime-local" class="form-control form-control-lg" id="submitDate"
         name="submitDate"><br>
         <table>
           <tr>

@@ -143,12 +143,12 @@ public class ContributionController {
     @PostMapping("/Updating")
     public String UpdatePostContribution(
             @RequestParam("name") String name, @RequestParam("description") String description,
-            @RequestParam("token") String token,
+            @RequestParam("token") String token, @RequestParam("submitDate") LocalDateTime sub,
             @RequestParam("file") MultipartFile path
             , Model model) {
         Map<String, Object> dataFromToken = JwtUtils.decodeToken(token);
         String id = dataFromToken.get("id").toString();
-        LocalDateTime sub = LocalDateTime.now();
+//        LocalDateTime sub = LocalDateTime.now();
         String academicId = dataFromToken.get("academicYearId").toString();
         String accountId = dataFromToken.get("accountId").toString();
         String facultyId = dataFromToken.get("facultyId").toString();
@@ -159,7 +159,7 @@ public class ContributionController {
         else {
             service.UpdateContribution(id,name,description,sub,accountId,academicId,facultyId,oldPath);
         }
-        accountService.checkRole("Student");
+        accountService.checkRoles("Student","Admin");
         Account account = returnAccount();
         return "redirect:/student/" + account.getId();
     }
