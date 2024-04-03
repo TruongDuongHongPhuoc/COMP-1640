@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
 <head>
   <meta charset="utf-8" />
-  <link rel="icon" href="https://think.edu.vn/wp-content/uploads/2020/05/University-of-Greenwich.jpg"
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link rel="icon" href="https://think.edu.vn/wp-content/uploads/2020/05/University-of-Greenwich.jpg" <meta
+    http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="" />
   <meta name="author" content="" />
@@ -16,7 +17,8 @@
   <!-- Include DataTables CSS -->
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
   <!-- Include DataTables JS -->
-  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+  <script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 </head>
 </head>
 <style>
@@ -28,14 +30,17 @@
 
   .sidenav {
     height: 100%;
-    width: 10%; /* Set width to 10% of the viewport width */
+    width: 10%;
+    /* Set width to 10% of the viewport width */
     position: fixed;
     top: 0;
     left: 0;
     background-color: #333;
     padding-top: 20px;
-    z-index: 1; /* Ensure it's above other content */
-    overflow-x: hidden; /* Hide horizontal overflow */
+    z-index: 1;
+    /* Ensure it's above other content */
+    overflow-x: hidden;
+    /* Hide horizontal overflow */
   }
 
   .sidenav a {
@@ -53,69 +58,86 @@
   .main {
     margin-left: 150px;
     padding: 20px;
-    z-index: 0; /* Ensure it's behind the side navbar */
+    z-index: 0;
+    /* Ensure it's behind the side navbar */
   }
 
   @media screen and (max-width: 250px) {
     .sidenav {
       height: 100%;
-      width: 25%; /* Set width to 25% of the viewport width */
+      width: 25%;
+      /* Set width to 25% of the viewport width */
       position: fixed;
       top: 0;
       left: 0;
       background-color: #333;
       padding-top: 20px;
-      z-index: 1; /* Ensure it's above other content */
-      overflow-x: hidden; /* Hide horizontal overflow */
+      z-index: 1;
+      /* Ensure it's above other content */
+      overflow-x: hidden;
+      /* Hide horizontal overflow */
     }
 
     .main {
-      margin-left: 387px; /* Adjust the left margin of the content area */
-      padding: 20px; /* Add padding to maintain distance from sidenav */
+      margin-left: 387px;
+      /* Adjust the left margin of the content area */
+      padding: 20px;
+      /* Add padding to maintain distance from sidenav */
     }
   }
 
   .main {
-      margin-left: 150px; /* Same width as the sidebar */
-      padding: 8px;
-      z-index: 0; /* Ensure it's behind the side navbar */
-      min-height: 300px;
-      min-width: 377px;
-    }
-  #dataTable td {
-    border-left: 2px solid #ddd; /* Add left border */
-    border-right: 2px solid #ddd; /* Add right border */
-    padding: 8px; /* Add padding for better spacing */
+    margin-left: 150px;
+    /* Same width as the sidebar */
+    padding: 8px;
+    z-index: 0;
+    /* Ensure it's behind the side navbar */
+    min-height: 300px;
+    min-width: 377px;
   }
-     /* Styles for the additional box */
-   /*.additional-box {*/
-   /*  display: none; !* Hide the box by default *!*/
-   /*  position: fixed;*/
-   /*  top: 50%; !* Center vertically *!*/
-   /*  left: 50%; !* Center horizontally *!*/
-   /*  transform: translate(-50%, -50%);*/
-   /*  background-color: #fff;*/
-   /*  padding: 20px;*/
-   /*  border: 1px solid #ccc;*/
-   /*  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
-   /*  z-index: 9999; !* Ensure the box is on top of other content *!*/
-   /*}*/
+
+  #dataTable td {
+    border-left: 2px solid #ddd;
+    /* Add left border */
+    border-right: 2px solid #ddd;
+    /* Add right border */
+    padding: 8px;
+    /* Add padding for better spacing */
+  }
+
+  /* Styles for the additional box */
+  /*.additional-box {*/
+  /*  display: none; !* Hide the box by default *!*/
+  /*  position: fixed;*/
+  /*  top: 50%; !* Center vertically *!*/
+  /*  left: 50%; !* Center horizontally *!*/
+  /*  transform: translate(-50%, -50%);*/
+  /*  background-color: #fff;*/
+  /*  padding: 20px;*/
+  /*  border: 1px solid #ccc;*/
+  /*  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+  /*  z-index: 9999; !* Ensure the box is on top of other content *!*/
+  /*}*/
 </style>
+
 <body class="sb-nav-fixed">
   <div class=" sidenav" id="demo">
-    <a href="/home" ><i class="fa fa-home"></i>HomePage</a>
+    <a href="/home"><i class="fa fa-home"></i>HomePage</a>
     <a href="/Contribution/View"><i class="fa fa-book"></i> Contribution manage</a>
     <th:block th:if="${acc.getRoleId().equals('1')}">
-    <a href="/Academic/View"><i class="fa fa-graduation-cap"></i> Academic Manage</a>
-    <a href="/view"><i class="fa fa-briefcase"></i> Faculty Manage</a>
-<!--    <a href="/Role/View"><i class="fa fa-suitcase"></i> Role manage </a>-->
-    <a href="/account/view"><i class="fa fa-users"></i> Account manage </a>
+      <a href="/Academic/View"><i class="fa fa-graduation-cap"></i> Academic Manage</a>
+      <a href="/view"><i class="fa fa-briefcase"></i> Faculty Manage</a>
+      <!--    <a href="/Role/View"><i class="fa fa-suitcase"></i> Role manage </a>-->
+      <a href="/account/view"><i class="fa fa-users"></i> Account manage </a>
     </th:block>
     <a href="/chart"><i class="fa fa-pie-chart"></i> Statistical Analysis </a>
+    <th:block th:if="${acc.getRoleId().equals('1')}">
+      <a href="/abc"><i class="fa fa-bars"></i> Web trafic management</a>
+    </th:block>
     <a href="/logout"><i class="fa fa-sign-out"></i> Log out </a>
   </div>
 </body>
-  <div id="content-wrapper" class="d-flex flex-column" >
+<div id="content-wrapper" class="d-flex flex-column">
   <div class="main">
     <!-- Main Content -->
     <div layout:fragment="content">
@@ -151,7 +173,7 @@
 
 <!-- Logout Modal-->
 <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -169,12 +191,14 @@
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+  crossorigin="anonymous"></script>
 <script src="/adminTemplate/js/scripts.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
 <script src="/adminTemplate/assets/demo/chart-area-demo.js"></script>
 <script src="/adminTemplate/assets/demo/chart-bar-demo.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+  crossorigin="anonymous"></script>
 <script src="/adminTemplate/js/datatables-simple-demo.js"></script>
 
 </body>
@@ -195,7 +219,7 @@
   }
 
   // Attach the validateInputs function to a form submit event
-  document.querySelector('form').addEventListener('submit', function(event) {
+  document.querySelector('form').addEventListener('submit', function (event) {
     if (!validateInputs()) {
       event.preventDefault(); // Prevent form submission if validation fails
     }
@@ -203,18 +227,24 @@
 
 </script>
 <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.7.0.js"></script>
-<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
-<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+<script type="text/javascript" language="javascript"
+  src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript"
+  src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" language="javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script type="text/javascript" language="javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script type="text/javascript" language="javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script type="text/javascript" language="javascript"
+  src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
 
 <script>
 
-    $(document).ready(function() {
-      var table = $('#dataTable').DataTable( {
-        dom: 'Bfrtip',
+  $(document).ready(function () {
+    var table = $('#dataTable').DataTable({
+      dom: 'Bfrtip',
       buttons: [
         { extend: 'copyHtml5', className: 'btn btn-primary' },
         { extend: 'excelHtml5', className: 'btn btn-success' },
@@ -222,18 +252,18 @@
         { extend: 'pdfHtml5', className: 'btn btn-danger' }
       ],
       "pageLength": 5 // Set the default page length
-    } );
-    $('#pageLengthSelect').change(function() {
+    });
+    $('#pageLengthSelect').change(function () {
       var val = $(this).val();
       table.page.len(val).draw();
     });
   });
-    function checkAll() {
-      var checkboxes = document.querySelectorAll("#dataTable tbody tr td:first-child input[type='checkbox']");
-      checkboxes.forEach(function(checkbox) {
-        checkbox.checked = true;
-      });
-    }
+  function checkAll() {
+    var checkboxes = document.querySelectorAll("#dataTable tbody tr td:first-child input[type='checkbox']");
+    checkboxes.forEach(function (checkbox) {
+      checkbox.checked = true;
+    });
+  }
 </script>
 <script>
   function filterTable() {
@@ -246,7 +276,7 @@
       return; // Exit the function early
     }
 
-    tableRows.forEach(function(row) {
+    tableRows.forEach(function (row) {
       var facultyId = row.querySelector("td:nth-child(7)").textContent.trim(); // Assuming faculty name is the 7th column
       if (facultyId === selectedFacultyName || facultyId === "selectAll") {
         row.style.display = ""; // Show the row if it matches the selected faculty or no faculty is selected
@@ -259,7 +289,7 @@
   function showAllContributions() {
     var tableRows = document.querySelectorAll("#dataTable tbody tr");
 
-    tableRows.forEach(function(row) {
+    tableRows.forEach(function (row) {
       row.style.display = ""; // Show all rows
     });
   }
@@ -271,4 +301,5 @@
   // Initially filter the table based on the selected faculty
   filterTable();
 </script>
+
 </html>
