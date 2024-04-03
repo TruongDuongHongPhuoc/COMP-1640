@@ -1,6 +1,7 @@
 package com.example.comp1640.Controller;
 
 import com.example.comp1640.Service.AccountService;
+import com.example.comp1640.Service.ContributionService;
 import com.example.comp1640.Service.FeedbackService;
 import com.example.comp1640.model.Account;
 import com.example.comp1640.model.Contribution;
@@ -37,19 +38,8 @@ public class FeedBackController {
     @Autowired
     private AccountService accountService;
 
-    // @PostMapping("/Create")
-    // public String CreateFeedback(@RequestParam("id") String id,
-    // @RequestParam("content") String content
-    // , @RequestParam("userid") String userid, @RequestParam("contributionId")
-    // String contributionId, Model model){
-    // re.CreateFeedBack(id, content, userid, contributionId);;
-    // return "redirect:/FeedBack/View";
-    // }
-
-    // @GetMapping("/CreateFeedback")
-    // public String CreatFul(){
-    // return "Feedback/CreateFeedback";
-    // }
+    @Autowired
+    ContributionService contributionService;
 
     @GetMapping("/Create/{id}") // Corrected mapping without the trailing slash
     public String update(@PathVariable String id, Model model) {
@@ -102,7 +92,7 @@ public class FeedBackController {
     public String ViewFeedback(@PathVariable String id,Model model) {
         Account account = ReturnAccount();
         List<Account> Listaccount = accountRepoTest.findAll();
-        Contribution con = conRepo.ReturnContribution(id);
+        Contribution con = contributionService.attachingInfor(id);
         List<Feedback> feds = service.ReturnFeedBackWithContributionId(id);
         LocalDate Deadline = con.getSubmitDate().plusDays(14);
         LocalDate currentdate = LocalDate.now();

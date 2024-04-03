@@ -75,7 +75,7 @@
                                     <div class="col-auto">
                                         <p class="ms-2 mb-0 font-weight-bold">Entry</p>
                                     </div>
-                                    <div class="col d-flex align-items-center">
+                                    <div class="col d-flex align-items-center mb-3">
                                         <select id="pageLengthSelect" class="form-select" style="width: 20%">
                                             <option value="5">5</option>
                                             <option value="10">10</option>
@@ -92,7 +92,6 @@
                                 <tr class="align-middle">
                                     <th></th>
                                     <th class="text-center">Name</th>
-                                    <th class="text-center">Description</th>
                                     <th class="text-center">Submite date</th>
                                     <th class="text-center">Status</th>
                                     <th class="text-center">Academic year</th>
@@ -101,6 +100,7 @@
                                     <th th:if="${acc.getRoleId().equals('4')}" class="text-center">Set public</th>
                                     <th class="text-center">Feedbacks</th>
                                     <th:Block th:if="${acc.getRoleId().equals('1')}">
+                                        <th class="text-center">Update</th>
                                         <th class="text-center">Delete</th>
                                     </th:Block>
                                 </tr>
@@ -116,7 +116,6 @@
 <!--                                            <input type="checkbox" disabled>-->
                                         </td>
                                         <td th:text="${c.name}"></td>
-                                        <td th:text="${c.description}"></td>
                                         <td th:text="${c.submitDate}"></td>
                                         <td th:text="${c.status == 0 ? 'Waiting' : (c.status == 1 ? 'Approved' : (c.status == 3 ? 'Public' : 'Rejected'))}"></td>
                                         <td th:text="${c.year}"></td>
@@ -141,14 +140,18 @@
                                                 <i class="fa fa-eye"></i>
                                             </a>
                                         </td>
-                                        <th:Block th:if="${acc.getRoleId().equals('1')}">
+                                        <th:block th:if="${acc.getRoleId().equals('1')}">
                                             <td class="text-center">
-                                                <a class="btn btn-danger"
-                                                   th:href="@{/Contribution/DeleteForAdmin/{id}(id = ${c.getId()})}">
+                                                <a class="btn btn-info" th:href="@{/Contribution/Update/{id} (id=${c.getId()})}">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                            </td>
+                                            <td class="text-center">
+                                                <a class="btn btn-danger" th:href="@{/Contribution/DeleteForAdmin/{id}(id = ${c.getId()})}">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
                                             </td>
-                                        </th:Block>
+                                        </th:block>
                                     </tr>
                                 </th:block>
                                 </tbody>

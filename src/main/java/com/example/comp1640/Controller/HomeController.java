@@ -91,7 +91,10 @@ public class HomeController {
     }
 
     @GetMapping("/abc")
-    public String getMethodName3() {
+    public String getMethodName3(Model model) {
+        Account acc = returnAccount();
+        accountService.checkRole("Admin");
+        model.addAttribute("acc",acc);
         return "Test1";
     }
     
