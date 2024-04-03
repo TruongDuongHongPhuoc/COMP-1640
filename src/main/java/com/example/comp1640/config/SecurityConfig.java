@@ -61,7 +61,7 @@ public class SecurityConfig extends GlobalMethodSecurityConfiguration {
                         (form) -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/CheckFirstLogin", true)
+                                .defaultSuccessUrl("/home", true)
                                 .usernameParameter("email")
                                 .permitAll()
                 ) // ở day co the them exception custom
