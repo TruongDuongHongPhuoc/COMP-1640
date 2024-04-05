@@ -89,7 +89,7 @@ public class ContributionController {
 
     @PostMapping("/Hello")
     public String Create(@Valid @ModelAttribute("contribution") Contribution contribution,
-                         @RequestParam("file") MultipartFile file, BindingResult result, Model model) {
+                         @RequestParam("file") MultipartFile file, @RequestParam("image") MultipartFile image,BindingResult result, Model model) throws IOException {
         accountService.checkRole("Student");
 
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext()
@@ -106,7 +106,9 @@ public class ContributionController {
         contribution.setAccountId(account.getId());
         String z = contribution.getFacultyId();
         contribution.setPath(file.getOriginalFilename());
-        service.storeFile(file);
+        contribution.setImage(image.getOriginalFilename());
+        service.storeFile(image);
+        service.saveImage(file);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String formatted = contribution.getSubmitDate().plusDays(14).format(formatter);
         List<Account> listAccount = accountRepo.findAll();
@@ -144,8 +146,9 @@ public class ContributionController {
     public String UpdatePostContribution(
             @RequestParam("name") String name, @RequestParam("description") String description,
             @RequestParam("token") String token, @RequestParam("submitDate") LocalDateTime sub,
-            @RequestParam("file") MultipartFile path
-            , Model model) {
+            @RequestParam("file") MultipartFile path,
+            @RequestParam("image") MultipartFile image
+            , Model model) throws IOException {
         Map<String, Object> dataFromToken = JwtUtils.decodeToken(token);
         String id = dataFromToken.get("id").toString();
 //        LocalDateTime sub = LocalDateTime.now();
@@ -154,12 +157,11 @@ public class ContributionController {
         String facultyId = dataFromToken.get("facultyId").toString();
         String oldPath = dataFromToken.get("oldfile").toString();
         if(!path.isEmpty()) {
-            service.UpdateContribution(id, name, description, sub, accountId, academicId, facultyId, path, oldPath);
+            service.UpdateContribution(id, name, description, sub, accountId, academicId, facultyId, path, oldPath, image);
         }
         else {
-            service.UpdateContribution(id,name,description,sub,accountId,academicId,facultyId,oldPath);
+            service.UpdateContribution(id,name,description,sub,accountId,academicId,facultyId,oldPath, image);
         }
-        accountService.checkRoles("Student","Admin");
         Account account = returnAccount();
         return "redirect:/student/" + account.getId();
     }

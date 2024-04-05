@@ -44,6 +44,7 @@
                 <tr>
                     <!--                            <th>id</th>-->
                     <th>Name</th>
+                    <th>Image</th>
                     <th>Description</th>
                     <th>Submite Date</th>
                     <th>Status</th>
@@ -62,6 +63,11 @@
                 <block th:each="con : ${cons}">
                     <tr>
                         <td th:text="${con.name}"></td>
+                        <td>
+                            <div class="w-50 h-50">
+                                <img th:src="@{'/images/' + ${con.image}}" style="height: 50px !important;" alt="Avatar">
+                            </div>
+                        </td>
                         <td th:text="${con.description}"></td>
                         <td th:text="${con.submitDate}"></td>
                         <td
