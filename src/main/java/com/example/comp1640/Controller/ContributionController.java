@@ -143,7 +143,7 @@ public class ContributionController {
     @PostMapping("/Updating")
     public String UpdatePostContribution(
             @RequestParam("name") String name, @RequestParam("description") String description,
-            @RequestParam("token") String token, @RequestParam("submitDate") Date sub,
+            @RequestParam("token") String token, @RequestParam("submitDate") LocalDateTime sub,
             @RequestParam("file") MultipartFile path
             , Model model) {
         Map<String, Object> dataFromToken = JwtUtils.decodeToken(token);
@@ -155,10 +155,10 @@ public class ContributionController {
         String facultyId = dataFromToken.get("facultyId").toString();
         String oldPath = dataFromToken.get("oldfile").toString();
         if(!path.isEmpty()) {
-//            service.UpdateContribution(id, name, description, sub, accountId, academicId, facultyId, path, oldPath);
+            service.UpdateContribution(id, name, description, sub, accountId, academicId, facultyId, path, oldPath);
         }
         else {
-//            service.UpdateContribution(id,name,description,sub,accountId,academicId,facultyId,oldPath);
+            service.UpdateContribution(id,name,description,sub,accountId,academicId,facultyId,oldPath);
         }
         accountService.checkRole("Student");
         Account account = returnAccount();
