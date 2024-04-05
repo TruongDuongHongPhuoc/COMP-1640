@@ -23,7 +23,7 @@ public class AuthenController {
         if (authentication != null) {
             new SecurityContextLogoutHandler().logout(request, response, authentication);
         }
-        return "redirect:/login?logout"; // Chuyển hướng người dùng đến trang đăng nhập sau khi đăng xuất
+        return "redirect:/home"; // Chuyển hướng người dùng đến trang đăng nhập sau khi đăng xuất
     }
 
 }
