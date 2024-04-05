@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -157,10 +156,10 @@ public class ContributionController {
         String facultyId = dataFromToken.get("facultyId").toString();
         String oldPath = dataFromToken.get("oldfile").toString();
         if(!path.isEmpty()) {
-            service.UpdateContribution(id, name, description, sub, accountId, academicId, facultyId, path, oldPath, image);
+            service.deleteContribution(id, name, description, sub, accountId, academicId, facultyId, path, oldPath, image);
         }
         else {
-            service.UpdateContribution(id,name,description,sub,accountId,academicId,facultyId,oldPath, image);
+            service.updateContribution(id,name,description,sub,accountId,academicId,facultyId,oldPath, image);
         }
         Account account = returnAccount();
         return "redirect:/student/" + account.getId();

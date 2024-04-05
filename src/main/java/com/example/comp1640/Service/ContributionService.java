@@ -2,7 +2,6 @@ package com.example.comp1640.Service;
 
 import com.example.comp1640.Store.FileSystemStorageService;
 import com.example.comp1640.Store.FileUploadController;
-import com.example.comp1640.Store.StorageService;
 import com.example.comp1640.model.*;
 import com.example.comp1640.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +13,10 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Service
 public class ContributionService {
@@ -89,15 +86,15 @@ public class ContributionService {
     public void deletefile(String file){
         StoreService.deleteFile(file);
     }
-    public void UpdateContribution(String id,String name,String description,LocalDateTime submitDate,String accountId,String academicYearId, String facultyId, MultipartFile file, String oldfile, MultipartFile image) throws IOException {
+    public void deleteContribution(String id, String name, String description, LocalDateTime submitDate, String accountId, String academicYearId, String facultyId, MultipartFile file, String oldfile, MultipartFile image) throws IOException {
         if(!file.isEmpty()) {
             StoreService.deleteFile(oldfile);
         }
-        contributionRepository.UpdateContribution(id,name,description,submitDate,accountId,academicYearId,facultyId,file.getOriginalFilename());
+        updateContribution(id,name,description,submitDate,accountId,academicYearId,facultyId,oldfile,image);
         StoreService.store(file);
         saveImage(image);
     }
-    public void UpdateContribution(String id,String name,String description,LocalDateTime submitDate,String accountId,String academicYearId, String facultyId, String oldfile, MultipartFile image){
+    public void updateContribution(String id, String name, String description, LocalDateTime submitDate, String accountId, String academicYearId, String facultyId, String oldfile, MultipartFile image){
 //        contributionRepository.UpdateContribution(id,name,description,submitDate,accountId,academicYearId,facultyId,oldfile);
         Contribution con = contributionRepositoryInterface.findById(id).get();
         con.setImage(name);
