@@ -236,7 +236,7 @@ public class AccountController {
         model.addAttribute("acc",acc);
         return "Account/CreateAccount";
     }
-
+    
     @PostMapping("/create")
     public String create(@Valid @ModelAttribute("account") Account account,
                          @RequestParam("image") MultipartFile file,

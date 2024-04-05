@@ -153,7 +153,7 @@
                     </div>
                 </div><!-- first row -->
                 <div class="row tm-content-box">
-                    <th:block th:if="${acc.equals('1')}">
+                    <!-- <th:block th:if="${acc.equals('1')}">
                         <div class="col-lg-1">
                             <i class="fa fa-book fa-3x" style="color: rgb(13, 110, 253)"></i>
                         </div>
@@ -169,7 +169,7 @@
                                 </div>
                             </div>
                         </div>
-                    </th:block>
+                    </th:block> -->
                     <th:block th:if="${acc.equals('2')}">
                         <div class="col-lg-1">
                             <i class="fa fa-book fa-3x" style="color: rgb(13, 110, 253)"></i>
@@ -202,6 +202,22 @@
                                 </p>
                                 <div class="tm-continue">
                                     <a th:href="@{chart}" class="tm-intro-text tm-btn-primary">Analysis</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-1">
+                            <i class="fas fa-3x fa-users text-center tbi bi-archive"
+                                style="color: rgb(13, 110, 253)"></i>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="tm-intro-text-container">
+                                <h2 class="tm-text-primary mb-4">View all Student Work</h2>
+                                <p class="mb-4 tm-intro-text">
+                                    View all of your student work
+                                </p>
+                                <div class="tm-continue">
+                                    <a href="/Contribution/View" class="tm-intro-text tm-btn-primary">View all
+                                        Article</a>
                                 </div>
                             </div>
                         </div>
@@ -243,7 +259,7 @@
                             </div>
                         </div>
                     </th:block>
-                    <th:block th:if="${acc.equals('4')}">
+                    <!-- <th:block th:if="${acc.equals('4')}">
                         <div class="col-lg-1">
                             <i class="fas fa-3x fa-users text-center tbi bi-archive"
                                 style="color: rgb(13, 110, 253)"></i>
@@ -260,7 +276,7 @@
                                 </div>
                             </div>
                         </div>
-                    </th:block>
+                    </th:block> -->
                 </div>
 
                 <div class="row tm-content-box"><!-- fourth row -->

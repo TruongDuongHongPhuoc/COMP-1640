@@ -124,7 +124,7 @@ public class ContributionController {
 
     @GetMapping("/Update/{id}") // Corrected mapping without the trailing slash
     public String updateContribution(@PathVariable String id, Model model) {
-        accountService.checkRoles("Student", "Admin");
+        accountService.checkRole("Student");
         Contribution fe = re.ReturnContribution(id);
         Map<String, String> dataToToken = new HashMap<>();
         dataToToken.put("id", fe.getId());
@@ -150,7 +150,8 @@ public class ContributionController {
             , Model model) throws IOException {
         Map<String, Object> dataFromToken = JwtUtils.decodeToken(token);
         String id = dataFromToken.get("id").toString();
-//        LocalDateTime sub = LocalDateTime.now();
+    //    LocalDateTime sub = LocalDateTime.now();
+    //    contribution.setSubmitDate(submitDate);
         String academicId = dataFromToken.get("academicYearId").toString();
         String accountId = dataFromToken.get("accountId").toString();
         String facultyId = dataFromToken.get("facultyId").toString();
@@ -162,12 +163,18 @@ public class ContributionController {
             service.updateContribution(id,name,description,sub,accountId,academicId,facultyId,oldPath, image);
         }
         Account account = returnAccount();
-        return "redirect:/student/" + account.getId();
-    }
+
+        if(account.getRoleName().equals("Student")) {
+
+            return "redirect:/student/" + account.getId();
+        }else {
+            return "redirect:/Contribution/View";
+        }
+        }
 
     @GetMapping("/View")
     public String View(Model model) {
-        accountService.checkRoles("Marketing Manager", "Admin");
+        accountService.checkRole("Marketing Manager");
         Account account = returnAccount();
         account = accountService.getOne(account.getId());
         List<Faculty> faculties = facultyRepo.ReturnFaculties();
@@ -177,7 +184,8 @@ public class ContributionController {
                 .collect(Collectors.toList());
         model.addAttribute("acc", account);
         model.addAttribute("cons", filledContri);
-        model.addAttribute("faculties", faculties);
+        model.addAttribute
+        ("faculties", faculties);
         return "Contribution/ViewContribution";
     }
 
@@ -205,11 +213,11 @@ public class ContributionController {
     }
 
     //DeleteForAdmin
-    @GetMapping("/DeleteForAdmin/{id}")
-    public String DeleteForAdmin(@PathVariable("id") String id) {
-        service.DeleteContribution(id);
-        return "redirect:/Contribution/View";
-    }
+    // @GetMapping("/DeleteForAdmin/{id}")
+    // public String DeleteForAdmin(@PathVariable("id") String id) {
+    //     service.DeleteContribution(id);
+    //     return "redirect:/Contribution/View";
+    // }
 
     @PostMapping("/publicupdate")
     public String Public(@RequestParam("conId") String token, @RequestParam(value = "status") int status) {

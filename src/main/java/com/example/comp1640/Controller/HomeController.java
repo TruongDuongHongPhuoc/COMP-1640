@@ -117,12 +117,15 @@ public class HomeController {
 
         System.out.println(accounts.getFacultyId().toString().equals("02"));
 
-        if (accounts.getFacultyId().equals("01"))
+        if (accounts.getFalcutyName().equals("Engineer"))
         {
             return "Dashboard/GuestDashBoard";
-        }else if (accounts.getFacultyId().equals("02"))
+        }else if (accounts.getFalcutyName().equals("Law"))
         {
             return "Dashboard/GuestDashBoard1";
+        }else if (accounts.getFalcutyName().equals("Architecture"))
+        {
+            return "Dashboard/GuestDashBoard2";
         }
         Account account = returnAccount();
         model.addAttribute("acc",account);

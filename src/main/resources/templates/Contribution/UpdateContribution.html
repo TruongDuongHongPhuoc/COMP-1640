@@ -1,6 +1,6 @@
 <!-- ViewFaculty.html -->
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_Admin">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Layout/_Customer">
 
 <head>
   <title>
@@ -42,26 +42,26 @@
       <input type="hidden" name="token" th:value="${token}">
       <label for="name">Name:</label><br>
       <br>
-      <input th:value="${con.name}" type="text" class="form-control form-control-lg" id="name" name="name"
-        ><br><br>
+      <input th:value="${con.name}" type="text" class="form-control form-control-lg" id="name" name="name"><br><br>
 
       <label for="description">description:</label><br>
       <input th:value="${con.description}" type="text" class="form-control form-control-lg" id="description"
         name="description"><br>
 
-<!--      <label for="description">St:</label><br>-->
-<!--      <input th:value="${con.description}" type="text" class="form-control form-control-lg" id="description"-->
-<!--             name="description"><br>-->
-
-       <label for="submitDate">submitDate:</label><br>
-      <input th:value="${con.submitDate}" type="datetime-local" class="form-control form-control-lg" id="submitDate"
-        name="submitDate"><br>
-        <table>
-          <tr>
-            <td>File to upload:</td>
-            <td><input type="file" name="file" /></td>
-          </tr>
-        </table>
+      <!--      <label for="description">St:</label><br>-->
+      <!--      <input th:value="${con.description}" type="text" class="form-control form-control-lg" id="description"-->
+      <!--             name="description"><br>-->
+      <th:block th:if="${!acc.getRoleId().equals('1')}">
+        <label for="submitDate">submitDate:</label><br>
+        <input th:value="${con.submitDate}" type="date" class="form-control form-control-lg" id="submitDate"
+          name="submitDate"><br>
+      </th:block>
+      <table>
+        <tr>
+          <td>File to upload:</td>
+          <td><input type="file" name="file" /></td>
+        </tr>
+      </table>
       </td>
 
       <label for="ex1">Image</label>
