@@ -1,0 +1,43 @@
+.btn-tertiary {
+  color: #555;
+  padding: 0;
+  line-height: 40px;
+  width: 300px;
+  margin: auto;
+  display: block;
+  border: 2px solid #555;
+  &:hover,
+  &:focus {
+    color: lighten(#555, 20%);
+    border-color: lighten(#555, 20%);
+  }
+}
+
+/* input file style */
+
+.input-file {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+  + .js-labelFile {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0 10px;
+    cursor: pointer;
+    .icon:before {
+      //font-awesome
+      content: "\f093";
+    }
+    &.has-file {
+      .icon:before {
+        //font-awesome
+        content: "\f00c";
+        color: #5AAC7B;
+      }
+    }
+  }
+}
