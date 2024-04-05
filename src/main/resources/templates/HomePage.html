@@ -153,23 +153,6 @@
                     </div>
                 </div><!-- first row -->
                 <div class="row tm-content-box">
-                    <!-- <th:block th:if="${acc.equals('1')}">
-                        <div class="col-lg-1">
-                            <i class="fa fa-book fa-3x" style="color: rgb(13, 110, 253)"></i>
-                        </div>
-                        <div class="col-lg-5">
-                            <div class="tm-intro-text-container">
-                                <h2 class="tm-text-primary mb-4">Views Contributions here</h2>
-                                <p class="mb-4 tm-intro-text">
-                                    only for manager
-                                </p>
-                                <div class="tm-continue">
-                                    <a href="/Contribution/View" class="tm-intro-text tm-btn-primary">View
-                                        Contributions</a>
-                                </div>
-                            </div>
-                        </div>
-                    </th:block> -->
                     <th:block th:if="${acc.equals('2')}">
                         <div class="col-lg-1">
                             <i class="fa fa-book fa-3x" style="color: rgb(13, 110, 253)"></i>
@@ -302,37 +285,27 @@
             </div>
         </section>
 
-        <section id="testimonials" class="tm-section-pad-top tm-parallax-2 mb-5">
-            <div class="container tm-testimonials-content">
-                <div class="row">
-                    <div class="col-lg-12 tm-content-box">
-                        <a th:href="@{/DownloadAllFileHome}">Download all</a>
-                        <table class="table">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th>Author</th>
-                                    <th>Description</th>
-                                    <th>Faculty</th>
-                                    <th>Academic year</th>
-                                    <th>Download</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!--                 <tr th:each="AcademicYear: ${Fals}">-->
-                                <!--                        <td th:text="${AcademicYear.name}"></td>-->
-                                <tr th:each="con : ${cons}">
-                                    <td th:text="${con.author}"></td>
-                                    <td th:text="${con.description}"></td>
-                                    <td th:text="${con.faculty}"></td>
-                                    <td th:text="${con.year}"></td>
-                                    <td><a th:href="@{http://localhost:8090/Fi/files/__${con.path}__}">Download</a></td>
-                                </tr>
-                            </tbody>
-                        </table>
+        <section id="testimonials" class="tm-section-pad-top tm-parallax-2 mb-5" style="height: 547px">
+
+            <div class="card-container">
+                <div class="card-list" style="height: 450px">
+                    <th:block th:each="con :${cons}">
+                        <div class="card tv">
+
+                            <img th:src="@{'/images/' + ${con.image}}" style="height: 210px !important;" alt="">
+                            <div  class="card-body pt-0 px-0" style="background: cadetblue; height: 150px">
+                                <div class="">
+                                    <h3 style="color: white; text-align: center; font-weight: bold; background: #0b0b0b" th:text="${con.name}"></h3>
+                                    <small style="color: white; padding-left: 5px" th:text="${con.description}"></small><br>
+                                    <small style="color: white; padding-left: 5px" th:text="${con.faculty}"></small>
+                                </div>
+                                <div class="mx-3 mt-3 mb-2"><button type="button" class="btn btn-danger btn-block"><a style="color: white" th:href="@{http://localhost:8090/Fi/files/__${con.path}__}">Download</a></button></div>
+                            </div>
                     </div>
+                    </th:block>
                 </div>
             </div>
-            <div class="tm-bg-overlay"></div>
+
         </section>
         <div class="container-fluid">
             <div class="row">
