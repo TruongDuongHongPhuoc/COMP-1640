@@ -56,11 +56,12 @@ public class SecurityConfig extends GlobalMethodSecurityConfiguration {
                         .requestMatchers("/adminTemplate/**").permitAll()
                         .requestMatchers("/images/**").permitAll()
                         .anyRequest().authenticated()
-                )
+                ).logout((httpSecurityLogoutConfigurer -> httpSecurityLogoutConfigurer.logoutSuccessUrl("/home")))
                 .formLogin(
                         (form) -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
+//                                .defaultSuccessUrl("/CheckFirstLogin", true)
                                 .defaultSuccessUrl("/CheckFirstLogin", true)
                                 .usernameParameter("email")
                                 .permitAll()

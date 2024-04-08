@@ -176,6 +176,7 @@ public class ContributionController {
     public String View(Model model) {
         accountService.checkRole("Marketing Manager");
         Account account = returnAccount();
+        List<AcademicYear> academicYears = acaRepo.ReturnAcademicYears();
         account = accountService.getOne(account.getId());
         List<Faculty> faculties = facultyRepo.ReturnFaculties();
         List<Contribution> contris = service.ReturnForMarketingManager();
@@ -186,6 +187,7 @@ public class ContributionController {
         model.addAttribute("cons", filledContri);
         model.addAttribute
         ("faculties", faculties);
+        model.addAttribute("academicYears",academicYears);
         return "Contribution/ViewContribution";
     }
 
