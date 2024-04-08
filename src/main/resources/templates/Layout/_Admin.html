@@ -118,6 +118,26 @@
   /*  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
   /*  z-index: 9999; !* Ensure the box is on top of other content *!*/
   /*}*/
+  .loader {
+    border: 8px solid #f3f3f3; /* Light grey */
+    border-top: 8px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite; /* Apply animation */
+    position: fixed; /* Position the loader */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    margin-top: -25px; /* Offset half of the height */
+    margin-left: -25px; /* Offset half of the width */
+    z-index: 9999; /* Ensure the loader appears on top of other elements */
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
 </style>
 
 <body class="sb-nav-fixed">
@@ -281,7 +301,7 @@
     }
 
     tableRows.forEach(function (row) {
-      var facultyId = row.querySelector("td:nth-child(7)").textContent.trim(); // Assuming faculty name is the 7th column
+      var facultyId = row.querySelector("td:nth-child(6)").textContent.trim(); // Assuming faculty name is the 7th column
       if (facultyId === selectedFacultyName || facultyId === "selectAll") {
         row.style.display = ""; // Show the row if it matches the selected faculty or no faculty is selected
       }
@@ -290,6 +310,28 @@
       }
     });
   }
+
+  function ac_filterTable() {
+    console.log("academicyear Filter Table run")
+    var selectedAcademicName = document.getElementById("academicYearFilter").value;
+    var tableRows = document.querySelectorAll("#dataTable tbody tr");
+
+    if (selectedAcademicName === "selectAllAca") {
+      showAllContributions();
+      return; // Exit the function early
+    }
+
+    tableRows.forEach(function (row) {
+      var facultyId = row.querySelector("td:nth-child(5)").textContent.trim(); // Assuming faculty name is the 7th column
+      if (facultyId === selectedAcademicName || facultyId === "selectAll") {
+        row.style.display = ""; // Show the row if it matches the selected faculty or no faculty is selected
+      }
+      else {
+        row.style.display = "none"; // Hide the row if it does not match the selected faculty
+      }
+    });
+  }
+
   function showAllContributions() {
     var tableRows = document.querySelectorAll("#dataTable tbody tr");
 
@@ -301,9 +343,26 @@
   // document.getElementById("selectAllButton").addEventListener("click", selectAllContributions);
   // Event listener for the select list
   document.getElementById("facultyFilter").addEventListener("change", filterTable);
+  document.getElementById("academicYearFilter").addEventListener("change", ac_filterTable);
   document.getElementById("contentHeader")
   // Initially filter the table based on the selected faculty
   filterTable();
 </script>
+<script>
 
+  window.addEventListener("beforeunload", function(event) {
+    // Create a div element for the loader
+    var loaderDiv = document.createElement("div");
+
+    // Add class "loader" to the div
+    loaderDiv.classList.add("loader");
+
+    // Append the div to the body of the document
+    document.body.appendChild(loaderDiv);
+
+    // Show the loader by setting its display style to "block"
+    loaderDiv.style.display = "block";
+  });
+
+</script>
 </html>
