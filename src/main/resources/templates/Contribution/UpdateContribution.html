@@ -52,9 +52,6 @@
       <!--      <input th:value="${con.description}" type="text" class="form-control form-control-lg" id="description"-->
       <!--             name="description"><br>-->
       <th:block th:if="${!acc.getRoleId().equals('1')}">
-        <label for="submitDate">submitDate:</label><br>
-        <input th:value="${con.submitDate}" type="date" class="form-control form-control-lg" id="submitDate"
-          name="submitDate"><br>
       </th:block>
       <table>
         <tr>
@@ -67,7 +64,7 @@
       <label for="ex1">Image</label>
       <input id="ex1" type="file" name="image" required>
 
-      <input type="submit" value="Submit">
+      <button class="btn btn-primary" type="submit">Submit</button>
     </form>
 
 

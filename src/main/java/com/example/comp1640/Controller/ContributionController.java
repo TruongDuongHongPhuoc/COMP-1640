@@ -87,8 +87,8 @@ public class ContributionController {
     }
 
     @PostMapping("/Hello")
-    public String Create(@Valid @ModelAttribute("contribution") Contribution contribution,
-                         @RequestParam("file") MultipartFile file, @RequestParam("image") MultipartFile image,BindingResult result, Model model) throws IOException {
+    public String Create(@RequestParam("name") String name, @RequestParam("description") String description, @RequestParam("academic") String academic,
+                         @RequestParam("file") MultipartFile file, @RequestParam("image") MultipartFile image, Model model) throws IOException {
         accountService.checkRole("Student");
 
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext()
@@ -96,14 +96,17 @@ public class ContributionController {
         Optional<Account> acc = accountRepo.findAccountByMail(authentication.getName());
         Account account = accountService.getOne(acc.get().getId());
 
+        Contribution contribution = new Contribution();
+        contribution.setName(name);
+        contribution.setDescription(description);
         String id = UUID.randomUUID().toString();
         LocalDate submitDate = LocalDate.now();
         contribution.setId(id);
+        contribution.setAcademicYearId(academic);
         contribution.setSubmitDate(submitDate);
         contribution.setStatus(0);
         contribution.setFacultyId(account.getFacultyId());
         contribution.setAccountId(account.getId());
-        String z = contribution.getFacultyId();
         contribution.setPath(file.getOriginalFilename());
         contribution.setImage(image.getOriginalFilename());
         service.storeFile(image);
@@ -144,7 +147,7 @@ public class ContributionController {
     @PostMapping("/Updating")
     public String UpdatePostContribution(
             @RequestParam("name") String name, @RequestParam("description") String description,
-            @RequestParam("token") String token, @RequestParam("submitDate") LocalDateTime sub,
+            @RequestParam("token") String token,
             @RequestParam("file") MultipartFile path,
             @RequestParam("image") MultipartFile image
             , Model model) throws IOException {
@@ -157,10 +160,10 @@ public class ContributionController {
         String facultyId = dataFromToken.get("facultyId").toString();
         String oldPath = dataFromToken.get("oldfile").toString();
         if(!path.isEmpty()) {
-            service.deleteContribution(id, name, description, sub, accountId, academicId, facultyId, path, oldPath, image);
+            service.deleteContribution(id, name, description, LocalDateTime.now(), accountId, academicId, facultyId, path, oldPath, image);
         }
         else {
-            service.updateContribution(id,name,description,sub,accountId,academicId,facultyId,oldPath, image);
+            service.updateContribution(id,name,description,LocalDateTime.now(),accountId,academicId,facultyId,oldPath, image);
         }
         Account account = returnAccount();
 
