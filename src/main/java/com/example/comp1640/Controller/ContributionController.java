@@ -90,7 +90,12 @@ public class ContributionController {
     public String Create(@RequestParam("name") String name, @RequestParam("description") String description, @RequestParam("academic") String academic,
                          @RequestParam("file") MultipartFile file, @RequestParam("image") MultipartFile image, Model model) throws IOException {
         accountService.checkRole("Student");
-
+        if (!Objects.requireNonNull(file.getOriginalFilename()).endsWith(".docx")){
+            throw new IllegalArgumentException("The file must be document");
+        }
+        if (!Objects.requireNonNull(file.getOriginalFilename()).endsWith(".doc")){
+            throw new IllegalArgumentException("The file must be document");
+        }
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext()
                 .getAuthentication();
         Optional<Account> acc = accountRepo.findAccountByMail(authentication.getName());
@@ -155,6 +160,13 @@ public class ContributionController {
         String id = dataFromToken.get("id").toString();
     //    LocalDateTime sub = LocalDateTime.now();
     //    contribution.setSubmitDate(submitDate);
+        if (!Objects.requireNonNull(file.getOriginalFilename()).endsWith(".docx")){
+            throw new IllegalArgumentException("The file must be document");
+        }
+        if (!Objects.requireNonNull(file.getOriginalFilename()).endsWith(".doc")){
+            throw new IllegalArgumentException("The file must be document");
+        }
+
         String academicId = dataFromToken.get("academicYearId").toString();
         String accountId = dataFromToken.get("accountId").toString();
         String facultyId = dataFromToken.get("facultyId").toString();

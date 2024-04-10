@@ -17,6 +17,24 @@
         gtag('js', new Date());
 
         gtag('config', 'G-GNDQ069VVF');
+
+        document.getElementById('ex1').addEventListener('change', function (event) {
+            const fileInput = event.target;
+            const files = fileInput.files;
+
+            if (files.length > 0) {
+                const fileName = files[0].name;
+                if (fileName.toLowerCase().includes('announce')) {
+                    // File name contains the word "announce", do something here
+                    console.log('File selected with the word "announce"');
+                } else {
+                    // File name does not contain the word "announce", show an alert
+                    alert('Please choose a file with the word "announce" in its name.');
+                    // Reset the file input
+                    fileInput.value = '';
+                }
+            }
+        });
     </script>
 
     <!-- Google Tag Manager -->
@@ -61,7 +79,7 @@
                        name="description"><br>
 
                 <label for="ex1" class="fw-bolder fw-bold">File to upload</label>
-                <input type="file" required accept="application/pdf" name="file" id="ex1"/>
+                <input type="file" required accept="application/vnd.document" name="file" id="ex1"/>
 
                 <br>
                 <label for="ex2">Image</label>
