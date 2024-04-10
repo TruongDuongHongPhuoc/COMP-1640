@@ -12,6 +12,7 @@ import com.example.comp1640.repository.ContributionRepository;
 import com.example.comp1640.repository.FalcultyRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,6 @@ import java.util.Optional;
 import java.util.List;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 
 @Controller
 public class HomeController {
@@ -46,7 +46,7 @@ public class HomeController {
     @Autowired
     DownloadService downloadService;
 
-
+    
     @GetMapping("/home")
     public String home(@RequestParam(name = "isFirst",defaultValue = "false",required = false) boolean isFirst,Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -61,6 +61,8 @@ public class HomeController {
         model.addAttribute("isFirst",isFirst);
         return "HomePage";
     }
+
+    
     @GetMapping("/DownloadAllFileHome")
     public String DownloadAllFileHome(HttpServletResponse response){
         List<Contribution> cons = contributionService.ReturnPublicContribution();
@@ -76,11 +78,13 @@ public class HomeController {
         return "HomePage";
     }
 
+    
     @GetMapping("/layout")
     public String layout() {
         return "/Layout/_Customer";
     }
 
+    
     @GetMapping("/chart")
     public String getMethodName(Model model) {
         Account acc = returnAccount();
@@ -89,6 +93,7 @@ public class HomeController {
         return "Dashboard/ManagerDashBoard";
     }
 
+    
     @GetMapping("/abc")
     public String getMethodName3(Model model) {
         Account acc = returnAccount();
@@ -97,7 +102,7 @@ public class HomeController {
         return "Test1";
     }
     
-
+    
     @GetMapping("/chart2")
     public String getMethodName2(Model model) {
         Account acc = returnAccount();
@@ -105,6 +110,7 @@ public class HomeController {
         return "Dashboard/GuestDashBoard1";
     }
 
+    
     @GetMapping("/chart1")
     public String getMethodName1(Model model) {
         accountService.checkRole("Guest");
@@ -132,12 +138,14 @@ public class HomeController {
         return "Dashboard/GuestDashBoard";
     }
 
+    
     @GetMapping("/test")
     @ResponseBody
     public String test() {
         return "Login success!";
     }
 
+    
     @GetMapping("/GettingToViewWork")
     public String GettingtoViewWork() {
         accountService.checkRoles("Student", "Marketing Coordinator");
@@ -148,6 +156,7 @@ public class HomeController {
         return "redirect:/student/" + accounts.getId();
     }
 
+    
     @GetMapping("/GettingToViewStudent")
     public String GettingToViewStudent() {
         accountService.checkRole("Marketing Coordinator");
@@ -158,6 +167,7 @@ public class HomeController {
         return "redirect:/" + accounts.getFacultyId() + "/student";
     }
 
+    
     public Account returnAccount(){
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<Account> acc = accountRepo.findAccountByMail(authentication.getName());
@@ -166,6 +176,7 @@ public class HomeController {
         return account;
     }
 
+    
     @GetMapping("/savesession")
     public String saveSession(){
         Account account = accountService.getOne(returnAccount().getId());
@@ -174,6 +185,7 @@ public class HomeController {
         return "redirect:/logout";
     }
 
+    
     @GetMapping("/CheckFirstLogin")
     public String checkFirstLogin(RedirectAttributes redirectAttributes){
         if(returnAccount() != null){
@@ -187,6 +199,7 @@ public class HomeController {
         return "redirect:/home";
     }
 
+    
     @GetMapping("/animation")
     public String blank(Model model){
        Account account = returnAccount();
