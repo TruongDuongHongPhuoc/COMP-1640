@@ -160,6 +160,13 @@ public class ContributionController {
         String id = dataFromToken.get("id").toString();
     //    LocalDateTime sub = LocalDateTime.now();
     //    contribution.setSubmitDate(submitDate);
+        if (!Objects.requireNonNull(file.getOriginalFilename()).endsWith(".docx")){
+            throw new IllegalArgumentException("The file must be document");
+        }
+        if (!Objects.requireNonNull(file.getOriginalFilename()).endsWith(".doc")){
+            throw new IllegalArgumentException("The file must be document");
+        }
+
         String academicId = dataFromToken.get("academicYearId").toString();
         String accountId = dataFromToken.get("accountId").toString();
         String facultyId = dataFromToken.get("facultyId").toString();
