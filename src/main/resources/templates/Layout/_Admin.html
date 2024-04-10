@@ -301,7 +301,11 @@
     }
 
     tableRows.forEach(function (row) {
+<<<<<<< HEAD
+      var facultyId = row.querySelector("td:nth-child(5)").textContent.trim(); // Assuming faculty name is the 7th column
+=======
       var facultyId = row.querySelector("td:nth-child(6)").textContent.trim(); // Assuming faculty name is the 7th column
+>>>>>>> origin
       if (facultyId === selectedFacultyName || facultyId === "selectAll") {
         row.style.display = ""; // Show the row if it matches the selected faculty or no faculty is selected
       }
