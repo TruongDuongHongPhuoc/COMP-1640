@@ -2,7 +2,6 @@ package com.example.comp1640.Service;
 
 import com.example.comp1640.Store.FileSystemStorageService;
 import com.example.comp1640.Store.FileUploadController;
-import com.example.comp1640.Store.StorageService;
 import com.example.comp1640.model.*;
 import com.example.comp1640.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +9,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Service
 public class ContributionService {
@@ -34,6 +34,8 @@ public class ContributionService {
     AcademicYearRepositoryInterface academicYearRepositoryInterface;
     @Autowired
     AccountService accountService;
+    @Autowired
+    ContributionRepositoryInterface contributionRepositoryInterface;
 
     public void storeFile(MultipartFile file){
         StoreService.store(file);
@@ -84,21 +86,23 @@ public class ContributionService {
     public void deletefile(String file){
         StoreService.deleteFile(file);
     }
-    public void UpdateContribution(String id,String name,String description,LocalDateTime submitDate,String accountId,String academicYearId, String facultyId, MultipartFile file, String oldfile){
-        System.out.println("Update contribution service Run");
+    public void deleteContribution(String id, String name, String description, LocalDateTime submitDate, String accountId, String academicYearId, String facultyId, MultipartFile file, String oldfile, MultipartFile image) throws IOException {
         if(!file.isEmpty()) {
             StoreService.deleteFile(oldfile);
-            System.out.println("old file deleted");
         }
-        contributionRepository.UpdateContribution(id,name,description,submitDate,accountId,academicYearId,facultyId,file.getOriginalFilename());
-        System.out.println("Contribution repository updated");
+        updateContribution(id,name,description,submitDate,accountId,academicYearId,facultyId,oldfile,image);
         StoreService.store(file);
-        System.out.println("Store service store file");
+        saveImage(image);
     }
-    public void UpdateContribution(String id,String name,String description,LocalDateTime submitDate,String accountId,String academicYearId, String facultyId, String oldfile){
-        System.out.println("Update contribution service Run");
-        contributionRepository.UpdateContribution(id,name,description,submitDate,accountId,academicYearId,facultyId,oldfile);
-        System.out.println("Contribution repository updated");
+    public void updateContribution(String id, String name, String description, LocalDateTime submitDate, String accountId, String academicYearId, String facultyId, String oldfile, MultipartFile image){
+//        contributionRepository.UpdateContribution(id,name,description,submitDate,accountId,academicYearId,facultyId,oldfile);
+        Contribution con = contributionRepositoryInterface.findById(id).get();
+        con.setImage(name);
+        con.setDescription(description);
+        con.setAcademicYearId(academicYearId);
+        con.setFacultyId(facultyId);
+        con.setImage(image.getOriginalFilename());
+        contributionRepositoryInterface.save(con);
     }
     public void DeleteContribution(String id){
         Contribution con = contributionRepository.ReturnContribution(id);
@@ -151,5 +155,18 @@ public class ContributionService {
         con.setYear(year);
 
         return con;
+    }
+
+    public void saveImage(MultipartFile file) throws IOException{
+        try {
+            String fileName = file.getOriginalFilename();
+            String filePath = "src/main/resources/static/images/" + fileName;
+            File imageFileOnDisk = new File(filePath);
+            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream((imageFileOnDisk)));
+            stream.write(file.getBytes());
+            stream.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

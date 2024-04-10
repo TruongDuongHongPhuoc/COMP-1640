@@ -37,31 +37,35 @@ public class SecurityConfig extends GlobalMethodSecurityConfiguration {
                 return authenticationManagerBuilder.build();
         }
 
-        @Bean
-        public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-                http.csrf(AbstractHttpConfigurer::disable)
-                                .logout(logout -> logout.logoutUrl("/logout")
-                                                .addLogoutHandler(new SecurityContextLogoutHandler()))
-                                .authorizeHttpRequests(authorize -> authorize
-                                                .requestMatchers("/home").permitAll()
-                                                .requestMatchers("/register").permitAll()
-                                                .requestMatchers("/chart2").permitAll()
-                                                .requestMatchers("/account/forgotPassword").permitAll()
-                                                .requestMatchers("/account/reset_password").permitAll()
-                                                .requestMatchers("/account/reset_password?**").permitAll()
-                                                .requestMatchers("/forHomepage/**").permitAll()
-                                                .requestMatchers("/adminTemplate/**").permitAll()
-                                                .requestMatchers("/images/**").permitAll()
-                                                .anyRequest().authenticated())
-                                .formLogin(
-                                                (form) -> form
-                                                                .loginPage("/login")
-                                                                .loginProcessingUrl("/login")
-                                                                .defaultSuccessUrl("/home", true)
-                                                                .usernameParameter("email")
-                                                                .permitAll()) // ở day co the them exception custom
-                                .rememberMe(Customizer.withDefaults());
-                return http.build();
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.csrf(AbstractHttpConfigurer::disable)
+                .logout(logout ->logout.logoutUrl("/logout")
+                        .addLogoutHandler(new SecurityContextLogoutHandler()))
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/home").permitAll()
+                        .requestMatchers("/register").permitAll()
+                        .requestMatchers("/chart2").permitAll()
+                        .requestMatchers("/account/forgotPassword").permitAll()
+                        .requestMatchers("/account/reset_password").permitAll()
+                        .requestMatchers("/account/reset_password?**").permitAll()
+                        .requestMatchers("/abc").permitAll()
+                        .requestMatchers("/forHomepage/**").permitAll()
+                        .requestMatchers("/adminTemplate/**").permitAll()
+                        .requestMatchers("/images/**").permitAll()
+                        .anyRequest().authenticated()
+                ).logout((httpSecurityLogoutConfigurer -> httpSecurityLogoutConfigurer.logoutSuccessUrl("/home")))
+                .formLogin(
+                        (form) -> form
+                                .loginPage("/login")
+                                .loginProcessingUrl("/login")
+//                                .defaultSuccessUrl("/CheckFirstLogin", true)
+                                .defaultSuccessUrl("/CheckFirstLogin", true)
+                                .usernameParameter("email")
+                                .permitAll()
+                ) // ở day co the them exception custom
+                .rememberMe(Customizer.withDefaults());
+        return http.build();
 
         }
 }

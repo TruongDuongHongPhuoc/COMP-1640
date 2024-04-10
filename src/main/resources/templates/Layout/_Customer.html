@@ -58,8 +58,177 @@
         .table {
             font-size: 12px; /* Adjust font size for smaller screens */
         }
+        .container .imgBx {
+            padding: 40px;
+            box-sizing: border-box;
+            width: 100% !important;
+            height: auto;
+            text-align: center;
+            overflow: hidden;
+        }
+        .container .imgBx img {
+            left: initial;
+            max-width: 100%;
+            transform: rotate(0deg);
+        }
+        .details {
+            width: 100% !important;
+            height: auto;
+            padding: 20px;
+        }
+        .container .details p {
+            margin-left: 0;
+            max-width: 100%;
+        }
     }
 
+
+
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+    body{
+        background: #F5F1EE;
+        font-family: 'Roboto', sans-serif;
+        min-height: 100vh;
+    }
+    .card{
+        width: 250px;
+        border-radius: 10px;
+    }
+
+    .card-img-top{
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+    }
+    span.text-muted{
+        font-size: 12px;
+    }
+    small.text-muted{
+        font-size: 8px;
+    }
+    h5.mb-0{
+        font-size: 1rem;
+    }
+    small.ghj{
+        font-size: 9px;
+    }
+    .mid{
+        background: #ECEDF1;
+    }
+    h6.ml-1{
+        font-size: 13px;
+    }
+    small.key{
+        text-decoration: underline;
+        font-size: 9px;
+        cursor: pointer;
+    }
+    .btn-danger{
+        color: #FFCBD2;
+    }
+    .btn-danger:focus{
+        box-shadow: none;
+    }
+    small.justify-content-center{
+        font-size: 9px;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
+    @media screen and (max-width:600px){
+        .col-sm-4{
+            margin-bottom: 50px;
+        }
+    }
+
+    .card-container {
+        width: 100%; /* Adjust the width as needed */
+        max-height: fit-content;
+        overflow-x: auto; /* Enable horizontal scrolling */
+        white-space: nowrap; /* Prevent cards from wrapping */
+    }
+
+    .card-list {
+        display: flex; /* Arrange cards in a row */
+        padding: 10px;
+        max-height: fit-content;
+    }
+
+    .card {
+        flex: 0 0 auto; /* Prevent cards from growing/shrinking */
+        width: 200px; /* Adjust card width as needed */
+        height: 150px; /* Adjust card height as needed */
+        margin-right: 30px; /* Adjust space between cards */
+        background-color: #382ec2;
+        border: 1px solid #ff9797;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        min-width: 300px;
+        min-height: 350px;
+        transition: transform 0.3s ease-in-out;
+        &:hover {
+            transform: scale(1.1); /* Increase size by 20% */
+        }
+    }
+
+    #backgroundcard {
+        background-image: url('/images/pattern.png');
+        background-size: cover; /* Cover the entire element, maintaining aspect ratio */
+        background-position: center; /* Center the background image within the element */
+        background-repeat: no-repeat;
+    }
+
+    .tv {
+        position: relative;
+        width: 350px;
+        height: 250px;
+        background: white;
+        border-radius: 0% 0% 0% 0% / 0% 0% 0% 0% ;
+        color: white;
+        box-shadow: 20px 20px rgba(0,0,0,.15);
+        transition: all .4s ease;
+    }
+    .tv:hover {
+        border-radius: 0% 0% 50% 50% / 0% 0% 5% 5% ;
+        box-shadow: 10px 10px rgba(0,0,0,.25);
+    }
+
+    #viewstudent img {
+        width: 150px;
+        height: 100px;
+        display: block;
+        margin: auto;
+    }
+
+    #viewstudent td {
+        text-align: center;
+        vertical-align: middle;
+        color: black;
+    }
+    #viewstudent th {
+        color: black;
+        text-align: center;
+        vertical-align: middle;
+    }
+    .loaderunique {
+        position: fixed;
+        border: 8px solid #f3f3f3; /* Light grey */
+        border-top: 8px solid #3498db; /* Blue */
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite; /* Apply animation */
+        /* Position the loader */
+        top: 50%; /* Center vertically */
+        left: 50%; /* Center horizontally */
+        margin-top: -25px; /* Offset half of the height */
+        margin-left: -25px; /* Offset half of the width */
+        z-index: 9999; /* Ensure the loader appears on top of other elements */
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
 
 </style>
 
@@ -381,7 +550,23 @@ if (windowHeight > 680) {
     });
 
 </script>
+<script>
 
+    window.addEventListener("beforeunload", function(event) {
+        // Create a div element for the loader
+        var loaderDiv = document.createElement("div");
+
+        // Add class "loader" to the div
+        loaderDiv.classList.add("loaderunique");
+
+        // Append the div to the body of the document
+        document.body.appendChild(loaderDiv);
+
+        // Show the loader by setting its display style to "block"
+        loaderDiv.style.display = "block";
+    });
+
+</script>
 
 
 </html>

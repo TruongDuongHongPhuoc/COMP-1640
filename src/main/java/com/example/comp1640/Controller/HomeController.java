@@ -2,6 +2,7 @@ package com.example.comp1640.Controller;
 
 
 
+import com.example.comp1640.Service.MailService;
 import com.example.comp1640.Zip.DownloadService;
 import com.example.comp1640.model.Account;
 import com.example.comp1640.Service.AccountService;
@@ -10,6 +11,7 @@ import com.example.comp1640.model.Contribution;
 import com.example.comp1640.repository.AccountRepositoryTest;
 import com.example.comp1640.repository.ContributionRepository;
 import com.example.comp1640.repository.FalcultyRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -45,8 +47,9 @@ public class HomeController {
     private AccountService accountService;
     @Autowired
     DownloadService downloadService;
+    @Autowired
+    MailService mailService;
 
-    
     @GetMapping("/home")
     public String home(@RequestParam(name = "isFirst",defaultValue = "false",required = false) boolean isFirst,Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

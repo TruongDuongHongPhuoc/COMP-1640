@@ -85,6 +85,13 @@
                                         <button class="btn btn-primary" type="button" onclick="checkAll()">Select all</button>
                                     </div>
                                     <div class="col-auto">
+                                        <p class="ms-2 mb-0 font-weight-bold">Academic filter</p>
+                                        <select class="form-select" id="academicYearFilter">
+                                            <option value="selectAllAca">All AcademicYear</option>
+                                            <th:block th:each="ye : ${academicYears}">
+                                                <option th:value="${ye.name}" th:text="${ye.name}"></option>
+                                            </th:block>
+                                        </select>
                                     </div>
                                 </div>
 

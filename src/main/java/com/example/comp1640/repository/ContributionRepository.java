@@ -40,11 +40,6 @@ public class ContributionRepository {
             update.set("path", path);
         }
         UpdateResult result = mongoTemplate.updateFirst(query, update, Contribution.class);
-
-        if(result == null)
-            System.out.println("No documents updated");
-        else
-            System.out.println(result.getModifiedCount() + " document(s) updated..");
     }
     public void SetPublic(String id,int status){
         Query query = new Query(Criteria.where("id").is(id));

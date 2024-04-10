@@ -26,6 +26,7 @@ public class Contribution {
     private String academicYearId;
     private String facultyId;
     private String path;
+    private String image;
 
     @Transient
     String author;
