@@ -89,7 +89,7 @@
                                         <select class="form-select" id="academicYearFilter">
                                             <option value="selectAllAca">All AcademicYear</option>
                                             <th:block th:each="ye : ${academicYears}">
-                                                <option th:value="${ye.name}" th:text="${ye.name}"></option>
+                                                <option th:value="${ye.getYearOfAcademic()}" th:text="${ye.getYearOfAcademic()}"></option>
                                             </th:block>
                                         </select>
                                     </div>
@@ -125,7 +125,7 @@
                                         <td th:text="${c.name}"></td>
                                         <td th:text="${c.submitDate}"></td>
                                         <td th:text="${c.status == 0 ? 'Waiting' : (c.status == 1 ? 'Approved' : (c.status == 3 ? 'Public' : 'Rejected'))}"></td>
-                                        <td th:text="${c.year}"></td>
+                                        <td th:text="${c.getYear()}"></td>
                                         <td th:text="${c.faculty}"></td>
                                         <td th:if="${c.canDowload}" class="text-center">
                                             <a class="btn btn-success"

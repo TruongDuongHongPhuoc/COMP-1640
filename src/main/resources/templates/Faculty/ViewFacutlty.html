@@ -68,8 +68,8 @@
                 <thead>
                   <tr>
                     <th>Name</th>
-                    <th>Academic Year</th>
-                    <th>Description</th>
+<!--                    <th>Academic Year</th>-->
+<!--                    <th>Description</th>-->
                     <th:block th:if="${acc.getRoleId().equals('1')}">
                       <th>delete</th>
                       <th>update</th>
@@ -79,13 +79,13 @@
                 <tbody>
                   <tr th:each="faculty: ${Fals}">
                     <td th:text="${faculty.name}"></td>
-                      <th:block th:each="acas : ${aca}">
-                        <th:block th:if="${faculty.getAcademicYear() == acas.getId()}">
-                            <td th:text="${acas.getYearOfAcademic()}">
-                            </td>
-                        </th:block>
-                      </th:block>
-                    <td th:text="${faculty.getdescription()}"></td>
+<!--                      <th:block th:each="acas : ${aca}">-->
+<!--                        <th:block th:if="${faculty.getAcademicYear() == acas.getId()}">-->
+<!--                            <td th:text="${acas.getYearOfAcademic()}">-->
+<!--                            </td>-->
+<!--                        </th:block>-->
+<!--                      </th:block>-->
+<!--                    <td th:text="${faculty.getdescription()}"></td>-->
                     <th:block th:if="${acc.getRoleId().equals('1')}">
                       <td>
 <!--                        <form th:action="@{/Delete}" method="post">-->
