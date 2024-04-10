@@ -97,7 +97,7 @@ public class ContributionService {
     public void updateContribution(String id, String name, String description, LocalDateTime submitDate, String accountId, String academicYearId, String facultyId, String oldfile, MultipartFile image){
 //        contributionRepository.UpdateContribution(id,name,description,submitDate,accountId,academicYearId,facultyId,oldfile);
         Contribution con = contributionRepositoryInterface.findById(id).get();
-        con.setImage(name);
+        con.setName(name);
         con.setDescription(description);
         con.setAcademicYearId(academicYearId);
         con.setFacultyId(facultyId);
