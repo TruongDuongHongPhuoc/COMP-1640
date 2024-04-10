@@ -90,7 +90,12 @@ public class ContributionController {
     public String Create(@RequestParam("name") String name, @RequestParam("description") String description, @RequestParam("academic") String academic,
                          @RequestParam("file") MultipartFile file, @RequestParam("image") MultipartFile image, Model model) throws IOException {
         accountService.checkRole("Student");
-
+        if (!Objects.requireNonNull(file.getOriginalFilename()).endsWith(".docx")){
+            throw new IllegalArgumentException("The file must be document");
+        }
+        if (!Objects.requireNonNull(file.getOriginalFilename()).endsWith(".doc")){
+            throw new IllegalArgumentException("The file must be document");
+        }
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext()
                 .getAuthentication();
         Optional<Account> acc = accountRepo.findAccountByMail(authentication.getName());
