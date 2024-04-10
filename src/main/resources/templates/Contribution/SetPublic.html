@@ -36,7 +36,9 @@
     })(window, document, 'script', 'dataLayer', 'GTM-NJXG26NL');</script>
     <!-- End Google Tag Manager -->
 </head>
+<style>
 
+</style>
 <body>
 <!-- Google Tag Manager (noscript) -->
 <noscript>
@@ -47,18 +49,46 @@
 
 <div layout:fragment="content">
 
-    <h1 th:text="'set public for '+${con.getName()}"></h1>
-    <form th:action="@{/Contribution/publicupdate}" method="POST" enctype="multipart/form-data">
-        <label>Status:</label>
-        <input type="hidden" name="conId" th:value="${conId}">
-        <select id="status" name="status" th:readonly="${false}">
-            <option th:selected="${con.status == 0}" value="0">Waiting</option>
-            <option th:selected="${con.status == 1}" value="1">Approved</option>
-            <option th:selected="${con.status == 2}" value="2">Rejected</option>
-        </select><br>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    <!--    <h1 th:text="'set public for '+${con.getName()}"></h1>-->
+    <!--    <form th:action="@{/Contribution/publicupdate}" method="POST" enctype="multipart/form-data">-->
+    <!--        <label>Status:</label>-->
+    <!--        <input type="hidden" name="conId" th:value="${conId}">-->
+    <!--        <select id="status" name="status" th:readonly="${false}">-->
+    <!--            <option th:selected="${con.status == 0}" value="0">Waiting</option>-->
+    <!--            <option th:selected="${con.status == 1}" value="1">Approved</option>-->
+    <!--            <option th:selected="${con.status == 2}" value="2">Rejected</option>-->
+    <!--        </select><br>-->
+    <!--        <button type="submit" class="btn btn-primary">Submit</button>-->
+    <!--    </form>-->
+    <div class="container pt-0 px-0" id="bodypublic">
+        <div class="row" style="padding-bottom: 150px">
+            <div class="col-sm">
+            </div>
+            <div class="col-sm">
+                <div class="container mt-5 fade-in">
+                    <div class="card tv" style="width: 300px;border:  2px solid #000000;">
+                        <img src="https://picsum.photos/400/600" class="card-img-top" alt="Placeholder Image"
+                             style="height: 200px;object-fit: cover;">
+                        <div id="backgroundcard" class="card-body pt-0 px-0">
+                            <h5 class="card-title" th:text="'set public for '+${con.getName()}" style="background-color: #0b0b0b; color: white">Card Title</h5>
+                            <form th:action="@{/Contribution/publicupdate}" method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="conId" th:value="${conId}">
+                                <select class="form-control" id="status" name="status" th:readonly="${false}">
+                                    <option th:selected="${con.status == 0}" value="0">Waiting</option>
+                                    <option th:selected="${con.status == 1}" value="1">Approved</option>
+                                    <option th:selected="${con.status == 2}" value="2">Rejected</option>
+                                </select><br>
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm">
+
+            </div>
+        </div>
+    </div>
 </div>
 </body>
-
 </html>
