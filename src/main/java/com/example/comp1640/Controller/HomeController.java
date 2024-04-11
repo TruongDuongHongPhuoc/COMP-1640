@@ -11,16 +11,13 @@ import com.example.comp1640.model.Contribution;
 import com.example.comp1640.repository.AccountRepositoryTest;
 import com.example.comp1640.repository.ContributionRepository;
 import com.example.comp1640.repository.FalcultyRepository;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.File;
@@ -146,6 +143,11 @@ public class HomeController {
     @ResponseBody
     public String test() {
         return "Login success!";
+    }
+
+    @GetMapping("/test123")
+    public String test123() {
+        return "Blank";
     }
 
     

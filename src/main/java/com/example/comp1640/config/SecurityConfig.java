@@ -49,7 +49,7 @@ public class SecurityConfig extends GlobalMethodSecurityConfiguration {
                         .requestMatchers("/account/forgotPassword").permitAll()
                         .requestMatchers("/account/reset_password").permitAll()
                         .requestMatchers("/account/reset_password?**").permitAll()
-                        .requestMatchers("/abc").permitAll()
+                        .requestMatchers("/test123").permitAll()
                         .requestMatchers("/forHomepage/**").permitAll()
                         .requestMatchers("/adminTemplate/**").permitAll()
                         .requestMatchers("/images/**").permitAll()
