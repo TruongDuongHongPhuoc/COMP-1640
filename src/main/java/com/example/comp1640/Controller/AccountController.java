@@ -346,7 +346,6 @@ public class AccountController {
 
             model.addAttribute("message", "You have successfully changed your password.");
         }
-
         return "Login";
     }
 
