@@ -12,13 +12,11 @@ import com.example.comp1640.repository.*;
 
 import com.example.comp1640.utils.JwtUtils;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -90,10 +88,7 @@ public class ContributionController {
     public String Create(@RequestParam("name") String name, @RequestParam("description") String description, @RequestParam("academic") String academic,
                          @RequestParam("file") MultipartFile file, @RequestParam("image") MultipartFile image, Model model) throws IOException {
         accountService.checkRole("Student");
-        if (!Objects.requireNonNull(file.getOriginalFilename()).endsWith(".docx")){
-            throw new IllegalArgumentException("The file must be document");
-        }
-        if (!Objects.requireNonNull(file.getOriginalFilename()).endsWith(".doc")){
+        if (!file.getOriginalFilename().matches("^.*\\.(docx|doc)$")){
             throw new IllegalArgumentException("The file must be document");
         }
         org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext()
@@ -153,17 +148,12 @@ public class ContributionController {
     public String UpdatePostContribution(
             @RequestParam("name") String name, @RequestParam("description") String description,
             @RequestParam("token") String token,
-            @RequestParam("file") MultipartFile path,
+            @RequestParam("file") MultipartFile file,
             @RequestParam("image") MultipartFile image
             , Model model) throws IOException {
         Map<String, Object> dataFromToken = JwtUtils.decodeToken(token);
         String id = dataFromToken.get("id").toString();
-    //    LocalDateTime sub = LocalDateTime.now();
-    //    contribution.setSubmitDate(submitDate);
-        if (!Objects.requireNonNull(file.getOriginalFilename()).endsWith(".docx")){
-            throw new IllegalArgumentException("The file must be document");
-        }
-        if (!Objects.requireNonNull(file.getOriginalFilename()).endsWith(".doc")){
+        if (!file.getOriginalFilename().matches("^.*\\.(docx|doc)$")){
             throw new IllegalArgumentException("The file must be document");
         }
 
@@ -171,8 +161,8 @@ public class ContributionController {
         String accountId = dataFromToken.get("accountId").toString();
         String facultyId = dataFromToken.get("facultyId").toString();
         String oldPath = dataFromToken.get("oldfile").toString();
-        if(!path.isEmpty()) {
-            service.deleteContribution(id, name, description, LocalDateTime.now(), accountId, academicId, facultyId, path, oldPath, image);
+        if(!file.isEmpty()) {
+            service.deleteContribution(id, name, description, LocalDateTime.now(), accountId, academicId, facultyId, file, oldPath, image);
         }
         else {
             service.updateContribution(id,name,description,LocalDateTime.now(),accountId,academicId,facultyId,oldPath, image);

@@ -20,27 +20,27 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 @Profile("dev")
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfig extends GlobalMethodSecurityConfiguration {
-        @Bean
-        public static BCryptPasswordEncoder bCryptPasswordEncoder() {
-                return new BCryptPasswordEncoder();
-        }
+    @Bean
+    public static BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-        @Autowired
-        private AccountService accountService;
+    @Autowired
+    private AccountService accountService;
 
-        @Bean
-        public AuthenticationManager customAuthenticationManager(HttpSecurity http) throws Exception {
-                AuthenticationManagerBuilder authenticationManagerBuilder = http
-                                .getSharedObject(AuthenticationManagerBuilder.class);
-                authenticationManagerBuilder.userDetailsService(accountService)
-                                .passwordEncoder(bCryptPasswordEncoder());
-                return authenticationManagerBuilder.build();
-        }
+    @Bean
+    public AuthenticationManager customAuthenticationManager(HttpSecurity http) throws Exception {
+        AuthenticationManagerBuilder authenticationManagerBuilder = http
+                .getSharedObject(AuthenticationManagerBuilder.class);
+        authenticationManagerBuilder.userDetailsService(accountService)
+                .passwordEncoder(bCryptPasswordEncoder());
+        return authenticationManagerBuilder.build();
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
-                .logout(logout ->logout.logoutUrl("/logout")
+                .logout(logout -> logout.logoutUrl("/logout")
                         .addLogoutHandler(new SecurityContextLogoutHandler()))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/home").permitAll()
@@ -59,13 +59,10 @@ public class SecurityConfig extends GlobalMethodSecurityConfiguration {
                         (form) -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
-//                                .defaultSuccessUrl("/CheckFirstLogin", true)
                                 .defaultSuccessUrl("/CheckFirstLogin", true)
                                 .usernameParameter("email")
                                 .permitAll()
-                ) // ở day co the them exception custom
-                .rememberMe(Customizer.withDefaults());
+                ).rememberMe(Customizer.withDefaults());
         return http.build();
-
-        }
+    }
 }
