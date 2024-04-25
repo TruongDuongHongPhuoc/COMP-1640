@@ -35,6 +35,9 @@
                 }
             }
         });
+        function announceContribution() {
+            alert("Contribution is Creating!");
+        }
     </script>
 
     <!-- Google Tag Manager -->
@@ -90,12 +93,14 @@
                             th:text="${op.getClosureDate().toString()} + ' - ' + ${op.getFinalClosureDate().toString()}">
                     </option>
                 </select>
+
                 <input type="checkbox" id="acceptTerm"/>
-                <a class="btn btn-check fw-bolder fw-bold" onclick="openAdditionalBox()">Term and policy</a><br>
+                <a onclick="openAdditionalBox()">Term and policy</a><br>
                 <!-- Button to open the additional box -->
                 <button type="submit" id="submitButton"
-                        class="btn btn-primary mt-4 mb-4 form-control fw-bolder">Submit
+                        class="btn btn-primary mt-4 mb-4 form-control fw-bolder" onclick="announceContribution()">Submit
                 </button>
+
                 <div style="height: 10px"></div>
             </form>
         </div>
@@ -217,6 +222,7 @@
             });
         });
 
-    })();</script>
+    })();
+    openAdditionalBox();</script>
 </html>
 

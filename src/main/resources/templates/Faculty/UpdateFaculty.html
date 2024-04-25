@@ -42,14 +42,9 @@
       <label for="name">Name:</label>
       <input class="form-control form-control-lg" type="text" id="name" name="name" th:value="${faculty.name}">
       <br>
-      <label for="description">Group:</label>
-      <input class="form-control form-control-lg" type="text" id="description" name="description"
-        th:value="${faculty.getdescription()}">
+
       <br>
-      <label for="academicYear">Academic Year ID: </label>
-      <input class="form-control form-control-lg" type="text" id="academicYear" name="academicYear"
-        th:value="${faculty.academicYear}" readonly>
-      <br>
+
       <button class="btn btn-primary" type="submit">Update Faculty</button>
     </form>
 
