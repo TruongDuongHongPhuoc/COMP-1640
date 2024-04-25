@@ -213,5 +213,9 @@ public class HomeController {
     public String ff(Model model){
         return "reset_password_form";
     }
+    @GetMapping("/Error404")
+    public String ee(Model model){
+        return "Blank";
+    }
 
 }

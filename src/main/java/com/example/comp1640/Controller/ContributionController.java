@@ -109,8 +109,8 @@ public class ContributionController {
         contribution.setAccountId(account.getId());
         contribution.setPath(file.getOriginalFilename());
         contribution.setImage(image.getOriginalFilename());
-        service.storeFile(image);
-        service.saveImage(file);
+        service.storeFile(file);
+        service.saveImage(image);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String formatted = contribution.getSubmitDate().plusDays(14).format(formatter);
         List<Account> listAccount = accountRepo.findAll();

@@ -32,10 +32,12 @@ public class FacultyController {
 
     @PostMapping("/Hello")
     public String CreateFaculty(@RequestParam("name") String name,
-            @RequestParam("description") String description, @RequestParam("academicYear") String academicYear,
+
             Model model) {
         accountService.checkRole("Admin");
+        String academicYear = "ad721ba6-fe2d-475e-981a-d9376bfcb094";
         String id = UUID.randomUUID().toString();
+        String description = "Nothing to descript";
         re.CreateFalcuty(id, name, description, academicYear);
         return "redirect:/view";
     }
@@ -68,12 +70,13 @@ public class FacultyController {
 
     @PostMapping("/Updating")
     public String UpdatePostFaculty(@RequestParam("name") String name, @RequestParam("id") String id,
-            @RequestParam("description") String description, @RequestParam("academicYear") String academicYear,
+
             Model model) {
         accountService.checkRole("Admin");
         Map<String, Object> dataFromToken = JwtUtils.decodeToken(id);
         String decodedId = dataFromToken.get("id").toString();
-
+        String academicYear = "ad721ba6-fe2d-475e-981a-d9376bfcb094";
+        String description = "Nothing to descript";
         re.UpdateFalcuty(decodedId, name, description, academicYear);
         return "redirect:/view";
     }
